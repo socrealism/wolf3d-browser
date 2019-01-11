@@ -622,8 +622,8 @@ Wolf.Game = (function() {
             $("#game .loading").show();
 
             preloadLevelAssets(level, function() {
-                
-                Wolf.Sound.startMusic(level.music);
+
+                Wolf.Sound.startMusic('assets/'+level.music);
                 
                 game.player = Wolf.Player.spawn(level.spawn, level, game.skill, game.player);
                 
@@ -1181,7 +1181,7 @@ Wolf.Game = (function() {
         }
         keyInputActive = true;
         if (levelMusic) {
-            Wolf.Sound.startMusic(levelMusic);
+            Wolf.Sound.startMusic('assets/'+levelMusic);
         }
     }
    

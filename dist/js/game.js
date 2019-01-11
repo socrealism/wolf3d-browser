@@ -413,7 +413,7 @@ Wolf.Game = (function () {
             Wolf.Level.scanInfoPlane(level, game.skill);
             $("#game .loading").show();
             preloadLevelAssets(level, function () {
-                Wolf.Sound.startMusic(level.music);
+                Wolf.Sound.startMusic('assets/' + level.music);
                 game.player = Wolf.Player.spawn(level.spawn, level, game.skill, game.player);
                 game.player.startScore = game.player.score;
                 level.state.startTime = (new Date).getTime();
@@ -821,7 +821,7 @@ Wolf.Game = (function () {
         }
         keyInputActive = true;
         if (levelMusic) {
-            Wolf.Sound.startMusic(levelMusic);
+            Wolf.Sound.startMusic('assets/' + levelMusic);
         }
     }
     function isPlaying() {
