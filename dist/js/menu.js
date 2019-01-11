@@ -222,7 +222,7 @@ Wolf.Menu = (function () {
             var level, gameState;
             hide();
             level = $(this).data("level");
-            gameState = Wolf.Game.startGame(Wolf[activeSkill]);
+            gameState = Wolf.Game.startGame(Game[activeSkill]);
             Wolf.Game.startLevel(gameState, activeEpisode, level);
         });
     }

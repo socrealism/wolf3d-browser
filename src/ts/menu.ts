@@ -259,7 +259,7 @@ Wolf.Menu = (function() {
             hide();
             level = $(this).data("level");
 
-            gameState = Wolf.Game.startGame(Wolf[activeSkill]);
+            gameState = Wolf.Game.startGame(Game[activeSkill]); //FIXME: insecure skill selecting ugly hack
             Wolf.Game.startLevel(gameState, activeEpisode, level);
         });
 

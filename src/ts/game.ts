@@ -544,7 +544,7 @@ Wolf.Game = (function() {
         if (!hndFps) {
             hndFps = setInterval(updateFPS, 1000);
         }
-        $("#game .fps").show();
+        $("#game .fps").show(); //TODO: update before showing
         
         Wolf.Renderer.init();
         
