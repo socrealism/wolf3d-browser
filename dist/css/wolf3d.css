@@ -209,6 +209,7 @@ body {
 }
 #game .hud .floor {
   left: 48px;
+  width: auto;
 }
 #game .hud .score {
   left: 96px;
