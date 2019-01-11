@@ -73,7 +73,6 @@ Wolf.setConsts = function(C) {
 Wolf.noop = function() {};
 
 Wolf.log = function(str) {
-    /*
     if (typeof console != "undefined") {
         var t = new Date(),
             e = new Error(),
@@ -86,6 +85,5 @@ Wolf.log = function(str) {
         }
         console.log(t.toLocaleTimeString() + ": " + str + f);
     }
-    */
 };
 
