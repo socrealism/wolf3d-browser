@@ -31,28 +31,6 @@ Wolf.File = (function() {
         xhr.overrideMimeType('text/plain; charset=x-user-defined');
         xhr.send(null);
     }
-    
-
-    function atob(str) {
-        str = str.replace(/=+$/, "");
-        var b64chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-            a, b, c, b1, b2, b3, b4,
-            chr = String.fromCharCode,
-            out = [];
-        for (var i=0,len=str.length;i<len;) {
-            b1 = b64chars.indexOf(str.charAt(i++));
-            b2 = b64chars.indexOf(str.charAt(i++));
-            b3 = b64chars.indexOf(str.charAt(i++));
-            b4 = b64chars.indexOf(str.charAt(i++));
-
-            a = ((b1 & 0x3F) << 2) | ((b2 >> 4) & 0x3);
-            b = ((b2 & 0xF) << 4) | ((b3 >> 2) & 0xF);
-            c = ((b3 & 0x3) << 6) | (b4 & 0x3F);
-
-            out.push(chr(a), chr(b), chr(c));
-        }
-        return out.join("");
-    }
 
     /**
      * @description Open a file from base64 filetable
