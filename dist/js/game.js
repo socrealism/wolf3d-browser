@@ -860,6 +860,58 @@ Wolf.Game = (function () {
     function bindControl(action, keys) {
         controls[action] = keys;
     }
+    function dump() {
+        console.log(currentGame);
+        window.open("data:text/plain," + JSON.stringify(currentGame), "dump");
+    }
+    function debugGodMode(enable) {
+        if (currentGame && currentGame.player) {
+            if (enable) {
+                currentGame.player.flags |= Wolf.FL_GODMODE;
+            }
+            else {
+                currentGame.player.flags &= ~Wolf.FL_GODMODE;
+            }
+            Wolf.log("God mode " + (enable ? "enabled" : "disabled"));
+        }
+    }
+    function debugNoTarget(enable) {
+        if (currentGame && currentGame.player) {
+            if (enable) {
+                currentGame.player.flags |= Wolf.FL_NOTARGET;
+            }
+            else {
+                currentGame.player.flags &= ~Wolf.FL_NOTARGET;
+            }
+            Wolf.log("No target " + (enable ? "enabled" : "disabled"));
+        }
+    }
+    function debugVictory() {
+        if (currentGame && currentGame.player) {
+            Wolf.log("Winning!");
+            Wolf.Game.startIntermission(currentGame);
+        }
+    }
+    function debugEndEpisode() {
+        if (currentGame && currentGame.player) {
+            victory(currentGame);
+        }
+    }
+    function debugToggleAI(enable) {
+        processAI = !!enable;
+    }
+    function debugGiveAll() {
+        if (currentGame && currentGame.player) {
+            Wolf.Player.givePoints(currentGame.player, 10000);
+            Wolf.Player.giveHealth(currentGame.player, 100, 100);
+            Wolf.Player.giveKey(currentGame.player, 0);
+            Wolf.Player.giveKey(currentGame.player, 1);
+            Wolf.Player.giveWeapon(currentGame.player, 2);
+            Wolf.Player.giveWeapon(currentGame.player, 3);
+            Wolf.Player.giveAmmo(currentGame.player, Wolf.AMMO_BULLETS, 99);
+            Wolf.log("Giving keys, weapons, ammo, health and 10000 points");
+        }
+    }
     return {
         startGame: startGame,
         startLevel: startLevel,

@@ -65,7 +65,7 @@ Wolf.Menu = (function () {
         }
     }
     function playSound(file) {
-        Wolf.Sound.startSound(null, null, 1, Wolf.CHAN_AUTO, file, 1, Wolf.ATTN_NORM, 0);
+        Wolf.Sound.startSound(null, null, 1, Sound.CHAN_AUTO, file, 1, Sound.ATTN_NORM, 0);
     }
     function setActiveItem(item) {
         playSound("assets/lsfx/005.wav");

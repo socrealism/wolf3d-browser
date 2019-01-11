@@ -1,22 +1,22 @@
 "use strict";
+class Sound {
+}
+Sound.CHAN_AUTO = 0;
+Sound.CHAN_WEAPON = 1;
+Sound.CHAN_VOICE = 2;
+Sound.CHAN_ITEM = 3;
+Sound.CHAN_BODY = 4;
+Sound.CHAN_NO_PHS_ADD = 8;
+Sound.CHAN_RELIABLE = 16;
+Sound.ATTN_NONE = 0;
+Sound.ATTN_NORM = 1;
+Sound.ATTN_IDLE = 2;
+Sound.ATTN_STATIC = 3;
+Sound.MAX_PLAYSOUNDS = 128;
+Sound.MAX_CHANNELS = 64;
+Sound.MUSIC_VOLUME = 0.8;
+Sound.MASTER_VOLUME = 0.6;
 Wolf.Sound = (function () {
-    Wolf.setConsts({
-        CHAN_AUTO: 0,
-        CHAN_WEAPON: 1,
-        CHAN_VOICE: 2,
-        CHAN_ITEM: 3,
-        CHAN_BODY: 4,
-        CHAN_NO_PHS_ADD: 8,
-        CHAN_RELIABLE: 16,
-        ATTN_NONE: 0,
-        ATTN_NORM: 1,
-        ATTN_IDLE: 2,
-        ATTN_STATIC: 3,
-        MAX_PLAYSOUNDS: 128,
-        MAX_CHANNELS: 64,
-        MUSIC_VOLUME: 0.8,
-        MASTER_VOLUME: 0.6
-    });
     var sounds = {}, audioElements = [], currentMusic, soundEnabled = true, musicEnabled = true, music, ext, exts = ["ogg", "mp3"];
     function getFileName(file) {
         if (!ext) {
@@ -64,7 +64,7 @@ Wolf.Sound = (function () {
             dist = dx * dx + dy * dy;
             volume *= 1 / (1 + dist / 50);
         }
-        audio.volume = volume * Wolf.MASTER_VOLUME * (soundEnabled ? 1 : 0);
+        audio.volume = volume * Sound.MASTER_VOLUME * (soundEnabled ? 1 : 0);
         audio.play();
     }
     function startMusic(file) {
@@ -75,7 +75,7 @@ Wolf.Sound = (function () {
         var filename = getFileName(file);
         if (currentMusic != filename) {
             music.src = currentMusic = filename;
-            music.volume = Wolf.MUSIC_VOLUME * Wolf.MASTER_VOLUME * (musicEnabled ? 1 : 0);
+            music.volume = Sound.MUSIC_VOLUME * Sound.MASTER_VOLUME * (musicEnabled ? 1 : 0);
             music.play();
         }
     }
@@ -103,7 +103,7 @@ Wolf.Sound = (function () {
             musicEnabled = !musicEnabled;
         }
         if (music) {
-            music.volume = Wolf.MUSIC_VOLUME * Wolf.MASTER_VOLUME * (musicEnabled ? 1 : 0);
+            music.volume = Sound.MUSIC_VOLUME * Sound.MASTER_VOLUME * (musicEnabled ? 1 : 0);
         }
     }
     function pauseMusic(enable) {

@@ -1230,8 +1230,7 @@ Wolf.Game = (function() {
     function bindControl(action, keys) {
         controls[action] = keys;
     }
-    
-    /*
+
     function dump() {
         console.log(currentGame);
         window.open("data:text/plain," + JSON.stringify(currentGame), "dump");
@@ -1288,7 +1287,6 @@ Wolf.Game = (function() {
             Wolf.log("Giving keys, weapons, ammo, health and 10000 points");
         }
     }
-    */
    
     return {
         startGame : startGame,

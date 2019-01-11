@@ -13,53 +13,53 @@ Wolf.ActorAI = (function () {
         var pos = game.player.position;
         switch (self.type) {
             case Wolf.en_mutant:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/037.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/037.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_guard:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, dsounds[Random.get() % 6], 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, dsounds[Random.get() % 6], 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_officer:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/074.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/074.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_ss:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/046.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/046.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_dog:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/035.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/035.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_boss:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/019.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/019.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_schabbs:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/061.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/061.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_fake:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/069.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/069.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_mecha:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/084.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/084.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_hitler:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/044.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/044.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_gretel:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/115.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/115.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_gift:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/091.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/091.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.en_fat:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/119.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/119.wav", 1, Sound.ATTN_NORM, 0);
                 break;
         }
     }
     function mechaSound(self, game) {
         if (game.level.state.areabyplayer[self.areanumber]) {
-            Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/080.wav", 1, Wolf.ATTN_NORM, 0);
+            Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/080.wav", 1, Sound.ATTN_NORM, 0);
         }
     }
     function slurpie(self, game) {
-        Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/lsfx/061.wav", 1, Wolf.ATTN_NORM, 0);
+        Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/lsfx/061.wav", 1, Sound.ATTN_NORM, 0);
     }
     function hitlerMorph(self, game) {
         var hitpoints = [500, 700, 800, 900], level = game.level, hitler;
@@ -85,7 +85,7 @@ Wolf.ActorAI = (function () {
     }
     var angel_temp = 0;
     function breathing(self) {
-        Wolf.Sound.startSound(null, null, 1, Wolf.CHAN_VOICE, "assets/lsfx/080.wav", 1, Wolf.ATTN_NORM, 0);
+        Wolf.Sound.startSound(null, null, 1, Sound.CHAN_VOICE, "assets/lsfx/080.wav", 1, Sound.ATTN_NORM, 0);
     }
     function startAttack(self) {
         angel_temp = 0;
@@ -164,54 +164,54 @@ Wolf.ActorAI = (function () {
     function firstSighting(self, game) {
         switch (self.type) {
             case Wolf.en_guard:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/001.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/001.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;
                 break;
             case Wolf.en_officer:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/071.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/071.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 5;
                 break;
             case Wolf.en_mutant:
                 self.speed *= 3;
                 break;
             case Wolf.en_ss:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/015.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/015.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 4;
                 break;
             case Wolf.en_dog:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/002.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/002.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 2;
                 break;
             case Wolf.en_boss:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/017.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/017.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed = Wolf.SPDPATROL * 3;
                 break;
             case Wolf.en_gretel:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/112.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/112.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;
                 break;
             case Wolf.en_gift:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/096.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/096.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;
                 break;
             case Wolf.en_fat:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/102.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/102.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;
                 break;
             case Wolf.en_schabbs:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/065.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/065.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;
                 break;
             case Wolf.en_fake:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/054.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/054.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;
                 break;
             case Wolf.en_mecha:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/040.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/040.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;
                 break;
             case Wolf.en_hitler:
-                Wolf.Sound.startSound(game.player.position, self, 1, Wolf.CHAN_VOICE, "assets/sfx/040.wav", 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/040.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 5;
                 break;
             case Wolf.en_blinky:
