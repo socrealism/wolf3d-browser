@@ -1,7 +1,6 @@
 "use strict";
 (function ($) {
     var files = [
-        "vendor/requestanimframe.js",
         "js/wolf.js",
         "js/random.js",
         "js/angle.js",

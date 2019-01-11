@@ -2,8 +2,6 @@
 
 // these files are preloaded while the title screen is showing
 var files = [
-    "vendor/requestanimframe.js",
-
     "js/wolf.js",
     "js/random.js",
     "js/angle.js",
