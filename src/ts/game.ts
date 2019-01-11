@@ -540,13 +540,11 @@ Wolf.Game = (function() {
             cancelAnimationFrame(hndRender);
             hndRender = 0;
         }
-        
-        /*
+
         if (!hndFps) {
             hndFps = setInterval(updateFPS, 1000);
         }
         $("#game .fps").show();
-        */
         
         Wolf.Renderer.init();
         
