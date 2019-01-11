@@ -259,8 +259,7 @@ Wolf.ActorAI = (function () {
         }
     }
     function killActor(self, game, player) {
-        var level = game.level, tilex = self.tile.x = self.x >> Wolf.TILESHIFT;
-        tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
+        var level = game.level, tilex = self.tile.x = self.x >> Wolf.TILESHIFT, tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
         switch (self.type) {
             case Wolf.en_guard:
                 Wolf.Player.givePoints(player, 100);

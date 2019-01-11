@@ -20,7 +20,7 @@ Wolf.Renderer = (function() {
         spritePath = "assets/art/sprites/" + Wolf.TEXTURERESOLUTION + "/",
         sprites = [],
         maxDistZ = 64 * 0x10000,
-        hasInit = false;
+        hasInit = false,
         visibleSprites = [];
         
     var TILESHIFT = Wolf.TILESHIFT,
@@ -328,8 +328,8 @@ Wolf.Renderer = (function() {
             
             divStyle.top = (YRES / 2 - size / 2) + "px";
 
-            texture = Wolf.Sprites.getTexture(vis.sprite.tex[0]);
-            textureSrc = spritePath + texture.sheet;
+            var texture = Wolf.Sprites.getTexture(vis.sprite.tex[0]);
+            var textureSrc = spritePath + texture.sheet;
 
             if (image._src != textureSrc) {
                 image._src = textureSrc;
@@ -342,7 +342,7 @@ Wolf.Renderer = (function() {
 
             z = (maxDistZ - dist) >> 0;
             width = texture.num * size;
-            left = -texture.idx * size;
+            var left = -texture.idx * size;
                 
             if (div._zIndex != z) {
                 divStyle.zIndex = div._zIndex = z;

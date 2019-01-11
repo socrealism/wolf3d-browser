@@ -143,7 +143,7 @@ Wolf.Level = (function () {
         if (F.readUInt32(file) != Wolf.MAP_SIGNATURE) {
             throw new Error("File signature does not match MAP_SIGNATURE");
         }
-        rle = F.readUInt16(file);
+        var rle = F.readUInt16(file);
         level.width = F.readUInt16(file);
         level.height = F.readUInt16(file);
         level.ceiling = [F.readUInt8(file), F.readUInt8(file), F.readUInt8(file), F.readUInt8(file)];

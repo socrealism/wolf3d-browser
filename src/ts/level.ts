@@ -194,7 +194,7 @@ Wolf.Level = (function() {
             throw new Error("File signature does not match MAP_SIGNATURE");
         }
         
-        rle = F.readUInt16(file);
+        var rle = F.readUInt16(file);
         
         level.width = F.readUInt16(file);
         level.height = F.readUInt16(file);

@@ -430,7 +430,7 @@ Wolf.ActorAI = (function() {
      */
     function killActor(self, game, player) {
         var level = game.level,
-            tilex = self.tile.x = self.x >> Wolf.TILESHIFT; // drop item on center, 
+            tilex = self.tile.x = self.x >> Wolf.TILESHIFT, // drop item on center,
             tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
 
         switch (self.type) {
