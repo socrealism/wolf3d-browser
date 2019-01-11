@@ -613,7 +613,7 @@ Wolf.Player = (function() {
 
         player.lastAttacker = attacker;
 
-        if (skill == Wolf.gd_baby) {
+        if (skill == Game.gd_baby) {
             points >>= 2;
         }
 
@@ -722,16 +722,16 @@ Wolf.Player = (function() {
         controlMovement(game, self, level, tics);
 
         if (self.flags & Wolf.PL_FLAG_ATTCK) {
-            attack(game, self, self.cmd.buttons & Wolf.BUTTON_ATTACK, tics);
+            attack(game, self, self.cmd.buttons & Game.BUTTON_ATTACK, tics);
         } else {
-            if (self.cmd.buttons & Wolf.BUTTON_USE) {
+            if (self.cmd.buttons & Game.BUTTON_USE) {
                 if (!(self.flags & Wolf.PL_FLAG_REUSE) && use(self, game)) {
                     self.flags |= Wolf.PL_FLAG_REUSE;
                 }
             } else {
                 self.flags &= ~Wolf.PL_FLAG_REUSE;
             }
-            if (self.cmd.buttons & Wolf.BUTTON_ATTACK) {
+            if (self.cmd.buttons & Game.BUTTON_ATTACK) {
                 self.flags |= Wolf.PL_FLAG_ATTCK;
 
                 self.attackFrame = 0;

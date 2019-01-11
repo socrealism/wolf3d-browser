@@ -447,7 +447,7 @@ Wolf.Level = (function () {
                     case 181:
                     case 182:
                     case 183:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -455,7 +455,7 @@ Wolf.Level = (function () {
                     case 145:
                     case 146:
                     case 147:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -473,7 +473,7 @@ Wolf.Level = (function () {
                     case 185:
                     case 186:
                     case 187:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -481,7 +481,7 @@ Wolf.Level = (function () {
                     case 149:
                     case 150:
                     case 151:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -502,7 +502,7 @@ Wolf.Level = (function () {
                     case 189:
                     case 190:
                     case 191:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -510,7 +510,7 @@ Wolf.Level = (function () {
                     case 153:
                     case 154:
                     case 155:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -528,7 +528,7 @@ Wolf.Level = (function () {
                     case 193:
                     case 194:
                     case 195:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -536,7 +536,7 @@ Wolf.Level = (function () {
                     case 157:
                     case 158:
                     case 159:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -554,7 +554,7 @@ Wolf.Level = (function () {
                     case 199:
                     case 200:
                     case 201:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -562,7 +562,7 @@ Wolf.Level = (function () {
                     case 163:
                     case 164:
                     case 165:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -580,7 +580,7 @@ Wolf.Level = (function () {
                     case 203:
                     case 204:
                     case 205:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -588,7 +588,7 @@ Wolf.Level = (function () {
                     case 167:
                     case 168:
                     case 169:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -606,7 +606,7 @@ Wolf.Level = (function () {
                     case 207:
                     case 208:
                     case 209:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -614,7 +614,7 @@ Wolf.Level = (function () {
                     case 171:
                     case 172:
                     case 173:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -632,7 +632,7 @@ Wolf.Level = (function () {
                     case 211:
                     case 212:
                     case 213:
-                        if (skill < Wolf.gd_hard) {
+                        if (skill < Game.gd_hard) {
                             break;
                         }
                         tile -= 36;
@@ -640,7 +640,7 @@ Wolf.Level = (function () {
                     case 175:
                     case 176:
                     case 177:
-                        if (skill < Wolf.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -710,14 +710,14 @@ Wolf.Level = (function () {
                     case 253:
                     case 254:
                     case 255:
-                        if (skill < Wolf.gd_hard)
+                        if (skill < Game.gd_hard)
                             break;
                         tile -= 18;
                     case 234:
                     case 235:
                     case 236:
                     case 237:
-                        if (skill < Wolf.gd_medium)
+                        if (skill < Game.gd_medium)
                             break;
                         tile -= 18;
                     case 216:
@@ -734,14 +734,14 @@ Wolf.Level = (function () {
                     case 257:
                     case 258:
                     case 259:
-                        if (skill < Wolf.gd_hard)
+                        if (skill < Game.gd_hard)
                             break;
                         tile -= 18;
                     case 238:
                     case 239:
                     case 240:
                     case 241:
-                        if (skill < Wolf.gd_medium)
+                        if (skill < Game.gd_medium)
                             break;
                         tile -= 18;
                     case 220:

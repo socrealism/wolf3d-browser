@@ -1,21 +1,21 @@
 "use strict";
+class Game {
+}
+Game.BUTTON_ATTACK = 1;
+Game.BUTTON_USE = 2;
+Game.BUTTON_ANY = 128;
+Game.BASEMOVE = 35;
+Game.RUNMOVE = 70;
+Game.MOVESCALE = 150;
+Game.BACKMOVESCALE = 100;
+Game.MAXMOUSETURN = 10;
+Game.TURNANGLESCALE = 300;
+Game.MOUSEDEADBAND = 0.2;
+Game.gd_baby = 0;
+Game.gd_easy = 1;
+Game.gd_medium = 2;
+Game.gd_hard = 3;
 Wolf.Game = (function () {
-    Wolf.setConsts({
-        BUTTON_ATTACK: 1,
-        BUTTON_USE: 2,
-        BUTTON_ANY: 128,
-        BASEMOVE: 35,
-        RUNMOVE: 70,
-        MOVESCALE: 150,
-        BACKMOVESCALE: 100,
-        MAXMOUSETURN: 10,
-        TURNANGLESCALE: 300,
-        MOUSEDEADBAND: 0.2,
-        gd_baby: 0,
-        gd_easy: 1,
-        gd_medium: 2,
-        gd_hard: 3
-    });
     var rendering = false, playing = false, fsInit = false, hndRender = 0, hndCycle = 0, hndFps = 0, lastFPSTime = 0, lastFrame = 0, frameNum = 0, cycleNum = 0, mouseEnabled = false, paused = false, intermissionAnim = 0, currentGame = null, levelMusic, processAI = true, keyInputActive = false, preloadTextures = {}, preloadSprites = {}, controls = {
         up: ["UP"],
         left: ["LEFT"],
@@ -41,47 +41,47 @@ Wolf.Game = (function () {
         upKey = Wolf.Input.checkKeys(controls.up);
         running = Wolf.Input.checkKeys(controls.run);
         strafing = Wolf.Input.checkKeys(controls.strafe);
-        moveValue = (running ? Wolf.RUNMOVE : Wolf.BASEMOVE);
+        moveValue = (running ? Game.RUNMOVE : Game.BASEMOVE);
         if (Wolf.Input.checkKeys(controls.attack) || (mouseEnabled && Wolf.Input.leftMouseDown())) {
-            player.cmd.buttons |= Wolf.BUTTON_ATTACK;
+            player.cmd.buttons |= Game.BUTTON_ATTACK;
         }
         if (mouseEnabled && Wolf.Input.rightMouseDown()) {
             if (mouseCoords = Wolf.Input.getMouseCoords()) {
-                player.cmd.forwardMove += -(mouseCoords.y < 0 ? Wolf.MOVESCALE : Wolf.BACKMOVESCALE) * moveValue * mouseCoords.y;
+                player.cmd.forwardMove += -(mouseCoords.y < 0 ? Game.MOVESCALE : Game.BACKMOVESCALE) * moveValue * mouseCoords.y;
             }
         }
         else if (!(upKey && downKey)) {
             if (upKey) {
-                player.cmd.forwardMove += moveValue * Wolf.MOVESCALE;
+                player.cmd.forwardMove += moveValue * Game.MOVESCALE;
             }
             if (downKey) {
-                player.cmd.forwardMove += -moveValue * Wolf.BACKMOVESCALE;
+                player.cmd.forwardMove += -moveValue * Game.BACKMOVESCALE;
             }
         }
         if (mouseEnabled && Wolf.Input.isPointerLocked()) {
             mouseMovement = Wolf.Input.getMouseMovement();
-            player.angle -= (mouseMovement.x * Wolf.TURNANGLESCALE * tics) >> 0;
+            player.angle -= (mouseMovement.x * Game.TURNANGLESCALE * tics) >> 0;
         }
         else {
             if (leftKey) {
                 if (strafing) {
-                    player.cmd.sideMove += -moveValue * Wolf.MOVESCALE;
+                    player.cmd.sideMove += -moveValue * Game.MOVESCALE;
                 }
                 else {
-                    player.angle += Wolf.TURNANGLESCALE * tics;
+                    player.angle += Game.TURNANGLESCALE * tics;
                 }
             }
             if (rightKey) {
                 if (strafing) {
-                    player.cmd.sideMove += moveValue * Wolf.MOVESCALE;
+                    player.cmd.sideMove += moveValue * Game.MOVESCALE;
                 }
                 else {
-                    player.angle -= Wolf.TURNANGLESCALE * tics;
+                    player.angle -= Game.TURNANGLESCALE * tics;
                 }
             }
             if (mouseEnabled && (mouseCoords = Wolf.Input.getMouseCoords())) {
-                if (Math.abs(mouseCoords.x) > Wolf.MOUSEDEADBAND) {
-                    player.angle -= (Wolf.TURNANGLESCALE * tics * (mouseCoords.x + (mouseCoords.x < 0 ? 1 : -1) * Wolf.MOUSEDEADBAND)) >> 0;
+                if (Math.abs(mouseCoords.x) > Game.MOUSEDEADBAND) {
+                    player.angle -= (Game.TURNANGLESCALE * tics * (mouseCoords.x + (mouseCoords.x < 0 ? 1 : -1) * Game.MOUSEDEADBAND)) >> 0;
                 }
             }
         }
@@ -102,7 +102,7 @@ Wolf.Game = (function () {
             player.weapon = player.pendingWeapon = changeWeapon;
         }
         if (Wolf.Input.checkKeys(controls.use)) {
-            player.cmd.buttons |= Wolf.BUTTON_USE;
+            player.cmd.buttons |= Game.BUTTON_USE;
         }
     }
     function startGameCycle(game) {
@@ -928,6 +928,13 @@ Wolf.Game = (function () {
         bindControl: bindControl,
         resume: resume,
         victory: victory,
-        endEpisode: endEpisode
+        endEpisode: endEpisode,
+        dump: dump,
+        debugGodMode: debugGodMode,
+        debugNoTarget: debugNoTarget,
+        debugToggleAI: debugToggleAI,
+        debugGiveAll: debugGiveAll,
+        debugVictory: debugVictory,
+        debugEndEpisode: debugEndEpisode,
     };
 })();
