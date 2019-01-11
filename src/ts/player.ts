@@ -689,7 +689,7 @@ Wolf.Player = (function() {
         }
 
         //desty = ((player.tile.y-5) << Wolf.TILESHIFT) - 0x3000;
-        desty = Wolf.TILE2POS(player.tile.y+7)
+        desty = Wolf.TILE2POS(player.tile.y+7);
 
         if (player.position.y < desty) {
             player.position.y += tics * 3072;

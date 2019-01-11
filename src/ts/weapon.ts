@@ -108,7 +108,7 @@ Wolf.Weapon = (function() {
                 x : player.position.x,
                 y : player.position.y,
                 flags : Wolf.TRACE_BULLET
-            }
+            };
             
             Wolf.Raycaster.trace(level, null, tracePoint);
 

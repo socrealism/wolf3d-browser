@@ -356,7 +356,7 @@ Wolf.Menu = (function() {
                 case 27: // ESC
                 case 38: // up
                 case 40: // down
-                    exitCustomize()
+                    exitCustomize();
                     break;
             }
         }

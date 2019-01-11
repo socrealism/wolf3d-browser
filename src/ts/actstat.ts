@@ -1,5 +1,5 @@
 (function() {
-    var ST_INFO_NULL = [0, Wolf.SPR_DEMO, 0, null, null, Wolf.st_dead]
+    var ST_INFO_NULL = [0, Wolf.SPR_DEMO, 0, null, null, Wolf.st_dead];
 
     /*
         1-if object can be rotated, 0 if one sprite for every direction
