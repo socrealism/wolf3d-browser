@@ -8,7 +8,7 @@
         "js/input.js",
         "js/sound.js",
         "js/menu.js",
-        "js/file.js",
+        "js/fs.js",
         "js/game.js",
         "js/player.js",
         "js/sprites.js",

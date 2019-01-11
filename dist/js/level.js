@@ -134,39 +134,39 @@ Wolf.Level = (function () {
         };
     }
     function parseMapData(file) {
-        var F = Wolf.File, level = newLevel(), length, offset, mapNameLength, musicNameLength, x, y, y0, layer1, layer2, layer3;
+        var level = newLevel(), length, offset, mapNameLength, musicNameLength, x, y, y0, layer1, layer2, layer3;
         file.position = 0;
         level.file = file;
         if (file.size < Wolf.MAPHEADER_SIZE) {
             throw new Error("Map file size is smaller than mapheader size");
         }
-        if (F.readUInt32(file) != Wolf.MAP_SIGNATURE) {
+        if (FS.readUInt32(file) != Wolf.MAP_SIGNATURE) {
             throw new Error("File signature does not match MAP_SIGNATURE");
         }
-        var rle = F.readUInt16(file);
-        level.width = F.readUInt16(file);
-        level.height = F.readUInt16(file);
-        level.ceiling = [F.readUInt8(file), F.readUInt8(file), F.readUInt8(file), F.readUInt8(file)];
-        level.floor = [F.readUInt8(file), F.readUInt8(file), F.readUInt8(file), F.readUInt8(file)];
+        var rle = FS.readUInt16(file);
+        level.width = FS.readUInt16(file);
+        level.height = FS.readUInt16(file);
+        level.ceiling = [FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file)];
+        level.floor = [FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file)];
         length = [
-            F.readUInt16(file),
-            F.readUInt16(file),
-            F.readUInt16(file)
+            FS.readUInt16(file),
+            FS.readUInt16(file),
+            FS.readUInt16(file)
         ];
         offset = [
-            F.readUInt32(file),
-            F.readUInt32(file),
-            F.readUInt32(file)
+            FS.readUInt32(file),
+            FS.readUInt32(file),
+            FS.readUInt32(file)
         ];
-        mapNameLength = F.readUInt16(file);
-        musicNameLength = F.readUInt16(file);
+        mapNameLength = FS.readUInt16(file);
+        musicNameLength = FS.readUInt16(file);
         file.position += 4;
-        level.sParTime = F.readString(file, 5);
+        level.sParTime = FS.readString(file, 5);
         if (file.size < (Wolf.MAPHEADER_SIZE + mapNameLength + musicNameLength + length[0] + length[1] + length[2])) {
             throw new Error("filesize is less than MAPHEADER_SIZE + mapNameLength + musicNameLength + etc");
         }
-        level.levelName = level.mapName = F.readString(file, mapNameLength);
-        level.music = F.readString(file, musicNameLength);
+        level.levelName = level.mapName = FS.readString(file, mapNameLength);
+        level.music = FS.readString(file, musicNameLength);
         level.plane1 = readPlaneData(file, offset[0], length[0], rle);
         level.plane2 = readPlaneData(file, offset[1], length[1], rle);
         level.plane3 = readPlaneData(file, offset[2], length[2], rle);
@@ -250,7 +250,7 @@ Wolf.Level = (function () {
     }
     function readPlaneData(file, offset, length, rle) {
         file.position = offset;
-        var expandedLength = Wolf.File.readUInt16(file), carmackData = Wolf.File.readBytes(file, length - 2), expandedData = carmackExpand(carmackData, expandedLength);
+        var expandedLength = FS.readUInt16(file), carmackData = FS.readBytes(file, length - 2), expandedData = carmackExpand(carmackData, expandedLength);
         return rlewExpand(expandedData.slice(1), 64 * 64 * 2, rle);
     }
     function rlewExpand(source, length, rlewtag) {
@@ -326,7 +326,7 @@ Wolf.Level = (function () {
         return dest;
     }
     function load(filename, callback) {
-        Wolf.File.open(filename, Wolf.MapData, function (error, file) {
+        FS.open(filename, Wolf.MapData, function (error, file) {
             var level;
             if (error) {
                 callback(error);
