@@ -164,19 +164,19 @@ Wolf.AI = (function () {
             self.flags &= ~Wolf.FL_AMBUSH;
             switch (self.type) {
                 case Wolf.en_guard:
-                    self.temp2 = 1 + Wolf.Random.rnd() / 4;
+                    self.temp2 = 1 + Random.get() / 4;
                     break;
                 case Wolf.en_officer:
                     self.temp2 = 2;
                     break;
                 case Wolf.en_mutant:
-                    self.temp2 = 1 + Wolf.Random.rnd() / 6;
+                    self.temp2 = 1 + Random.get() / 6;
                     break;
                 case Wolf.en_ss:
-                    self.temp2 = 1 + Wolf.Random.rnd() / 6;
+                    self.temp2 = 1 + Random.get() / 6;
                     break;
                 case Wolf.en_dog:
-                    self.temp2 = 1 + Wolf.Random.rnd() / 8;
+                    self.temp2 = 1 + Random.get() / 8;
                     break;
                 case Wolf.en_boss:
                 case Wolf.en_schabbs:
@@ -248,7 +248,7 @@ Wolf.AI = (function () {
                 return;
             }
         }
-        if (Wolf.Random.rnd() > 128) {
+        if (Random.get() > 128) {
             for (tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2) {
                 if (tdir != turnaround) {
                     if (changeDir(self, tdir, level)) {
@@ -290,7 +290,7 @@ Wolf.AI = (function () {
         if (changeDir(self, d[1], level)) {
             return;
         }
-        if (Wolf.Random.rnd() > 128) {
+        if (Random.get() > 128) {
             for (tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2) {
                 if (changeDir(self, tdir, level)) {
                     return;
@@ -344,7 +344,7 @@ Wolf.AI = (function () {
             dirtry[3] = dirtry[4];
             dirtry[4] = tdir;
         }
-        if (Wolf.Random.rnd() < 128) {
+        if (Random.get() < 128) {
             tdir = dirtry[1];
             dirtry[1] = dirtry[2];
             dirtry[2] = tdir;
@@ -414,15 +414,15 @@ Wolf.AI = (function () {
         else {
             hitchance -= dist * 8;
         }
-        if (Wolf.Random.rnd() < hitchance) {
+        if (Random.get() < hitchance) {
             if (dist < 2) {
-                damage = Wolf.Random.rnd() >> 2;
+                damage = Random.get() >> 2;
             }
             else if (dist < 4) {
-                damage = Wolf.Random.rnd() >> 3;
+                damage = Random.get() >> 3;
             }
             else {
-                damage = Wolf.Random.rnd() >> 4;
+                damage = Random.get() >> 4;
             }
             Wolf.Player.damage(player, self, damage);
         }
@@ -454,7 +454,7 @@ Wolf.AI = (function () {
             else {
                 chance = (tics << 4) / dist;
             }
-            if (Wolf.Random.rnd() < chance) {
+            if (Random.get() < chance) {
                 Wolf.Actors.stateChange(self, Wolf.st_shoot1);
                 return;
             }
@@ -499,7 +499,7 @@ Wolf.AI = (function () {
         dy = Math.abs(self.tile.y - Wolf.POS2TILE(player.position.y));
         dist = Math.max(dx, dy);
         if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
-            if (Wolf.Random.rnd() < tics << 3) {
+            if (Random.get() < tics << 3) {
                 Wolf.Actors.stateChange(self, Wolf.st_shoot1);
                 return;
             }
@@ -522,7 +522,7 @@ Wolf.AI = (function () {
     function T_Fake(self, game, tics) {
         var level = game.level, player = game.player;
         if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
-            if (Wolf.Random.rnd() < tics << 1) {
+            if (Random.get() < tics << 1) {
                 Wolf.Actors.stateChange(self, Wolf.st_shoot1);
                 return;
             }
@@ -606,8 +606,8 @@ Wolf.AI = (function () {
         if (dx <= Wolf.MINACTORDIST) {
             dy = Math.abs(player.position.y - self.y) - Wolf.TILEGLOBAL;
             if (dy <= Wolf.MINACTORDIST) {
-                if (Wolf.Random.rnd() < 180) {
-                    Wolf.Player.damage(player, self, Wolf.Random.rnd() >> 4);
+                if (Random.get() < 180) {
+                    Wolf.Player.damage(player, self, Random.get() >> 4);
                     return;
                 }
             }
@@ -734,15 +734,15 @@ Wolf.AI = (function () {
         if (deltax < PROJECTILESIZE && deltay < PROJECTILESIZE) {
             switch (self.type) {
                 case Wolf.en_needle:
-                    damage = (Wolf.Random.rnd() >> 3) + 20;
+                    damage = (Random.get() >> 3) + 20;
                     break;
                 case Wolf.en_rocket:
                 case Wolf.en_hrocket:
                 case Wolf.en_spark:
-                    damage = (Wolf.Random.rnd() >> 3) + 30;
+                    damage = (Random.get() >> 3) + 30;
                     break;
                 case Wolf.en_fire:
-                    damage = (Wolf.Random.rnd() >> 3);
+                    damage = (Random.get() >> 3);
                     break;
                 default:
                     damage = 0;

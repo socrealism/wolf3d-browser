@@ -16,7 +16,7 @@ Wolf.ActorAI = (function () {
                 Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/037.wav", 1, Wolf.ATTN_NORM, 0);
                 break;
             case Wolf.en_guard:
-                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, dsounds[Wolf.Random.rnd() % 6], 1, Wolf.ATTN_NORM, 0);
+                Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, dsounds[Random.get() % 6], 1, Wolf.ATTN_NORM, 0);
                 break;
             case Wolf.en_officer:
                 Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "assets/sfx/074.wav", 1, Wolf.ATTN_NORM, 0);
@@ -95,7 +95,7 @@ Wolf.ActorAI = (function () {
             Wolf.Actors.stateChange(self, Wolf.st_pain);
             return;
         }
-        if (Wolf.Random.rnd() & 1) {
+        if (Random.get() & 1) {
             Wolf.Actors.stateChange(self, Wolf.st_chase1);
             return;
         }

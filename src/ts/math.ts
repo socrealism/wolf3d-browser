@@ -97,7 +97,7 @@ Wolf.Math = (function() {
             ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
         }
 
-        Wolf.Random.init(1); // random number generators
+        Random.init(true); // random number generators
 
         return 1;
     }

@@ -26,7 +26,7 @@ Wolf.Weapon = (function () {
         if (!closest || dist > Wolf.TILE2POS(1)) {
             return;
         }
-        damage = Wolf.Random.rnd() >> 4;
+        damage = Random.get() >> 4;
         Wolf.ActorAI.damageActor(closest, game, player, damage);
     }
     function fireLead(game, player) {
@@ -80,16 +80,16 @@ Wolf.Weapon = (function () {
         dy = Math.abs(closest.tile.y - player.tile.y);
         dist = Math.max(dx, dy);
         if (dist < 2) {
-            damage = Wolf.Random.rnd() / 4;
+            damage = Random.get() / 4;
         }
         else if (dist < 4) {
-            damage = Wolf.Random.rnd() / 6;
+            damage = Random.get() / 6;
         }
         else {
-            if (Wolf.Random.rnd() / 12 < dist) {
+            if (Random.get() / 12 < dist) {
                 return;
             }
-            damage = Wolf.Random.rnd() / 6;
+            damage = Random.get() / 6;
         }
         Wolf.ActorAI.damageActor(closest, game, player, damage);
     }

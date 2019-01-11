@@ -341,7 +341,7 @@ Wolf.Actors = (function() {
         self.state = Wolf.st_dead;
         self.speed = 0;
         self.health = 0;
-        self.ticcount = Wolf.objstate[which][Wolf.st_dead].timeout ? Wolf.Random.rnd() % Wolf.objstate[which][Wolf.st_dead].timeout + 1 : 0;
+        self.ticcount = Wolf.objstate[which][Wolf.st_dead].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_dead].timeout + 1 : 0;
     }
     
     /**
@@ -362,7 +362,7 @@ Wolf.Actors = (function() {
         self.state = Wolf.st_path1;
         self.speed = (which == Wolf.en_dog) ? Wolf.SPDDOG : Wolf.SPDPATROL;
         self.distance = Wolf.TILEGLOBAL;
-        self.ticcount = Wolf.objstate[which][Wolf.st_path1].timeout ? Wolf.Random.rnd() % Wolf.objstate[which][Wolf.st_path1].timeout + 1 : 0;
+        self.ticcount = Wolf.objstate[which][Wolf.st_path1].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_path1].timeout + 1 : 0;
         self.flags |= Wolf.FL_SHOOTABLE;
 
         level.state.totalMonsters++;
@@ -385,7 +385,7 @@ Wolf.Actors = (function() {
 
         self.state = Wolf.st_stand;
         self.speed = Wolf.SPDPATROL;
-        self.ticcount = Wolf.objstate[which][Wolf.st_stand].timeout ? Wolf.Random.rnd() % Wolf.objstate[which][Wolf.st_stand].timeout + 1 : 0;
+        self.ticcount = Wolf.objstate[which][Wolf.st_stand].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_stand].timeout + 1 : 0;
         self.flags |= Wolf.FL_SHOOTABLE;
         
         if (level.tileMap[x][y] & Wolf.AMBUSH_TILE) {
@@ -435,7 +435,7 @@ Wolf.Actors = (function() {
         self.state = which == Wolf.en_spectre ? Wolf.st_path1 : Wolf.st_stand;
         self.speed = Wolf.SPDPATROL;
         self.health = Wolf.starthitpoints[skill][which];
-        self.ticcount = Wolf.objstate[which][Wolf.st_stand].timeout ? Wolf.Random.rnd() % Wolf.objstate[which][Wolf.st_stand].timeout + 1 : 0;
+        self.ticcount = Wolf.objstate[which][Wolf.st_stand].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_stand].timeout + 1 : 0;
         self.flags |= Wolf.FL_SHOOTABLE | Wolf.FL_AMBUSH;
 
         level.state.totalMonsters++;
@@ -451,7 +451,7 @@ Wolf.Actors = (function() {
         self.state = Wolf.st_chase1;
         self.speed = Wolf.SPDPATROL * 3;
         self.health = Wolf.starthitpoints[skill][which];
-        self.ticcount = Wolf.objstate[which][Wolf.st_chase1].timeout ? Wolf.Random.rnd() % Wolf.objstate[which][Wolf.st_chase1].timeout + 1: 0;
+        self.ticcount = Wolf.objstate[which][Wolf.st_chase1].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_chase1].timeout + 1: 0;
         self.flags |= Wolf.FL_AMBUSH;
 
         level.state.totalMonsters++;

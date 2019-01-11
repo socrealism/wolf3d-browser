@@ -54,7 +54,7 @@ Wolf.Math = (function () {
             tanval = tanfov2 * (-1.0 + 2.0 * n / (Wolf.XRES - 1));
             ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
         }
-        Wolf.Random.init(1);
+        Random.init(true);
         return 1;
     }
     function calcFov(fovX, width, height) {

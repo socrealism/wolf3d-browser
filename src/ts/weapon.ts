@@ -48,7 +48,7 @@ Wolf.Weapon = (function() {
             return; // missed if further than 1.5 tiles
         }
 
-        damage = Wolf.Random.rnd() >> 4;
+        damage = Random.get() >> 4;
 
         Wolf.ActorAI.damageActor(closest, game, player, damage); // hit something
     }
@@ -125,14 +125,14 @@ Wolf.Weapon = (function() {
         dist = Math.max(dx, dy);
 
         if (dist < 2) {
-            damage = Wolf.Random.rnd() / 4;
+            damage = Random.get() / 4;
         } else if (dist < 4) {
-            damage = Wolf.Random.rnd() / 6;
+            damage = Random.get() / 6;
         } else {
-            if (Wolf.Random.rnd() / 12 < dist) {
+            if (Random.get() / 12 < dist) {
                 return; // missed
             }
-            damage = Wolf.Random.rnd() / 6;
+            damage = Random.get() / 6;
         }
 
         Wolf.ActorAI.damageActor(closest, game, player, damage);

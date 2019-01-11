@@ -324,9 +324,9 @@ Wolf.Game = (function () {
         if (player.faceGotGun && player.faceCount > 0) {
             player.faceGotGun = false;
         }
-        if (player.faceCount > Wolf.Random.rnd()) {
+        if (player.faceCount > Random.get()) {
             player.faceGotGun = player.faceOuch = false;
-            player.faceFrame = Wolf.Random.rnd() >> 6;
+            player.faceFrame = Random.get() >> 6;
             if (player.faceFrame == 3) {
                 player.faceFrame = 0;
             }
