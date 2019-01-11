@@ -26,24 +26,24 @@
         "js/renderer.js",
         "js/episodes.js",
         "js/maps.js",
-        "preload!art/menubg_main.png",
-        "preload!art/menuitems.png",
-        "preload!art/menuselector.png"
+        "preload!assets/art/menubg_main.png",
+        "preload!assets/art/menuitems.png",
+        "preload!assets/art/menuselector.png"
     ];
     var files2 = [
-        "preload!art/menubg_episodes.png",
-        "preload!art/menuitems_episodes.png",
-        "preload!art/menubg_skill.png",
-        "preload!art/menubg_levels.png",
-        "preload!art/menuitems_levels.png",
-        "preload!art/skillfaces.png",
-        "preload!art/getpsyched.png",
-        "preload!art/menubg_control.png",
-        "preload!art/menulight.png",
-        "preload!art/menubg_customize.png",
-        "preload!art/control_keys.png",
-        "preload!art/confirm_newgame.png",
-        "preload!art/paused.png"
+        "preload!assets/art/menubg_episodes.png",
+        "preload!assets/art/menuitems_episodes.png",
+        "preload!assets/art/menubg_skill.png",
+        "preload!assets/art/menubg_levels.png",
+        "preload!assets/art/menuitems_levels.png",
+        "preload!assets/art/skillfaces.png",
+        "preload!assets/art/getpsyched.png",
+        "preload!assets/art/menubg_control.png",
+        "preload!assets/art/menulight.png",
+        "preload!assets/art/menubg_customize.png",
+        "preload!assets/art/control_keys.png",
+        "preload!assets/art/confirm_newgame.png",
+        "preload!assets/art/paused.png"
     ];
     $(document).ready(function () {
         var progress = $("<div>"), n = 0;

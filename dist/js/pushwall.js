@@ -33,7 +33,7 @@ Wolf.PushWall = (function () {
         else {
             Wolf.Game.notify("You found a secret!");
         }
-        Wolf.Sound.startSound(null, null, 1, Wolf.CHAN_AUTO, "sfx/034.wav", 1, Wolf.ATTN_STATIC, 0);
+        Wolf.Sound.startSound(null, null, 1, Wolf.CHAN_AUTO, "assets/sfx/034.wav", 1, Wolf.ATTN_STATIC, 0);
         level.tileMap[x + dx][y + dy] |= Wolf.PUSHWALL_TILE;
         level.wallTexX[x + dx][y + dy] = level.wallTexX[x][y];
         level.wallTexY[x + dx][y + dy] = level.wallTexY[x][y];

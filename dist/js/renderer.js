@@ -12,7 +12,7 @@ Wolf.setConsts({
     TEXTURERESOLUTION: Wolf.ISCHROME ? 128 : 64
 });
 Wolf.Renderer = (function () {
-    var slices = [], useBackgroundImage = Wolf.ISWEBKIT, texturePath = "art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/", spritePath = "art/sprites/" + Wolf.TEXTURERESOLUTION + "/", sprites = [], maxDistZ = 64 * 0x10000, hasInit = false;
+    var slices = [], useBackgroundImage = Wolf.ISWEBKIT, texturePath = "assets/art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/", spritePath = "assets/art/sprites/" + Wolf.TEXTURERESOLUTION + "/", sprites = [], maxDistZ = 64 * 0x10000, hasInit = false;
     visibleSprites = [];
     var TILESHIFT = Wolf.TILESHIFT, TILEGLOBAL = Wolf.TILEGLOBAL, TRACE_HIT_VERT = Wolf.TRACE_HIT_VERT, TRACE_HIT_DOOR = Wolf.TRACE_HIT_DOOR, WALL_TILE = Wolf.WALL_TILE, DOOR_TILE = Wolf.DOOR_TILE, TEX_PLATE = Wolf.TEX_PLATE, TILE2POS = Wolf.TILE2POS, POS2TILE = Wolf.POS2TILE, VIEW_DIST = Wolf.VIEW_DIST, SLICE_WIDTH = Wolf.SLICE_WIDTH, WALL_TEXTURE_WIDTH = Wolf.WALL_TEXTURE_WIDTH, FINE2RAD = Wolf.FINE2RAD, XRES = Wolf.XRES, YRES = Wolf.YRES, MINDIST = Wolf.MINDIST, cos = Math.cos, sin = Math.sin, tan = Math.tan, atan2 = Math.atan2, round = Math.round, sqrt = Math.sqrt;
     function init() {
@@ -128,7 +128,7 @@ Wolf.Renderer = (function () {
         }
         else {
             itop = -(proc.texture - 1) * height;
-            textureSrc = "art/walls-shaded/64/walls.png";
+            textureSrc = "assets/art/walls-shaded/64/walls.png";
         }
         if (image._src != textureSrc) {
             image._src = textureSrc;

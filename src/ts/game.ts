@@ -656,8 +656,8 @@ Wolf.Game = (function() {
     function preloadLevelAssets(level, callback) {
         var files = [],
             tx, ty, texture, x, y, f, i, numFiles,
-            texturePath = "art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/",
-            spritePath = "art/sprites/" + Wolf.TEXTURERESOLUTION + "/";
+            texturePath = "assets/art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/",
+            spritePath = "assets/art/sprites/" + Wolf.TEXTURERESOLUTION + "/";
 
         function addTexture(texture) {
             if (texture > 0) {
@@ -797,7 +797,7 @@ Wolf.Game = (function() {
             
         playing = false;
 
-        Wolf.Sound.startMusic("music/URAHERO.ogg");
+        Wolf.Sound.startMusic("assets/music/URAHERO.ogg");
         
         $("#game .renderer").hide();
         $("#game .fps").hide();

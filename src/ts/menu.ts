@@ -84,7 +84,7 @@ Wolf.Menu = (function() {
     }
 
     function setActiveItem(item) {
-        playSound("lsfx/005.wav");
+        playSound("assets/lsfx/005.wav");
         
         $("#menu div.menu.active li").removeClass("active");
         item.addClass("active");
@@ -130,7 +130,7 @@ Wolf.Menu = (function() {
                 case 27: // ESC
                     var back = $("#menu div.menu.active").data("backmenu");
                     if (back) {
-                        playSound("lsfx/039.wav");
+                        playSound("assets/lsfx/039.wav");
                         show(back);
                     }
                     return;
@@ -158,7 +158,7 @@ Wolf.Menu = (function() {
                 return;
             }
 
-            playSound("lsfx/032.wav");
+            playSound("assets/lsfx/032.wav");
             
             var $this = $(this),
                 sub = $this.data("submenu");
@@ -418,7 +418,7 @@ Wolf.Menu = (function() {
         }
         
         function close(value) {
-            playSound("lsfx/039.wav");
+            playSound("assets/lsfx/039.wav");
             $(document).off("keydown", keyHandler);
             $("#menu .message." + name).hide();
             if (messageBlink) {
@@ -461,7 +461,7 @@ Wolf.Menu = (function() {
             setupEvents();
             setupDone = true;
         }
-        Wolf.Sound.startMusic("music/WONDERIN.ogg");
+        Wolf.Sound.startMusic("assets/music/WONDERIN.ogg");
         
         menuName = menuName || "main";
 
@@ -554,12 +554,12 @@ Wolf.Menu = (function() {
             }
             current = current % num;
             screen.css({
-                "backgroundImage" : "url(art/text-screens/" + name + "-" + (current+1) + ".png)"
+                "backgroundImage" : "url(assets/art/text-screens/" + name + "-" + (current+1) + ".png)"
             });
             // preload the next in the background
             var next = (current + 1) % num,
                 nextImg = new Image();
-            nextImg.src = "art/text-screens/" + name + "-" + (next+1) + ".png";
+            nextImg.src = "assets/art/text-screens/" + name + "-" + (next+1) + ".png";
         }
         function close() {
             $(document).off("keydown", keyHandler);

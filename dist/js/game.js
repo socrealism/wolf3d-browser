@@ -431,7 +431,7 @@ Wolf.Game = (function () {
         });
     }
     function preloadLevelAssets(level, callback) {
-        var files = [], tx, ty, texture, x, y, f, i, numFiles, texturePath = "art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/", spritePath = "art/sprites/" + Wolf.TEXTURERESOLUTION + "/";
+        var files = [], tx, ty, texture, x, y, f, i, numFiles, texturePath = "assets/art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/", spritePath = "assets/art/sprites/" + Wolf.TEXTURERESOLUTION + "/";
         function addTexture(texture) {
             if (texture > 0) {
                 if (texture % 2 == 0) {
@@ -518,7 +518,7 @@ Wolf.Game = (function () {
     function startIntermission(game, delay) {
         var episode = Wolf.Episodes[game.episodeNum], parTime = episode.levels[game.levelNum].partime * 60, bonus = 0, parBonusAmount = 500, ratioBonusAmount = 10000, levelState = game.level.state, killRatio = levelState.totalMonsters ? ((levelState.killedMonsters / levelState.totalMonsters * 100) >> 0) : 0, secretRatio = levelState.totalSecrets ? ((levelState.foundSecrets / levelState.totalSecrets * 100) >> 0) : 0, treasureRatio = levelState.totalTreasure ? ((levelState.foundTreasure / levelState.totalTreasure * 100) >> 0) : 0, time = levelState.elapsedTime + ((new Date).getTime() - levelState.startTime), totalTime, i, avgKill = 0, avgSecret = 0, avgTreasure = 0;
         playing = false;
-        Wolf.Sound.startMusic("music/URAHERO.ogg");
+        Wolf.Sound.startMusic("assets/music/URAHERO.ogg");
         $("#game .renderer").hide();
         $("#game .fps").hide();
         $("#game .intermission .digit").hide();
