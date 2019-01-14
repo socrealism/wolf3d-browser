@@ -1,19 +1,19 @@
 "use strict";
-Wolf.setConsts({
-    UPPERZCOORD: 0.6,
-    LOWERZCOORD: -0.6,
-    TRACE_MARK_MAP: 1,
-    TRACE_SIGHT: 2,
-    TRACE_SIGHT_AI: 4,
-    TRACE_BULLET: 8,
-    TRACE_OBJECT: 16,
-    TRACE_HIT_VERT: 32,
-    TRACE_HIT_DOOR: 64,
-    TRACE_HIT_PWALL: 128
-});
+class Raycaster {
+}
+Raycaster.UPPERZCOORD = 0.6;
+Raycaster.LOWERZCOORD = -0.6;
+Raycaster.TRACE_MARK_MAP = 1;
+Raycaster.TRACE_SIGHT = 2;
+Raycaster.TRACE_SIGHT_AI = 4;
+Raycaster.TRACE_BULLET = 8;
+Raycaster.TRACE_OBJECT = 16;
+Raycaster.TRACE_HIT_VERT = 32;
+Raycaster.TRACE_HIT_DOOR = 64;
+Raycaster.TRACE_HIT_PWALL = 128;
 Wolf.Raycaster = (function () {
     var x_tile_step = [1, -1, -1, 1], y_tile_step = [1, 1, -1, -1];
-    var TILESHIFT = Wolf.TILESHIFT, TRACE_HIT_VERT = Wolf.TRACE_HIT_VERT, TILEGLOBAL = Wolf.TILEGLOBAL, WALL_TILE = Wolf.WALL_TILE, DOOR_TILE = Wolf.DOOR_TILE, TILE2POS = Wolf.TILE2POS, POS2TILE = Wolf.POS2TILE, FINE2RAD = Wolf.FINE2RAD, TRACE_HIT_DOOR = Wolf.TRACE_HIT_DOOR, PUSHWALL_TILE = Wolf.PUSHWALL_TILE, TRACE_HIT_PWALL = Wolf.TRACE_HIT_PWALL, DOOR_FULLOPEN = Wolf.DOOR_FULLOPEN, XnextTable = Wolf.Math.XnextTable, YnextTable = Wolf.Math.YnextTable, getQuadrant = Wolf.Math.getQuadrant, TanTable = Wolf.Math.TanTable;
+    var TILESHIFT = Wolf.TILESHIFT, TRACE_HIT_VERT = Raycaster.TRACE_HIT_VERT, TILEGLOBAL = Wolf.TILEGLOBAL, WALL_TILE = Wolf.WALL_TILE, DOOR_TILE = Wolf.DOOR_TILE, TILE2POS = Wolf.TILE2POS, POS2TILE = Wolf.POS2TILE, FINE2RAD = Wolf.FINE2RAD, TRACE_HIT_DOOR = Raycaster.TRACE_HIT_DOOR, PUSHWALL_TILE = Wolf.PUSHWALL_TILE, TRACE_HIT_PWALL = Raycaster.TRACE_HIT_PWALL, DOOR_FULLOPEN = Wolf.DOOR_FULLOPEN, XnextTable = Wolf.Math.XnextTable, YnextTable = Wolf.Math.YnextTable, getQuadrant = Wolf.Math.getQuadrant, TanTable = Wolf.Math.TanTable;
     function traceCheck(tileMap, doorMap, visibleTiles, x, y, frac, dfrac, vert, flip, tracePoint) {
         var door;
         if (tileMap[x][y] & WALL_TILE) {
@@ -158,7 +158,7 @@ Wolf.Raycaster = (function () {
                 x: viewport.x,
                 y: viewport.y,
                 angle: Wolf.Math.normalizeAngle(viewport.angle - Wolf.Math.ColumnAngle[n * Wolf.SLICE_WIDTH]),
-                flags: Wolf.TRACE_SIGHT | Wolf.TRACE_MARK_MAP,
+                flags: Raycaster.TRACE_SIGHT | Raycaster.TRACE_MARK_MAP,
                 oob: false
             };
             trace(level, visibleTiles, tracePoint);

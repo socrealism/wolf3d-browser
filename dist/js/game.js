@@ -315,8 +315,8 @@ Wolf.Game = (function () {
             angle: player.angle
         };
         var res = Wolf.Raycaster.traceRays(viewport, level);
-        Wolf.Renderer.clear();
-        Wolf.Renderer.draw(viewport, level, res.tracers, res.visibleTiles);
+        Renderer.clear();
+        Renderer.draw(viewport, level, res.tracers, res.visibleTiles);
     }
     function drawFace(player, tics) {
         var pic;
@@ -372,7 +372,7 @@ Wolf.Game = (function () {
             hndFps = setInterval(updateFPS, 1000);
         }
         $("#game .fps").show();
-        Wolf.Renderer.init();
+        Renderer.init();
         $("#game .renderer").show();
         function nextFrame() {
             if (!rendering) {
@@ -435,7 +435,7 @@ Wolf.Game = (function () {
         });
     }
     function preloadLevelAssets(level, callback) {
-        var files = [], tx, ty, texture, x, y, f, i, numFiles, texturePath = "assets/art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/", spritePath = "assets/art/sprites/" + Wolf.TEXTURERESOLUTION + "/";
+        var files = [], tx, ty, texture, x, y, f, i, numFiles, texturePath = "assets/art/walls-shaded/" + Renderer.TEXTURERESOLUTION + "/", spritePath = "assets/art/sprites/" + Renderer.TEXTURERESOLUTION + "/";
         function addTexture(texture) {
             if (texture > 0) {
                 if (texture % 2 == 0) {
@@ -505,7 +505,7 @@ Wolf.Game = (function () {
         }
         playing = false;
         rendering = false;
-        Wolf.Renderer.reset();
+        Renderer.reset();
         if (paused) {
             togglePause();
         }

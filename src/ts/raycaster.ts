@@ -1,19 +1,20 @@
-Wolf.setConsts({
-    UPPERZCOORD         :  0.6,
-    LOWERZCOORD         : -0.6,
+class Raycaster {
+    public static readonly UPPERZCOORD =  0.6;
+    public static readonly LOWERZCOORD = -0.6;
 
     // marks
-    TRACE_MARK_MAP      : 1,	// marks traced area in 'AM_AutoMap.vis' array
-    // obstacle levels
-    TRACE_SIGHT         : 2,	// player sight
-    TRACE_SIGHT_AI      : 4,	// enemy sight
-    TRACE_BULLET        : 8,	// bullet
-    TRACE_OBJECT        : 16,	// object
+    public static readonly TRACE_MARK_MAP = 1; // marks traced area in 'AM_AutoMap.vis' array
 
-    TRACE_HIT_VERT      : 32,	// vertical wall was hit
-    TRACE_HIT_DOOR      : 64,	// door was hit
-    TRACE_HIT_PWALL     : 128	// pushwall was hit
-});
+    // obstacle levels
+    public static readonly TRACE_SIGHT = 2; // player sight
+    public static readonly TRACE_SIGHT_AI = 4; // enemy sight
+    public static readonly TRACE_BULLET = 8; // bullet
+    public static readonly TRACE_OBJECT = 16; // object
+
+    public static readonly TRACE_HIT_VERT = 32; // vertical wall was hit
+    public static readonly TRACE_HIT_DOOR = 64; // door was hit
+    public static readonly TRACE_HIT_PWALL = 128; // pushwall was hit
+}
 
 Wolf.Raycaster = (function() {
 
@@ -21,16 +22,16 @@ Wolf.Raycaster = (function() {
         y_tile_step = [ 1,  1, -1, -1 ];
         
     var TILESHIFT = Wolf.TILESHIFT,
-        TRACE_HIT_VERT = Wolf.TRACE_HIT_VERT,
+        TRACE_HIT_VERT = Raycaster.TRACE_HIT_VERT,
         TILEGLOBAL = Wolf.TILEGLOBAL,
         WALL_TILE = Wolf.WALL_TILE,
         DOOR_TILE = Wolf.DOOR_TILE,
         TILE2POS = Wolf.TILE2POS,
         POS2TILE = Wolf.POS2TILE,
         FINE2RAD = Wolf.FINE2RAD,
-        TRACE_HIT_DOOR = Wolf.TRACE_HIT_DOOR,
+        TRACE_HIT_DOOR = Raycaster.TRACE_HIT_DOOR,
         PUSHWALL_TILE = Wolf.PUSHWALL_TILE,
-        TRACE_HIT_PWALL = Wolf.TRACE_HIT_PWALL,
+        TRACE_HIT_PWALL = Raycaster.TRACE_HIT_PWALL,
         DOOR_FULLOPEN = Wolf.DOOR_FULLOPEN,
         XnextTable = Wolf.Math.XnextTable,
         YnextTable = Wolf.Math.YnextTable,
@@ -244,7 +245,7 @@ Wolf.Raycaster = (function() {
                 x : viewport.x,
                 y : viewport.y,
                 angle : Wolf.Math.normalizeAngle(viewport.angle - Wolf.Math.ColumnAngle[n * Wolf.SLICE_WIDTH]),
-                flags : Wolf.TRACE_SIGHT | Wolf.TRACE_MARK_MAP,
+                flags : Raycaster.TRACE_SIGHT | Raycaster.TRACE_MARK_MAP,
                 oob : false
             };
             

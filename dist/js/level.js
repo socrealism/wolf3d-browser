@@ -1,4 +1,30 @@
 "use strict";
+class Level {
+}
+Level.WALL_TILE = 1;
+Level.PUSHWALL_TILE = (1 << 20);
+Level.DOOR_TILE = 2;
+Level.SECRET_TILE = 4;
+Level.DRESS_TILE = 8;
+Level.BLOCK_TILE = 16;
+Level.ACTOR_TILE = 32;
+Level.DEADACTOR_TILE = 64;
+Level.POWERUP_TILE = 128;
+Level.AMBUSH_TILE = 256;
+Level.EXIT_TILE = 512;
+Level.SECRETLEVEL_TILE = 1024;
+Level.ELEVATOR_TILE = (1 << 11);
+Level.MAPHEADER_SIZE = 49;
+Level.MAP_SIGNATURE = 0x21444921;
+Level.TILE_IS_E_TURN = (1 << 12);
+Level.TILE_IS_NE_TURN = (1 << 13);
+Level.TILE_IS_N_TURN = (1 << 14);
+Level.TILE_IS_NW_TURN = (1 << 15);
+Level.TILE_IS_W_TURN = (1 << 16);
+Level.TILE_IS_SW_TURN = (1 << 17);
+Level.TILE_IS_S_TURN = (1 << 18);
+Level.TILE_IS_SE_TURN = (1 << 19);
+Level.MAX_POWERUPS = 1000;
 Wolf.Level = (function () {
     Wolf.setConsts({
         WALL_TILE: 1,

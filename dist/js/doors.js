@@ -1,4 +1,31 @@
 "use strict";
+class Doors {
+}
+Doors.CLOSEWALL = Wolf.MINDIST;
+Doors.MAXDOORS = 64;
+Doors.MAX_DOORS = 256;
+Doors.DOOR_TIMEOUT = 300;
+Doors.DOOR_MINOPEN = 50;
+Doors.DOOR_FULLOPEN = 63;
+Doors.DOOR_VERT = 255;
+Doors.DOOR_HORIZ = 254;
+Doors.DOOR_E_VERT = 253;
+Doors.DOOR_E_HORIZ = 252;
+Doors.DOOR_G_VERT = 251;
+Doors.DOOR_G_HORIZ = 250;
+Doors.DOOR_S_VERT = 249;
+Doors.DOOR_S_HORIZ = 248;
+Doors.FIRST_DOOR = 248;
+Doors.LAST_LOCK = 251;
+Doors.TEX_DOOR = 98;
+Doors.dr_closing = -1;
+Doors.dr_closed = 0;
+Doors.dr_opening = 1;
+Doors.dr_open = 2;
+Doors.TEX_DDOOR = (0 + Doors.TEX_DOOR);
+Doors.TEX_PLATE = (2 + Doors.TEX_DOOR);
+Doors.TEX_DELEV = (4 + Doors.TEX_DOOR);
+Doors.TEX_DLOCK = (6 + Doors.TEX_DOOR);
 Wolf.Doors = (function () {
     Wolf.setConsts({
         CLOSEWALL: Wolf.MINDIST,

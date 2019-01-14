@@ -902,7 +902,7 @@ Wolf.Sprites = (function() {
         }
         */
        
-        Wolf.Renderer.loadSprite(newSprite);
+        Renderer.loadSprite(newSprite);
         
         level.sprites.push(newSprite);
         return newSprite;
@@ -1029,7 +1029,7 @@ Wolf.Sprites = (function() {
         }
 
         sprite.flags |= Wolf.SPRT_REMOVE;
-        Wolf.Renderer.unloadSprite(sprite);
+        Renderer.unloadSprite(sprite);
     }
     
     function clean(level) {

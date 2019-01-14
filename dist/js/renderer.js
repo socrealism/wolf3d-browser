@@ -1,25 +1,11 @@
 "use strict";
-Wolf.setConsts({
-    FOV_RAD: 75 * Math.PI / 180,
-    ISCHROME: /chrome/.test(navigator.userAgent.toLowerCase()),
-    ISSAFARI: /safari/.test(navigator.userAgent.toLowerCase()),
-    ISFIREFOX: /firefox/.test(navigator.userAgent.toLowerCase()),
-    ISXP: /windows nt 5\./.test(navigator.userAgent.toLowerCase()),
-    ISWEBKIT: /webkit/.test(navigator.userAgent.toLowerCase())
-});
-Wolf.setConsts({
-    VIEW_DIST: (Wolf.XRES / 2) / Math.tan((Wolf.FOV_RAD / 2)),
-    TEXTURERESOLUTION: Wolf.ISCHROME ? 128 : 64
-});
-Wolf.Renderer = (function () {
-    var slices = [], useBackgroundImage = Wolf.ISWEBKIT, texturePath = "assets/art/walls-shaded/" + Wolf.TEXTURERESOLUTION + "/", spritePath = "assets/art/sprites/" + Wolf.TEXTURERESOLUTION + "/", sprites = [], maxDistZ = 64 * 0x10000, hasInit = false, visibleSprites = [];
-    var TILESHIFT = Wolf.TILESHIFT, TILEGLOBAL = Wolf.TILEGLOBAL, TRACE_HIT_VERT = Wolf.TRACE_HIT_VERT, TRACE_HIT_DOOR = Wolf.TRACE_HIT_DOOR, WALL_TILE = Wolf.WALL_TILE, DOOR_TILE = Wolf.DOOR_TILE, TEX_PLATE = Wolf.TEX_PLATE, TILE2POS = Wolf.TILE2POS, POS2TILE = Wolf.POS2TILE, VIEW_DIST = Wolf.VIEW_DIST, SLICE_WIDTH = Wolf.SLICE_WIDTH, WALL_TEXTURE_WIDTH = Wolf.WALL_TEXTURE_WIDTH, FINE2RAD = Wolf.FINE2RAD, XRES = Wolf.XRES, YRES = Wolf.YRES, MINDIST = Wolf.MINDIST, cos = Math.cos, sin = Math.sin, tan = Math.tan, atan2 = Math.atan2, round = Math.round, sqrt = Math.sqrt;
-    function init() {
-        var image, slice, x;
-        if (hasInit) {
+class Renderer {
+    static init() {
+        let image, slice, x;
+        if (Renderer.hasInit) {
             return;
         }
-        hasInit = true;
+        Renderer.hasInit = true;
         $("#game .renderer")
             .width(Wolf.XRES + "px")
             .height(Wolf.YRES + "px");
@@ -34,7 +20,7 @@ Wolf.Renderer = (function () {
                 overflow: "hidden"
             });
             slice.appendTo("#game .renderer");
-            image = useBackgroundImage ? $("<div>") : $("<img>");
+            image = Renderer.useBackgroundImage ? $("<div>") : $("<img>");
             image.css({
                 position: "absolute",
                 display: "block",
@@ -43,24 +29,24 @@ Wolf.Renderer = (function () {
                 width: Wolf.SLICE_WIDTH * Wolf.WALL_TEXTURE_WIDTH + "px",
                 backgroundSize: "100% 100%"
             });
-            var sliceElement = slice[0];
+            const sliceElement = slice[0];
             sliceElement.texture = image[0];
             sliceElement.appendChild(sliceElement.texture);
-            slices.push(sliceElement);
+            Renderer.slices.push(sliceElement);
         }
     }
-    function reset() {
+    static reset() {
         $("#game .renderer .sprite").remove();
-        sprites = [];
-        visibleSprites = [];
+        Renderer.sprites = [];
+        Renderer.visibleSprites = [];
     }
-    function processTrace(viewport, tracePoint) {
+    static processTrace(viewport, tracePoint) {
         var x = tracePoint.x, y = tracePoint.y, vx = viewport.x, vy = viewport.y, dx = viewport.x - tracePoint.x, dy = viewport.y - tracePoint.y, dist = Math.sqrt(dx * dx + dy * dy), frac, h, w, offset;
-        dist = dist * cos(FINE2RAD(tracePoint.angle - viewport.angle));
-        w = WALL_TEXTURE_WIDTH * SLICE_WIDTH;
-        h = (VIEW_DIST / dist * TILEGLOBAL) >> 0;
-        if (tracePoint.flags & TRACE_HIT_DOOR) {
-            if (tracePoint.flags & TRACE_HIT_VERT) {
+        dist = dist * Math.cos(Wolf.FINE2RAD(tracePoint.angle - viewport.angle));
+        w = Wolf.WALL_TEXTURE_WIDTH * Wolf.SLICE_WIDTH;
+        h = (Renderer.VIEW_DIST / dist * Wolf.TILEGLOBAL) >> 0;
+        if (tracePoint.flags & Raycaster.TRACE_HIT_DOOR) {
+            if (tracePoint.flags & Raycaster.TRACE_HIT_VERT) {
                 if (x < vx) {
                     frac = tracePoint.frac;
                 }
@@ -81,10 +67,10 @@ Wolf.Renderer = (function () {
             frac = 1 - tracePoint.frac;
         }
         offset = frac * w;
-        if (offset > w - SLICE_WIDTH) {
-            offset = w - SLICE_WIDTH;
+        if (offset > w - Wolf.SLICE_WIDTH) {
+            offset = w - Wolf.SLICE_WIDTH;
         }
-        offset = round(offset / SLICE_WIDTH) * SLICE_WIDTH;
+        offset = Math.round(offset / Wolf.SLICE_WIDTH) * Wolf.SLICE_WIDTH;
         if (offset < 0) {
             offset = 0;
         }
@@ -92,37 +78,37 @@ Wolf.Renderer = (function () {
             w: w,
             h: h,
             dist: dist,
-            vert: tracePoint.flags & TRACE_HIT_VERT,
+            vert: tracePoint.flags & Raycaster.TRACE_HIT_VERT,
             offset: offset
         };
     }
-    function clear() {
+    static clear() {
         var n, sprite;
-        for (n = 0; n < visibleSprites.length; n++) {
-            sprite = visibleSprites[n].sprite;
+        for (n = 0; n < Renderer.visibleSprites.length; n++) {
+            sprite = Renderer.visibleSprites[n].sprite;
             if (sprite && sprite.div) {
                 sprite.div.style.display = "none";
             }
         }
     }
-    function draw(viewport, level, tracers, visibleTiles) {
-        var n, tracePoint;
-        for (var n = 0, len = tracers.length; n < len; ++n) {
+    static draw(viewport, level, tracers, visibleTiles) {
+        let tracePoint;
+        for (let n = 0, len = tracers.length; n < len; ++n) {
             tracePoint = tracers[n];
             if (!tracePoint.oob) {
-                if (tracePoint.flags & Wolf.TRACE_HIT_DOOR) {
-                    drawDoor(n, viewport, tracePoint, level);
+                if (tracePoint.flags & Raycaster.TRACE_HIT_DOOR) {
+                    Renderer.drawDoor(n, viewport, tracePoint, level);
                 }
                 else {
-                    drawWall(n, viewport, tracePoint, level);
+                    Renderer.drawWall(n, viewport, tracePoint, level);
                 }
             }
         }
-        drawSprites(viewport, level, visibleTiles);
+        Renderer.drawSprites(viewport, level, visibleTiles);
     }
-    function updateSlice(n, textureSrc, proc) {
-        var slice = slices[n], image = slice.texture, sliceStyle = slice.style, imgStyle = image.style, top = (Wolf.YRES - proc.h) / 2, left = -(proc.offset) >> 0, height = proc.h, z = (maxDistZ - proc.dist) >> 0, itop;
-        if (Wolf.ISXP && Wolf.ISFIREFOX) {
+    static updateSlice(n, textureSrc, proc) {
+        var slice = Renderer.slices[n], image = slice.texture, sliceStyle = slice.style, imgStyle = image.style, top = (Wolf.YRES - proc.h) / 2, left = -(proc.offset) >> 0, height = proc.h, z = (Renderer.maxDistZ - proc.dist) >> 0, itop;
+        if (Renderer.ISXP && Renderer.ISFIREFOX) {
             itop = (proc.texture % 2) ? 0 : -height;
         }
         else {
@@ -131,7 +117,7 @@ Wolf.Renderer = (function () {
         }
         if (image._src != textureSrc) {
             image._src = textureSrc;
-            if (useBackgroundImage) {
+            if (Renderer.useBackgroundImage) {
                 imgStyle.backgroundImage = "url(" + textureSrc + ")";
             }
             else {
@@ -143,7 +129,7 @@ Wolf.Renderer = (function () {
         }
         if (image._height != height) {
             sliceStyle.height = (image._height = height) + "px";
-            if (Wolf.ISXP && Wolf.ISFIREFOX) {
+            if (Renderer.ISXP && Renderer.ISFIREFOX) {
                 imgStyle.height = (height * 2) + "px";
             }
             else {
@@ -160,22 +146,22 @@ Wolf.Renderer = (function () {
             imgStyle.left = (image._left = left) + "px";
         }
     }
-    function drawWall(n, viewport, tracePoint, level) {
-        var x = tracePoint.tileX, y = tracePoint.tileY, vx = POS2TILE(viewport.x), vy = POS2TILE(viewport.y), tileMap = level.tileMap, proc = processTrace(viewport, tracePoint), texture = proc.vert ? level.wallTexX[x][y] : level.wallTexY[x][y], textureSrc;
-        if (tracePoint.flags & TRACE_HIT_VERT) {
-            if (x >= vx && tileMap[x - 1][y] & DOOR_TILE) {
-                texture = TEX_PLATE;
+    static drawWall(n, viewport, tracePoint, level) {
+        var x = tracePoint.tileX, y = tracePoint.tileY, vx = Wolf.POS2TILE(viewport.x), vy = Wolf.POS2TILE(viewport.y), tileMap = level.tileMap, proc = Renderer.processTrace(viewport, tracePoint), texture = proc.vert ? level.wallTexX[x][y] : level.wallTexY[x][y], textureSrc;
+        if (tracePoint.flags & Raycaster.TRACE_HIT_VERT) {
+            if (x >= vx && tileMap[x - 1][y] & Level.DOOR_TILE) {
+                texture = Doors.TEX_PLATE;
             }
-            if (x < vx && tileMap[x + 1][y] & DOOR_TILE) {
-                texture = TEX_PLATE;
+            if (x < vx && tileMap[x + 1][y] & Level.DOOR_TILE) {
+                texture = Doors.TEX_PLATE;
             }
         }
         else {
-            if (y >= vy && tileMap[x][y - 1] & DOOR_TILE) {
-                texture = TEX_PLATE;
+            if (y >= vy && tileMap[x][y - 1] & Level.DOOR_TILE) {
+                texture = Doors.TEX_PLATE;
             }
-            if (y < vy && tileMap[x][y + 1] & DOOR_TILE) {
-                texture = TEX_PLATE;
+            if (y < vy && tileMap[x][y + 1] & Level.DOOR_TILE) {
+                texture = Doors.TEX_PLATE;
             }
         }
         texture++;
@@ -183,29 +169,29 @@ Wolf.Renderer = (function () {
         if (texture % 2 == 0) {
             texture--;
         }
-        textureSrc = texturePath + "w_" + texture + ".png";
-        updateSlice(n, textureSrc, proc);
+        textureSrc = Renderer.texturePath + "w_" + texture + ".png";
+        Renderer.updateSlice(n, textureSrc, proc);
     }
-    function drawDoor(n, viewport, tracePoint, level) {
-        var proc = processTrace(viewport, tracePoint), texture, textureSrc;
+    static drawDoor(n, viewport, tracePoint, level) {
+        var proc = Renderer.processTrace(viewport, tracePoint), texture, textureSrc;
         texture = level.state.doorMap[tracePoint.tileX][tracePoint.tileY].texture + 1;
         proc.texture = texture;
         if (texture % 2 == 0) {
             texture -= 1;
         }
-        textureSrc = texturePath + "w_" + texture + ".png";
-        updateSlice(n, textureSrc, proc);
+        textureSrc = Renderer.texturePath + "w_" + texture + ".png";
+        Renderer.updateSlice(n, textureSrc, proc);
     }
-    function drawSprites(viewport, level, visibleTiles) {
+    static drawSprites(viewport, level, visibleTiles) {
         var vis, n, dist, dx, dy, angle, z, width, size, div, image, divStyle, imgStyle;
-        visibleSprites = Wolf.Sprites.createVisList(viewport, level, visibleTiles);
-        for (n = 0; n < visibleSprites.length; ++n) {
-            vis = visibleSprites[n];
+        Renderer.visibleSprites = Wolf.Sprites.createVisList(viewport, level, visibleTiles);
+        for (n = 0; n < Renderer.visibleSprites.length; ++n) {
+            vis = Renderer.visibleSprites[n];
             dist = vis.dist;
-            if (dist < MINDIST / 2) {
+            if (dist < Wolf.MINDIST / 2) {
             }
             if (!vis.sprite.div) {
-                loadSprite(vis.sprite);
+                Renderer.loadSprite(vis.sprite);
             }
             div = vis.sprite.div;
             divStyle = div.style;
@@ -213,25 +199,25 @@ Wolf.Renderer = (function () {
             imgStyle = image.style;
             dx = vis.sprite.x - viewport.x;
             dy = vis.sprite.y - viewport.y;
-            angle = atan2(dy, dx) - FINE2RAD(viewport.angle);
-            size = (VIEW_DIST / dist * TILEGLOBAL) >> 0;
+            angle = Math.atan2(dy, dx) - Wolf.FINE2RAD(viewport.angle);
+            size = (Renderer.VIEW_DIST / dist * Wolf.TILEGLOBAL) >> 0;
             divStyle.display = "block";
             divStyle.width = size + "px";
             divStyle.height = size + "px";
-            divStyle.left = (XRES / 2 - size / 2 - tan(angle) * VIEW_DIST) + "px";
-            divStyle.top = (YRES / 2 - size / 2) + "px";
+            divStyle.left = (Wolf.XRES / 2 - size / 2 - Math.tan(angle) * Renderer.VIEW_DIST) + "px";
+            divStyle.top = (Wolf.YRES / 2 - size / 2) + "px";
             var texture = Wolf.Sprites.getTexture(vis.sprite.tex[0]);
-            var textureSrc = spritePath + texture.sheet;
+            var textureSrc = Renderer.spritePath + texture.sheet;
             if (image._src != textureSrc) {
                 image._src = textureSrc;
-                if (useBackgroundImage) {
+                if (Renderer.useBackgroundImage) {
                     imgStyle.backgroundImage = "url(" + textureSrc + ")";
                 }
                 else {
                     image.src = textureSrc;
                 }
             }
-            z = (maxDistZ - dist) >> 0;
+            z = (Renderer.maxDistZ - dist) >> 0;
             width = texture.num * size;
             var left = -texture.idx * size;
             if (div._zIndex != z) {
@@ -248,13 +234,13 @@ Wolf.Renderer = (function () {
             }
         }
     }
-    function unloadSprite(sprite) {
+    static unloadSprite(sprite) {
         if (sprite.div) {
             $(sprite.div).remove();
             sprite.div = null;
         }
     }
-    function loadSprite(sprite) {
+    static loadSprite(sprite) {
         var div = document.createElement("div"), image;
         div.style.display = "none";
         div.style.position = "absolute";
@@ -262,7 +248,7 @@ Wolf.Renderer = (function () {
         div.style.height = "128px";
         div.style.overflow = "hidden";
         div.className = "sprite";
-        image = useBackgroundImage ? $("<div>") : $("<img>");
+        image = Renderer.useBackgroundImage ? $("<div>") : $("<img>");
         image.css({
             position: "absolute",
             display: "block",
@@ -277,12 +263,19 @@ Wolf.Renderer = (function () {
         sprite.div = div;
         $("#game .renderer").append(div);
     }
-    return {
-        init: init,
-        draw: draw,
-        clear: clear,
-        loadSprite: loadSprite,
-        unloadSprite: unloadSprite,
-        reset: reset
-    };
-})();
+}
+Renderer.FOV_RAD = 75 * Math.PI / 180;
+Renderer.ISCHROME = /chrome/.test(navigator.userAgent.toLowerCase());
+Renderer.ISFIREFOX = /firefox/.test(navigator.userAgent.toLowerCase());
+Renderer.ISXP = /windows nt 5\./.test(navigator.userAgent.toLowerCase());
+Renderer.ISWEBKIT = /webkit/.test(navigator.userAgent.toLowerCase());
+Renderer.VIEW_DIST = (Wolf.XRES / 2) / Math.tan((Renderer.FOV_RAD / 2));
+Renderer.TEXTURERESOLUTION = Renderer.ISCHROME ? 128 : 64;
+Renderer.slices = [];
+Renderer.useBackgroundImage = Renderer.ISWEBKIT;
+Renderer.texturePath = "assets/art/walls-shaded/" + Renderer.TEXTURERESOLUTION + "/";
+Renderer.spritePath = "assets/art/sprites/" + Renderer.TEXTURERESOLUTION + "/";
+Renderer.sprites = [];
+Renderer.maxDistZ = 64 * 0x10000;
+Renderer.hasInit = false;
+Renderer.visibleSprites = [];

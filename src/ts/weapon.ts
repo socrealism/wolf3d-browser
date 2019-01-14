@@ -107,12 +107,12 @@ Wolf.Weapon = (function() {
                 angle : Wolf.Math.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
                 x : player.position.x,
                 y : player.position.y,
-                flags : Wolf.TRACE_BULLET
+                flags : Raycaster.TRACE_BULLET
             };
             
             Wolf.Raycaster.trace(level, null, tracePoint);
 
-            if (tracePoint.flags & Wolf.TRACE_HIT_DOOR) {
+            if (tracePoint.flags & Raycaster.TRACE_HIT_DOOR) {
                 Wolf.Sound.startSound(null, null, 0, Sound.CHAN_AUTO, "assets/lsfx/028.wav", 1, Sound.ATTN_NORM, 0);
             }
             

@@ -1,3 +1,36 @@
+class Doors {
+    public static readonly CLOSEWALL = Wolf.MINDIST; // Space between wall & player
+    public static readonly MAXDOORS = 64;           // max number of sliding doors
+
+    public static readonly MAX_DOORS = 256; // jseidelin: doesn't look like this is used?
+    public static readonly DOOR_TIMEOUT = 300;
+    public static readonly DOOR_MINOPEN = 50;
+    public static readonly DOOR_FULLOPEN = 63;
+    public static readonly DOOR_VERT = 255;
+    public static readonly DOOR_HORIZ = 254;
+    public static readonly DOOR_E_VERT = 253;
+    public static readonly DOOR_E_HORIZ = 252;
+    public static readonly DOOR_G_VERT = 251;
+    public static readonly DOOR_G_HORIZ = 250;
+    public static readonly DOOR_S_VERT = 249;
+    public static readonly DOOR_S_HORIZ = 248;
+    public static readonly FIRST_DOOR = 248;
+    public static readonly LAST_LOCK = 251;
+
+    public static readonly TEX_DOOR = 98;
+
+    public static readonly dr_closing = -1;
+    public static readonly dr_closed = 0;
+    public static readonly dr_opening = 1;
+    public static readonly dr_open = 2;
+
+    // texture IDs used by cache routines
+    public static readonly TEX_DDOOR = (0 + Doors.TEX_DOOR); // Simple Door
+    public static readonly TEX_PLATE = (2 + Doors.TEX_DOOR); // Door Plate
+    public static readonly TEX_DELEV = (4 + Doors.TEX_DOOR); // Elevator Door
+    public static readonly TEX_DLOCK = (6 + Doors.TEX_DOOR);  // Locked Door
+}
+
 /**
  * @namespace 
  * @description Door management
