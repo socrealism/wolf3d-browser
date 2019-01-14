@@ -1,3 +1,7 @@
+/**
+ * @namespace
+ * @description Door management
+ */
 class Doors {
     public static readonly CLOSEWALL = Wolf.MINDIST; // Space between wall & player
     public static readonly MAXDOORS = 64;           // max number of sliding doors
@@ -31,10 +35,7 @@ class Doors {
     public static readonly TEX_DLOCK = (6 + Doors.TEX_DOOR);  // Locked Door
 }
 
-/**
- * @namespace 
- * @description Door management
- */
+
 Wolf.Doors = (function() {
 
     Wolf.setConsts({

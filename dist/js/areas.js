@@ -16,7 +16,7 @@ class Areas {
         for (var i = 0; i < Wolf.NUMAREAS; ++i) {
             if (level.state.areaconnect[areanumber][i] && !level.state.areabyplayer[i]) {
                 level.state.areabyplayer[i] = true;
-                recursiveConnect(level, i);
+                Areas.recursiveConnect(level, i);
             }
         }
     }

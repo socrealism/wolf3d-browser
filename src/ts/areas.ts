@@ -13,8 +13,7 @@ class Areas {
 
     Every time a door opens or closes the areabyplayer matrix gets recalculated.
     An area is true if it connects with the player's current spor.
-
-*/
+    */
 
     /**
      * @description Initialize areas
@@ -45,7 +44,7 @@ class Areas {
         for (var i = 0;i < Wolf.NUMAREAS; ++i) {
             if (level.state.areaconnect[areanumber][i] && !level.state.areabyplayer[i]) {
                 level.state.areabyplayer[i] = true;
-                recursiveConnect(level, i);
+                Areas.recursiveConnect(level, i);
             }
         }
     }
