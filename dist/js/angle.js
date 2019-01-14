@@ -1,13 +1,7 @@
 "use strict";
-Wolf.Angle = (function () {
-    Wolf.setConsts({
-        DEG2RAD: function (a) { return a * 0.01745329251994329576; },
-        RAD2DEG: function (a) { return a / 0.01745329251994329576; },
-        ANGLE2SHORT: function (x) { return ((x * 65536 / 360) >> 0) & 65535; },
-        SHORT2ANGLE: function (x) { return x * 360.0 / 65536; }
-    });
-    function diff(angle1, angle2) {
-        var d;
+class Angle {
+    static diff(angle1, angle2) {
+        let d;
         if (angle1 > angle2) {
             d = angle1 - angle2;
         }
@@ -21,7 +15,7 @@ Wolf.Angle = (function () {
             return d;
         }
     }
-    function distCW(angle1, angle2) {
+    static distCW(angle1, angle2) {
         if (angle1 > angle2) {
             return angle1 - angle2;
         }
@@ -29,16 +23,16 @@ Wolf.Angle = (function () {
             return angle1 + 2 * Math.PI - angle2;
         }
     }
-    function interpolate(from, to, frac) {
-        var d = diff(from, to) * frac;
-        if (distCW(to, from) >= Math.PI) {
+    static interpolate(from, to, frac) {
+        const diff = Angle.diff(from, to) * frac;
+        if (Angle.distCW(to, from) >= Math.PI) {
             return from - diff;
         }
         else {
             return from + diff;
         }
     }
-    function normalize(angle) {
+    static normalize(angle) {
         while (angle < 0) {
             angle += (2 * Math.PI);
         }
@@ -47,7 +41,7 @@ Wolf.Angle = (function () {
         }
         return angle;
     }
-    function lerp(from, to, frac) {
+    static lerp(from, to, frac) {
         if (to - from > 180) {
             to -= 360;
         }
@@ -56,11 +50,16 @@ Wolf.Angle = (function () {
         }
         return from + frac * (to - from);
     }
-    return {
-        diff: diff,
-        distCW: distCW,
-        normalize: normalize,
-        interpolate: interpolate,
-        lerp: lerp
-    };
-})();
+}
+Angle.DEG2RAD = function (a) {
+    return a * 0.01745329251994329576;
+};
+Angle.RAD2DEG = function (a) {
+    return a / 0.01745329251994329576;
+};
+Angle.ANGLE2SHORT = function (x) {
+    return ((x * 65536 / 360) >> 0) & 65535;
+};
+Angle.SHORT2ANGLE = function (x) {
+    return x * 360.0 / 65536;
+};

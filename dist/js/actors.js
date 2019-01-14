@@ -84,10 +84,10 @@ class Actors {
             tex = Wolf.objstate[guard.type][guard.state].texture;
             if (Wolf.objstate[guard.type][guard.state].rotate) {
                 if (guard.type == Actors.en_rocket || guard.type == Actors.en_hrocket) {
-                    tex += Actors.r_add8dir[Wolf.Math.get8dir(Wolf.Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
+                    tex += Actors.r_add8dir[Wolf.Math.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 }
                 else {
-                    tex += Actors.add8dir[Wolf.Math.get8dir(Wolf.Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
+                    tex += Actors.add8dir[Wolf.Math.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 }
             }
             Wolf.Sprites.setTex(level, guard.sprite, 0, tex);

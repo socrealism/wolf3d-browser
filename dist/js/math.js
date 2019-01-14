@@ -49,7 +49,7 @@ Wolf.Math = (function () {
                 XnextTable[n] = (Wolf.FLOATTILE / Math.tan(angle)) >> 0;
             }
         }
-        tanfov2 = (Math.tan(Wolf.DEG2RAD((calcFov(75, Wolf.XRES, Wolf.YRES) / 2.0)))) * (Wolf.XRES / Wolf.YRES);
+        tanfov2 = (Math.tan(Angle.DEG2RAD((calcFov(75, Wolf.XRES, Wolf.YRES) / 2.0)))) * (Wolf.XRES / Wolf.YRES);
         for (n = 0; n < Wolf.XRES; ++n) {
             tanval = tanfov2 * (-1.0 + 2.0 * n / (Wolf.XRES - 1));
             ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
@@ -61,7 +61,7 @@ Wolf.Math = (function () {
         if (fovX < 1 || fovX > 179) {
             throw Error("Bad fov: " + fovX);
         }
-        return Wolf.RAD2DEG(Math.atan(height / (width / Math.tan(fovX / 360 * Math.PI)))) * 2;
+        return Angle.RAD2DEG(Math.atan(height / (width / Math.tan(fovX / 360 * Math.PI)))) * 2;
     }
     function normalizeAngle(alpha) {
         if (alpha > Wolf.ANG_360) {
@@ -73,7 +73,7 @@ Wolf.Math = (function () {
         return alpha;
     }
     function getQuadrant(angle) {
-        angle = Wolf.Angle.normalize(angle);
+        angle = Angle.normalize(angle);
         if (angle < Math.PI / 2) {
             return q_first;
         }
@@ -88,7 +88,7 @@ Wolf.Math = (function () {
         }
     }
     function get4dir(angle) {
-        angle = Wolf.Angle.normalize(angle + Math.PI / 4);
+        angle = Angle.normalize(angle + Math.PI / 4);
         if (angle < Math.PI / 2) {
             return dir4_east;
         }
@@ -103,7 +103,7 @@ Wolf.Math = (function () {
         }
     }
     function get8dir(angle) {
-        angle = Wolf.Angle.normalize(angle + Math.PI / 12);
+        angle = Angle.normalize(angle + Math.PI / 12);
         if (angle <= (Math.PI / 4)) {
             return dir8_east;
         }
@@ -137,7 +137,7 @@ Wolf.Math = (function () {
     }
     function transformPoint(point1X, point1Y, point2X, point2Y) {
         var angle = Math.atan2(point1Y - point2Y, point1X - point2X);
-        return Wolf.Angle.normalize(angle);
+        return Angle.normalize(angle);
     }
     buildTables();
     return {

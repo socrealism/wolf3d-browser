@@ -563,7 +563,7 @@ class AI {
         // (if CheckLine both player & enemy see each other)
         // So left only check if guard is in player's fov: FIXME: not fixed fov!
         var trans = Wolf.Math.transformPoint(self.x, self.y, player.position.x, player.position.y);
-        if (Wolf.Angle.diff(trans, Wolf.FINE2DEG(player.angle)) < (Math.PI/3)) {
+        if (Angle.diff(trans, Wolf.FINE2DEG(player.angle)) < (Math.PI/3)) {
             hitchance -= dist * 16;
         } else {
             hitchance -= dist * 8;
@@ -911,9 +911,9 @@ class AI {
             // death knight launches 2 rockets with 4 degree shift each.
             AI.T_Shoot(self, game, tics);
             if (self.state == Actors.st_shoot2) {
-                iangle = Wolf.Math.normalizeAngle(iangle - Wolf.DEG2RAD(4));
+                iangle = Wolf.Math.normalizeAngle(iangle - Angle.DEG2RAD(4));
             } else {
-                iangle = Wolf.Math.normalizeAngle(iangle + Wolf.DEG2RAD(4));
+                iangle = Wolf.Math.normalizeAngle(iangle + Angle.DEG2RAD(4));
             }
         }
 

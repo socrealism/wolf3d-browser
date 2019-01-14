@@ -404,7 +404,7 @@ class AI {
             hitchance = 256;
         }
         var trans = Wolf.Math.transformPoint(self.x, self.y, player.position.x, player.position.y);
-        if (Wolf.Angle.diff(trans, Wolf.FINE2DEG(player.angle)) < (Math.PI / 3)) {
+        if (Angle.diff(trans, Wolf.FINE2DEG(player.angle)) < (Math.PI / 3)) {
             hitchance -= dist * 16;
         }
         else {
@@ -628,10 +628,10 @@ class AI {
         if (self.type == Actors.en_death) {
             AI.T_Shoot(self, game, tics);
             if (self.state == Actors.st_shoot2) {
-                iangle = Wolf.Math.normalizeAngle(iangle - Wolf.DEG2RAD(4));
+                iangle = Wolf.Math.normalizeAngle(iangle - Angle.DEG2RAD(4));
             }
             else {
-                iangle = Wolf.Math.normalizeAngle(iangle + Wolf.DEG2RAD(4));
+                iangle = Wolf.Math.normalizeAngle(iangle + Angle.DEG2RAD(4));
             }
         }
         proj = Actors.getNewActor(level);
