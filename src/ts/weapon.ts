@@ -17,7 +17,7 @@ class Weapon {
 
         for (n=0; n<level.state.numGuards; ++n) {
             guard = level.state.guards[n];
-            if (guard.flags & Wolf.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
+            if (guard.flags & Actors.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
                 shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
 
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
@@ -76,7 +76,7 @@ class Weapon {
 
         for (n=0;n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
-            if (guard.flags & Wolf.FL_SHOOTABLE ) { // && Guards[n].flags&FL_VISABLE
+            if (guard.flags & Actors.FL_SHOOTABLE ) { // && Guards[n].flags&FL_VISABLE
                 shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
                     continue; // miss
@@ -157,7 +157,7 @@ Wolf.Weapon = (function() {
 
         for (n=0; n<level.state.numGuards; ++n) {
             guard = level.state.guards[n];
-            if (guard.flags & Wolf.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
+            if (guard.flags & Actors.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
                 shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
@@ -217,7 +217,7 @@ Wolf.Weapon = (function() {
 
         for (n=0;n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
-            if (guard.flags & Wolf.FL_SHOOTABLE ) { // && Guards[n].flags&FL_VISABLE
+            if (guard.flags & Actors.FL_SHOOTABLE ) { // && Guards[n].flags&FL_VISABLE
                 shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
                     continue; // miss

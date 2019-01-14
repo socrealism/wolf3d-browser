@@ -1,94 +1,7 @@
 "use strict";
-Wolf.Actors = (function () {
-    Wolf.setConsts({
-        SPDPATROL: 512,
-        SPDDOG: 1500,
-        FL_SHOOTABLE: 1,
-        FL_BONUS: 2,
-        FL_NEVERMARK: 4,
-        FL_VISABLE: 8,
-        FL_ATTACKMODE: 16,
-        FL_FIRSTATTACK: 32,
-        FL_AMBUSH: 64,
-        FL_NONMARK: 128,
-        MAX_GUARDS: 255,
-        NUMENEMIES: 31,
-        NUMSTATES: 34,
-        MINACTORDIST: 0x10000
-    });
-    Wolf.setConsts({
-        en_guard: 0,
-        en_officer: 1,
-        en_ss: 2,
-        en_dog: 3,
-        en_boss: 4,
-        en_schabbs: 5,
-        en_fake: 6,
-        en_mecha: 7,
-        en_hitler: 8,
-        en_mutant: 9,
-        en_blinky: 10,
-        en_clyde: 11,
-        en_pinky: 12,
-        en_inky: 13,
-        en_gretel: 14,
-        en_gift: 15,
-        en_fat: 16,
-        en_needle: 17,
-        en_fire: 18,
-        en_rocket: 19,
-        en_smoke: 20,
-        en_bj: 21,
-        en_spark: 22,
-        en_hrocket: 23,
-        en_hsmoke: 24,
-        en_spectre: 25,
-        en_angel: 26,
-        en_trans: 27,
-        en_uber: 28,
-        en_will: 29,
-        en_death: 30
-    });
-    Wolf.setConsts({
-        st_stand: 0,
-        st_path1: 1,
-        st_path1s: 2,
-        st_path2: 3,
-        st_path3: 4,
-        st_path3s: 5,
-        st_path4: 6,
-        st_pain: 7,
-        st_pain1: 8,
-        st_shoot1: 9,
-        st_shoot2: 10,
-        st_shoot3: 11,
-        st_shoot4: 12,
-        st_shoot5: 13,
-        st_shoot6: 14,
-        st_shoot7: 15,
-        st_shoot8: 16,
-        st_shoot9: 17,
-        st_chase1: 18,
-        st_chase1s: 19,
-        st_chase2: 20,
-        st_chase3: 21,
-        st_chase3s: 22,
-        st_chase4: 23,
-        st_die1: 24,
-        st_die2: 25,
-        st_die3: 26,
-        st_die4: 27,
-        st_die5: 28,
-        st_die6: 29,
-        st_die7: 30,
-        st_die8: 31,
-        st_die9: 32,
-        st_dead: 33,
-        st_remove: 34
-    });
-    var add8dir = [4, 5, 6, 7, 0, 1, 2, 3, 0], r_add8dir = [4, 7, 6, 5, 0, 1, 2, 3, 0];
-    function getNewActor(level) {
-        if (level.state.numGuards > Wolf.MAX_GUARDS) {
+class Actors {
+    static getNewActor(level) {
+        if (level.state.numGuards > Actors.MAX_GUARDS) {
             return null;
         }
         var actor = {
@@ -117,7 +30,7 @@ Wolf.Actors = (function () {
         level.state.guards[level.state.numGuards++] = actor;
         return actor;
     }
-    function doGuard(ent, game, tics) {
+    static doGuard(ent, game, tics) {
         var think;
         if (ent.ticcount) {
             ent.ticcount -= tics;
@@ -125,12 +38,12 @@ Wolf.Actors = (function () {
                 think = Wolf.objstate[ent.type][ent.state].action;
                 if (think) {
                     think(ent, game, tics);
-                    if (ent.state == Wolf.st_remove) {
+                    if (ent.state == Actors.st_remove) {
                         return false;
                     }
                 }
                 ent.state = Wolf.objstate[ent.type][ent.state].next_state;
-                if (ent.state == Wolf.st_remove) {
+                if (ent.state == Actors.st_remove) {
                     return false;
                 }
                 if (!Wolf.objstate[ent.type][ent.state].timeout) {
@@ -143,26 +56,26 @@ Wolf.Actors = (function () {
         think = Wolf.objstate[ent.type][ent.state].think;
         if (think) {
             think(ent, game, tics);
-            if (ent.state == Wolf.st_remove) {
+            if (ent.state == Actors.st_remove) {
                 return false;
             }
         }
         return true;
     }
-    function stateChange(ent, newState) {
+    static stateChange(ent, newState) {
         ent.state = newState;
-        if (newState == Wolf.st_remove) {
+        if (newState == Actors.st_remove) {
             ent.ticcount = 0;
         }
         else {
             ent.ticcount = Wolf.objstate[ent.type][ent.state].timeout;
         }
     }
-    function process(game, tics) {
+    static process(game, tics) {
         var level = game.level, player = game.player, n, tex, guard, liveGuards = [];
         for (n = 0; n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
-            if (!doGuard(guard, game, tics)) {
+            if (!Actors.doGuard(guard, game, tics)) {
                 Wolf.Sprites.remove(level, guard.sprite);
                 level.state.guards[n] = null;
                 continue;
@@ -170,11 +83,11 @@ Wolf.Actors = (function () {
             Wolf.Sprites.setPos(level, guard.sprite, guard.x, guard.y, guard.angle);
             tex = Wolf.objstate[guard.type][guard.state].texture;
             if (Wolf.objstate[guard.type][guard.state].rotate) {
-                if (guard.type == Wolf.en_rocket || guard.type == Wolf.en_hrocket) {
-                    tex += r_add8dir[Wolf.Math.get8dir(Wolf.Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
+                if (guard.type == Actors.en_rocket || guard.type == Actors.en_hrocket) {
+                    tex += Actors.r_add8dir[Wolf.Math.get8dir(Wolf.Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 }
                 else {
-                    tex += add8dir[Wolf.Math.get8dir(Wolf.Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
+                    tex += Actors.add8dir[Wolf.Math.get8dir(Wolf.Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 }
             }
             Wolf.Sprites.setTex(level, guard.sprite, 0, tex);
@@ -187,12 +100,12 @@ Wolf.Actors = (function () {
         level.state.guards = liveGuards;
         level.state.numGuards = liveGuards.length;
     }
-    function resetGuards(level) {
+    static resetGuards(level) {
         level.state.guards = [];
         level.state.numGuards = 0;
     }
-    function spawn(level, skill, which, x, y, dir) {
-        var ent = getNewActor(level);
+    static spawn(level, skill, which, x, y, dir) {
+        var ent = Actors.getNewActor(level);
         if (!ent) {
             return null;
         }
@@ -211,115 +124,184 @@ Wolf.Actors = (function () {
         ent.sprite = Wolf.Sprites.getNewSprite(level);
         return ent;
     }
-    function spawnDeadGuard(level, skill, which, x, y) {
-        var self = spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
+    static spawnDeadGuard(level, skill, which, x, y) {
+        var self = Actors.spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
         if (!self) {
             return;
         }
-        self.state = Wolf.st_dead;
+        self.state = Actors.st_dead;
         self.speed = 0;
         self.health = 0;
-        self.ticcount = Wolf.objstate[which][Wolf.st_dead].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_dead].timeout + 1 : 0;
+        self.ticcount = Wolf.objstate[which][Actors.st_dead].timeout ? Random.get() % Wolf.objstate[which][Actors.st_dead].timeout + 1 : 0;
     }
-    function spawnPatrol(level, skill, which, x, y, dir) {
-        var self = spawn(level, skill, which, x, y, dir);
+    static spawnPatrol(level, skill, which, x, y, dir) {
+        var self = Actors.spawn(level, skill, which, x, y, dir);
         if (!self) {
             return;
         }
-        self.state = Wolf.st_path1;
-        self.speed = (which == Wolf.en_dog) ? Wolf.SPDDOG : Wolf.SPDPATROL;
+        self.state = Actors.st_path1;
+        self.speed = (which == Actors.en_dog) ? Actors.SPDDOG : Actors.SPDPATROL;
         self.distance = Wolf.TILEGLOBAL;
-        self.ticcount = Wolf.objstate[which][Wolf.st_path1].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_path1].timeout + 1 : 0;
-        self.flags |= Wolf.FL_SHOOTABLE;
+        self.ticcount = Wolf.objstate[which][Actors.st_path1].timeout ? Random.get() % Wolf.objstate[which][Actors.st_path1].timeout + 1 : 0;
+        self.flags |= Actors.FL_SHOOTABLE;
         level.state.totalMonsters++;
     }
-    function spawnStand(level, skill, which, x, y, dir) {
-        var self = spawn(level, skill, which, x, y, dir);
+    static spawnStand(level, skill, which, x, y, dir) {
+        var self = Actors.spawn(level, skill, which, x, y, dir);
         if (!self) {
             return;
         }
-        self.state = Wolf.st_stand;
-        self.speed = Wolf.SPDPATROL;
-        self.ticcount = Wolf.objstate[which][Wolf.st_stand].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_stand].timeout + 1 : 0;
-        self.flags |= Wolf.FL_SHOOTABLE;
+        self.state = Actors.st_stand;
+        self.speed = Actors.SPDPATROL;
+        self.ticcount = Wolf.objstate[which][Actors.st_stand].timeout ? Random.get() % Wolf.objstate[which][Actors.st_stand].timeout + 1 : 0;
+        self.flags |= Actors.FL_SHOOTABLE;
         if (level.tileMap[x][y] & Wolf.AMBUSH_TILE) {
-            self.flags |= Wolf.FL_AMBUSH;
+            self.flags |= Actors.FL_AMBUSH;
         }
         level.state.totalMonsters++;
     }
-    function spawnBoss(level, skill, which, x, y) {
+    static spawnBoss(level, skill, which, x, y) {
         var self, face;
         switch (which) {
-            case Wolf.en_boss:
-            case Wolf.en_schabbs:
-            case Wolf.en_fat:
-            case Wolf.en_hitler:
+            case Actors.en_boss:
+            case Actors.en_schabbs:
+            case Actors.en_fat:
+            case Actors.en_hitler:
                 face = Wolf.Math.dir4_south;
                 break;
-            case Wolf.en_fake:
-            case Wolf.en_gretel:
-            case Wolf.en_gift:
+            case Actors.en_fake:
+            case Actors.en_gretel:
+            case Actors.en_gift:
                 face = Wolf.Math.dir4_north;
                 break;
-            case Wolf.en_trans:
-            case Wolf.en_uber:
-            case Wolf.en_will:
-            case Wolf.en_death:
-            case Wolf.en_angel:
-            case Wolf.en_spectre:
+            case Actors.en_trans:
+            case Actors.en_uber:
+            case Actors.en_will:
+            case Actors.en_death:
+            case Actors.en_angel:
+            case Actors.en_spectre:
                 face = Wolf.Math.dir4_nodir;
                 break;
             default:
                 face = Wolf.Math.dir4_nodir;
                 break;
         }
-        self = spawn(level, skill, which, x, y, face);
+        self = Actors.spawn(level, skill, which, x, y, face);
         if (!self) {
             return;
         }
-        self.state = which == Wolf.en_spectre ? Wolf.st_path1 : Wolf.st_stand;
-        self.speed = Wolf.SPDPATROL;
+        self.state = which == Actors.en_spectre ? Actors.st_path1 : Actors.st_stand;
+        self.speed = Actors.SPDPATROL;
         self.health = Wolf.starthitpoints[skill][which];
-        self.ticcount = Wolf.objstate[which][Wolf.st_stand].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_stand].timeout + 1 : 0;
-        self.flags |= Wolf.FL_SHOOTABLE | Wolf.FL_AMBUSH;
+        self.ticcount = Wolf.objstate[which][Actors.st_stand].timeout ? Random.get() % Wolf.objstate[which][Actors.st_stand].timeout + 1 : 0;
+        self.flags |= Actors.FL_SHOOTABLE | Actors.FL_AMBUSH;
         level.state.totalMonsters++;
     }
-    function spawnGhosts(level, skill, which, x, y) {
-        var self = spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
+    static spawnGhosts(level, skill, which, x, y) {
+        var self = Actors.spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
         if (!self) {
             return;
         }
-        self.state = Wolf.st_chase1;
-        self.speed = Wolf.SPDPATROL * 3;
+        self.state = Actors.st_chase1;
+        self.speed = Actors.SPDPATROL * 3;
         self.health = Wolf.starthitpoints[skill][which];
-        self.ticcount = Wolf.objstate[which][Wolf.st_chase1].timeout ? Random.get() % Wolf.objstate[which][Wolf.st_chase1].timeout + 1 : 0;
-        self.flags |= Wolf.FL_AMBUSH;
+        self.ticcount = Wolf.objstate[which][Actors.st_chase1].timeout ? Random.get() % Wolf.objstate[which][Actors.st_chase1].timeout + 1 : 0;
+        self.flags |= Actors.FL_AMBUSH;
         level.state.totalMonsters++;
     }
-    function spawnBJVictory(player, level, skill) {
-        var x = Wolf.POS2TILE(player.position.x), y = Wolf.POS2TILE(player.position.y), bj = spawn(level, skill, Wolf.en_bj, x, y + 1, Wolf.Math.dir4_north);
+    static spawnBJVictory(player, level, skill) {
+        var x = Wolf.POS2TILE(player.position.x), y = Wolf.POS2TILE(player.position.y), bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Wolf.Math.dir4_north);
         if (!bj) {
             return;
         }
         bj.x = player.position.x;
         bj.y = player.position.y;
-        bj.state = Wolf.st_path1;
+        bj.state = Actors.st_path1;
         bj.speed = Wolf.BJRUNSPEED;
-        bj.flags = Wolf.FL_NONMARK;
+        bj.flags = Actors.FL_NONMARK;
         bj.temp2 = 6;
         bj.ticcount = 1;
     }
-    return {
-        process: process,
-        resetGuards: resetGuards,
-        getNewActor: getNewActor,
-        spawn: spawn,
-        spawnDeadGuard: spawnDeadGuard,
-        spawnPatrol: spawnPatrol,
-        spawnStand: spawnStand,
-        spawnBoss: spawnBoss,
-        spawnGhosts: spawnGhosts,
-        spawnBJVictory: spawnBJVictory,
-        stateChange: stateChange
-    };
-})();
+}
+Actors.SPDPATROL = 512;
+Actors.SPDDOG = 1500;
+Actors.FL_SHOOTABLE = 1;
+Actors.FL_BONUS = 2;
+Actors.FL_NEVERMARK = 4;
+Actors.FL_VISABLE = 8;
+Actors.FL_ATTACKMODE = 16;
+Actors.FL_FIRSTATTACK = 32;
+Actors.FL_AMBUSH = 64;
+Actors.FL_NONMARK = 128;
+Actors.MAX_GUARDS = 255;
+Actors.NUMENEMIES = 31;
+Actors.NUMSTATES = 34;
+Actors.MINACTORDIST = 0x10000;
+Actors.en_guard = 0;
+Actors.en_officer = 1;
+Actors.en_ss = 2;
+Actors.en_dog = 3;
+Actors.en_boss = 4;
+Actors.en_schabbs = 5;
+Actors.en_fake = 6;
+Actors.en_mecha = 7;
+Actors.en_hitler = 8;
+Actors.en_mutant = 9;
+Actors.en_blinky = 10;
+Actors.en_clyde = 11;
+Actors.en_pinky = 12;
+Actors.en_inky = 13;
+Actors.en_gretel = 14;
+Actors.en_gift = 15;
+Actors.en_fat = 16;
+Actors.en_needle = 17;
+Actors.en_fire = 18;
+Actors.en_rocket = 19;
+Actors.en_smoke = 20;
+Actors.en_bj = 21;
+Actors.en_spark = 22;
+Actors.en_hrocket = 23;
+Actors.en_hsmoke = 24;
+Actors.en_spectre = 25;
+Actors.en_angel = 26;
+Actors.en_trans = 27;
+Actors.en_uber = 28;
+Actors.en_will = 29;
+Actors.en_death = 30;
+Actors.st_stand = 0;
+Actors.st_path1 = 1;
+Actors.st_path1s = 2;
+Actors.st_path2 = 3;
+Actors.st_path3 = 4;
+Actors.st_path3s = 5;
+Actors.st_path4 = 6;
+Actors.st_pain = 7;
+Actors.st_pain1 = 8;
+Actors.st_shoot1 = 9;
+Actors.st_shoot2 = 10;
+Actors.st_shoot3 = 11;
+Actors.st_shoot4 = 12;
+Actors.st_shoot5 = 13;
+Actors.st_shoot6 = 14;
+Actors.st_shoot7 = 15;
+Actors.st_shoot8 = 16;
+Actors.st_shoot9 = 17;
+Actors.st_chase1 = 18;
+Actors.st_chase1s = 19;
+Actors.st_chase2 = 20;
+Actors.st_chase3 = 21;
+Actors.st_chase3s = 22;
+Actors.st_chase4 = 23;
+Actors.st_die1 = 24;
+Actors.st_die2 = 25;
+Actors.st_die3 = 26;
+Actors.st_die4 = 27;
+Actors.st_die5 = 28;
+Actors.st_die6 = 29;
+Actors.st_die7 = 30;
+Actors.st_die8 = 31;
+Actors.st_die9 = 32;
+Actors.st_dead = 33;
+Actors.st_remove = 34;
+Actors.add8dir = [4, 5, 6, 7, 0, 1, 2, 3, 0];
+Actors.r_add8dir = [4, 7, 6, 5, 0, 1, 2, 3, 0];

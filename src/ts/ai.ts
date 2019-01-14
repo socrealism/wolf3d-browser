@@ -17,7 +17,7 @@ Wolf.AI = (function() {
 
 
         // don't bother tracing a line if the area isn't connected to the player's
-        if (!(self.flags & Wolf.FL_AMBUSH)) {
+        if (!(self.flags & Actors.FL_AMBUSH)) {
             if (!level.state.areabyplayer[self.areanumber]) {
                 return false;
             }
@@ -91,7 +91,7 @@ Wolf.AI = (function() {
             }
 
             for (n=0; n < level.state.numGuards; ++n) {
-                if (level.state.guards[n].state >= Wolf.st_die1) {
+                if (level.state.guards[n].state >= Actors.st_die1) {
                     continue;
                 }
                 if (level.state.guards[n].tile.x == newx && level.state.guards[n].tile.y == newy) {
@@ -109,7 +109,7 @@ Wolf.AI = (function() {
                 return false;
             }
             if (level.tileMap[newx][newy] & Wolf.DOOR_TILE) {
-                if (self.type == Wolf.en_fake || self.type == Wolf.en_dog) { // they can't open doors
+                if (self.type == Actors.en_fake || self.type == Actors.en_dog) { // they can't open doors
                     if (level.state.doorMap[newx][newy].action != Wolf.dr_open) { // path is blocked by a closed opened door
                         return false;
                     }
@@ -121,7 +121,7 @@ Wolf.AI = (function() {
             }
             if (!moveok) {
                 for (n = 0; n < level.state.numGuards; ++n) {
-                    if (level.state.guards[n].state >= Wolf.st_die1) {
+                    if (level.state.guards[n].state >= Actors.st_die1) {
                         continue;
                     }
                     if (level.state.guards[n].tile.x == newx && level.state.guards[n].tile.y == newy) {
@@ -207,54 +207,54 @@ Wolf.AI = (function() {
             }
 
             // assert( self.areanumber >= 0 && self.areanumber <    NUMAREAS );
-            if (!(self.flags & Wolf.FL_AMBUSH) && ! level.state.areabyplayer[self.areanumber]) {
+            if (!(self.flags & Actors.FL_AMBUSH) && ! level.state.areabyplayer[self.areanumber]) {
                 return false;
             }
 
             if (!checkSight(self, game)) { // Player is visible - normal behavior
-                if (self.flags & Wolf.FL_AMBUSH || !player.madenoise) {
+                if (self.flags & Actors.FL_AMBUSH || !player.madenoise) {
                     return false;
                 }
             }
-            self.flags &= ~Wolf.FL_AMBUSH;
+            self.flags &= ~Actors.FL_AMBUSH;
             
             
             // if we are here we see/hear player!!!
             switch (self.type) {
-                case Wolf.en_guard:
+                case Actors.en_guard:
                     self.temp2 = 1 + Random.get() / 4;
                     break;
 
-                case Wolf.en_officer:
+                case Actors.en_officer:
                     self.temp2 = 2;
                     break;
 
-                case Wolf.en_mutant:
+                case Actors.en_mutant:
                     self.temp2 = 1 + Random.get() / 6;
                     break;
 
-                case Wolf.en_ss:
+                case Actors.en_ss:
                     self.temp2 = 1 + Random.get() / 6;
                     break;
 
-                case Wolf.en_dog:
+                case Actors.en_dog:
                     self.temp2 = 1 + Random.get() / 8;
                     break;
 
-                case Wolf.en_boss:
-                case Wolf.en_schabbs:
-                case Wolf.en_fake:
-                case Wolf.en_mecha:
-                case Wolf.en_hitler:
-                case Wolf.en_gretel:
-                case Wolf.en_gift:
-                case Wolf.en_fat:
-                case Wolf.en_spectre:
-                case Wolf.en_angel:
-                case Wolf.en_trans:
-                case Wolf.en_uber:
-                case Wolf.en_will:
-                case Wolf.en_death:
+                case Actors.en_boss:
+                case Actors.en_schabbs:
+                case Actors.en_fake:
+                case Actors.en_mecha:
+                case Actors.en_hitler:
+                case Actors.en_gretel:
+                case Actors.en_gift:
+                case Actors.en_fat:
+                case Actors.en_spectre:
+                case Actors.en_angel:
+                case Actors.en_trans:
+                case Actors.en_uber:
+                case Actors.en_will:
+                case Actors.en_death:
                     self.temp2 = 1;
                     break;
             }
@@ -435,10 +435,10 @@ Wolf.AI = (function() {
             return;
         }
        
-        if (self.flags & Wolf.FL_FIRSTATTACK) {
+        if (self.flags & Actors.FL_FIRSTATTACK) {
             // turning around is only ok the very first time after noticing the player
             turnaround = Wolf.Math.dir8_nodir;
-            self.flags &= ~Wolf.FL_FIRSTATTACK;
+            self.flags &= ~Actors.FL_FIRSTATTACK;
         } else {
             turnaround = Wolf.Math.opposite8[self.dir];
         }
@@ -559,7 +559,7 @@ Wolf.AI = (function() {
         dy = Math.abs(Wolf.POS2TILE(self.y ) - Wolf.POS2TILE(player.position.y));
         dist = Math.max(dx, dy);
 
-        if (self.type == Wolf.en_ss || self.type == Wolf.en_boss )
+        if (self.type == Actors.en_ss || self.type == Actors.en_boss )
         {
             dist = dist * 2 / 3;                    // ss are better shots
         }
@@ -594,14 +594,14 @@ Wolf.AI = (function() {
         }
 
         switch (self.type) {
-            case Wolf.en_ss:
+            case Actors.en_ss:
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/sfx/024.wav", 1, Sound.ATTN_NORM, 0);
                 break;
-            case Wolf.en_gift:
-            case Wolf.en_fat:
-            case Wolf.en_mecha:
-            case Wolf.en_hitler:
-            case Wolf.en_boss:
+            case Actors.en_gift:
+            case Actors.en_fat:
+            case Actors.en_mecha:
+            case Actors.en_hitler:
+            case Actors.en_boss:
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/sfx/022.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             default:
@@ -636,7 +636,7 @@ Wolf.AI = (function() {
 
             if (Random.get() < chance) {
                 // go into attack frame
-                Wolf.Actors.stateChange(self, Wolf.st_shoot1);
+                Actors.stateChange(self, Actors.st_shoot1);
                 return;
             }
             shouldDodge = true;
@@ -682,10 +682,10 @@ Wolf.AI = (function() {
         // check for bite range
         //
         dx = Math.abs(player.position.x - self.x) - Wolf.TILEGLOBAL / 2;
-        if (dx <= Wolf.MINACTORDIST) {
+        if (dx <= Actors.MINACTORDIST) {
             dy = Math.abs(player.position.y - self.y) - Wolf.TILEGLOBAL / 2;
-            if (dy <= Wolf.MINACTORDIST) {
-                Wolf.Actors.stateChange(self, Wolf.st_shoot1);
+            if (dy <= Actors.MINACTORDIST) {
+                Actors.stateChange(self, Actors.st_shoot1);
                 return; // bite player!
             }
         }
@@ -713,7 +713,7 @@ Wolf.AI = (function() {
             // got a shot at player?
             if (Random.get() < tics << 3) {
                 // go into attack frame
-                Wolf.Actors.stateChange(self, Wolf.st_shoot1);
+                Actors.stateChange(self, Actors.st_shoot1);
                 return;
             }
             shouldDodge = true;
@@ -748,7 +748,7 @@ Wolf.AI = (function() {
         if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             if (Random.get() < tics << 1) {
                 // go into attack frame
-                Wolf.Actors.stateChange(self, Wolf.st_shoot1);
+                Actors.stateChange(self, Actors.st_shoot1);
                 return;
             }
         }
@@ -827,10 +827,10 @@ Wolf.AI = (function() {
         self.y += dist * Wolf.Math.dy8dir[self.dir];
 
         // check to make sure it's not on top of player
-        if (Math.abs(self.x - player.position.x) <= Wolf.MINACTORDIST) {
-            if (Math.abs(self.y - player.position.y) <= Wolf.MINACTORDIST) {
+        if (Math.abs(self.x - player.position.x) <= Actors.MINACTORDIST) {
+            if (Math.abs(self.y - player.position.y) <= Actors.MINACTORDIST) {
                 var t = self.type;
-                if (t == Wolf.en_blinky  || t == Wolf.en_clyde || t == Wolf.en_pinky || t == Wolf.en_inky || t == Wolf.en_spectre) {
+                if (t == Actors.en_blinky  || t == Actors.en_clyde || t == Actors.en_pinky || t == Actors.en_inky || t == Actors.en_spectre) {
                     Wolf.Player.damage(player, self, 2); // ghosts hurt player!
                 }
                 //
@@ -878,9 +878,9 @@ Wolf.AI = (function() {
         Sound.startSound(player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/002.wav", 1, Sound.ATTN_NORM, 0);
 
         dx = Math.abs(player.position.x - self.x) - Wolf.TILEGLOBAL;
-        if (dx <= Wolf.MINACTORDIST) {
+        if (dx <= Actors.MINACTORDIST) {
             dy = Math.abs(player.position.y - self.y) - Wolf.TILEGLOBAL;
-            if (dy <= Wolf.MINACTORDIST) {
+            if (dy <= Actors.MINACTORDIST) {
                 if (Random.get() < 180) {
                     Wolf.Player.damage(player, self, Random.get() >> 4);
                     return;
@@ -926,17 +926,17 @@ Wolf.AI = (function() {
             iangle -= 2 * Math.PI;
         }
 
-        if (self.type == Wolf.en_death) {
+        if (self.type == Actors.en_death) {
             // death knight launches 2 rockets with 4 degree shift each.
             T_Shoot(self, game, tics);
-            if (self.state == Wolf.st_shoot2) {
+            if (self.state == Actors.st_shoot2) {
                 iangle = Wolf.Math.normalizeAngle(iangle - Wolf.DEG2RAD(4));
             } else {
                 iangle = Wolf.Math.normalizeAngle(iangle + Wolf.DEG2RAD(4));
             }
         }
 
-        proj = Wolf.Actors.getNewActor(level);
+        proj = Actors.getNewActor(level);
         if (proj == null) {
             return;
         }
@@ -947,44 +947,44 @@ Wolf.AI = (function() {
         proj.tile.x = self.tile.x;
         proj.tile.y = self.tile.y;
 
-        proj.state = Wolf.st_stand;
+        proj.state = Actors.st_stand;
         proj.ticcount = 1;
         proj.dir = Wolf.Math.dir8_nodir;
 
         proj.angle = Wolf.RAD2FINE(iangle)>>0;
 
         proj.speed = 0x2000;
-        proj.flags = Wolf.FL_NONMARK; // FL_NEVERMARK;
+        proj.flags = Actors.FL_NONMARK; // FL_NEVERMARK;
         proj.sprite = Wolf.Sprites.getNewSprite(level);
         
         switch(self.type) {
-            case Wolf.en_death:
-                proj.type = Wolf.en_hrocket;
+            case Actors.en_death:
+                proj.type = Actors.en_hrocket;
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/078.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_angel:
-                proj.type = Wolf.en_spark;
-                proj.state = Wolf.st_path1;
+            case Actors.en_angel:
+                proj.type = Actors.en_spark;
+                proj.state = Actors.st_path1;
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/069.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_fake:
-                proj.type = Wolf.en_fire;
-                proj.state = Wolf.st_path1;
-                proj.flags = Wolf.FL_NEVERMARK;
+            case Actors.en_fake:
+                proj.type = Actors.en_fire;
+                proj.state = Actors.st_path1;
+                proj.flags = Actors.FL_NEVERMARK;
                 proj.speed = 0x1200;
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/069.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_schabbs:
-                proj.type = Wolf.en_needle;
-                proj.state = Wolf.st_path1;
+            case Actors.en_schabbs:
+                proj.type = Actors.en_needle;
+                proj.state = Actors.st_path1;
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/008.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
             default:
-                proj.type = Wolf.en_rocket;
+                proj.type = Actors.en_rocket;
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/085.wav", 1, Sound.ATTN_NORM, 0);
         }
         
@@ -1069,12 +1069,12 @@ Wolf.AI = (function() {
         deltay = Math.abs(self.y - player.position.y);
 
         if (!projectileTryMove(self, level)) {
-            if (self.type == Wolf.en_rocket || self.type == Wolf.en_hrocket ) { 
+            if (self.type == Actors.en_rocket || self.type == Actors.en_hrocket ) {
                 // rocket ran into obstacle, draw explosion!
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/086.wav", 1, Sound.ATTN_NORM, 0);
-                Wolf.Actors.stateChange(self, Wolf.st_die1);
+                Actors.stateChange(self, Actors.st_die1);
             } else {
-                Wolf.Actors.stateChange(self, Wolf.st_remove); // mark for removal
+                Actors.stateChange(self, Actors.st_remove); // mark for removal
             }
             return;
         }
@@ -1082,17 +1082,17 @@ Wolf.AI = (function() {
         if (deltax < PROJECTILESIZE && deltay < PROJECTILESIZE) {
             // hit the player
             switch (self.type) {
-                case Wolf.en_needle:
+                case Actors.en_needle:
                     damage = (Random.get() >> 3) + 20;
                     break;
 
-                case Wolf.en_rocket:
-                case Wolf.en_hrocket:
-                case Wolf.en_spark:
+                case Actors.en_rocket:
+                case Actors.en_hrocket:
+                case Actors.en_spark:
                     damage = (Random.get()>>3) + 30;
                     break;
 
-                case Wolf.en_fire:
+                case Actors.en_fire:
                     damage = (Random.get() >> 3);
                     break;
 
@@ -1102,7 +1102,7 @@ Wolf.AI = (function() {
             }
 
             Wolf.Player.damage(player, self, damage);
-            Wolf.Actors.stateChange(self, Wolf.st_remove); // mark for removal
+            Actors.stateChange(self, Actors.st_remove); // mark for removal
             return;
         }
 
@@ -1122,7 +1122,7 @@ Wolf.AI = (function() {
         if (!self.distance) {
             self.distance = Wolf.TILEGLOBAL;
             if (!(--self.temp2)) {
-                Wolf.Actors.stateChange(self, Wolf.st_shoot1);
+                Actors.stateChange(self, Actors.st_shoot1);
                 self.speed = Wolf.BJJUMPSPEED;
                 return;
             }

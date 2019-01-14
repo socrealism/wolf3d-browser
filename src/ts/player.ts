@@ -245,20 +245,20 @@ Wolf.Player = (function() {
 
         // check for actors
         for (n = 0; n < level.state.numGuards; ++n) {
-            if (level.state.guards[n].state >= Wolf.st_die1) {
+            if (level.state.guards[n].state >= Actors.st_die1) {
                 continue;
             }
-            if (!(level.state.guards[n].flags & Wolf.FL_SHOOTABLE)) {
+            if (!(level.state.guards[n].flags & Actors.FL_SHOOTABLE)) {
                 continue;
             }
 
             d = player.position.x - level.state.guards[n].x;
-            if (d < -Wolf.MINACTORDIST || d > Wolf.MINACTORDIST) {
+            if (d < -Actors.MINACTORDIST || d > Actors.MINACTORDIST) {
                 continue;
             }
 
             d = player.position.y - level.state.guards[n].y;
-            if (d < -Wolf.MINACTORDIST || d > Wolf.MINACTORDIST) {
+            if (d < -Actors.MINACTORDIST || d > Actors.MINACTORDIST) {
                 continue;
             }
             return false;

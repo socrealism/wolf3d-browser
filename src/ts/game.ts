@@ -196,7 +196,7 @@ Wolf.Game = (function() {
         
                 Wolf.Player.process(game, player, tics);
                 if (processAI) {
-                    Wolf.Actors.process(game, tics);
+                    Actors.process(game, tics);
                 }
                 Wolf.PushWall.process(level, tics);
                 Wolf.Doors.process(level, player, tics);
@@ -357,7 +357,7 @@ Wolf.Game = (function() {
         keyInputActive = false;
         Wolf.log("Victory!");
         $("#game .renderer .player-weapon").hide();
-        Wolf.Actors.spawnBJVictory(game.player, game.level, game.skill);
+        Actors.spawnBJVictory(game.player, game.level, game.skill);
         game.player.playstate = Wolf.ex_victory;
     }
     

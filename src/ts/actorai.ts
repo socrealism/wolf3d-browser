@@ -24,55 +24,55 @@ class ActorAI {
         var pos = game.player.position;
 
         switch (self.type) {
-            case Wolf.en_mutant:
+            case Actors.en_mutant:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/037.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_guard:
+            case Actors.en_guard:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, ActorAI.dsounds[Random.get() % 6], 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_officer:
+            case Actors.en_officer:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/074.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_ss:
+            case Actors.en_ss:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/046.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_dog:
+            case Actors.en_dog:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/035.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_boss:
+            case Actors.en_boss:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/019.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_schabbs:
+            case Actors.en_schabbs:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/061.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_fake:
+            case Actors.en_fake:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/069.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_mecha:
+            case Actors.en_mecha:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/084.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_hitler:
+            case Actors.en_hitler:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/044.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_gretel:
+            case Actors.en_gretel:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/115.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_gift:
+            case Actors.en_gift:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/091.wav", 1, Sound.ATTN_NORM, 0);
                 break;
 
-            case Wolf.en_fat:
+            case Actors.en_fat:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/119.wav", 1, Sound.ATTN_NORM, 0);
                 break;
         }
@@ -112,7 +112,7 @@ class ActorAI {
             level = game.level,
             hitler;
 
-        hitler = Wolf.Actors.getNewActor(level);
+        hitler = Actors.getNewActor(level);
         if (!hitler) {
             return;
         }
@@ -126,11 +126,11 @@ class ActorAI {
         hitler.dir = self.dir;
         hitler.health = hitpoints[game.skill];
         hitler.areanumber = self.areanumber;
-        hitler.state = Wolf.st_chase1;
-        hitler.type = Wolf.en_hitler;
-        hitler.speed = Wolf.SPDPATROL * 5;
+        hitler.state = Actors.st_chase1;
+        hitler.type = Actors.en_hitler;
+        hitler.speed = Actors.SPDPATROL * 5;
         hitler.ticcount = 0;
-        hitler.flags = self.flags | Wolf.FL_SHOOTABLE;
+        hitler.flags = self.flags | Actors.FL_SHOOTABLE;
         hitler.sprite = Wolf.Sprites.getNewSprite(level);
 
     }
@@ -162,12 +162,12 @@ class ActorAI {
      */
     public static relaunch(self) {
         if (++ActorAI.angel_temp == 3) {
-            Wolf.Actors.stateChange(self, Wolf.st_pain);
+            Actors.stateChange(self, Actors.st_pain);
             return;
         }
 
         if (Random.get() & 1) {
-            Wolf.Actors.stateChange(self, Wolf.st_chase1);
+            Actors.stateChange(self, Actors.st_chase1);
             return;
         }
     }
@@ -198,9 +198,9 @@ class ActorAI {
         deltax = self.x - player.position.x;
         deltay = self.y - player.position.y;
 
-        if (deltax < -Wolf.MINACTORDIST || deltax > Wolf.MINACTORDIST) {
+        if (deltax < -Actors.MINACTORDIST || deltax > Actors.MINACTORDIST) {
             moveok = true;
-        } else if (deltay < -Wolf.MINACTORDIST || deltay > Wolf.MINACTORDIST) {
+        } else if (deltay < -Actors.MINACTORDIST || deltay > Actors.MINACTORDIST) {
             moveok = true;
         }
 
@@ -220,7 +220,7 @@ class ActorAI {
                     return;
                 }
                 for (n = 0; n < level.state.numGuards; ++n) {
-                    if (level.state.guards[n].state >= Wolf.st_die1) {
+                    if (level.state.guards[n].state >= Actors.st_die1) {
                         continue;
                     }
                     if (level.state.guards[n].tile.x == x && level.state.guards[n].tile.y == y) {
@@ -230,10 +230,10 @@ class ActorAI {
             }
         }
 
-        self.flags |= Wolf.FL_AMBUSH | Wolf.FL_SHOOTABLE;
-        self.flags &= ~Wolf.FL_ATTACKMODE;
+        self.flags |= Actors.FL_AMBUSH | Actors.FL_SHOOTABLE;
+        self.flags &= ~Actors.FL_ATTACKMODE;
         self.dir = Wolf.Math.dir8_nodir;
-        Wolf.Actors.stateChange(self, Wolf.st_path1);
+        Actors.stateChange(self, Actors.st_path1);
     }
 
     /**
@@ -259,7 +259,7 @@ class ActorAI {
      */
     public static smoke(self, game) {
         var level = game.level,
-            smokeEnt = Wolf.Actors.getNewActor(level);
+            smokeEnt = Actors.getNewActor(level);
 
         if (!smokeEnt) {
             return;
@@ -269,10 +269,10 @@ class ActorAI {
         smokeEnt.y = self.y;
         smokeEnt.tile.x = self.tile.x;
         smokeEnt.tile.y = self.tile.y;
-        smokeEnt.state = Wolf.st_die1;
-        smokeEnt.type = (self.type == Wolf.en_hrocket) ? Wolf.en_hsmoke : Wolf.en_smoke;
+        smokeEnt.state = Actors.st_die1;
+        smokeEnt.type = (self.type == Actors.en_hrocket) ? Actors.en_hsmoke : Actors.en_smoke;
         smokeEnt.ticcount = 6;
-        smokeEnt.flags = Wolf.FL_NEVERMARK;
+        smokeEnt.flags = Actors.FL_NEVERMARK;
         smokeEnt.sprite = Wolf.Sprites.getNewSprite(level);
     }
 
@@ -283,74 +283,74 @@ class ActorAI {
      */
     public static firstSighting(self, game) {
         switch (self.type) {
-            case Wolf.en_guard:
+            case Actors.en_guard:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/001.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;    // go faster when chasing player
                 break;
 
-            case Wolf.en_officer:
+            case Actors.en_officer:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/071.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 5;    // go faster when chasing player
                 break;
 
-            case Wolf.en_mutant:
+            case Actors.en_mutant:
                 self.speed *= 3;    // go faster when chasing player
                 break;
 
-            case Wolf.en_ss:
+            case Actors.en_ss:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/015.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 4;            // go faster when chasing player
                 break;
 
-            case Wolf.en_dog:
+            case Actors.en_dog:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/002.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 2;            // go faster when chasing player
                 break;
 
-            case Wolf.en_boss:
+            case Actors.en_boss:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/017.wav", 1, Sound.ATTN_NORM, 0);
-                self.speed = Wolf.SPDPATROL * 3;    // go faster when chasing player
+                self.speed = Actors.SPDPATROL * 3;    // go faster when chasing player
                 break;
 
-            case Wolf.en_gretel:
+            case Actors.en_gretel:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/112.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;            // go faster when chasing player
                 break;
 
-            case Wolf.en_gift:
+            case Actors.en_gift:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/096.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;            // go faster when chasing player
                 break;
 
-            case Wolf.en_fat:
+            case Actors.en_fat:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/102.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;            // go faster when chasing player
                 break;
 
-            case Wolf.en_schabbs:
+            case Actors.en_schabbs:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/065.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;            // go faster when chasing player
                 break;
 
-            case Wolf.en_fake:
+            case Actors.en_fake:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/054.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;            // go faster when chasing player
                 break;
 
-            case Wolf.en_mecha:
+            case Actors.en_mecha:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/040.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 3;            // go faster when chasing player
                 break;
 
-            case Wolf.en_hitler:
+            case Actors.en_hitler:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/040.wav", 1, Sound.ATTN_NORM, 0);
                 self.speed *= 5;            // go faster when chasing player
                 break;
 
-            case Wolf.en_blinky:
-            case Wolf.en_clyde:
-            case Wolf.en_pinky:
-            case Wolf.en_inky:
+            case Actors.en_blinky:
+            case Actors.en_clyde:
+            case Actors.en_pinky:
+            case Actors.en_inky:
                 self.speed *= 2;            // go faster when chasing player
                 break;
 
@@ -358,14 +358,14 @@ class ActorAI {
                 return;
         }
 
-        Wolf.Actors.stateChange(self, Wolf.st_chase1);
+        Actors.stateChange(self, Actors.st_chase1);
 
         if (self.waitfordoorx) {
             self.waitfordoorx = self.waitfordoory = 0;    // ignore the door opening command
         }
 
         self.dir = Wolf.Math.dir8_nodir;
-        self.flags |= Wolf.FL_ATTACKMODE | Wolf.FL_FIRSTATTACK;
+        self.flags |= Actors.FL_ATTACKMODE | Actors.FL_FIRSTATTACK;
     }
 
     /**
@@ -381,7 +381,7 @@ class ActorAI {
         player.madenoise = 1;
 
         // do double damage if shooting a non attack mode actor
-        if (!(self.flags & Wolf.FL_ATTACKMODE)) {
+        if (!(self.flags & Actors.FL_ATTACKMODE)) {
             damage <<= 1;
         }
 
@@ -390,18 +390,18 @@ class ActorAI {
         if (self.health <= 0) {
             ActorAI.killActor(self, game, player);
         } else {
-            if (!(self.flags & Wolf.FL_ATTACKMODE)) {
+            if (!(self.flags & Actors.FL_ATTACKMODE)) {
                 ActorAI.firstSighting(self, game); // put into combat mode
             }
             switch (self.type) { // dogs only have one hit point
-                case Wolf.en_guard:
-                case Wolf.en_officer:
-                case Wolf.en_mutant:
-                case Wolf.en_ss:
+                case Actors.en_guard:
+                case Actors.en_officer:
+                case Actors.en_mutant:
+                case Actors.en_ss:
                     if (self.health & 1) {
-                        Wolf.Actors.stateChange(self, Wolf.st_pain);
+                        Actors.stateChange(self, Actors.st_pain);
                     } else {
-                        Wolf.Actors.stateChange(self, Wolf.st_pain1);
+                        Actors.stateChange(self, Actors.st_pain1);
                     }
                     break;
             }
@@ -421,22 +421,22 @@ class ActorAI {
             tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
 
         switch (self.type) {
-            case Wolf.en_guard:
+            case Actors.en_guard:
                 Wolf.Player.givePoints(player, 100);
                 Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
                 break;
 
-            case Wolf.en_officer:
+            case Actors.en_officer:
                 Wolf.Player.givePoints(player, 400);
                 Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
                 break;
 
-            case Wolf.en_mutant:
+            case Actors.en_mutant:
                 Wolf.Player.givePoints(player, 700);
                 Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
                 break;
 
-            case Wolf.en_ss:
+            case Actors.en_ss:
                 Wolf.Player.givePoints(player, 500);
                 if (player.items & Wolf.ITEM_WEAPON_3) { // have a schmeiser?
                     Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
@@ -445,45 +445,45 @@ class ActorAI {
                 }
                 break;
 
-            case Wolf.en_dog:
+            case Actors.en_dog:
                 Wolf.Player.givePoints(player, 200);
                 break;
 
-            case Wolf.en_boss:
+            case Actors.en_boss:
                 Wolf.Player.givePoints(player, 5000);
                 Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_key1);
                 break;
 
-            case Wolf.en_gretel:
+            case Actors.en_gretel:
                 Wolf.Player.givePoints(player, 5000);
                 Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_key1);
                 break;
 
-            case Wolf.en_gift:
+            case Actors.en_gift:
                 Wolf.Player.givePoints(player, 5000);
                 ActorAI.startDeathCam(game, self);
                 break;
 
-            case Wolf.en_fat:
+            case Actors.en_fat:
                 Wolf.Player.givePoints(player, 5000);
                 ActorAI.startDeathCam(game, self);
                 break;
 
-            case Wolf.en_schabbs:
+            case Actors.en_schabbs:
                 Wolf.Player.givePoints(player, 5000);
                 ActorAI.deathScream(self, game);
                 ActorAI.startDeathCam(game, self);
                 break;
 
-            case Wolf.en_fake:
+            case Actors.en_fake:
                 Wolf.Player.givePoints(player, 2000);
                 break;
 
-            case Wolf.en_mecha:
+            case Actors.en_mecha:
                 Wolf.Player.givePoints(player, 5000);
                 break;
 
-            case Wolf.en_hitler:
+            case Actors.en_hitler:
                 Wolf.Player.givePoints(player, 5000);
                 ActorAI.deathScream(self, game);
                 ActorAI.startDeathCam(game, self);
@@ -491,13 +491,13 @@ class ActorAI {
 
         }
 
-        Wolf.Actors.stateChange(self, Wolf.st_die1);
+        Actors.stateChange(self, Actors.st_die1);
 
         if (++level.state.killedMonsters == level.state.totalMonsters) {
             Wolf.Game.notify("You killed the last enemy!");
         }
 
-        self.flags &= ~Wolf.FL_SHOOTABLE;
-        self.flags |= Wolf.FL_NONMARK;
+        self.flags &= ~Actors.FL_SHOOTABLE;
+        self.flags |= Actors.FL_NONMARK;
     }
 }
