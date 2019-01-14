@@ -153,7 +153,7 @@ Wolf.Doors = (function () {
                             Wolf.Areas.join(level, door.area1, door.area2);
                             Wolf.Areas.connect(level, player.areanumber);
                             if (level.state.areabyplayer[door.area1]) {
-                                Wolf.Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/010.wav", 1, Sound.ATTN_STATIC, 0);
+                                Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/010.wav", 1, Sound.ATTN_STATIC, 0);
                             }
                         }
                         door.ticcount += tics;
@@ -172,7 +172,7 @@ Wolf.Doors = (function () {
                     else {
                         if (door.ticcount == Wolf.DOOR_FULLOPEN) {
                             if (level.state.areabyplayer[door.area1]) {
-                                Wolf.Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/007.wav", 1, Sound.ATTN_STATIC, 0);
+                                Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/007.wav", 1, Sound.ATTN_STATIC, 0);
                             }
                         }
                         door.ticcount -= tics;

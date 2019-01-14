@@ -284,7 +284,7 @@ Wolf.Player = (function () {
             else {
                 self.playstate = Wolf.ex_complete;
             }
-            Wolf.Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/040.wav", 1, Sound.ATTN_NORM, 0);
+            Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/040.wav", 1, Sound.ATTN_NORM, 0);
             Wolf.Game.startIntermission(game);
             return true;
         }
@@ -435,7 +435,7 @@ Wolf.Player = (function () {
             Wolf.Game.notify("You have died");
             player.health = 0;
             player.playstate = Wolf.ex_dead;
-            Wolf.Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/009.wav", 1, Sound.ATTN_NORM, 0);
+            Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/009.wav", 1, Sound.ATTN_NORM, 0);
         }
         Wolf.Game.startDamageFlash(points);
         player.faceGotGun = false;

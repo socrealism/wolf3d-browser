@@ -417,7 +417,7 @@ Wolf.Game = (function () {
             Wolf.Level.scanInfoPlane(level, game.skill);
             $("#game .loading").show();
             preloadLevelAssets(level, function () {
-                Wolf.Sound.startMusic('assets/' + level.music);
+                Sound.startMusic('assets/' + level.music);
                 game.player = Wolf.Player.spawn(level.spawn, level, game.skill, game.player);
                 game.player.startScore = game.player.score;
                 level.state.startTime = (new Date).getTime();
@@ -476,7 +476,7 @@ Wolf.Game = (function () {
         if (isPlaying()) {
             endGame();
             levelMusic = null;
-            Wolf.Sound.stopAllSounds();
+            Sound.stopAllSounds();
         }
         $("#game .renderer .death").hide();
         $("#game .renderer .damage-flash").hide();
@@ -522,7 +522,7 @@ Wolf.Game = (function () {
     function startIntermission(game, delay) {
         var episode = Wolf.Episodes[game.episodeNum], parTime = episode.levels[game.levelNum].partime * 60, bonus = 0, parBonusAmount = 500, ratioBonusAmount = 10000, levelState = game.level.state, killRatio = levelState.totalMonsters ? ((levelState.killedMonsters / levelState.totalMonsters * 100) >> 0) : 0, secretRatio = levelState.totalSecrets ? ((levelState.foundSecrets / levelState.totalSecrets * 100) >> 0) : 0, treasureRatio = levelState.totalTreasure ? ((levelState.foundTreasure / levelState.totalTreasure * 100) >> 0) : 0, time = levelState.elapsedTime + ((new Date).getTime() - levelState.startTime), totalTime, i, avgKill = 0, avgSecret = 0, avgTreasure = 0;
         playing = false;
-        Wolf.Sound.startMusic("assets/music/URAHERO.ogg");
+        Sound.startMusic("assets/music/URAHERO.ogg");
         $("#game .renderer").hide();
         $("#game .fps").hide();
         $("#game .intermission .digit").hide();
@@ -825,7 +825,7 @@ Wolf.Game = (function () {
         }
         keyInputActive = true;
         if (levelMusic) {
-            Wolf.Sound.startMusic('assets/' + levelMusic);
+            Sound.startMusic('assets/' + levelMusic);
         }
     }
     function isPlaying() {
@@ -834,10 +834,10 @@ Wolf.Game = (function () {
     function togglePause() {
         paused = !paused;
         if (paused) {
-            Wolf.Sound.pauseMusic(true);
+            Sound.pauseMusic(true);
         }
         else {
-            Wolf.Sound.pauseMusic(false);
+            Sound.pauseMusic(false);
             lastTimeCount = (new Date).getTime();
         }
         $("#game .renderer div.pause.overlay").toggle(paused);

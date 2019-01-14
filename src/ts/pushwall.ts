@@ -47,7 +47,7 @@ Wolf.PushWall = (function() {
             Wolf.Game.notify("You found a secret!");
         }
 
-        Wolf.Sound.startSound(null, null, 1, Sound.CHAN_AUTO, "assets/sfx/034.wav", 1, Sound.ATTN_STATIC, 0);
+        Sound.startSound(null, null, 1, Sound.CHAN_AUTO, "assets/sfx/034.wav", 1, Sound.ATTN_STATIC, 0);
 
         // good way to avoid stuckness; [un]comment one more down!
         // it makes a tile behind pushwall unpassable

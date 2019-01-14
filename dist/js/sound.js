@@ -1,5 +1,132 @@
 "use strict";
 class Sound {
+    static getFileName(file) {
+        if (!Sound.available)
+            return;
+        if (!Sound.ext) {
+            for (var i = 0; i < Sound.exts.length; i++) {
+                if (Modernizr.audio[Sound.exts[i]] == "probably") {
+                    Sound.ext = Sound.exts[i];
+                    break;
+                }
+            }
+            if (!Sound.ext) {
+                for (var i = 0; i < Sound.exts.length; i++) {
+                    if (Modernizr.audio[Sound.exts[i]] == "maybe") {
+                        Sound.ext = Sound.exts[i];
+                        break;
+                    }
+                }
+            }
+        }
+        return file.split(".")[0] + "." + Sound.ext;
+    }
+    static createAudioElement() {
+        if (!Sound.available)
+            return;
+        var audio = new Audio();
+        Sound.audioElements.push(audio);
+        return audio;
+    }
+    static startSound(posPlayer, posSound, entNum, entChannel, file, volume, attenuation, timeOfs) {
+        if (!Sound.available)
+            return;
+        var audio, dx, dy, dist;
+        if (!Sound.sounds[file]) {
+            Sound.sounds[file] = [];
+        }
+        for (var i = 0; i < Sound.sounds[file].length; i++) {
+            if (Sound.sounds[file][i].ended || Sound.sounds[file][i].paused) {
+                audio = Sound.sounds[file][i];
+                break;
+            }
+        }
+        if (!audio) {
+            audio = Sound.createAudioElement();
+            audio.src = Sound.getFileName(file);
+            Sound.sounds[file].push(audio);
+        }
+        if (posPlayer && posSound) {
+            dx = (posPlayer.x - posSound.x) / Wolf.TILEGLOBAL;
+            dy = (posPlayer.y - posSound.y) / Wolf.TILEGLOBAL;
+            dist = dx * dx + dy * dy;
+            volume *= 1 / (1 + dist / 50);
+        }
+        audio.volume = volume * Sound.MASTER_VOLUME * (Sound.soundEnabled ? 1 : 0);
+        audio.play();
+    }
+    static startMusic(file) {
+        if (!Sound.available)
+            return;
+        if (!Sound.music) {
+            Sound.music = Sound.createAudioElement();
+            Sound.music.loop = true;
+        }
+        var filename = Sound.getFileName(file);
+        if (Sound.currentMusic != filename) {
+            Sound.music.src = Sound.currentMusic = filename;
+            Sound.music.volume = Sound.MUSIC_VOLUME * Sound.MASTER_VOLUME * (Sound.musicEnabled ? 1 : 0);
+            Sound.music.play();
+        }
+    }
+    static stopAllSounds() {
+        if (!Sound.available)
+            return;
+        for (var i = 0; i < Sound.audioElements.length; i++) {
+            if (Sound.audioElements[i].currentTime > 0) {
+                Sound.audioElements[i].currentTime = 0;
+                Sound.audioElements[i].pause();
+            }
+        }
+    }
+    static init() {
+        Sound.available = Modernizr.audio;
+        if (!Sound.available) {
+            Sound.musicEnabled = false;
+            Sound.soundEnabled = false;
+        }
+    }
+    static isMusicEnabled() {
+        return Sound.musicEnabled;
+    }
+    static isSoundEnabled() {
+        return Sound.soundEnabled;
+    }
+    static toggleMusic(enable) {
+        if (!Sound.available)
+            return;
+        if (typeof enable != "undefined") {
+            Sound.musicEnabled = enable;
+        }
+        else {
+            Sound.musicEnabled = !Sound.musicEnabled;
+        }
+        if (Sound.music) {
+            Sound.music.volume = Sound.MUSIC_VOLUME * Sound.MASTER_VOLUME * (Sound.musicEnabled ? 1 : 0);
+        }
+    }
+    static pauseMusic(enable) {
+        if (!Sound.available)
+            return;
+        if (Sound.music) {
+            if (enable) {
+                Sound.music.pause();
+            }
+            else if (Sound.music.paused) {
+                Sound.music.play();
+            }
+        }
+    }
+    static toggleSound(enable) {
+        if (!Sound.available)
+            return;
+        if (typeof enable != "undefined") {
+            Sound.soundEnabled = enable;
+        }
+        else {
+            Sound.soundEnabled = !Sound.soundEnabled;
+        }
+    }
 }
 Sound.CHAN_AUTO = 0;
 Sound.CHAN_WEAPON = 1;
@@ -16,138 +143,9 @@ Sound.MAX_PLAYSOUNDS = 128;
 Sound.MAX_CHANNELS = 64;
 Sound.MUSIC_VOLUME = 0.8;
 Sound.MASTER_VOLUME = 0.6;
-Wolf.Sound = (function () {
-    var sounds = {}, audioElements = [], currentMusic, soundEnabled = true, musicEnabled = true, music, ext, exts = ["ogg", "mp3"];
-    function getFileName(file) {
-        if (!ext) {
-            for (var i = 0; i < exts.length; i++) {
-                if (Modernizr.audio[exts[i]] == "probably") {
-                    ext = exts[i];
-                    break;
-                }
-            }
-            if (!ext) {
-                for (var i = 0; i < exts.length; i++) {
-                    if (Modernizr.audio[exts[i]] == "maybe") {
-                        ext = exts[i];
-                        break;
-                    }
-                }
-            }
-        }
-        return file.split(".")[0] + "." + ext;
-    }
-    function createAudioElement() {
-        var audio = new Audio();
-        audioElements.push(audio);
-        return audio;
-    }
-    function startSound(posPlayer, posSound, entNum, entChannel, file, volume, attenuation, timeOfs) {
-        var audio, dx, dy, dist;
-        if (!sounds[file]) {
-            sounds[file] = [];
-        }
-        for (var i = 0; i < sounds[file].length; i++) {
-            if (sounds[file][i].ended || sounds[file][i].paused) {
-                audio = sounds[file][i];
-                break;
-            }
-        }
-        if (!audio) {
-            audio = createAudioElement();
-            audio.src = getFileName(file);
-            sounds[file].push(audio);
-        }
-        if (posPlayer && posSound) {
-            dx = (posPlayer.x - posSound.x) / Wolf.TILEGLOBAL;
-            dy = (posPlayer.y - posSound.y) / Wolf.TILEGLOBAL;
-            dist = dx * dx + dy * dy;
-            volume *= 1 / (1 + dist / 50);
-        }
-        audio.volume = volume * Sound.MASTER_VOLUME * (soundEnabled ? 1 : 0);
-        audio.play();
-    }
-    function startMusic(file) {
-        if (!music) {
-            music = createAudioElement();
-            music.loop = true;
-        }
-        var filename = getFileName(file);
-        if (currentMusic != filename) {
-            music.src = currentMusic = filename;
-            music.volume = Sound.MUSIC_VOLUME * Sound.MASTER_VOLUME * (musicEnabled ? 1 : 0);
-            music.play();
-        }
-    }
-    function stopAllSounds() {
-        for (var i = 0; i < audioElements.length; i++) {
-            if (audioElements[i].currentTime > 0) {
-                audioElements[i].currentTime = 0;
-                audioElements[i].pause();
-            }
-        }
-    }
-    function init() {
-    }
-    function isMusicEnabled() {
-        return musicEnabled;
-    }
-    function isSoundEnabled() {
-        return soundEnabled;
-    }
-    function toggleMusic(enable) {
-        if (typeof enable != "undefined") {
-            musicEnabled = enable;
-        }
-        else {
-            musicEnabled = !musicEnabled;
-        }
-        if (music) {
-            music.volume = Sound.MUSIC_VOLUME * Sound.MASTER_VOLUME * (musicEnabled ? 1 : 0);
-        }
-    }
-    function pauseMusic(enable) {
-        if (music) {
-            if (enable) {
-                music.pause();
-            }
-            else if (music.paused) {
-                music.play();
-            }
-        }
-    }
-    function toggleSound(enable) {
-        if (typeof enable != "undefined") {
-            soundEnabled = enable;
-        }
-        else {
-            soundEnabled = !soundEnabled;
-        }
-    }
-    if (Modernizr.audio) {
-        return {
-            startSound: startSound,
-            startMusic: startMusic,
-            stopAllSounds: stopAllSounds,
-            isMusicEnabled: isMusicEnabled,
-            isSoundEnabled: isSoundEnabled,
-            toggleMusic: toggleMusic,
-            toggleSound: toggleSound,
-            pauseMusic: pauseMusic,
-            init: init
-        };
-    }
-    else {
-        return {
-            startSound: Wolf.noop,
-            startMusic: Wolf.noop,
-            stopAllSounds: Wolf.noop,
-            isMusicEnabled: Wolf.noop,
-            isSoundEnabled: Wolf.noop,
-            toggleMusic: Wolf.noop,
-            toggleSound: Wolf.noop,
-            pauseMusic: Wolf.noop,
-            init: Wolf.noop
-        };
-    }
-})();
+Sound.sounds = {};
+Sound.audioElements = [];
+Sound.soundEnabled = true;
+Sound.musicEnabled = true;
+Sound.exts = ["ogg", "mp3"];
+Sound.available = true;

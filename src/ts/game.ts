@@ -621,7 +621,7 @@ Wolf.Game = (function() {
 
             preloadLevelAssets(level, function() {
 
-                Wolf.Sound.startMusic('assets/'+level.music);
+                Sound.startMusic('assets/'+level.music);
                 
                 game.player = Wolf.Player.spawn(level.spawn, level, game.skill, game.player);
                 
@@ -721,7 +721,7 @@ Wolf.Game = (function() {
         if (isPlaying()) {
             endGame();
             levelMusic = null;
-            Wolf.Sound.stopAllSounds();
+            Sound.stopAllSounds();
         }
         
         $("#game .renderer .death").hide();
@@ -795,7 +795,7 @@ Wolf.Game = (function() {
             
         playing = false;
 
-        Wolf.Sound.startMusic("assets/music/URAHERO.ogg");
+        Sound.startMusic("assets/music/URAHERO.ogg");
         
         $("#game .renderer").hide();
         $("#game .fps").hide();
@@ -1179,7 +1179,7 @@ Wolf.Game = (function() {
         }
         keyInputActive = true;
         if (levelMusic) {
-            Wolf.Sound.startMusic('assets/'+levelMusic);
+            Sound.startMusic('assets/'+levelMusic);
         }
     }
    
@@ -1201,9 +1201,9 @@ Wolf.Game = (function() {
     function togglePause() {
         paused = !paused;
         if (paused) {
-            Wolf.Sound.pauseMusic(true);
+            Sound.pauseMusic(true);
         } else {
-            Wolf.Sound.pauseMusic(false);
+            Sound.pauseMusic(false);
             lastTimeCount = (new Date).getTime();
         }
         $("#game .renderer div.pause.overlay").toggle(paused);

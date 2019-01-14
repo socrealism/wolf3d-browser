@@ -2,7 +2,7 @@
 Wolf.Weapon = (function () {
     function fireHit(game, player) {
         var level = game.level, closest, dist, d1, n, shotDist, damage, guard;
-        Wolf.Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/lsfx/023.wav", 1, Sound.ATTN_NORM, 0);
+        Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/lsfx/023.wav", 1, Sound.ATTN_NORM, 0);
         dist = 0x7fffffff;
         closest = null;
         for (n = 0; n < level.state.numGuards; ++n) {
@@ -33,13 +33,13 @@ Wolf.Weapon = (function () {
         var level = game.level, closest, damage, dx, dy, dist, d1, shotDist, n, guard;
         switch (player.weapon) {
             case Wolf.WEAPON_PISTOL:
-                Wolf.Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/012.wav", 1, Sound.ATTN_NORM, 0);
+                Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/012.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.WEAPON_AUTO:
-                Wolf.Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/011.wav", 1, Sound.ATTN_NORM, 0);
+                Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/011.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Wolf.WEAPON_CHAIN:
-                Wolf.Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/013.wav", 1, Sound.ATTN_NORM, 0);
+                Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/013.wav", 1, Sound.ATTN_NORM, 0);
                 break;
         }
         player.madenoise = true;
@@ -72,7 +72,7 @@ Wolf.Weapon = (function () {
             };
             Wolf.Raycaster.trace(level, null, tracePoint);
             if (tracePoint.flags & Raycaster.TRACE_HIT_DOOR) {
-                Wolf.Sound.startSound(null, null, 0, Sound.CHAN_AUTO, "assets/lsfx/028.wav", 1, Sound.ATTN_NORM, 0);
+                Sound.startSound(null, null, 0, Sound.CHAN_AUTO, "assets/lsfx/028.wav", 1, Sound.ATTN_NORM, 0);
             }
             return;
         }

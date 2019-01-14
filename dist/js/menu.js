@@ -65,7 +65,7 @@ Wolf.Menu = (function () {
         }
     }
     function playSound(file) {
-        Wolf.Sound.startSound(null, null, 1, Sound.CHAN_AUTO, file, 1, Sound.ATTN_NORM, 0);
+        Sound.startSound(null, null, 1, Sound.CHAN_AUTO, file, 1, Sound.ATTN_NORM, 0);
     }
     function setActiveItem(item) {
         playSound("assets/lsfx/005.wav");
@@ -140,22 +140,22 @@ Wolf.Menu = (function () {
             if ($this.hasClass("sfxon")) {
                 $("div.light", $this).addClass("on");
                 $("#menu li.sfxoff div.light").removeClass("on");
-                Wolf.Sound.toggleSound(true);
+                Sound.toggleSound(true);
             }
             if ($this.hasClass("sfxoff")) {
                 $("div.light", $this).addClass("on");
                 $("#menu li.sfxon div.light").removeClass("on");
-                Wolf.Sound.toggleSound(false);
+                Sound.toggleSound(false);
             }
             if ($this.hasClass("musicon")) {
                 $("div.light", $this).addClass("on");
                 $("#menu li.musicoff div.light").removeClass("on");
-                Wolf.Sound.toggleMusic(true);
+                Sound.toggleMusic(true);
             }
             if ($this.hasClass("musicoff")) {
                 $("div.light", $this).addClass("on");
                 $("#menu li.musicon div.light").removeClass("on");
-                Wolf.Sound.toggleMusic(false);
+                Sound.toggleMusic(false);
             }
             if ($this.hasClass("mouseenabled")) {
                 var mouseOn = Wolf.Game.isMouseEnabled();
@@ -363,7 +363,7 @@ Wolf.Menu = (function () {
             setupEvents();
             setupDone = true;
         }
-        Wolf.Sound.startMusic("assets/music/WONDERIN.ogg");
+        Sound.startMusic("assets/music/WONDERIN.ogg");
         menuName = menuName || "main";
         if (menuName == "main") {
             if (Wolf.Game.isPlaying()) {
@@ -401,8 +401,8 @@ Wolf.Menu = (function () {
             }
         }
         if (menuName == "sound") {
-            musicOn = Wolf.Sound.isMusicEnabled();
-            soundOn = Wolf.Sound.isSoundEnabled();
+            musicOn = Sound.isMusicEnabled();
+            soundOn = Sound.isSoundEnabled();
             $("#menu li.sfxoff div.light").toggleClass("on", !soundOn);
             $("#menu li.sfxon div.light").toggleClass("on", soundOn);
             $("#menu li.musicoff div.light").toggleClass("on", !musicOn);
