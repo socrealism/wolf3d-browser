@@ -44,7 +44,7 @@ class Weapon {
 
         damage = Random.get() >> 4;
 
-        Wolf.ActorAI.damageActor(closest, game, player, damage); // hit something
+        ActorAI.damageActor(closest, game, player, damage); // hit something
     }
 
     public static fireLead(game, player) {
@@ -128,7 +128,7 @@ class Weapon {
             damage = Random.get() / 6;
         }
 
-        Wolf.ActorAI.damageActor(closest, game, player, damage);
+        ActorAI.damageActor(closest, game, player, damage);
     }
 }
 
@@ -184,7 +184,7 @@ Wolf.Weapon = (function() {
 
         damage = Random.get() >> 4;
 
-        Wolf.ActorAI.damageActor(closest, game, player, damage); // hit something
+        ActorAI.damageActor(closest, game, player, damage); // hit something
     }
 
 
@@ -269,7 +269,7 @@ Wolf.Weapon = (function() {
             damage = Random.get() / 6;
         }
 
-        Wolf.ActorAI.damageActor(closest, game, player, damage);
+        ActorAI.damageActor(closest, game, player, damage);
     }
 
 

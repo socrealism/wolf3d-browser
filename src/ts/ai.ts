@@ -262,7 +262,7 @@ Wolf.AI = (function() {
             return false;  // we are amazed & waiting to understand what to do!
         }
 
-        Wolf.ActorAI.firstSighting(self, game);
+        ActorAI.firstSighting(self, game);
 
         return true;
     }

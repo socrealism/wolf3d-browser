@@ -27,7 +27,7 @@ class Weapon {
             return;
         }
         damage = Random.get() >> 4;
-        Wolf.ActorAI.damageActor(closest, game, player, damage);
+        ActorAI.damageActor(closest, game, player, damage);
     }
     static fireLead(game, player) {
         var level = game.level, closest, damage, dx, dy, dist, d1, shotDist, n, guard;
@@ -91,7 +91,7 @@ class Weapon {
             }
             damage = Random.get() / 6;
         }
-        Wolf.ActorAI.damageActor(closest, game, player, damage);
+        ActorAI.damageActor(closest, game, player, damage);
     }
 }
 Wolf.Weapon = (function () {
@@ -122,7 +122,7 @@ Wolf.Weapon = (function () {
             return;
         }
         damage = Random.get() >> 4;
-        Wolf.ActorAI.damageActor(closest, game, player, damage);
+        ActorAI.damageActor(closest, game, player, damage);
     }
     function fireLead(game, player) {
         var level = game.level, closest, damage, dx, dy, dist, d1, shotDist, n, guard;
@@ -186,7 +186,7 @@ Wolf.Weapon = (function () {
             }
             damage = Random.get() / 6;
         }
-        Wolf.ActorAI.damageActor(closest, game, player, damage);
+        ActorAI.damageActor(closest, game, player, damage);
     }
     return {
         fireHit: fireHit,

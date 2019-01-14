@@ -197,7 +197,7 @@ Wolf.AI = (function () {
             }
             return false;
         }
-        Wolf.ActorAI.firstSighting(self, game);
+        ActorAI.firstSighting(self, game);
         return true;
     }
     function chase(self, game) {
