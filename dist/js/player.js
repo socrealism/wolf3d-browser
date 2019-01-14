@@ -109,8 +109,8 @@ Wolf.Player = (function () {
         if (player.areanumber < 0) {
             player.areanumber = 36;
         }
-        Wolf.Areas.init(level, player.areanumber);
-        Wolf.Areas.connect(level, player.areanumber);
+        Areas.init(level, player.areanumber);
+        Areas.connect(level, player.areanumber);
         if (oldPlayer) {
             copyPlayer(player, oldPlayer);
         }
@@ -251,7 +251,7 @@ Wolf.Player = (function () {
         }
         if (level.areas[self.tile.x][self.tile.y] >= 0 && level.areas[self.tile.x][self.tile.y] != self.areanumber) {
             self.areanumber = level.areas[self.tile.x][self.tile.y];
-            Wolf.Areas.connect(level, self.areanumber);
+            Areas.connect(level, self.areanumber);
         }
         if (level.tileMap[self.tile.x][self.tile.y] & Wolf.EXIT_TILE) {
             Wolf.Game.victory(game);

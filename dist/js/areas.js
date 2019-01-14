@@ -1,6 +1,6 @@
 "use strict";
-Wolf.Areas = (function () {
-    function init(level, areanumber) {
+class Areas {
+    static init(level, areanumber) {
         level.state.areaconnect = [];
         level.state.areabyplayer = [];
         for (var i = 0; i < Wolf.NUMAREAS; i++) {
@@ -12,7 +12,7 @@ Wolf.Areas = (function () {
         }
         level.state.areabyplayer[areanumber] = true;
     }
-    function recursiveConnect(level, areanumber) {
+    static recursiveConnect(level, areanumber) {
         for (var i = 0; i < Wolf.NUMAREAS; ++i) {
             if (level.state.areaconnect[areanumber][i] && !level.state.areabyplayer[i]) {
                 level.state.areabyplayer[i] = true;
@@ -20,21 +20,21 @@ Wolf.Areas = (function () {
             }
         }
     }
-    function connect(level, areanumber) {
+    static connect(level, areanumber) {
         var i, c = 0;
         if (areanumber >= Wolf.NUMAREAS) {
             throw new Error("areanumber >= Wolf.NUMAREAS");
         }
         level.state.areabyplayer = [];
         level.state.areabyplayer[areanumber] = true;
-        recursiveConnect(level, areanumber);
+        Areas.recursiveConnect(level, areanumber);
         for (i = 0; i < Wolf.NUMAREAS; i++) {
             if (level.state.areabyplayer[i]) {
                 c++;
             }
         }
     }
-    function join(level, area1, area2) {
+    static join(level, area1, area2) {
         if (area1 < 0 || area1 >= Wolf.NUMAREAS) {
             throw new Error("area1 < 0 || area1 >= Wolf.NUMAREAS");
         }
@@ -44,7 +44,7 @@ Wolf.Areas = (function () {
         level.state.areaconnect[area1][area2]++;
         level.state.areaconnect[area2][area1]++;
     }
-    function disconnect(level, area1, area2) {
+    static disconnect(level, area1, area2) {
         if (area1 < 0 || area1 >= Wolf.NUMAREAS) {
             throw new Error("area1 < 0 || area1 >= Wolf.NUMAREAS");
         }
@@ -54,10 +54,4 @@ Wolf.Areas = (function () {
         level.state.areaconnect[area1][area2]--;
         level.state.areaconnect[area2][area1]--;
     }
-    return {
-        init: init,
-        connect: connect,
-        join: join,
-        disconnect: disconnect
-    };
-})();
+}

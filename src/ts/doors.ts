@@ -208,8 +208,8 @@ Wolf.Doors = (function() {
                     } else { // opening!
                         if (door.ticcount == 0) {
                             // door is just starting to open, so connect the areas
-                            Wolf.Areas.join(level, door.area1, door.area2);
-                            Wolf.Areas.connect(level, player.areanumber);
+                            Areas.join(level, door.area1, door.area2);
+                            Areas.connect(level, player.areanumber);
                             
                             if (level.state.areabyplayer[door.area1]) { // Door Opening sound!
                                 Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/010.wav", 1, Sound.ATTN_STATIC, 0);
@@ -226,8 +226,8 @@ Wolf.Doors = (function() {
 
                 case Wolf.dr_closing:
                     if (door.ticcount <= 0) { // door fully closed! disconnect areas!
-                        Wolf.Areas.disconnect(level, door.area1, door.area2);
-                        Wolf.Areas.connect(level, player.areanumber);
+                        Areas.disconnect(level, door.area1, door.area2);
+                        Areas.connect(level, player.areanumber);
                         door.ticcount = 0;
                         door.action = Wolf.dr_closed;
                     } else { // closing!
