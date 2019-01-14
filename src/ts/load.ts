@@ -83,8 +83,8 @@ $(document).ready(function() {
             complete : function() {
                 progress.remove();
                 $("#title-screen").fadeOut(1500, function() {
+                    Input.init();
                     Sound.init();
-                    Wolf.Input.init();
                     Wolf.Game.init();
                     Wolf.Menu.show();
                 });

@@ -230,18 +230,18 @@
                 e.preventDefault();
             }
             var game = window.frames[0];
-            if (game && game.Wolf && game.Wolf.Input) {
-                if (game.Wolf.Input.rightMouseDown()) {
-                    game.Wolf.Input.resetMouse();
+            if (game && game.Wolf && Input) {
+                if (Input.rightMouseDown()) {
+                    Input.resetMouse();
                 }
             }
             return false;
         }
         window.onmouseup = function(e) {
             var game = window.frames[0];
-            if (game && game.Wolf && game.Wolf.Input) {
-                if (game.Wolf.Input.rightMouseDown() || game.Wolf.Input.leftMouseDown()) {
-                    game.Wolf.Input.resetMouse();
+            if (game && game.Wolf && Input) {
+                if (Input.rightMouseDown() || Input.leftMouseDown()) {
+                    Input.resetMouse();
                     if (e.preventDefault) {
                         e.preventDefault();
                     }

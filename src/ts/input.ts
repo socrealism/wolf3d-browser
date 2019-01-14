@@ -1,332 +1,311 @@
 /**
- * @namespace 
+ * @namespace
  * @description Functions for capturing keyboard/mouse input
  */
-Wolf.Input = (function() {
+class Input {
+    public static keys;
+    public static lmbDown = false;
+    public static rmbDown = false;
+    public static bindings = [];
+    public static hasFocus = false;
+    public static mouseX = -1;
+    public static mouseY = -1;
+    public static mouseMoveX = 0;
+    public static mouseMoveY = 0;
+    public static keysCode = {
+        LEFT: 37,
+        UP: 38,
+        RIGHT: 39,
+        DOWN: 40,
+        ENTER: 13,
+        SPACE: 32,
+        SHIFT: 16,
+        CTRL: 17,
+        ALT: 18,
+        ESC: 27,
+        HOME: 36,
+        END: 35,
+        DEL: 46,
+        INS: 45,
+        PGUP: 33,
+        PGDN: 34,
+        SLASH: 111,
+        MINUS: 109,
+        PLUS: 107,
+        COMMA: 188,
+        PERIOD: 190,
+        1: 49,
+        2: 50,
+        3: 51,
+        4: 52,
+        5: 53,
+        6: 54,
+        7: 55,
+        8: 56,
+        9: 57,
+        0: 58,
+        A: 65,
+        B: 66,
+        C: 67,
+        D: 68,
+        E: 69,
+        F: 70,
+        G: 71,
+        H: 72,
+        I: 73,
+        J: 74,
+        K: 75,
+        L: 76,
+        M: 77,
+        N: 78,
+        O: 79,
+        P: 80,
+        Q: 81,
+        R: 82,
+        S: 83,
+        T: 84,
+        U: 85,
+        V: 86,
+        W: 87,
+        X: 88,
+        Y: 89,
+        Z: 90,
+        F1: 112,
+        F2: 113,
+        F3: 114,
+        F4: 115,
+        F5: 116,
+        F6: 117,
+        F7: 118,
+        F8: 119,
+        F9: 120,
+        F10: 121,
+        F11: 122,
+        F12: 123
+    };
 
-    var keys,
-        lmbDown = false,
-        rmbDown = false,
-        bindings = [],
-        hasFocus = false,
-        mouseX = -1, mouseY = -1,
-        mouseMoveX = 0, mouseMoveY = 0;
-    
-    function init() {
-        var game = $("#game"),
-            main = $("#main"),
-            renderer = $("#game .renderer");
-        
-        if (!keys) {
-            keys = [];
-            
+    public static init() {
+        const main = $("#main");
+
+        if (!Input.keys) {
+            Input.keys = [];
+
             $(document)
-                .on("keydown", function(e) {
+                .on("keydown", function (e) {
                     e.preventDefault();
-                    
+
                     if (!Wolf.Game.isPlaying()) {
                         return;
                     }
-                    
-                    keys[e.keyCode] = true;
-                    if (bindings[e.keyCode]) {
-                        for (var i=0,n=bindings[e.keyCode].length;i<n;i++) {
-                            bindings[e.keyCode][i](e);
+
+                    Input.keys[e.keyCode] = true;
+                    if (Input.bindings[e.keyCode]) {
+                        for (var i = 0, n = Input.bindings[e.keyCode].length; i < n; i++) {
+                            Input.bindings[e.keyCode][i](e);
                         }
                     }
                 })
-                .on("keyup", function(e) {
+                .on("keyup", function (e) {
                     e.preventDefault();
                     if (!Wolf.Game.isPlaying()) {
                         return;
                     }
-                    keys[e.keyCode] = false;
+                    Input.keys[e.keyCode] = false;
                 })
-                .on("keypress", function(e) {
+                .on("keypress", function (e) {
                     e.preventDefault();
                 })
-                .on("contextmenu", function(e) {
+                .on("contextmenu", function (e) {
                     e.preventDefault();
                 })
-                .on("onrightclick", function(e) {
+                .on("onrightclick", function (e) {
                     e.preventDefault();
                 })
-                .on("mousedown", function(e) {
+                .on("mousedown", function (e) {
                     window.focus();
                     e.preventDefault();
                 })
-                .on("mouseup", function(e) {
+                .on("mouseup", function (e) {
                     e.preventDefault();
                 });
-                
+
             $("#game")
-                .on("mousedown", function(e) {
-                    if (hasFocus) {
+                .on("mousedown", function (e) {
+                    if (Input.hasFocus) {
                         if (e.which == 1) {
-                            lmbDown = true;
+                            Input.lmbDown = true;
                         } else if (e.which == 3) {
-                            rmbDown = true;
+                            Input.rmbDown = true;
                         }
                     } else {
                         window.focus();
                     }
                     e.preventDefault();
                 })
-                .on("mouseup", function(e) {
-                    if (hasFocus) {
+                .on("mouseup", function (e) {
+                    if (Input.hasFocus) {
                         if (e.which == 1) {
-                            lmbDown = false;
+                            Input.lmbDown = false;
                         } else if (e.which == 3) {
-                            rmbDown = false;
+                            Input.rmbDown = false;
                         }
                     }
                     e.preventDefault();
                 })
-                .on("mousemove", function(e) {
-                    if (!hasFocus) {
+                .on("mousemove", function (e) {
+                    if (!Input.hasFocus) {
                         return;
                     }
-                    
-                    if (isPointerLocked()) {
+
+                    if (Input.isPointerLocked()) {
                         if ("webkitMovementX" in e.originalEvent) {
-                            mouseMoveX += e.originalEvent.webkitMovementX;
-                            mouseMoveY += e.originalEvent.webkitMovementY;
+                            Input.mouseMoveX += e.originalEvent.webkitMovementX;
+                            Input.mouseMoveY += e.originalEvent.webkitMovementY;
                         } else if ("mozMovementX" in e.originalEvent) {
-                            mouseMoveX += e.originalEvent.mozMovementX;
-                            mouseMoveY += e.originalEvent.mozMovementY;
+                            Input.mouseMoveX += e.originalEvent.mozMovementX;
+                            Input.mouseMoveY += e.originalEvent.mozMovementY;
                         } else if ("movementX" in e.originalEvent) {
-                            mouseMoveX += e.originalEvent.movementX;
-                            mouseMoveY += e.originalEvent.movementY;
+                            Input.mouseMoveX += e.originalEvent.movementX;
+                            Input.mouseMoveY += e.originalEvent.movementY;
                         }
                     } else {
                         if (Wolf.Game.isFullscreen()) {
-                            mouseX = e.pageX / window.innerWidth;
-                            mouseY = e.pageY / window.innerHeight;
+                            Input.mouseX = e.pageX / window.innerWidth;
+                            Input.mouseY = e.pageY / window.innerHeight;
                         } else {
                             var offset = main.offset();
-                            mouseX = (e.pageX - offset.left) / main.width();
-                            mouseY = (e.pageY - offset.top) / main.height();
+                            Input.mouseX = (e.pageX - offset.left) / main.width();
+                            Input.mouseY = (e.pageY - offset.top) / main.height();
                         }
                     }
                     e.preventDefault();
                 });
-                
+
             // reset keys and mouse if window/tab loses focus
-            $(window).on("blur", function(e) {
-                hasFocus = false;
-                reset();
+            $(window).on("blur", function (e) {
+                Input.hasFocus = false;
+                Input.reset();
             });
-            $(window).on("focus", function(e) {
-                hasFocus = true;
+            $(window).on("focus", function (e) {
+                Input.hasFocus = true;
             });
         }
     }
 
-    function reset() {
-        resetMouse();
-        keys = [];
+    public static reset() {
+        Input.resetMouse();
+        Input.keys = [];
     }
-    
-    function resetMouse() {
-        lmbDown = false;
-        rmbDown = false;
-        mouseX = mouseY = 0.5;
+
+    public static resetMouse() {
+        Input.lmbDown = false;
+        Input.rmbDown = false;
+        Input.mouseX = Input.mouseY = 0.5;
     }
-    
-    function bindKey(k, handler) {
-        var keyCode = Wolf.Keys[k];
-        if (!bindings[keyCode]) {
-            bindings[keyCode] = [];
+
+    public static bindKey(k, handler) {
+        var keyCode = Input.keysCode[k];
+        if (!Input.bindings[keyCode]) {
+            Input.bindings[keyCode] = [];
         }
-        bindings[keyCode].push(handler);
+        Input.bindings[keyCode].push(handler);
     }
-    
+
     /**
      * @memberOf Wolf.Input
      * @description Check if one of the specified keys is pressed.
      * @param {array} keys Array of key names.
      * @returns {boolean} True if a key is pressed, otherwise false.
      */
-    function checkKeys(ckeys) {
-        for (var i=0;i<ckeys.length;i++) {
+    public static checkKeys(ckeys) {
+        for (var i = 0; i < ckeys.length; i++) {
             var k = ckeys[i];
-            if (!!keys[Wolf.Keys[k]]) {
+            if (!!Input.keys[Input.keysCode[k]]) {
                 return true;
             }
         }
         return false;
     }
-    
+
     /**
      * @memberOf Wolf.Input
      * @description Clear status for keys.
      * @param {array} keys Array of key names.
      */
-    function clearKeys(ckeys) {
-        for (var i=0;i<ckeys.length;i++) {
+    public static clearKeys(ckeys) {
+        for (var i = 0; i < ckeys.length; i++) {
             var k = ckeys[i];
-            keys[Wolf.Keys[k]] = false;
+            Input.keys[Input.keysCode[k]] = false;
         }
         return false;
     }
-    
-    function leftMouseDown() {
-        return lmbDown;
+
+    public static leftMouseDown() {
+        return Input.lmbDown;
     }
 
-    function rightMouseDown() {
-        return rmbDown;
+    public static rightMouseDown() {
+        return Input.rmbDown;
     }
-    
-    function getMouseCoords() {
-        if (mouseX < 0 || mouseX > 1 || mouseY < 0 || mouseY > 1) {
+
+    public static getMouseCoords() {
+        if (Input.mouseX < 0 || Input.mouseX > 1 || Input.mouseY < 0 || Input.mouseY > 1) {
             return null;
         } else {
             return {
-                x : (mouseX - 0.5) * 2,
-                y : (mouseY - 0.5) * 2
+                x: (Input.mouseX - 0.5) * 2,
+                y: (Input.mouseY - 0.5) * 2
             };
         }
     }
-    
-    function getMouseMovement() {
-        var x = mouseMoveX,
-            y = mouseMoveY;
-        mouseMoveX = 0;
-        mouseMoveY = 0;
+
+    public static getMouseMovement() {
+        var x = Input.mouseMoveX,
+            y = Input.mouseMoveY;
+        Input.mouseMoveX = 0;
+        Input.mouseMoveY = 0;
         return {
-            x : x / screen.width,
-            y : y / screen.height
+            x: x / screen.width,
+            y: y / screen.height
         };
     }
-    
-    function getPointer() {
+
+    public static getPointer() {
         var pointer = navigator.pointer ||
-                      navigator.webkitPointer ||
-                      navigator.mozPointer ||
-                      navigator.msPointer ||
-                      navigator.oPointer;
+            navigator.webkitPointer ||
+            navigator.mozPointer ||
+            navigator.msPointer ||
+            navigator.oPointer;
         return pointer;
     }
 
-    function isPointerLocked() {
-        var pointer = getPointer();
+    public static isPointerLocked() {
+        var pointer = Input.getPointer();
         return pointer && pointer.isLocked && pointer.isLocked();
     }
-    
-    function lockPointer() {
-        var pointer = getPointer();
+
+    public static lockPointer() {
+        var pointer = Input.getPointer();
         if (!pointer) {
             return;
         }
-        
+
         if (Wolf.Game.isFullscreen()) {
-            pointer.lock($("#game")[0], 
-                function(e) {
+            pointer.lock($("#game")[0],
+                function (e) {
                     Wolf.log("Pointer locked")
-                }, function(e) {
+                }, function (e) {
                     Wolf.log("Could not lock pointer: " + e);
                 }
             );
         }
     }
-    
-    function unlockPointer() {
-        var pointer = getPointer();
+
+    public static unlockPointer() {
+        var pointer = Input.getPointer();
         if (!pointer) {
             return;
         }
         pointer.unlock($("#game")[0]);
     }
-    
-    
-    return {
-        init : init,
-        reset : reset,
-        resetMouse : resetMouse,
-        checkKeys : checkKeys,
-        clearKeys : clearKeys,
-        bindKey : bindKey,
-        leftMouseDown : leftMouseDown,
-        rightMouseDown : rightMouseDown,
-        getMouseCoords : getMouseCoords,
-        getMouseMovement : getMouseMovement,
-        isPointerLocked : isPointerLocked,
-        lockPointer : lockPointer,
-        unlockPointer : unlockPointer
-    };
-
-})();
-
-
-Wolf.Keys = {
-    LEFT    : 37,
-    UP      : 38,
-    RIGHT   : 39,
-    DOWN    : 40,
-    ENTER   : 13,
-    SPACE   : 32,
-    SHIFT   : 16,
-    CTRL    : 17,
-    ALT     : 18,
-    ESC     : 27,
-    HOME    : 36,
-    END     : 35,
-    DEL     : 46,
-    INS     : 45,
-    PGUP    : 33,
-    PGDN    : 34,
-    SLASH   : 111,
-    MINUS   : 109,
-    PLUS    : 107,
-    COMMA   : 188,
-    PERIOD  : 190,
-    1       : 49,
-    2       : 50,
-    3       : 51,
-    4       : 52,
-    5       : 53,
-    6       : 54,
-    7       : 55,
-    8       : 56,
-    9       : 57,
-    0       : 58,
-    A       : 65,
-    B       : 66,
-    C       : 67,
-    D       : 68,
-    E       : 69,
-    F       : 70,
-    G       : 71,
-    H       : 72,
-    I       : 73,
-    J       : 74,
-    K       : 75,
-    L       : 76,
-    M       : 77,
-    N       : 78,
-    O       : 79,
-    P       : 80,
-    Q       : 81,
-    R       : 82,
-    S       : 83,
-    T       : 84,
-    U       : 85,
-    V       : 86,
-    W       : 87,
-    X       : 88,
-    Y       : 89,
-    Z       : 90,
-    F1      : 112,
-    F2      : 113,
-    F3      : 114,
-    F4      : 115,
-    F5      : 116,
-    F6      : 117,
-    F7      : 118,
-    F8      : 119,
-    F9      : 120,
-    F10     : 121,
-    F11     : 122,
-    F12     : 123    
-};
+}

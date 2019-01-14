@@ -332,7 +332,7 @@ Wolf.Menu = (function() {
             if (isBinding) {
                 // look for key in bindable key codes. TODO: LUT?
                 for (i=2;i<keySpriteNames.length;i++) {
-                    if (Wolf.Keys[keySpriteNames[i]] == e.keyCode) {
+                    if (Input.keysCode[keySpriteNames[i]] == e.keyCode) {
                         bindKey(current, keySpriteNames[i]);
                         isBinding = false;
                         clearInterval(blinkInterval);

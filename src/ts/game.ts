@@ -85,21 +85,21 @@ Wolf.Game = (function() {
         player.cmd.forwardMove = 0;
         player.cmd.sideMove = 0;
         
-        leftKey = Wolf.Input.checkKeys(controls.left);
-        rightKey = Wolf.Input.checkKeys(controls.right);
-        downKey = Wolf.Input.checkKeys(controls.down);
-        upKey = Wolf.Input.checkKeys(controls.up);
+        leftKey = Input.checkKeys(controls.left);
+        rightKey = Input.checkKeys(controls.right);
+        downKey = Input.checkKeys(controls.down);
+        upKey = Input.checkKeys(controls.up);
         
-        running = Wolf.Input.checkKeys(controls.run);
-        strafing = Wolf.Input.checkKeys(controls.strafe);
+        running = Input.checkKeys(controls.run);
+        strafing = Input.checkKeys(controls.strafe);
         moveValue = (running ? Game.RUNMOVE : Game.BASEMOVE);
        
-        if (Wolf.Input.checkKeys(controls.attack) || (mouseEnabled && Wolf.Input.leftMouseDown())) {
+        if (Input.checkKeys(controls.attack) || (mouseEnabled && Input.leftMouseDown())) {
             player.cmd.buttons |= Game.BUTTON_ATTACK;
         }
        
-        if (mouseEnabled && Wolf.Input.rightMouseDown()) {
-            if (mouseCoords = Wolf.Input.getMouseCoords()) {
+        if (mouseEnabled && Input.rightMouseDown()) {
+            if (mouseCoords = Input.getMouseCoords()) {
                 player.cmd.forwardMove += - (mouseCoords.y < 0 ? Game.MOVESCALE : Game.BACKMOVESCALE) * moveValue * mouseCoords.y;
             }
         } else if (!(upKey && downKey)) {
@@ -111,8 +111,8 @@ Wolf.Game = (function() {
             } 
         }
 
-        if (mouseEnabled && Wolf.Input.isPointerLocked()) {
-            mouseMovement = Wolf.Input.getMouseMovement();
+        if (mouseEnabled && Input.isPointerLocked()) {
+            mouseMovement = Input.getMouseMovement();
             player.angle -= (mouseMovement.x * Game.TURNANGLESCALE * tics)>>0;
         } else {
             if (leftKey) {
@@ -130,7 +130,7 @@ Wolf.Game = (function() {
                 }
             }
             
-            if (mouseEnabled && (mouseCoords = Wolf.Input.getMouseCoords())) {
+            if (mouseEnabled && (mouseCoords = Input.getMouseCoords())) {
                 if (Math.abs(mouseCoords.x) > Game.MOUSEDEADBAND) {
                     player.angle -= (Game.TURNANGLESCALE * tics * (mouseCoords.x + (mouseCoords.x < 0 ? 1 : -1) * Game.MOUSEDEADBAND))>>0;
                 }
@@ -138,13 +138,13 @@ Wolf.Game = (function() {
         }
         
         // change weapon?
-        if (Wolf.Input.checkKeys(controls.weapon1) && player.items & Wolf.ITEM_WEAPON_1) {
+        if (Input.checkKeys(controls.weapon1) && player.items & Wolf.ITEM_WEAPON_1) {
             changeWeapon = Wolf.WEAPON_KNIFE;
-        } else if (Wolf.Input.checkKeys(controls.weapon2) && player.items & Wolf.ITEM_WEAPON_2 && player.ammo[Wolf.AMMO_BULLETS]) {
+        } else if (Input.checkKeys(controls.weapon2) && player.items & Wolf.ITEM_WEAPON_2 && player.ammo[Wolf.AMMO_BULLETS]) {
             changeWeapon = Wolf.WEAPON_PISTOL;
-        } else if (Wolf.Input.checkKeys(controls.weapon3) && player.items & Wolf.ITEM_WEAPON_3 && player.ammo[Wolf.AMMO_BULLETS]) {
+        } else if (Input.checkKeys(controls.weapon3) && player.items & Wolf.ITEM_WEAPON_3 && player.ammo[Wolf.AMMO_BULLETS]) {
             changeWeapon = Wolf.WEAPON_AUTO;
-        } else if (Wolf.Input.checkKeys(controls.weapon4) && player.items & Wolf.ITEM_WEAPON_4 && player.ammo[Wolf.AMMO_BULLETS]) {
+        } else if (Input.checkKeys(controls.weapon4) && player.items & Wolf.ITEM_WEAPON_4 && player.ammo[Wolf.AMMO_BULLETS]) {
             changeWeapon = Wolf.WEAPON_CHAIN;
         }
         if (changeWeapon > -1) {
@@ -152,7 +152,7 @@ Wolf.Game = (function() {
             player.weapon = player.pendingWeapon = changeWeapon;
         }
         
-        if (Wolf.Input.checkKeys(controls.use)) {
+        if (Input.checkKeys(controls.use)) {
             player.cmd.buttons |= Game.BUTTON_USE;
         }
     }
@@ -633,8 +633,8 @@ Wolf.Game = (function() {
                 playing = true;
                 startGameCycle(game);
                 startRenderCycle(game);
-                Wolf.Input.reset();
-                Wolf.Input.lockPointer();
+                Input.reset();
+                Input.lockPointer();
                 
                 $("#game .loading").hide();
                 $("#game").focus();
@@ -1121,7 +1121,7 @@ Wolf.Game = (function() {
             .on("webkitfullscreenchange", fullscreenChange)
             .on("fullscreenchange", fullscreenChange);
             
-        Wolf.Input.bindKey("F11", function(e) {
+        Input.bindKey("F11", function(e) {
             if (!keyInputActive) {
                 return;
             }
@@ -1136,14 +1136,14 @@ Wolf.Game = (function() {
             }
         });
         
-        Wolf.Input.bindKey("P", function(e) {
+        Input.bindKey("P", function(e) {
             if (!keyInputActive) {
                 return;
             }
             togglePause();
         });
         
-        Wolf.Input.bindKey("ESC", function(e) {
+        Input.bindKey("ESC", function(e) {
             if (!keyInputActive) {
                 return;
             }

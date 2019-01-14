@@ -266,7 +266,7 @@ Wolf.Menu = (function () {
             var i;
             if (isBinding) {
                 for (i = 2; i < keySpriteNames.length; i++) {
-                    if (Wolf.Keys[keySpriteNames[i]] == e.keyCode) {
+                    if (Input.keysCode[keySpriteNames[i]] == e.keyCode) {
                         bindKey(current, keySpriteNames[i]);
                         isBinding = false;
                         clearInterval(blinkInterval);
