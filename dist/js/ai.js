@@ -1,10 +1,6 @@
 "use strict";
-Wolf.AI = (function () {
-    Wolf.setConsts({
-        RUNSPEED: 6000,
-        MINSIGHT: 0x18000
-    });
-    function checkSight(self, game) {
+class AI {
+    static checkSight(self, game) {
         var level = game.level, player = game.player, deltax, deltay;
         if (!(self.flags & Actors.FL_AMBUSH)) {
             if (!level.state.areabyplayer[self.areanumber]) {
@@ -13,7 +9,7 @@ Wolf.AI = (function () {
         }
         deltax = player.position.x - self.x;
         deltay = player.position.y - self.y;
-        if (Math.abs(deltax) < Wolf.MINSIGHT && Math.abs(deltay) < Wolf.MINSIGHT) {
+        if (Math.abs(deltax) < AI.MINSIGHT && Math.abs(deltay) < AI.MINSIGHT) {
             return true;
         }
         switch (self.dir) {
@@ -42,7 +38,7 @@ Wolf.AI = (function () {
         }
         return Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level);
     }
-    function changeDir(self, new_dir, level) {
+    static changeDir(self, new_dir, level) {
         var oldx, oldy, newx, newy, n, moveok = false;
         oldx = Wolf.POS2TILE(self.x);
         oldy = Wolf.POS2TILE(self.y);
@@ -107,7 +103,7 @@ Wolf.AI = (function () {
         self.dir = new_dir;
         return true;
     }
-    function path(self, game) {
+    static path(self, game) {
         var level = game.level;
         if (level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT] & Wolf.WAYPOINT_TILE) {
             var tileinfo = level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT];
@@ -136,11 +132,11 @@ Wolf.AI = (function () {
                 self.dir = Wolf.Math.dir8_southeast;
             }
         }
-        if (!changeDir(self, self.dir, level)) {
+        if (!AI.changeDir(self, self.dir, level)) {
             self.dir = Wolf.Math.dir8_nodir;
         }
     }
-    function findTarget(self, game, tics) {
+    static findTarget(self, game, tics) {
         var level = game.level, player = game.player;
         if (self.temp2) {
             self.temp2 -= tics;
@@ -156,7 +152,7 @@ Wolf.AI = (function () {
             if (!(self.flags & Actors.FL_AMBUSH) && !level.state.areabyplayer[self.areanumber]) {
                 return false;
             }
-            if (!checkSight(self, game)) {
+            if (!AI.checkSight(self, game)) {
                 if (self.flags & Actors.FL_AMBUSH || !player.madenoise) {
                     return false;
                 }
@@ -200,7 +196,7 @@ Wolf.AI = (function () {
         ActorAI.firstSighting(self, game);
         return true;
     }
-    function chase(self, game) {
+    static chase(self, game) {
         var level = game.level, player = game.player, deltax, deltay, d = [], tdir, olddir, turnaround;
         if (game.player.playstate == Wolf.ex_victory) {
             return;
@@ -234,24 +230,24 @@ Wolf.AI = (function () {
             d[1] = Wolf.Math.dir8_nodir;
         }
         if (d[0] != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, d[0], level)) {
+            if (AI.changeDir(self, d[0], level)) {
                 return;
             }
         }
         if (d[1] != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, d[1], level)) {
+            if (AI.changeDir(self, d[1], level)) {
                 return;
             }
         }
         if (olddir != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, olddir, level)) {
+            if (AI.changeDir(self, olddir, level)) {
                 return;
             }
         }
         if (Random.get() > 128) {
             for (tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2) {
                 if (tdir != turnaround) {
-                    if (changeDir(self, tdir, level)) {
+                    if (AI.changeDir(self, tdir, level)) {
                         return;
                     }
                 }
@@ -260,20 +256,20 @@ Wolf.AI = (function () {
         else {
             for (tdir = Wolf.Math.dir8_south; tdir >= Wolf.Math.dir8_east; tdir -= 2) {
                 if (tdir != turnaround) {
-                    if (changeDir(self, tdir, level)) {
+                    if (AI.changeDir(self, tdir, level)) {
                         return;
                     }
                 }
             }
         }
         if (turnaround != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, turnaround, level)) {
+            if (AI.changeDir(self, turnaround, level)) {
                 return;
             }
         }
         self.dir = Wolf.Math.dir8_nodir;
     }
-    function retreat(self, game) {
+    static retreat(self, game) {
         var level = game.level, player = game.player, deltax, deltay, d = [], tdir;
         deltax = Wolf.POS2TILE(player.position.x) - Wolf.POS2TILE(self.x);
         deltay = Wolf.POS2TILE(player.position.y) - Wolf.POS2TILE(self.y);
@@ -284,29 +280,29 @@ Wolf.AI = (function () {
             d[0] = d[1];
             d[1] = tdir;
         }
-        if (changeDir(self, d[0], level)) {
+        if (AI.changeDir(self, d[0], level)) {
             return;
         }
-        if (changeDir(self, d[1], level)) {
+        if (AI.changeDir(self, d[1], level)) {
             return;
         }
         if (Random.get() > 128) {
             for (tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2) {
-                if (changeDir(self, tdir, level)) {
+                if (AI.changeDir(self, tdir, level)) {
                     return;
                 }
             }
         }
         else {
             for (tdir = Wolf.Math.dir8_south; tdir >= Wolf.Math.dir8_east; tdir -= 2) {
-                if (changeDir(self, tdir, level)) {
+                if (AI.changeDir(self, tdir, level)) {
                     return;
                 }
             }
         }
         self.dir = Wolf.Math.dir8_nodir;
     }
-    function dodge(self, game) {
+    static dodge(self, game) {
         var level = game.level, player = game.player, deltax, deltay, i, dirtry = [], turnaround, tdir;
         if (game.player.playstate == Wolf.ex_victory) {
             return;
@@ -357,37 +353,37 @@ Wolf.AI = (function () {
             if (dirtry[i] == Wolf.Math.dir8_nodir || dirtry[i] == turnaround) {
                 continue;
             }
-            if (changeDir(self, dirtry[i], level)) {
+            if (AI.changeDir(self, dirtry[i], level)) {
                 return;
             }
         }
         if (turnaround != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, turnaround, level)) {
+            if (AI.changeDir(self, turnaround, level)) {
                 return;
             }
         }
         self.dir = Wolf.Math.dir8_nodir;
     }
-    function T_Stand(self, game, tics) {
-        findTarget(self, game, tics);
+    static T_Stand(self, game, tics) {
+        AI.findTarget(self, game, tics);
     }
-    function T_Path(self, game, tics) {
+    static T_Path(self, game, tics) {
         var level = game.level;
-        if (findTarget(self, game, tics)) {
+        if (AI.findTarget(self, game, tics)) {
             return;
         }
         if (!self.speed) {
             return;
         }
         if (self.dir == Wolf.Math.dir8_nodir) {
-            path(self, game);
+            AI.path(self, game);
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return;
             }
         }
-        T_Advance(self, game, path, tics);
+        AI.T_Advance(self, game, AI.path, tics);
     }
-    function T_Shoot(self, game, tics) {
+    static T_Shoot(self, game, tics) {
         var level = game.level, player = game.player, dx, dy, dist, hitchance, damage;
         if (!level.state.areabyplayer[self.areanumber]) {
             return;
@@ -401,7 +397,7 @@ Wolf.AI = (function () {
         if (self.type == Actors.en_ss || self.type == Actors.en_boss) {
             dist = dist * 2 / 3;
         }
-        if (player.speed >= Wolf.RUNSPEED) {
+        if (player.speed >= AI.RUNSPEED) {
             hitchance = 160;
         }
         else {
@@ -442,7 +438,7 @@ Wolf.AI = (function () {
                 break;
         }
     }
-    function T_Chase(self, game, tics) {
+    static T_Chase(self, game, tics) {
         var level = game.level, player = game.player, dx, dy, dist, chance, shouldDodge = false;
         if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             dx = Math.abs(Wolf.POS2TILE(self.x) - Wolf.POS2TILE(player.position.x));
@@ -462,22 +458,22 @@ Wolf.AI = (function () {
         }
         if (self.dir == Wolf.Math.dir8_nodir) {
             if (shouldDodge) {
-                dodge(self, game);
+                AI.dodge(self, game);
             }
             else {
-                chase(self, game);
+                AI.chase(self, game);
             }
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return;
             }
             self.angle = Wolf.Math.dir8angle[self.dir];
         }
-        T_Advance(self, game, shouldDodge ? dodge : chase, tics);
+        AI.T_Advance(self, game, shouldDodge ? AI.dodge : AI.chase, tics);
     }
-    function T_DogChase(self, game, tics) {
+    static T_DogChase(self, game, tics) {
         var level = game.level, player = game.player, dx, dy;
         if (self.dir == Wolf.Math.dir8_nodir) {
-            dodge(self, game);
+            AI.dodge(self, game);
             self.angle = Wolf.Math.dir8angle[self.dir];
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return;
@@ -491,9 +487,9 @@ Wolf.AI = (function () {
                 return;
             }
         }
-        T_Advance(self, game, dodge, tics);
+        AI.T_Advance(self, game, AI.dodge, tics);
     }
-    function T_BossChase(self, game, tics) {
+    static T_BossChase(self, game, tics) {
         var level = game.level, player = game.player, dx, dy, dist, think, shouldDodge = false;
         dx = Math.abs(self.tile.x - Wolf.POS2TILE(player.position.x));
         dy = Math.abs(self.tile.y - Wolf.POS2TILE(player.position.y));
@@ -507,19 +503,19 @@ Wolf.AI = (function () {
         }
         if (self.dir == Wolf.Math.dir8_nodir) {
             if (shouldDodge) {
-                dodge(self, game);
+                AI.dodge(self, game);
             }
             else {
-                chase(self, game);
+                AI.chase(self, game);
             }
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return;
             }
         }
-        think = dist < 4 ? retreat : (shouldDodge ? dodge : chase);
-        T_Advance(self, game, think, tics);
+        think = dist < 4 ? AI.retreat : (shouldDodge ? AI.dodge : AI.chase);
+        AI.T_Advance(self, game, think, tics);
     }
-    function T_Fake(self, game, tics) {
+    static T_Fake(self, game, tics) {
         var level = game.level, player = game.player;
         if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             if (Random.get() < tics << 1) {
@@ -528,14 +524,14 @@ Wolf.AI = (function () {
             }
         }
         if (self.dir == Wolf.Math.dir8_nodir) {
-            dodge(self, game);
+            AI.dodge(self, game);
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return;
             }
         }
-        T_Advance(self, game, dodge, tics);
+        AI.T_Advance(self, game, AI.dodge, tics);
     }
-    function T_Advance(self, game, think, tics) {
+    static T_Advance(self, game, think, tics) {
         var level = game.level, move, door;
         if (!think) {
             Wolf.log("Warning: Advance without <think> proc\n");
@@ -552,7 +548,7 @@ Wolf.AI = (function () {
                 self.waitfordoorx = self.waitfordoory = 0;
             }
             if (move < self.distance) {
-                T_Move(self, game, move);
+                AI.T_Move(self, game, move);
                 break;
             }
             self.x = Wolf.TILE2POS(self.tile.x);
@@ -565,7 +561,7 @@ Wolf.AI = (function () {
             }
         }
     }
-    function T_Move(self, game, dist) {
+    static T_Move(self, game, dist) {
         var level = game.level, player = game.player;
         if (self.dir == Wolf.Math.dir8_nodir || !dist) {
             return;
@@ -588,18 +584,18 @@ Wolf.AI = (function () {
             self.distance = 0;
         }
     }
-    function T_Ghosts(self, game, tics) {
+    static T_Ghosts(self, game, tics) {
         var level = game.level, player = game.player;
         if (self.dir == Wolf.Math.dir8_nodir) {
-            chase(self, game);
+            AI.chase(self, game);
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return;
             }
             self.angle = Wolf.Math.dir8angle[self.dir];
         }
-        T_Advance(self, game, chase, tics);
+        AI.T_Advance(self, game, AI.chase, tics);
     }
-    function T_Bite(self, game, tics) {
+    static T_Bite(self, game, tics) {
         var level = game.level, player = game.player, dx, dy;
         Sound.startSound(player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/002.wav", 1, Sound.ATTN_NORM, 0);
         dx = Math.abs(player.position.x - self.x) - Wolf.TILEGLOBAL;
@@ -613,9 +609,9 @@ Wolf.AI = (function () {
             }
         }
     }
-    function T_UShoot(self, game, tics) {
+    static T_UShoot(self, game, tics) {
         var level = game.level, player = game.player, dx, dy, dist;
-        T_Shoot(self, game, tics);
+        AI.T_Shoot(self, game, tics);
         dx = Math.abs(self.tile.x - Wolf.POS2TILE(player.position.x));
         dy = Math.abs(self.tile.y - Wolf.POS2TILE(player.position.y));
         dist = Math.max(dx, dy);
@@ -623,14 +619,14 @@ Wolf.AI = (function () {
             Wolf.Player.damage(player, self, 10);
         }
     }
-    function T_Launch(self, game, tics) {
+    static T_Launch(self, game, tics) {
         var level = game.level, player = game.player, proj, iangle;
         iangle = Wolf.Math.transformPoint(self.x, self.y, player.position.x, player.position.y) + Math.PI;
         if (iangle > 2 * Math.PI) {
             iangle -= 2 * Math.PI;
         }
         if (self.type == Actors.en_death) {
-            T_Shoot(self, game, tics);
+            AI.T_Shoot(self, game, tics);
             if (self.state == Actors.st_shoot2) {
                 iangle = Wolf.Math.normalizeAngle(iangle - Wolf.DEG2RAD(4));
             }
@@ -680,7 +676,7 @@ Wolf.AI = (function () {
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/085.wav", 1, Sound.ATTN_NORM, 0);
         }
     }
-    function projectileTryMove(self, level) {
+    static projectileTryMove(self, level) {
         var PROJSIZE = 0x2000, xl, yl, xh, yh, x, y;
         xl = (self.x - PROJSIZE) >> Wolf.TILESHIFT;
         yl = (self.y - PROJSIZE) >> Wolf.TILESHIFT;
@@ -700,7 +696,7 @@ Wolf.AI = (function () {
         }
         return true;
     }
-    function T_Projectile(self, game, tics) {
+    static T_Projectile(self, game, tics) {
         var level = game.level, player = game.player, PROJECTILESIZE = 0xC000, deltax, deltay, speed, damage;
         speed = self.speed * tics;
         deltax = (speed * Wolf.Math.CosTable[self.angle]) >> 0;
@@ -721,7 +717,7 @@ Wolf.AI = (function () {
         self.y += deltay;
         deltax = Math.abs(self.x - player.position.x);
         deltay = Math.abs(self.y - player.position.y);
-        if (!projectileTryMove(self, level)) {
+        if (!AI.projectileTryMove(self, level)) {
             if (self.type == Actors.en_rocket || self.type == Actors.en_hrocket) {
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/086.wav", 1, Sound.ATTN_NORM, 0);
                 Actors.stateChange(self, Actors.st_die1);
@@ -755,9 +751,9 @@ Wolf.AI = (function () {
         self.tile.x = self.x >> Wolf.TILESHIFT;
         self.tile.y = self.y >> Wolf.TILESHIFT;
     }
-    function T_BJRun(self, game, tics) {
+    static T_BJRun(self, game, tics) {
         var move = Wolf.BJRUNSPEED * tics;
-        T_Move(self, game, move);
+        AI.T_Move(self, game, move);
         if (!self.distance) {
             self.distance = Wolf.TILEGLOBAL;
             if (!(--self.temp2)) {
@@ -767,31 +763,15 @@ Wolf.AI = (function () {
             }
         }
     }
-    function T_BJJump(self, game, tics) {
+    static T_BJJump(self, game, tics) {
     }
-    function T_BJYell(self, game, tics) {
+    static T_BJYell(self, game, tics) {
         Sound.startSound(null, null, 0, Sound.CHAN_VOICE, "assets/sfx/082.wav", 1, Sound.ATTN_NORM, 0);
     }
-    function T_BJDone(self, game, tics) {
+    static T_BJDone(self, game, tics) {
         Wolf.Player.playstate = Wolf.ex_victory;
         Wolf.Game.endEpisode(game);
     }
-    return {
-        T_Stand: T_Stand,
-        T_Path: T_Path,
-        T_Ghosts: T_Ghosts,
-        T_Bite: T_Bite,
-        T_Shoot: T_Shoot,
-        T_UShoot: T_UShoot,
-        T_Launch: T_Launch,
-        T_Chase: T_Chase,
-        T_DogChase: T_DogChase,
-        T_BossChase: T_BossChase,
-        T_Fake: T_Fake,
-        T_Projectile: T_Projectile,
-        T_BJRun: T_BJRun,
-        T_BJJump: T_BJJump,
-        T_BJYell: T_BJYell,
-        T_BJDone: T_BJDone
-    };
-})();
+}
+AI.RUNSPEED = 6000;
+AI.MINSIGHT = 0x18000;

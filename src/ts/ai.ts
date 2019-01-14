@@ -2,15 +2,11 @@
  * @namespace 
  * @description Enemy AI
  */
-Wolf.AI = (function() {
+class AI {
+    public static readonly RUNSPEED = 6000;
+    public static readonly MINSIGHT = 0x18000;
 
-    Wolf.setConsts({
-        RUNSPEED    : 6000,
-        MINSIGHT    : 0x18000
-    });
-
-
-    function checkSight(self, game) {
+    public static checkSight(self, game) {
         var level = game.level,
             player = game.player,
             deltax, deltay;
@@ -27,14 +23,14 @@ Wolf.AI = (function() {
         deltax = player.position.x - self.x;
         deltay = player.position.y - self.y;
 
-        if (Math.abs(deltax) < Wolf.MINSIGHT && Math.abs(deltay) < Wolf.MINSIGHT) {
+        if (Math.abs(deltax) < AI.MINSIGHT && Math.abs(deltay) < AI.MINSIGHT) {
             return true;
         }
 
         // see if they are looking in the right direction
         switch (self.dir) {
             case Wolf.Math.dir8_north:
-               if (deltay < 0) {
+                if (deltay < 0) {
                     return false;
                 }
                 break;
@@ -61,22 +57,21 @@ Wolf.AI = (function() {
         return Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level);
     }
 
-
     /**
      * @description Entity is going to move in a new direction.
-     *              Called, when actor finished previous moving & located in 
+     *              Called, when actor finished previous moving & located in
      *              the 'center' of the tile. Entity will try walking in direction.
      * @private
      * @returns {boolean} true if direction is OK, otherwise false.
      */
-    function changeDir(self, new_dir, level) {
-        var oldx, 
-            oldy, 
-            newx, 
+    public static changeDir(self, new_dir, level) {
+        var oldx,
+            oldy,
+            newx,
             newy, // all it tiles
             n,
             moveok = false;
-            
+
         oldx = Wolf.POS2TILE(self.x);
         oldy = Wolf.POS2TILE(self.y);
         //assert( new_dir >= 0 && new_dir <= 8 );
@@ -85,8 +80,8 @@ Wolf.AI = (function() {
 
         if (new_dir & 0x01) { // same as %2 (diagonal dir)
             if (level.tileMap[newx][oldy] & Wolf.SOLID_TILE ||
-                 level.tileMap[oldx][newy] & Wolf.SOLID_TILE ||
-                 level.tileMap[newx][newy] & Wolf.SOLID_TILE) {
+                level.tileMap[oldx][newy] & Wolf.SOLID_TILE ||
+                level.tileMap[newx][newy] & Wolf.SOLID_TILE) {
                 return false;
             }
 
@@ -151,15 +146,15 @@ Wolf.AI = (function() {
     }
 
     /**
-     * @description Entity is going to turn on a way point. 
+     * @description Entity is going to turn on a way point.
      * @private
      */
-    function path(self, game) {
+    public static path(self, game) {
         var level = game.level;
         if (level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT] & Wolf.WAYPOINT_TILE) {
-        
+
             var tileinfo = level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT];
-            
+
             if (tileinfo & Wolf.TILE_IS_E_TURN) {
                 self.dir = Wolf.Math.dir8_east;
             } else if (tileinfo & Wolf.TILE_IS_NE_TURN) {
@@ -179,17 +174,16 @@ Wolf.AI = (function() {
             }
         }
 
-        if (!changeDir(self, self.dir, level)) {
+        if (!AI.changeDir(self, self.dir, level)) {
             self.dir = Wolf.Math.dir8_nodir;
         }
     }
 
-
     /**
-     * @description Called by entities that ARE NOT chasing the player. 
+     * @description Called by entities that ARE NOT chasing the player.
      * @private
      */
-    function findTarget(self, game, tics) {
+    public static findTarget(self, game, tics) {
         var level = game.level,
             player = game.player;
 
@@ -200,7 +194,7 @@ Wolf.AI = (function() {
             }
             self.temp2 = 0; // time to react
         } else {
-        
+
             // check if we can/want to see/hear player
             if (player.flags & Wolf.FL_NOTARGET) {
                 return false; // notarget cheat
@@ -211,14 +205,14 @@ Wolf.AI = (function() {
                 return false;
             }
 
-            if (!checkSight(self, game)) { // Player is visible - normal behavior
+            if (!AI.checkSight(self, game)) { // Player is visible - normal behavior
                 if (self.flags & Actors.FL_AMBUSH || !player.madenoise) {
                     return false;
                 }
             }
             self.flags &= ~Actors.FL_AMBUSH;
-            
-            
+
+
             // if we are here we see/hear player!!!
             switch (self.type) {
                 case Actors.en_guard:
@@ -267,16 +261,14 @@ Wolf.AI = (function() {
         return true;
     }
 
-
-
     /**
-     * @description As dodge(), but doesn't try to dodge.  
+     * @description As dodge(), but doesn't try to dodge.
      * @private
      */
-    function chase(self, game) {
+    public static chase(self, game) {
         var level = game.level,
             player = game.player,
-            deltax, 
+            deltax,
             deltay,
             d = [],
             tdir, olddir, turnaround;
@@ -284,7 +276,7 @@ Wolf.AI = (function() {
         if (game.player.playstate == Wolf.ex_victory) {
             return;
         }
-        
+
         olddir = self.dir;
         turnaround = Wolf.Math.opposite8[olddir];
         d[0] = d[1] = Wolf.Math.dir8_nodir;
@@ -297,7 +289,7 @@ Wolf.AI = (function() {
         } else if (deltax < 0) {
             d[0] = Wolf.Math.dir8_west;
         }
-        
+
         if (deltay > 0) {
             d[1] = Wolf.Math.dir8_north;
         } else if (deltay < 0) {
@@ -319,20 +311,20 @@ Wolf.AI = (function() {
         }
 
         if (d[0] != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, d[0], level)) {
+            if (AI.changeDir(self, d[0], level)) {
                 return;
             }
         }
 
         if (d[1] != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, d[1], level)) {
+            if (AI.changeDir(self, d[1], level)) {
                 return;
             }
         }
 
         // there is no direct path to the player, so pick another direction
         if (olddir != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, olddir, level)) {
+            if (AI.changeDir(self, olddir, level)) {
                 return;
             }
         }
@@ -340,7 +332,7 @@ Wolf.AI = (function() {
         if (Random.get() > 128) { // randomly determine direction of search
             for (tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2) { // * Revision
                 if (tdir != turnaround) {
-                    if (changeDir(self, tdir, level)) {
+                    if (AI.changeDir(self, tdir, level)) {
                         return;
                     }
                 }
@@ -348,7 +340,7 @@ Wolf.AI = (function() {
         } else {
             for (tdir = Wolf.Math.dir8_south; tdir >= Wolf.Math.dir8_east; tdir -= 2) { // * Revision (JDC fix for unsigned enums)
                 if (tdir != turnaround) {
-                    if (changeDir(self, tdir, level)) {
+                    if (AI.changeDir(self, tdir, level)) {
                         return;
                     }
                 }
@@ -356,7 +348,7 @@ Wolf.AI = (function() {
         }
 
         if (turnaround != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, turnaround, level)) {
+            if (AI.changeDir(self, turnaround, level)) {
                 return;
             }
         }
@@ -364,15 +356,14 @@ Wolf.AI = (function() {
         self.dir = Wolf.Math.dir8_nodir; // can't move
     }
 
-
     /**
-     * @description Run Away from player.  
+     * @description Run Away from player.
      * @private
      */
-    function retreat(self, game) {
+    public static retreat(self, game) {
         var level = game.level,
             player = game.player,
-            deltax, 
+            deltax,
             deltay,
             d = [],
             tdir;
@@ -389,23 +380,23 @@ Wolf.AI = (function() {
             d[1] = tdir;
         } // swap d[0] & d[1]
 
-        if (changeDir(self, d[0], level)) {
+        if (AI.changeDir(self, d[0], level)) {
             return;
         }
-        if (changeDir(self, d[1], level)) {
+        if (AI.changeDir(self, d[1], level)) {
             return;
         }
 
         // there is no direct path to the player, so pick another direction
         if (Random.get() > 128) { // randomly determine direction of search
             for(tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2 ) { // * Revision
-                if (changeDir(self, tdir, level)) {
+                if (AI.changeDir(self, tdir, level)) {
                     return;
                 }
             }
         } else {
             for (tdir = Wolf.Math.dir8_south; tdir >= Wolf.Math.dir8_east; tdir -= 2) { // * Revision (JDC fix for unsigned enums)
-                if (changeDir(self, tdir, level)) {
+                if (AI.changeDir(self, tdir, level)) {
                     return;
                 }
             }
@@ -414,27 +405,26 @@ Wolf.AI = (function() {
         self.dir = Wolf.Math.dir8_nodir;        // can't move
     }
 
-    
     /**
      * @description Attempts to choose and initiate a movement for entity
      *              that sends it towards the player while dodging.
      * @private
      */
-    function dodge(self, game) {
+    public static dodge(self, game) {
         var level = game.level,
             player = game.player,
-            deltax, 
-            deltay, 
+            deltax,
+            deltay,
             i,
-            
-            dirtry = [], 
-            turnaround, 
+
+            dirtry = [],
+            turnaround,
             tdir;
-            
+
         if (game.player.playstate == Wolf.ex_victory) {
             return;
         }
-       
+
         if (self.flags & Actors.FL_FIRSTATTACK) {
             // turning around is only ok the very first time after noticing the player
             turnaround = Wolf.Math.dir8_nodir;
@@ -443,7 +433,7 @@ Wolf.AI = (function() {
             turnaround = Wolf.Math.opposite8[self.dir];
         }
 
-      
+
         deltax = Wolf.POS2TILE(player.position.x) - Wolf.POS2TILE(self.x);
         deltay = Wolf.POS2TILE(player.position.y) - Wolf.POS2TILE(self.y);
 
@@ -487,37 +477,36 @@ Wolf.AI = (function() {
             if (dirtry[i] == Wolf.Math.dir8_nodir || dirtry[i] == turnaround) {
                 continue;
             }
-            if (changeDir(self, dirtry[i], level)) {
+            if (AI.changeDir(self, dirtry[i], level)) {
                 return;
             }
         }
 
         // turn around only as a last resort
         if (turnaround != Wolf.Math.dir8_nodir) {
-            if (changeDir(self, turnaround, level)) {
+            if (AI.changeDir(self, turnaround, level)) {
                 return;
             }
         }
-        
 
-        
+
+
         self.dir = Wolf.Math.dir8_nodir;
     }
-    
 
     /**
      * @memberOf Wolf.AI
      */
-    function T_Stand(self, game, tics) {
-        findTarget(self, game, tics);
+    public static T_Stand(self, game, tics) {
+        AI.findTarget(self, game, tics);
     }
-    
+
     /**
      * @memberOf Wolf.AI
      */
-    function T_Path(self, game, tics) {
+    public static T_Path(self, game, tics) {
         var level = game.level;
-        if (findTarget(self, game, tics)) {
+        if (AI.findTarget(self, game, tics)) {
             return;
         }
 
@@ -526,21 +515,20 @@ Wolf.AI = (function() {
         }
 
         if (self.dir == Wolf.Math.dir8_nodir) {
-            path(self, game);
+            AI.path(self, game);
 
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return; // all movement is blocked
             }
         }
-        T_Advance(self, game, path, tics);
+        AI.T_Advance(self, game, AI.path, tics);
     }
-
 
     /**
      * @description Try to damage the player.
      * @memberOf Wolf.AI
      */
-    function T_Shoot(self, game, tics) {
+    public static  T_Shoot(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy, dist,
@@ -550,7 +538,7 @@ Wolf.AI = (function() {
         if (!level.state.areabyplayer[self.areanumber]) {
             return;
         }
-        
+
         if (!Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             return; // player is behind a wall
         }
@@ -564,7 +552,7 @@ Wolf.AI = (function() {
             dist = dist * 2 / 3;                    // ss are better shots
         }
 
-        if (player.speed >= Wolf.RUNSPEED) {
+        if (player.speed >= AI.RUNSPEED) {
             hitchance = 160;
         } else {
             hitchance = 256;
@@ -609,20 +597,19 @@ Wolf.AI = (function() {
                 break;
         }
     }
-    
 
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_Chase(self, game, tics) {
+    public static T_Chase(self, game, tics) {
         var level = game.level,
             player = game.player,
-            dx, dy, 
-            dist, 
+            dx, dy,
+            dist,
             chance,
             shouldDodge = false;
-        
+
         // if (gamestate.victoryflag) return;
         if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) { // got a shot at player?
             dx = Math.abs(Wolf.POS2TILE(self.x) - Wolf.POS2TILE(player.position.x));
@@ -641,13 +628,13 @@ Wolf.AI = (function() {
             }
             shouldDodge = true;
         }
-        
+
 
         if (self.dir == Wolf.Math.dir8_nodir) {
             if (shouldDodge) {
-                dodge(self, game);
+                AI.dodge(self, game);
             } else {
-                chase(self, game);
+                AI.chase(self, game);
             }
 
             if (self.dir == Wolf.Math.dir8_nodir) {
@@ -656,22 +643,21 @@ Wolf.AI = (function() {
             self.angle = Wolf.Math.dir8angle[self.dir];
         }
 
-        T_Advance(self, game, shouldDodge ? dodge : chase, tics);
+        AI.T_Advance(self, game, shouldDodge ? AI.dodge : AI.chase, tics);
 
     }
-    
 
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_DogChase(self, game, tics) {
+    public static T_DogChase(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy;
 
         if (self.dir == Wolf.Math.dir8_nodir) {
-            dodge(self, game);
+            AI.dodge(self, game);
             self.angle = Wolf.Math.dir8angle[ self.dir ];
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return; // object is blocked in
@@ -690,15 +676,14 @@ Wolf.AI = (function() {
             }
         }
 
-        T_Advance(self, game, dodge, tics);
+        AI.T_Advance(self, game, AI.dodge, tics);
     }
-    
 
     /**
      * @description Try to damage the player.
      * @memberOf Wolf.AI
      */
-    function T_BossChase(self, game, tics) {
+    public static T_BossChase(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy, dist,
@@ -721,30 +706,29 @@ Wolf.AI = (function() {
 
         if( self.dir == Wolf.Math.dir8_nodir ) {
             if (shouldDodge) {
-                dodge(self, game);
+                AI.dodge(self, game);
             } else {
-                chase(self, game);
+                AI.chase(self, game);
             }
 
             if( self.dir == Wolf.Math.dir8_nodir ) {
                 // object is blocked in
-                return;    
+                return;
             }
         }
 
-        think = dist < 4 ? retreat : (shouldDodge ? dodge : chase);
-        T_Advance(self, game, think, tics);
+        think = dist < 4 ? AI.retreat : (shouldDodge ? AI.dodge : AI.chase);
+        AI.T_Advance(self, game, think, tics);
     }
-    
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_Fake(self, game, tics) {
+    public static T_Fake(self, game, tics) {
         var level = game.level,
             player = game.player;
-            
+
         if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             if (Random.get() < tics << 1) {
                 // go into attack frame
@@ -752,24 +736,23 @@ Wolf.AI = (function() {
                 return;
             }
         }
-        
+
         if (self.dir == Wolf.Math.dir8_nodir) {
-            dodge(self, game);
+            AI.dodge(self, game);
             if (self.dir == Wolf.Math.dir8_nodir ) {
                 // object is blocked in
                 return;
             }
         }
 
-        T_Advance(self, game, dodge, tics);
+        AI.T_Advance(self, game, AI.dodge, tics);
     }
 
-    
     /**
-     * @description 
+     * @description
      * @private
      */
-    function T_Advance(self, game, think, tics) {
+    public static T_Advance(self, game, think, tics) {
         var level = game.level,
             move, door;
 
@@ -792,7 +775,7 @@ Wolf.AI = (function() {
             }
 
             if (move < self.distance ) {
-                T_Move(self, game, move);
+                AI.T_Move(self, game, move);
                 break;
             }
 
@@ -804,22 +787,22 @@ Wolf.AI = (function() {
 
             // think: Where to go now?
             think(self, game, tics);
-            
+
             self.angle = Wolf.Math.dir8angle[self.dir];
             if (self.dir == Wolf.Math.dir8_nodir) {
                 return; // all movement is blocked
             }
         }
     }
-    
+
     /**
-     * @description Moves object for distance in global units, in self.dir direction. 
+     * @description Moves object for distance in global units, in self.dir direction.
      * @memberOf Wolf.AI
      */
-    function T_Move(self, game, dist) {
+    public static T_Move(self, game, dist) {
         var level = game.level,
             player = game.player;
-            
+
         if (self.dir == Wolf.Math.dir8_nodir || !dist) {
             return;
         }
@@ -847,30 +830,30 @@ Wolf.AI = (function() {
             self.distance = 0;
         }
     }
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_Ghosts(self, game, tics) {
+    public static T_Ghosts(self, game, tics) {
         var level = game.level,
             player = game.player;
 
         if (self.dir == Wolf.Math.dir8_nodir) {
-            chase(self, game);
+            AI.chase(self, game);
             if (self.dir == Wolf.Math.dir8_nodir ) {
                 return;    // object is blocked in
             }
             self.angle = Wolf.Math.dir8angle[self.dir];
         }
-        T_Advance(self, game, chase, tics);
+        AI.T_Advance(self, game, AI.chase, tics);
     }
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_Bite(self, game, tics) {
+    public static T_Bite(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy;
@@ -889,18 +872,17 @@ Wolf.AI = (function() {
         }
     }
 
-
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_UShoot(self, game, tics) {
+    public static T_UShoot(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy,
             dist;
 
-        T_Shoot(self, game, tics);
+        AI.T_Shoot(self, game, tics);
 
         dx = Math.abs(self.tile.x - Wolf.POS2TILE(player.position.x));
         dy = Math.abs(self.tile.y - Wolf.POS2TILE(player.position.y));
@@ -910,13 +892,12 @@ Wolf.AI = (function() {
             Wolf.Player.damage(player, self, 10);
         }
     }
-    
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_Launch(self, game, tics) {
+    public static T_Launch(self, game, tics) {
         var level = game.level,
             player = game.player,
             proj, iangle;
@@ -928,7 +909,7 @@ Wolf.AI = (function() {
 
         if (self.type == Actors.en_death) {
             // death knight launches 2 rockets with 4 degree shift each.
-            T_Shoot(self, game, tics);
+            AI.T_Shoot(self, game, tics);
             if (self.state == Actors.st_shoot2) {
                 iangle = Wolf.Math.normalizeAngle(iangle - Wolf.DEG2RAD(4));
             } else {
@@ -956,7 +937,7 @@ Wolf.AI = (function() {
         proj.speed = 0x2000;
         proj.flags = Actors.FL_NONMARK; // FL_NEVERMARK;
         proj.sprite = Wolf.Sprites.getNewSprite(level);
-        
+
         switch(self.type) {
             case Actors.en_death:
                 proj.type = Actors.en_hrocket;
@@ -987,19 +968,17 @@ Wolf.AI = (function() {
                 proj.type = Actors.en_rocket;
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/085.wav", 1, Sound.ATTN_NORM, 0);
         }
-        
-    }
-    
 
-    
+    }
+
     /**
-     * @description Called when projectile is airborne. 
+     * @description Called when projectile is airborne.
      * @private
      * @param {object} self The projectile actor object.
      * @param {object} level The level object.
      * @returns {boolean} True if move ok, otherwise false.
      */
-    function projectileTryMove(self, level) {
+    public static projectileTryMove(self, level) {
         var PROJSIZE = 0x2000,
             xl, yl, xh, yh, x, y;
 
@@ -1027,9 +1006,8 @@ Wolf.AI = (function() {
         return true;
     }
 
-
     /**
-     * @description Called when projectile is airborne. 
+     * @description Called when projectile is airborne.
      * @memberOf Wolf.AI
      * @param {object} self The enemy actor object.
      * @param {object} level The level object.
@@ -1037,13 +1015,13 @@ Wolf.AI = (function() {
      * @param {number} tics The number of tics.
      * @returns {boolean} True if move ok, otherwise false.
      */
-    function T_Projectile(self, game, tics) {
+    public static T_Projectile(self, game, tics) {
         var level = game.level,
             player = game.player,
             PROJECTILESIZE = 0xC000,
-            deltax, deltay, 
+            deltax, deltay,
             speed, damage;
-        
+
         speed = self.speed * tics;
 
         deltax = (speed * Wolf.Math.CosTable[self.angle])>>0;
@@ -1068,7 +1046,7 @@ Wolf.AI = (function() {
         deltax = Math.abs(self.x - player.position.x);
         deltay = Math.abs(self.y - player.position.y);
 
-        if (!projectileTryMove(self, level)) {
+        if (!AI.projectileTryMove(self, level)) {
             if (self.type == Actors.en_rocket || self.type == Actors.en_hrocket ) {
                 // rocket ran into obstacle, draw explosion!
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/086.wav", 1, Sound.ATTN_NORM, 0);
@@ -1109,15 +1087,15 @@ Wolf.AI = (function() {
         self.tile.x = self.x >> Wolf.TILESHIFT;
         self.tile.y = self.y >> Wolf.TILESHIFT;
     }
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_BJRun(self, game, tics) {
+    public static T_BJRun(self, game, tics) {
         var move = Wolf.BJRUNSPEED * tics;
 
-        T_Move(self, game, move);
+        AI.T_Move(self, game, move);
 
         if (!self.distance) {
             self.distance = Wolf.TILEGLOBAL;
@@ -1128,52 +1106,31 @@ Wolf.AI = (function() {
             }
         }
     }
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_BJJump(self, game, tics) {
+    public static T_BJJump(self, game, tics) {
         //var move = Wolf.BJRUNSPEED * tics;
-        //T_Move(self, game, move);
+        //AI.T_Move(self, game, move);
     }
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_BJYell(self, game, tics) {
+    public static T_BJYell(self, game, tics) {
         Sound.startSound(null, null, 0, Sound.CHAN_VOICE, "assets/sfx/082.wav", 1, Sound.ATTN_NORM, 0);
     }
-    
+
     /**
-     * @description 
+     * @description
      * @memberOf Wolf.AI
      */
-    function T_BJDone(self, game, tics) {
+    public static T_BJDone(self, game, tics) {
         Wolf.Player.playstate = Wolf.ex_victory; // exit castle tile
         //Wolf.Player.playstate = Wolf.ex_complete;
         Wolf.Game.endEpisode(game);
     }
-
-    
-    return {
-        T_Stand : T_Stand,
-        T_Path : T_Path,
-        T_Ghosts : T_Ghosts,
-        T_Bite : T_Bite,
-        T_Shoot : T_Shoot,
-        T_UShoot : T_UShoot,
-        T_Launch : T_Launch,
-        T_Chase : T_Chase,
-        T_DogChase : T_DogChase,
-        T_BossChase : T_BossChase,
-        T_Fake : T_Fake,
-        T_Projectile : T_Projectile,
-        T_BJRun : T_BJRun,
-        T_BJJump : T_BJJump,
-        T_BJYell : T_BJYell,
-        T_BJDone : T_BJDone
-    };
-    
-})();
+}
