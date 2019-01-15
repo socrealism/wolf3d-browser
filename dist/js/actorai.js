@@ -91,7 +91,7 @@ class ActorAI {
         }
     }
     static victory(game) {
-        Wolf.Game.startIntermission(game);
+        Game.startIntermission(game);
     }
     static dormant(self, game) {
         var level = game.level, player = game.player, deltax, deltay, xl, xh, yl, yh, x, y, n, moveok = false;
@@ -133,7 +133,7 @@ class ActorAI {
     static startDeathCam(game, self) {
         self.playstate = Wolf.ex_complete;
         setTimeout(function () {
-            Wolf.Game.startIntermission(game);
+            Game.startIntermission(game);
         }, 5000);
     }
     static smoke(self, game) {
@@ -310,7 +310,7 @@ class ActorAI {
         }
         Actors.stateChange(self, Actors.st_die1);
         if (++level.state.killedMonsters == level.state.totalMonsters) {
-            Wolf.Game.notify("You killed the last enemy!");
+            Game.notify("You killed the last enemy!");
         }
         self.flags &= ~Actors.FL_SHOOTABLE;
         self.flags |= Actors.FL_NONMARK;

@@ -350,7 +350,7 @@ class Doors {
                 if (player.items & Wolf.ITEM_KEY_1) {
                     Doors.changeDoorState(level, player, door);
                 } else {
-                    Wolf.Game.notify("You need a gold key");
+                    Game.notify("You need a gold key");
                 }
                 break;
 
@@ -359,7 +359,7 @@ class Doors {
                 if (player.items & Wolf.ITEM_KEY_2) {
                     Doors.changeDoorState(level, player, door);
                 } else {
-                    Wolf.Game.notify("You need a silver key");
+                    Game.notify("You need a silver key");
                 }
                 break;
         }

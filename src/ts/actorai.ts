@@ -169,7 +169,7 @@ class ActorAI {
      * @description Victory - start intermission.
      */
     public static victory(game) {
-        Wolf.Game.startIntermission(game);
+        Game.startIntermission(game);
     }
 
     /**
@@ -237,7 +237,7 @@ class ActorAI {
     public static startDeathCam(game, self) {
         self.playstate = Wolf.ex_complete;
         setTimeout(function () {
-            Wolf.Game.startIntermission(game);
+            Game.startIntermission(game);
         }, 5000);
     }
 
@@ -480,7 +480,7 @@ class ActorAI {
         Actors.stateChange(self, Actors.st_die1);
 
         if (++level.state.killedMonsters == level.state.totalMonsters) {
-            Wolf.Game.notify("You killed the last enemy!");
+            Game.notify("You killed the last enemy!");
         }
 
         self.flags &= ~Actors.FL_SHOOTABLE;

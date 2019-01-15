@@ -377,8 +377,8 @@ Wolf.Player = (function() {
         }
 
         if (level.tileMap[self.tile.x][self.tile.y] & Wolf.EXIT_TILE) {
-            //Wolf.Game.startIntermission(0);
-            Wolf.Game.victory(game);
+            //Game.startIntermission(0);
+            Game.victory(game);
         }
     }
     
@@ -424,7 +424,7 @@ Wolf.Player = (function() {
             }
             Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/040.wav", 1, Sound.ATTN_NORM, 0 );
             
-            Wolf.Game.startIntermission(game);
+            Game.startIntermission(game);
             
             return true;
         }
@@ -648,14 +648,14 @@ Wolf.Player = (function() {
         
         if (player.health <= 0) {
             // dead
-            Wolf.Game.notify("You have died");
+            Game.notify("You have died");
             player.health = 0;
             player.playstate = Wolf.ex_dead;
             Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/009.wav", 1, Sound.ATTN_NORM, 0);
         }
 
         // red screen flash
-        Wolf.Game.startDamageFlash(points);
+        Game.startDamageFlash(points);
 
         // stop the happy grin face if shot before it times out
         player.faceGotGun = false;

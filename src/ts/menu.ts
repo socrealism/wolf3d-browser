@@ -188,9 +188,9 @@ Wolf.Menu = (function() {
                 Sound.toggleMusic(false);
             }
             if ($this.hasClass("mouseenabled")) {
-                var mouseOn = Wolf.Game.isMouseEnabled();
+                var mouseOn = Game.isMouseEnabled();
                 $("div.light", $this).toggleClass("on", !mouseOn);
-                Wolf.Game.enableMouse(!mouseOn);
+                Game.enableMouse(!mouseOn);
             }
 
             if ($this.hasClass("customizekeys")) {
@@ -205,7 +205,7 @@ Wolf.Menu = (function() {
                 return;
             }
             var episode = $(this).data("episode");
-            if (Wolf.Game.isPlaying()) {
+            if (Game.isPlaying()) {
                 showMessage("confirm-newgame", true, function(result) {
                     if (result) {
                         activeEpisode = episode;
@@ -231,9 +231,9 @@ Wolf.Menu = (function() {
             if (!menuInputActive) {
                 return;
             }
-            if (Wolf.Game.isPlaying()) {
+            if (Game.isPlaying()) {
                 hide();
-                Wolf.Game.resume();
+                Game.resume();
             }
         });
         
@@ -259,8 +259,8 @@ Wolf.Menu = (function() {
             hide();
             level = $(this).data("level");
 
-            gameState = Wolf.Game.startGame(Game[activeSkill]); //FIXME: insecure skill selecting ugly hack
-            Wolf.Game.startLevel(gameState, activeEpisode, level);
+            gameState = Game.startGame(Game[activeSkill]); //FIXME: insecure skill selecting ugly hack
+            Game.startLevel(gameState, activeEpisode, level);
         });
 
     }
@@ -318,7 +318,7 @@ Wolf.Menu = (function() {
                 key,
                 true
             );
-            Wolf.Game.bindControl(sprite.data("action"), [key]);
+            Game.bindControl(sprite.data("action"), [key]);
         }
         
         function exitCustomize() {
@@ -379,7 +379,7 @@ Wolf.Menu = (function() {
     }
     
     function initCustomizeMenu() {
-        var controls = Wolf.Game.getControls(),
+        var controls = Game.getControls(),
             keys = ["run", "use", "attack", "strafe", "left", "right", "up", "down"],
             i;
 
@@ -465,7 +465,7 @@ Wolf.Menu = (function() {
         menuName = menuName || "main";
 
         if (menuName == "main") {
-            if (Wolf.Game.isPlaying()) {
+            if (Game.isPlaying()) {
                 $("#menu div.menu.main li.resumegame")
                     .removeClass("hidden")
                     .show();
@@ -512,7 +512,7 @@ Wolf.Menu = (function() {
         }
         
         if (menuName == "control") {
-            mouseOn = Wolf.Game.isMouseEnabled();
+            mouseOn = Game.isMouseEnabled();
             $("#menu li.mouseenabled div.light").toggleClass("on", mouseOn);
         }
         

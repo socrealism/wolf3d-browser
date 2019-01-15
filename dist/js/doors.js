@@ -238,7 +238,7 @@ class Doors {
                     Doors.changeDoorState(level, player, door);
                 }
                 else {
-                    Wolf.Game.notify("You need a gold key");
+                    Game.notify("You need a gold key");
                 }
                 break;
             case Doors.DOOR_S_VERT:
@@ -247,7 +247,7 @@ class Doors {
                     Doors.changeDoorState(level, player, door);
                 }
                 else {
-                    Wolf.Game.notify("You need a silver key");
+                    Game.notify("You need a silver key");
                 }
                 break;
         }

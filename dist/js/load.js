@@ -70,7 +70,7 @@
                     $("#title-screen").fadeOut(1500, function () {
                         Input.init();
                         Sound.init();
-                        Wolf.Game.init();
+                        Game.init();
                         Wolf.Menu.show();
                     });
                     Modernizr.load(files2);

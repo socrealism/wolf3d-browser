@@ -254,7 +254,7 @@ Wolf.Player = (function () {
             Areas.connect(level, self.areanumber);
         }
         if (level.tileMap[self.tile.x][self.tile.y] & Wolf.EXIT_TILE) {
-            Wolf.Game.victory(game);
+            Game.victory(game);
         }
     }
     function use(self, game) {
@@ -285,7 +285,7 @@ Wolf.Player = (function () {
                 self.playstate = Wolf.ex_complete;
             }
             Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/040.wav", 1, Sound.ATTN_NORM, 0);
-            Wolf.Game.startIntermission(game);
+            Game.startIntermission(game);
             return true;
         }
         return false;
@@ -432,12 +432,12 @@ Wolf.Player = (function () {
             player.health -= points;
         }
         if (player.health <= 0) {
-            Wolf.Game.notify("You have died");
+            Game.notify("You have died");
             player.health = 0;
             player.playstate = Wolf.ex_dead;
             Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/009.wav", 1, Sound.ATTN_NORM, 0);
         }
-        Wolf.Game.startDamageFlash(points);
+        Game.startDamageFlash(points);
         player.faceGotGun = false;
         if (points > 30 && player.health != 0) {
             player.faceOuch = true;

@@ -770,7 +770,7 @@ class AI {
     }
     static T_BJDone(self, game, tics) {
         Wolf.Player.playstate = Wolf.ex_victory;
-        Wolf.Game.endEpisode(game);
+        Game.endEpisode(game);
     }
 }
 AI.RUNSPEED = 6000;

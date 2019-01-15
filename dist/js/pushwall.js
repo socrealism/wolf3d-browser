@@ -28,10 +28,10 @@ Wolf.PushWall = (function () {
         level.tileMap[x][y] &= (~Wolf.WALL_TILE);
         level.tileMap[x][y] |= Wolf.PUSHWALL_TILE;
         if (++level.state.foundSecrets == level.state.totalSecrets) {
-            Wolf.Game.notify("You found the last secret!");
+            Game.notify("You found the last secret!");
         }
         else {
-            Wolf.Game.notify("You found a secret!");
+            Game.notify("You found a secret!");
         }
         Sound.startSound(null, null, 1, Sound.CHAN_AUTO, "assets/sfx/034.wav", 1, Sound.ATTN_STATIC, 0);
         level.tileMap[x + dx][y + dy] |= Wolf.PUSHWALL_TILE;

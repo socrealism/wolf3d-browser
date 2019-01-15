@@ -1114,6 +1114,6 @@ class AI {
     public static T_BJDone(self, game, tics) {
         Wolf.Player.playstate = Wolf.ex_victory; // exit castle tile
         //Wolf.Player.playstate = Wolf.ex_complete;
-        Wolf.Game.endEpisode(game);
+        Game.endEpisode(game);
     }
 }

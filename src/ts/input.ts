@@ -94,7 +94,7 @@ class Input {
                 .on("keydown", function (e) {
                     e.preventDefault();
 
-                    if (!Wolf.Game.isPlaying()) {
+                    if (!Game.isPlaying()) {
                         return;
                     }
 
@@ -107,7 +107,7 @@ class Input {
                 })
                 .on("keyup", function (e) {
                     e.preventDefault();
-                    if (!Wolf.Game.isPlaying()) {
+                    if (!Game.isPlaying()) {
                         return;
                     }
                     Input.keys[e.keyCode] = false;
@@ -169,7 +169,7 @@ class Input {
                             Input.mouseMoveY += e.originalEvent.movementY;
                         }
                     } else {
-                        if (Wolf.Game.isFullscreen()) {
+                        if (Game.isFullscreen()) {
                             Input.mouseX = e.pageX / window.innerWidth;
                             Input.mouseY = e.pageY / window.innerHeight;
                         } else {
@@ -288,7 +288,7 @@ class Input {
             return;
         }
 
-        if (Wolf.Game.isFullscreen()) {
+        if (Game.isFullscreen()) {
             pointer.lock($("#game")[0],
                 function (e) {
                     Wolf.log("Pointer locked")
