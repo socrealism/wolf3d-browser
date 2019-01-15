@@ -318,11 +318,11 @@ Wolf.Player = (function () {
                         player.attackFrame++;
                         break;
                     }
-                    Wolf.Weapon.fireLead(game, player);
+                    Weapon.fireLead(game, player);
                     player.ammo[Wolf.AMMO_BULLETS]--;
                     break;
                 case 2:
-                    Wolf.Weapon.fireHit(game, player);
+                    Weapon.fireHit(game, player);
                     break;
                 case 3:
                     if (player.ammo[Wolf.AMMO_BULLETS] && reAttack) {
