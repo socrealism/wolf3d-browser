@@ -1,5 +1,5 @@
 class Raycaster {
-    static readonly UPPERZCOORD =  0.6;
+    static readonly UPPERZCOORD = 0.6;
     static readonly LOWERZCOORD = -0.6;
 
     // marks
@@ -16,11 +16,11 @@ class Raycaster {
     static readonly TRACE_HIT_PWALL = 128; // pushwall was hit
 }
 
-Wolf.Raycaster = (function() {
+Wolf.Raycaster = (function () {
 
-    var x_tile_step = [ 1, -1, -1,  1 ],
-        y_tile_step = [ 1,  1, -1, -1 ];
-        
+    var x_tile_step = [1, -1, -1, 1],
+        y_tile_step = [1, 1, -1, -1];
+
     var TILESHIFT = Wolf.TILESHIFT,
         TRACE_HIT_VERT = Raycaster.TRACE_HIT_VERT,
         TILEGLOBAL = Wolf.TILEGLOBAL,
@@ -40,7 +40,7 @@ Wolf.Raycaster = (function() {
 
     function traceCheck(tileMap, doorMap, visibleTiles, x, y, frac, dfrac, vert, flip, tracePoint) {
         var door;
-        
+
         if (tileMap[x][y] & WALL_TILE) {
             if (vert) {
                 tracePoint.x = (x << TILESHIFT) + (flip ? TILEGLOBAL : 0);
@@ -54,19 +54,19 @@ Wolf.Raycaster = (function() {
             tracePoint.tileX = x;
             tracePoint.tileY = y;
             tracePoint.frac = frac / TILEGLOBAL;
-           
+
             return true; // wall, stop tracing
         }
-        
+
         if (visibleTiles) {
             visibleTiles[x][y] = true; // this tile is visible
         }
 
         if (tileMap[x][y] & DOOR_TILE && doorMap[x][y].action != Doors.dr_open) {
             door = doorMap[x][y];
-            
+
             frac += dfrac >> 1;
-            
+
             if (POS2TILE(frac)) {
                 return false;
             }
@@ -88,26 +88,26 @@ Wolf.Raycaster = (function() {
                 tracePoint.flags &= ~TRACE_HIT_VERT;
                 tracePoint.frac = 1 - frac / TILEGLOBAL;
             }
-            
+
             tracePoint.flags |= TRACE_HIT_DOOR;
             tracePoint.tileX = x;
             tracePoint.tileY = y;
             tracePoint.frac += Doors.opened(door) / Doors.DOOR_FULLOPEN;
             return true; // closed door, stop tracing
         }
-        
-        
+
+
         if (tileMap[x][y] & PUSHWALL_TILE) {
-            
+
             var pwall = PushWall.get(),
                 offset = pwall.pointsMoved / 128;
 
             frac += dfrac * offset;
-            
+
             if (POS2TILE(frac)) {
                 return false;
             }
-            
+
             if (vert) {
                 tracePoint.x = (x << TILESHIFT) + (flip ? TILEGLOBAL : 0) + offset * TILEGLOBAL * (flip ? -1 : 1);
                 tracePoint.y = (y << TILESHIFT) + frac;
@@ -117,7 +117,7 @@ Wolf.Raycaster = (function() {
                 tracePoint.y = (y << TILESHIFT) + (flip ? TILEGLOBAL : 0) + offset * TILEGLOBAL * (flip ? -1 : 1);
                 tracePoint.flags &= ~TRACE_HIT_VERT;
             }
-            
+
             tracePoint.flags |= TRACE_HIT_PWALL;
             tracePoint.tileX = x;
             tracePoint.tileY = y;
@@ -127,7 +127,7 @@ Wolf.Raycaster = (function() {
 
         return false; // no intersection, go on!
     }
-    
+
     function trace(level, visibleTiles, tracePoint) {
         var xtilestep, ytilestep,
             xstep, ystep,
@@ -150,26 +150,26 @@ Wolf.Raycaster = (function() {
         xstep = ytilestep * XnextTable[tracePoint.angle];
         ystep = xtilestep * YnextTable[tracePoint.angle];
 
-        xintercept = (((((ytilestep == -1 ? ytile+1 : ytile) << TILESHIFT) - tracePoint.y) 
-                    / TanTable[tracePoint.angle])>>0) + tracePoint.x;
-        yintercept = (((((xtilestep == -1 ? xtile+1 : xtile) << TILESHIFT) - tracePoint.x) 
-                    * TanTable[tracePoint.angle])>>0) + tracePoint.y;
+        xintercept = (((((ytilestep == -1 ? ytile + 1 : ytile) << TILESHIFT) - tracePoint.y)
+            / TanTable[tracePoint.angle]) >> 0) + tracePoint.x;
+        yintercept = (((((xtilestep == -1 ? xtile + 1 : xtile) << TILESHIFT) - tracePoint.x)
+            * TanTable[tracePoint.angle]) >> 0) + tracePoint.y;
 
         YmapPos = yintercept >> TILESHIFT; // toXray
         XmapPos = xintercept >> TILESHIFT; // toYray
 
         if (visibleTiles) {
             // this tile is visible
-            visibleTiles[POS2TILE(tracePoint.x)][POS2TILE(tracePoint.y)] = true; 
+            visibleTiles[POS2TILE(tracePoint.x)][POS2TILE(tracePoint.y)] = true;
         }
-        
+
         var traceCount = 0;
 
         // Start of ray-casting
         while (1) {
 
             traceCount++;
-            
+
             // Vertical loop // an analogue for X-Ray
             while (!(ytilestep == -1 && YmapPos <= ytile) && !(ytilestep == 1 && YmapPos >= ytile)) {
 
@@ -211,16 +211,16 @@ Wolf.Raycaster = (function() {
                 xintercept += xstep;
                 XmapPos = xintercept >> TILESHIFT;
             }
-            
+
             if (traceCount > 1000) {
                 return;
             }
 
         } // end of while( 1 )
-        
+
 
     }
-    
+
 
     function traceRays(viewport, level) {
         var n, i, j,
@@ -229,49 +229,49 @@ Wolf.Raycaster = (function() {
             visibleTiles = [],
             numRays = Wolf.XRES / Wolf.SLICE_WIDTH,
             tracers = [];
-        
-        for (i=0;i<64;i++) {
+
+        for (i = 0; i < 64; i++) {
             visibleTiles[i] = [];
-            for (j=0;j<64;j++) {
+            for (j = 0; j < 64; j++) {
                 visibleTiles[i][j] = 0;
             }
         }
-        
+
         // Ray casting
-        
-        for (n = 0 ; n < numRays ; ++n) {
-            
+
+        for (n = 0; n < numRays; ++n) {
+
             tracePoint = {
-                x : viewport.x,
-                y : viewport.y,
-                angle : Mathematik.normalizeAngle(viewport.angle - Mathematik.ColumnAngle[n * Wolf.SLICE_WIDTH]),
-                flags : Raycaster.TRACE_SIGHT | Raycaster.TRACE_MARK_MAP,
-                oob : false
+                x: viewport.x,
+                y: viewport.y,
+                angle: Mathematik.normalizeAngle(viewport.angle - Mathematik.ColumnAngle[n * Wolf.SLICE_WIDTH]),
+                flags: Raycaster.TRACE_SIGHT | Raycaster.TRACE_MARK_MAP,
+                oob: false
             };
-            
+
             trace(level, visibleTiles, tracePoint);
-            
+
             tracers[n] = tracePoint;
-            
+
             // Ugly hack to get rid of "blank slice" glitch due to out-of-bounds raycasting.
             // We simply re-use the previous slice if possible.
             if (tracePoint.oob) {
-                if (n > 0 && !tracers[n-1].oob) {
-                    tracers[n] = tracers[n-1];
+                if (n > 0 && !tracers[n - 1].oob) {
+                    tracers[n] = tracers[n - 1];
                 }
             }
         }
-        
+
         return {
-            visibleTiles : visibleTiles,
-            tracers : tracers
+            visibleTiles: visibleTiles,
+            tracers: tracers
         };
     }
-    
-    
+
+
     return {
-        traceRays : traceRays,
-        trace : trace
+        traceRays: traceRays,
+        trace: trace
     };
-    
+
 })();

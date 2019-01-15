@@ -1,5 +1,5 @@
 /**
- * @namespace 
+ * @namespace
  * @description Math functions and lookup tables
  */
 class Mathematik {
@@ -36,10 +36,10 @@ class Mathematik {
     static dir8_southeast = 7;
     static dir8_nodir = 8; // dir8type;
 
-    static dx4dir = [1, 0, -1,  0, 0];  // dx & dy based on direction
-    static dy4dir = [0, 1,  0, -1, 0];
-    static dx8dir = [1, 1, 0, -1, -1, -1,  0,  1, 0];  // dx & dy based on direction
-    static dy8dir = [0, 1, 1,  1,  0, -1, -1, -1, 0];
+    static dx4dir = [1, 0, -1, 0, 0];  // dx & dy based on direction
+    static dy4dir = [0, 1, 0, -1, 0];
+    static dx8dir = [1, 1, 0, -1, -1, -1, 0, 1, 0];  // dx & dy based on direction
+    static dy8dir = [0, 1, 1, 1, 0, -1, -1, -1, 0];
     static opposite4 = [2, 3, 0, 1, 4];
     static opposite8 = [4, 5, 6, 7, 0, 1, 2, 3, 8];
     static dir4to8 = [0, 2, 4, 6, 8];
@@ -142,9 +142,9 @@ class Mathematik {
 
     // dir of delta tooks dx{-1|0|1}+1 & dy{-1|0|1}+1 and give direction
     static dir4d = [
-        [Mathematik.dir4_nodir, Mathematik.dir4_west , Mathematik.dir4_nodir],
+        [Mathematik.dir4_nodir, Mathematik.dir4_west, Mathematik.dir4_nodir],
         [Mathematik.dir4_south, Mathematik.dir4_nodir, Mathematik.dir4_north],
-        [Mathematik.dir4_nodir, Mathematik.dir4_east , Mathematik.dir4_nodir]
+        [Mathematik.dir4_nodir, Mathematik.dir4_east, Mathematik.dir4_nodir]
     ];
     static dir8angle = [Wolf.ANG_0, Wolf.ANG_45, Wolf.ANG_90, Wolf.ANG_135, Wolf.ANG_180, Wolf.ANG_225, Wolf.ANG_270, Wolf.ANG_315, Wolf.ANG_0];
     static dir4angle = [Wolf.ANG_0, Wolf.ANG_90, Wolf.ANG_180, Wolf.ANG_270, Wolf.ANG_0];
@@ -157,7 +157,7 @@ class Mathematik {
         var angle, tanfov2, tanval, value,
             n;
 
-        for (n = 0; n <= Wolf.ANG_90 ; ++n) {
+        for (n = 0; n <= Wolf.ANG_90; ++n) {
             angle = Wolf.FINE2RAD(n);
             value = Math.sin(angle);
             Mathematik.SinTable[n] = Mathematik.SinTable[Wolf.ANG_180 - n] = Mathematik.SinTable[n + Wolf.ANG_360] = value;
@@ -168,31 +168,31 @@ class Mathematik {
             Mathematik.CosTable[n] = Mathematik.SinTable[n + Wolf.ANG_90];
         }
 
-        for (n = 0; n <= Wolf.ANG_360 ; ++n) {
+        for (n = 0; n <= Wolf.ANG_360; ++n) {
             angle = Wolf.FINE2RAD(n); //angle is in radians, n is in FINEs
 
             if (n == Wolf.ANG_90 || n == Wolf.ANG_270) {
                 Mathematik.TanTable[n] = Math.tan(Wolf.FINE2RAD(n - 0.5));    // infinity
-                Mathematik.YnextTable[n] = (Wolf.FLOATTILE * Math.tan(Wolf.FINE2RAD(n - 0.5)))>>0; // infinity
+                Mathematik.YnextTable[n] = (Wolf.FLOATTILE * Math.tan(Wolf.FINE2RAD(n - 0.5))) >> 0; // infinity
             } else {
                 Mathematik.TanTable[n] = Math.tan(angle);
-                Mathematik.YnextTable[n] = (Wolf.FLOATTILE * Math.tan(angle))>>0;
+                Mathematik.YnextTable[n] = (Wolf.FLOATTILE * Math.tan(angle)) >> 0;
             }
 
-            if(n == Wolf.ANG_0 || n == Wolf.ANG_360) {
-                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n + 0.5)))>>0; // infinity
+            if (n == Wolf.ANG_0 || n == Wolf.ANG_360) {
+                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n + 0.5))) >> 0; // infinity
             } else if (n == Wolf.ANG_180) {
-                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n - 0.5)))>>0; // -infinity
+                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n - 0.5))) >> 0; // -infinity
             } else if (n == Wolf.ANG_90 || n == Wolf.ANG_270) {
                 Mathematik.XnextTable[n] = 0;
             } else {
-                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(angle))>>0;
+                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(angle)) >> 0;
             }
         }
 
         tanfov2 = (Math.tan(Angle.DEG2RAD((Mathematik.calcFov(75, Wolf.XRES, Wolf.YRES) / 2.0)))) * (Wolf.XRES / Wolf.YRES);
         for (n = 0; n < Wolf.XRES; ++n) {
-            tanval = tanfov2 * (-1.0 + 2.0 * n / (Wolf.XRES-1));
+            tanval = tanfov2 * (-1.0 + 2.0 * n / (Wolf.XRES - 1));
             Mathematik.ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
         }
 
@@ -211,7 +211,7 @@ class Mathematik {
 
     static calcFov(fovX, width, height) {
         if (fovX < 1 || fovX > 179) {
-            throw Error("Bad fov: " + fovX );
+            throw Error("Bad fov: " + fovX);
         }
 
         return Angle.RAD2DEG(Math.atan(height / (width / Math.tan(fovX / 360 * Math.PI)))) * 2;
@@ -261,9 +261,9 @@ class Mathematik {
 
         if (angle < Math.PI / 2) {
             return Mathematik.dir4_east;
-        } else if( angle < Math.PI ) {
+        } else if (angle < Math.PI) {
             return Mathematik.dir4_north;
-        } else if( angle < 3 * Math.PI / 2 ) {
+        } else if (angle < 3 * Math.PI / 2) {
             return Mathematik.dir4_west;
         } else {
             return Mathematik.dir4_south;
@@ -278,13 +278,13 @@ class Mathematik {
     static get8dir(angle) {
         angle = Angle.normalize(angle + Math.PI / 12);
 
-        if ( angle <= (Math.PI / 4)) {
+        if (angle <= (Math.PI / 4)) {
             return Mathematik.dir8_east;
         } else if (angle < (Math.PI / 2)) {
             return Mathematik.dir8_northeast;
         } else if (angle <= (3 * Math.PI / 4)) {
             return Mathematik.dir8_north;
-        } else if (angle < Math.PI)  {
+        } else if (angle < Math.PI) {
             return Mathematik.dir8_northwest;
         } else if (angle <= (5 * Math.PI / 4)) {
             return Mathematik.dir8_west;
@@ -305,7 +305,7 @@ class Mathematik {
      * @returns {number} Distance
      */
     static point2LineDist(x, y, a) {
-        return Math.abs( (x * Mathematik.SinTable[a] - y * Mathematik.CosTable[a]) >> 0);
+        return Math.abs((x * Mathematik.SinTable[a] - y * Mathematik.CosTable[a]) >> 0);
     }
 
     /**
@@ -315,7 +315,7 @@ class Mathematik {
      * @param {number} a Line angle in degrees
      * @returns {number} Distance
      */
-    static lineLen2Point( x, y, a) {
+    static lineLen2Point(x, y, a) {
         return (x * Mathematik.CosTable[a] + y * Mathematik.SinTable[a]) >> 0;
     }
 

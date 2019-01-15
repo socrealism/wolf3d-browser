@@ -1,4 +1,4 @@
-(function() {
+(function () {
     var ST_INFO_NULL = [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead];
 
     /*
@@ -14,186 +14,186 @@
     var objstate = [
         // en_guard,
         [
-            [ 1, Wolf.SPR_GRD_S_1,     0, AI.T_Stand, null, Actors.st_stand ], // Actors.st_stand,
+            [1, Wolf.SPR_GRD_S_1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
-            [ 1, Wolf.SPR_GRD_W1_1,    20,  AI.T_Path, null, Actors.st_path1s ], // Actors.st_path1,
-            [ 1, Wolf.SPR_GRD_W1_1,     5,  null,           null, Actors.st_path2  ], // Actors.st_path1s,
-            [ 1, Wolf.SPR_GRD_W2_1,    15,  AI.T_Path, null, Actors.st_path3  ], // Actors.st_path2,
-            [ 1, Wolf.SPR_GRD_W3_1,    20,  AI.T_Path, null, Actors.st_path3s ], // Actors.st_path3,
-            [ 1, Wolf.SPR_GRD_W3_1,     5,  null,           null, Actors.st_path4  ], // Actors.st_path3s,
-            [ 1, Wolf.SPR_GRD_W4_1,    15,  AI.T_Path, null, Actors.st_path1  ], // Actors.st_path4,
+            [1, Wolf.SPR_GRD_W1_1, 20, AI.T_Path, null, Actors.st_path1s], // Actors.st_path1,
+            [1, Wolf.SPR_GRD_W1_1, 5, null, null, Actors.st_path2], // Actors.st_path1s,
+            [1, Wolf.SPR_GRD_W2_1, 15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
+            [1, Wolf.SPR_GRD_W3_1, 20, AI.T_Path, null, Actors.st_path3s], // Actors.st_path3,
+            [1, Wolf.SPR_GRD_W3_1, 5, null, null, Actors.st_path4], // Actors.st_path3s,
+            [1, Wolf.SPR_GRD_W4_1, 15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
 
-            [ 0, Wolf.SPR_GRD_PAIN_1,    10, null,    null, Actors.st_chase1],// Actors.st_pain,
-            [ 0, Wolf.SPR_GRD_PAIN_2,    10, null,    null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [ 0, Wolf.SPR_GRD_SHOOT1,    20, null,    null,             Actors.st_shoot2],// Actors.st_shoot1,
-            [ 0, Wolf.SPR_GRD_SHOOT2,    20, null,    AI.T_Shoot,  Actors.st_shoot3],// Actors.st_shoot2,
-            [ 0, Wolf.SPR_GRD_SHOOT3,    20, null,    null,             Actors.st_chase1],// Actors.st_shoot3,
+            [0, Wolf.SPR_GRD_PAIN_1, 10, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_GRD_PAIN_2, 10, null, null, Actors.st_chase1],// Actors.st_pain1,
 
-            [ 0, Wolf.SPR_DEMO,    0, null,    null, Actors.st_chase1 ], // Actors.st_shoot4,
-            [ 0, Wolf.SPR_DEMO,    0, null,    null, Actors.st_chase1 ], // Actors.st_shoot5,
-            [ 0, Wolf.SPR_DEMO,    0, null,    null, Actors.st_chase1 ], // Actors.st_shoot6,
-            [ 0, Wolf.SPR_DEMO,    0, null,    null, Actors.st_chase1 ], // Actors.st_shoot7,
-            [ 0, Wolf.SPR_DEMO,    0, null,    null, Actors.st_chase1 ], // Actors.st_shoot8,
-            [ 0, Wolf.SPR_DEMO,    0, null,    null, Actors.st_chase1 ], // Actors.st_shoot9,
+            [0, Wolf.SPR_GRD_SHOOT1, 20, null, null, Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_GRD_SHOOT2, 20, null, AI.T_Shoot, Actors.st_shoot3],// Actors.st_shoot2,
+            [0, Wolf.SPR_GRD_SHOOT3, 20, null, null, Actors.st_chase1],// Actors.st_shoot3,
 
-            [ 1, Wolf.SPR_GRD_W1_1, 10, AI.T_Chase,    null, Actors.st_chase1s ], // Actors.st_chase1,
-            [ 1, Wolf.SPR_GRD_W1_1,  3, null,               null, Actors.st_chase2  ], // Actors.st_chase1s,
-            [ 1, Wolf.SPR_GRD_W2_1,  8, AI.T_Chase,    null, Actors.st_chase3  ], // Actors.st_chase2,
-            [ 1, Wolf.SPR_GRD_W3_1, 10, AI.T_Chase,    null, Actors.st_chase3s ], // Actors.st_chase3,
-            [ 1, Wolf.SPR_GRD_W3_1,  3, null,               null, Actors.st_chase4  ], // Actors.st_chase3s,
-            [ 1, Wolf.SPR_GRD_W4_1,  8, AI.T_Chase,    null, Actors.st_chase1  ], // Actors.st_chase4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1], // Actors.st_shoot4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1], // Actors.st_shoot5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1], // Actors.st_shoot6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1], // Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1], // Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1], // Actors.st_shoot9,
 
-            [ 0, Wolf.SPR_GRD_DIE_1, 15, null, ActorAI.deathScream,    Actors.st_die2 ], // Actors.st_die1,
-            [ 0, Wolf.SPR_GRD_DIE_2, 15, null, null,                        Actors.st_die3 ], // Actors.st_die2,
-            [ 0, Wolf.SPR_GRD_DIE_3, 15, null, null,                        Actors.st_dead ], // Actors.st_die3,
+            [1, Wolf.SPR_GRD_W1_1, 10, AI.T_Chase, null, Actors.st_chase1s], // Actors.st_chase1,
+            [1, Wolf.SPR_GRD_W1_1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [1, Wolf.SPR_GRD_W2_1, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [1, Wolf.SPR_GRD_W3_1, 10, AI.T_Chase, null, Actors.st_chase3s], // Actors.st_chase3,
+            [1, Wolf.SPR_GRD_W3_1, 3, null, null, Actors.st_chase4], // Actors.st_chase3s,
+            [1, Wolf.SPR_GRD_W4_1, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
-            [ 0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead ], // Actors.st_die4,
-            [ 0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead ], // Actors.st_die5,
-            [ 0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead ], // Actors.st_die6,
-            [ 0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead ], // Actors.st_die7,
-            [ 0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead ], // Actors.st_die8,
-            [ 0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead ], // Actors.st_die9,
+            [0, Wolf.SPR_GRD_DIE_1, 15, null, ActorAI.deathScream, Actors.st_die2], // Actors.st_die1,
+            [0, Wolf.SPR_GRD_DIE_2, 15, null, null, Actors.st_die3], // Actors.st_die2,
+            [0, Wolf.SPR_GRD_DIE_3, 15, null, null, Actors.st_dead], // Actors.st_die3,
 
-            [ 0, Wolf.SPR_GRD_DEAD,    0, null,     null, Actors.st_dead ] // Actors.st_dead
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead], // Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead], // Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead], // Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead], // Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead], // Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead], // Actors.st_die9,
+
+            [0, Wolf.SPR_GRD_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_officer,
         [
-            [1, Wolf.SPR_OFC_S_1,   0,  AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [1, Wolf.SPR_OFC_S_1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
-            [1, Wolf.SPR_OFC_W1_1,  20, AI.T_Path, null, Actors.st_path1s],// Actors.st_path1,
-            [1, Wolf.SPR_OFC_W1_1,  5,  null,           null, Actors.st_path2], // Actors.st_path1s,
-            [1, Wolf.SPR_OFC_W2_1,  15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
-            [1, Wolf.SPR_OFC_W3_1,  20, AI.T_Path, null, Actors.st_path3s],// Actors.st_path3,
-            [1, Wolf.SPR_OFC_W3_1,  5,  null,           null, Actors.st_path4], // Actors.st_path3s,
-            [1, Wolf.SPR_OFC_W4_1,  15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
+            [1, Wolf.SPR_OFC_W1_1, 20, AI.T_Path, null, Actors.st_path1s],// Actors.st_path1,
+            [1, Wolf.SPR_OFC_W1_1, 5, null, null, Actors.st_path2], // Actors.st_path1s,
+            [1, Wolf.SPR_OFC_W2_1, 15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
+            [1, Wolf.SPR_OFC_W3_1, 20, AI.T_Path, null, Actors.st_path3s],// Actors.st_path3,
+            [1, Wolf.SPR_OFC_W3_1, 5, null, null, Actors.st_path4], // Actors.st_path3s,
+            [1, Wolf.SPR_OFC_W4_1, 15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_OFC_PAIN_1,    10, null,     null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_OFC_PAIN_2,    10, null,     null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_OFC_SHOOT1,     6, null,     null,             Actors.st_shoot2],// Actors.st_shoot1,
-            [0, Wolf.SPR_OFC_SHOOT2,    20, null,     AI.T_Shoot,  Actors.st_shoot3],// Actors.st_shoot2,
-            [0, Wolf.SPR_OFC_SHOOT3,    10, null,     null,             Actors.st_chase1],// Actors.st_shoot3,
+            [0, Wolf.SPR_OFC_PAIN_1, 10, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_OFC_PAIN_2, 10, null, null, Actors.st_chase1],// Actors.st_pain1,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot4,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot5,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_OFC_SHOOT1, 6, null, null, Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_OFC_SHOOT2, 20, null, AI.T_Shoot, Actors.st_shoot3],// Actors.st_shoot2,
+            [0, Wolf.SPR_OFC_SHOOT3, 10, null, null, Actors.st_chase1],// Actors.st_shoot3,
+
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [1, Wolf.SPR_OFC_W1_1, 10, AI.T_Chase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [1, Wolf.SPR_OFC_W1_1,  3, null,            null, Actors.st_chase2], // Actors.st_chase1s,
-            [1, Wolf.SPR_OFC_W2_1,  8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [1, Wolf.SPR_OFC_W1_1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [1, Wolf.SPR_OFC_W2_1, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
             [1, Wolf.SPR_OFC_W3_1, 10, AI.T_Chase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [1, Wolf.SPR_OFC_W3_1,  3, null,            null, Actors.st_chase4], // Actors.st_chase3s,
-            [1, Wolf.SPR_OFC_W4_1,  8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
+            [1, Wolf.SPR_OFC_W3_1, 3, null, null, Actors.st_chase4], // Actors.st_chase3s,
+            [1, Wolf.SPR_OFC_W4_1, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_OFC_DIE_1, 11, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_OFC_DIE_2, 11, null, null,                     Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_OFC_DIE_3, 11, null, null,                     Actors.st_dead],// Actors.st_die3,
+            [0, Wolf.SPR_OFC_DIE_2, 11, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_OFC_DIE_3, 11, null, null, Actors.st_dead],// Actors.st_die3,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
-            [0, Wolf.SPR_OFC_DEAD,    0, null,     null, Actors.st_dead] // Actors.st_dead
+            [0, Wolf.SPR_OFC_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_ss,
         [
-            [1, Wolf.SPR_SS_S_1,     0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [1, Wolf.SPR_SS_S_1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
-            [1, Wolf.SPR_SS_W1_1,   20, AI.T_Path, null, Actors.st_path1s],// Actors.st_path1,
-            [1, Wolf.SPR_SS_W1_1,   5,  null,           null, Actors.st_path2], // Actors.st_path1s,
-            [1, Wolf.SPR_SS_W2_1,   15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
-            [1, Wolf.SPR_SS_W3_1,   20, AI.T_Path, null, Actors.st_path3s],// Actors.st_path3,
-            [1, Wolf.SPR_SS_W3_1,   5,  null,           null, Actors.st_path4], // Actors.st_path3s,
-            [1, Wolf.SPR_SS_W4_1,   15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
+            [1, Wolf.SPR_SS_W1_1, 20, AI.T_Path, null, Actors.st_path1s],// Actors.st_path1,
+            [1, Wolf.SPR_SS_W1_1, 5, null, null, Actors.st_path2], // Actors.st_path1s,
+            [1, Wolf.SPR_SS_W2_1, 15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
+            [1, Wolf.SPR_SS_W3_1, 20, AI.T_Path, null, Actors.st_path3s],// Actors.st_path3,
+            [1, Wolf.SPR_SS_W3_1, 5, null, null, Actors.st_path4], // Actors.st_path3s,
+            [1, Wolf.SPR_SS_W4_1, 15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_SS_PAIN_1,    10, null,     null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_SS_PAIN_2,    10, null,     null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_SS_SHOOT1, 20, null, null,             Actors.st_shoot2],// Actors.st_shoot1,
-            [0, Wolf.SPR_SS_SHOOT2, 20, null, AI.T_Shoot,  Actors.st_shoot3],// Actors.st_shoot2,
-            [0, Wolf.SPR_SS_SHOOT3, 10, null, null,             Actors.st_shoot4],// Actors.st_shoot3,
-            [0, Wolf.SPR_SS_SHOOT2, 10, null, AI.T_Shoot,  Actors.st_shoot5],// Actors.st_shoot4,
-            [0, Wolf.SPR_SS_SHOOT3, 10, null, null,             Actors.st_shoot6],// Actors.st_shoot5,
-            [0, Wolf.SPR_SS_SHOOT2, 10, null, AI.T_Shoot,  Actors.st_shoot7],// Actors.st_shoot6,
-            [0, Wolf.SPR_SS_SHOOT3, 10, null, null,             Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_SS_SHOOT2, 10, null, AI.T_Shoot,  Actors.st_shoot9],// Actors.st_shoot8,
-            [0, Wolf.SPR_SS_SHOOT3, 10, null, null,             Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_SS_PAIN_1, 10, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_SS_PAIN_2, 10, null, null, Actors.st_chase1],// Actors.st_pain1,
 
-            [1, Wolf.SPR_SS_W1_1, 10, AI.T_Chase,  null, Actors.st_chase1s],// Actors.st_chase1,
-            [1, Wolf.SPR_SS_W1_1,  3, null,             null, Actors.st_chase2], // Actors.st_chase1s,
-            [1, Wolf.SPR_SS_W2_1,  8, AI.T_Chase,  null, Actors.st_chase3], // Actors.st_chase2,
-            [1, Wolf.SPR_SS_W3_1, 10, AI.T_Chase,  null, Actors.st_chase3s],// Actors.st_chase3,
-            [1, Wolf.SPR_SS_W3_1,  3, null,             null, Actors.st_chase4],     // Actors.st_chase3s,
-            [1, Wolf.SPR_SS_W4_1,  8, AI.T_Chase,  null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_SS_SHOOT1, 20, null, null, Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_SS_SHOOT2, 20, null, AI.T_Shoot, Actors.st_shoot3],// Actors.st_shoot2,
+            [0, Wolf.SPR_SS_SHOOT3, 10, null, null, Actors.st_shoot4],// Actors.st_shoot3,
+            [0, Wolf.SPR_SS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot5],// Actors.st_shoot4,
+            [0, Wolf.SPR_SS_SHOOT3, 10, null, null, Actors.st_shoot6],// Actors.st_shoot5,
+            [0, Wolf.SPR_SS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot7],// Actors.st_shoot6,
+            [0, Wolf.SPR_SS_SHOOT3, 10, null, null, Actors.st_shoot8],// Actors.st_shoot7,
+            [0, Wolf.SPR_SS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot9],// Actors.st_shoot8,
+            [0, Wolf.SPR_SS_SHOOT3, 10, null, null, Actors.st_chase1],// Actors.st_shoot9,
+
+            [1, Wolf.SPR_SS_W1_1, 10, AI.T_Chase, null, Actors.st_chase1s],// Actors.st_chase1,
+            [1, Wolf.SPR_SS_W1_1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [1, Wolf.SPR_SS_W2_1, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [1, Wolf.SPR_SS_W3_1, 10, AI.T_Chase, null, Actors.st_chase3s],// Actors.st_chase3,
+            [1, Wolf.SPR_SS_W3_1, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [1, Wolf.SPR_SS_W4_1, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_SS_DIE_1, 15, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_SS_DIE_2, 15, null, null,                     Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_SS_DIE_3, 15, null, null,                     Actors.st_dead],// Actors.st_die3,
+            [0, Wolf.SPR_SS_DIE_2, 15, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_SS_DIE_3, 15, null, null, Actors.st_dead],// Actors.st_die3,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
-            [0, Wolf.SPR_SS_DEAD,    0, null,     null, Actors.st_dead] // Actors.st_dead
+            [0, Wolf.SPR_SS_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_dog,
         [
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_stand], // Actors.st_stand,
 
-            [1, Wolf.SPR_DOG_W1_1,      20, AI.T_Path, null, Actors.st_path1s],// Actors.st_path1,
-            [1, Wolf.SPR_DOG_W1_1,      5,  null,           null, Actors.st_path2], // Actors.st_path1s,
-            [1, Wolf.SPR_DOG_W2_1,      15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
-            [1, Wolf.SPR_DOG_W3_1,      20, AI.T_Path, null, Actors.st_path3s],// Actors.st_path3,
-            [1, Wolf.SPR_DOG_W3_1,      5,  null,           null, Actors.st_path4], // Actors.st_path3s,
-            [1, Wolf.SPR_DOG_W4_1,      15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
+            [1, Wolf.SPR_DOG_W1_1, 20, AI.T_Path, null, Actors.st_path1s],// Actors.st_path1,
+            [1, Wolf.SPR_DOG_W1_1, 5, null, null, Actors.st_path2], // Actors.st_path1s,
+            [1, Wolf.SPR_DOG_W2_1, 15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
+            [1, Wolf.SPR_DOG_W3_1, 20, AI.T_Path, null, Actors.st_path3s],// Actors.st_path3,
+            [1, Wolf.SPR_DOG_W3_1, 5, null, null, Actors.st_path4], // Actors.st_path3s,
+            [1, Wolf.SPR_DOG_W4_1, 15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_DOG_JUMP1, 10, null,     null,     Actors.st_shoot2],// Actors.st_shoot1,
-            [0, Wolf.SPR_DOG_JUMP2, 10, null,     AI.T_Bite, Actors.st_shoot3],// Actors.st_shoot2,
-            [0, Wolf.SPR_DOG_JUMP3, 10, null,     null,   Actors.st_shoot4],// Actors.st_shoot3,
-            [0, Wolf.SPR_DOG_JUMP1, 10, null,     null,     Actors.st_shoot5],// Actors.st_shoot4,
-            [0, Wolf.SPR_DOG_W1_1,     10, null,     null,     Actors.st_chase1],// Actors.st_shoot5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DOG_JUMP1, 10, null, null, Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_DOG_JUMP2, 10, null, AI.T_Bite, Actors.st_shoot3],// Actors.st_shoot2,
+            [0, Wolf.SPR_DOG_JUMP3, 10, null, null, Actors.st_shoot4],// Actors.st_shoot3,
+            [0, Wolf.SPR_DOG_JUMP1, 10, null, null, Actors.st_shoot5],// Actors.st_shoot4,
+            [0, Wolf.SPR_DOG_W1_1, 10, null, null, Actors.st_chase1],// Actors.st_shoot5,
+
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [1, Wolf.SPR_DOG_W1_1, 10, AI.T_DogChase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [1, Wolf.SPR_DOG_W1_1,  3, null            , null, Actors.st_chase2], // Actors.st_chase1s,
-            [1, Wolf.SPR_DOG_W2_1,  8, AI.T_DogChase, null, Actors.st_chase3], // Actors.st_chase2,
+            [1, Wolf.SPR_DOG_W1_1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [1, Wolf.SPR_DOG_W2_1, 8, AI.T_DogChase, null, Actors.st_chase3], // Actors.st_chase2,
             [1, Wolf.SPR_DOG_W3_1, 10, AI.T_DogChase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [1, Wolf.SPR_DOG_W3_1,  3, null            , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [1, Wolf.SPR_DOG_W4_1,  8, AI.T_DogChase, null, Actors.st_chase1], // Actors.st_chase4,
+            [1, Wolf.SPR_DOG_W3_1, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [1, Wolf.SPR_DOG_W4_1, 8, AI.T_DogChase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_DOG_DIE_1, 15, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_DOG_DIE_2, 15, null, null,                    Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_DOG_DIE_3, 15, null, null,                    Actors.st_dead],// Actors.st_die3,
+            [0, Wolf.SPR_DOG_DIE_2, 15, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_DOG_DIE_3, 15, null, null, Actors.st_dead],// Actors.st_die3,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
-            [0, Wolf.SPR_DOG_DEAD,    0, null, null, Actors.st_dead] // Actors.st_dead
+            [0, Wolf.SPR_DOG_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_boss,
         [
-            [0, Wolf.SPR_BOSS_W1,    0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_BOSS_W1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -202,43 +202,43 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_BOSS_SHOOT1, 30, null, null,        Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
+            [0, Wolf.SPR_BOSS_SHOOT1, 30, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_BOSS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_BOSS_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4],// Actors.st_shoot3,
-            [0, Wolf.SPR_BOSS_SHOOT2, 10, null, AI.T_Shoot,    Actors.st_shoot5],// Actors.st_shoot4,
-            [0, Wolf.SPR_BOSS_SHOOT3, 10, null, AI.T_Shoot,    Actors.st_shoot6],// Actors.st_shoot5,
+            [0, Wolf.SPR_BOSS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot5],// Actors.st_shoot4,
+            [0, Wolf.SPR_BOSS_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_BOSS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot7],// Actors.st_shoot6,
             [0, Wolf.SPR_BOSS_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_BOSS_SHOOT1, 10, null, null,        Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_BOSS_SHOOT1, 10, null, null, Actors.st_chase1],// Actors.st_shoot8,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_BOSS_W1, 10, AI.T_Chase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [0, Wolf.SPR_BOSS_W1,  3, null        , null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_BOSS_W2,  8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_BOSS_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_BOSS_W2, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_BOSS_W3, 10, AI.T_Chase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [0, Wolf.SPR_BOSS_W3,  3, null        , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [0, Wolf.SPR_BOSS_W4,  8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_BOSS_W3, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [0, Wolf.SPR_BOSS_W4, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_BOSS_DIE1, 15, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_BOSS_DIE2, 15, null, null,                    Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_BOSS_DIE3, 15, null, null,                    Actors.st_dead],// Actors.st_die3,
+            [0, Wolf.SPR_BOSS_DIE2, 15, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_BOSS_DIE3, 15, null, null, Actors.st_dead],// Actors.st_die3,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_BOSS_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_schabbs,
         [
-            [0, Wolf.SPR_SCHABB_W1,    0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_SCHABB_W1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -247,43 +247,43 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_SCHABB_SHOOT1, 30, null, null,     Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
+            [0, Wolf.SPR_SCHABB_SHOOT1, 30, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_SCHABB_SHOOT2, 10, null, AI.T_Launch, Actors.st_chase1],// Actors.st_shoot2,
-            
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot3,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],//  Actors.st_shoot4,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot5,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot3,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],//  Actors.st_shoot4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_SCHABB_W1, 10, AI.T_BossChase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [0, Wolf.SPR_SCHABB_W1,  3, null            , null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_SCHABB_W2,  8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_SCHABB_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_SCHABB_W2, 8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_SCHABB_W3, 10, AI.T_BossChase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [0, Wolf.SPR_SCHABB_W3,  3, null            , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [0, Wolf.SPR_SCHABB_W4,  8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_SCHABB_W3, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [0, Wolf.SPR_SCHABB_W4, 8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
 
-            [0, Wolf.SPR_SCHABB_W1,        10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_SCHABB_W1,        10, null, null,                     Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_SCHABB_DIE1,    10, null, null,                     Actors.st_die4],// Actors.st_die3,
-            [0, Wolf.SPR_SCHABB_DIE2,    10, null, null,                     Actors.st_die5],// Actors.st_die4,
-            [0, Wolf.SPR_SCHABB_DIE3,    10, null, null,                     Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_SCHABB_W1, 10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
+            [0, Wolf.SPR_SCHABB_W1, 10, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_SCHABB_DIE1, 10, null, null, Actors.st_die4],// Actors.st_die3,
+            [0, Wolf.SPR_SCHABB_DIE2, 10, null, null, Actors.st_die5],// Actors.st_die4,
+            [0, Wolf.SPR_SCHABB_DIE3, 10, null, null, Actors.st_dead],// Actors.st_die5,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_SCHABB_DEAD, 0, null, ActorAI.startDeathCam, Actors.st_dead] // Actors.st_dead
         ],
         // en_fake,
         [
-            [0, Wolf.SPR_FAKE_W1,    0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_FAKE_W1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -292,42 +292,42 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot2],// Actors.st_shoot1,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot3],// Actors.st_shoot2,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot4],// Actors.st_shoot3,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot5],// Actors.st_shoot4,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot6],// Actors.st_shoot4,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot7],// Actors.st_shoot4,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot8],// Actors.st_shoot4,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, AI.T_Launch, Actors.st_shoot9],// Actors.st_shoot4,
-            [0, Wolf.SPR_FAKE_SHOOT,    8, null, null,             Actors.st_chase1],// Actors.st_shoot4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
 
-            [0, Wolf.SPR_FAKE_W1, 10, AI.T_Fake,   null, Actors.st_chase1s],// Actors.st_chase1,
-            [0, Wolf.SPR_FAKE_W1,  3, null,             null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_FAKE_W2,  8, AI.T_Fake,   null, Actors.st_chase3], // Actors.st_chase2,
-            [0, Wolf.SPR_FAKE_W3, 10, AI.T_Fake,   null, Actors.st_chase3s],// Actors.st_chase3,
-            [0, Wolf.SPR_FAKE_W3,  3, null,             null, Actors.st_chase4], // Actors.st_chase3s,
-            [0, Wolf.SPR_FAKE_W4,  8, AI.T_Fake,   null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot3],// Actors.st_shoot2,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot4],// Actors.st_shoot3,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot5],// Actors.st_shoot4,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot6],// Actors.st_shoot4,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot7],// Actors.st_shoot4,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot8],// Actors.st_shoot4,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, AI.T_Launch, Actors.st_shoot9],// Actors.st_shoot4,
+            [0, Wolf.SPR_FAKE_SHOOT, 8, null, null, Actors.st_chase1],// Actors.st_shoot4,
+
+            [0, Wolf.SPR_FAKE_W1, 10, AI.T_Fake, null, Actors.st_chase1s],// Actors.st_chase1,
+            [0, Wolf.SPR_FAKE_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_FAKE_W2, 8, AI.T_Fake, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_FAKE_W3, 10, AI.T_Fake, null, Actors.st_chase3s],// Actors.st_chase3,
+            [0, Wolf.SPR_FAKE_W3, 3, null, null, Actors.st_chase4], // Actors.st_chase3s,
+            [0, Wolf.SPR_FAKE_W4, 8, AI.T_Fake, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_FAKE_DIE1, 10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_FAKE_DIE2, 10, null, null,                     Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_FAKE_DIE3, 10, null, null,                     Actors.st_die4],// Actors.st_die3,
-            [0, Wolf.SPR_FAKE_DIE4, 10, null, null,                     Actors.st_die5],// Actors.st_die4,
-            [0, Wolf.SPR_FAKE_DIE5, 10, null, null,                     Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_FAKE_DIE2, 10, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_FAKE_DIE3, 10, null, null, Actors.st_die4],// Actors.st_die3,
+            [0, Wolf.SPR_FAKE_DIE4, 10, null, null, Actors.st_die5],// Actors.st_die4,
+            [0, Wolf.SPR_FAKE_DIE5, 10, null, null, Actors.st_dead],// Actors.st_die5,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_FAKE_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_hitler, (mecha)
         [
-            [0, Wolf.SPR_MECHA_W1,    0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_MECHA_W1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -336,9 +336,9 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
             [0, Wolf.SPR_MECHA_SHOOT1, 30, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_MECHA_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_MECHA_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4],// Actors.st_shoot3,
@@ -346,33 +346,33 @@
             [0, Wolf.SPR_MECHA_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_MECHA_SHOOT2, 10, null, AI.T_Shoot, Actors.st_chase1],// Actors.st_shoot6,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_MECHA_W1, 10, AI.T_Chase, ActorAI.mechaSound, Actors.st_chase1s],// Actors.st_chase1,
-            [0, Wolf.SPR_MECHA_W1,  6, null     , null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_MECHA_W2,  8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_MECHA_W1, 6, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_MECHA_W2, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_MECHA_W3, 10, AI.T_Chase, ActorAI.mechaSound, Actors.st_chase3s],// Actors.st_chase3,
-            [0, Wolf.SPR_MECHA_W3,  6, null     , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [0, Wolf.SPR_MECHA_W4,  8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_MECHA_W3, 6, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [0, Wolf.SPR_MECHA_W4, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_MECHA_DIE1, 10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_MECHA_DIE2, 10, null, null,                     Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_MECHA_DIE2, 10, null, null, Actors.st_die3],// Actors.st_die2,
             [0, Wolf.SPR_MECHA_DIE3, 10, null, ActorAI.hitlerMorph, Actors.st_dead],// Actors.st_die3,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_MECHA_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_hitler,
         [
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -381,9 +381,9 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
             [0, Wolf.SPR_HITLER_SHOOT1, 30, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_HITLER_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_HITLER_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4],// Actors.st_shoot3,
@@ -391,19 +391,19 @@
             [0, Wolf.SPR_HITLER_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_HITLER_SHOOT2, 10, null, AI.T_Shoot, Actors.st_chase1],// Actors.st_shoot6,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_HITLER_W1, 6, AI.T_Chase, null, Actors.st_chase1s], // Actors.st_chase1,
-            [0, Wolf.SPR_HITLER_W1, 4, null     , null, Actors.st_chase2],  // Actors.st_chase1s,
+            [0, Wolf.SPR_HITLER_W1, 4, null, null, Actors.st_chase2],  // Actors.st_chase1s,
             [0, Wolf.SPR_HITLER_W2, 2, AI.T_Chase, null, Actors.st_chase3],  // Actors.st_chase2,
             [0, Wolf.SPR_HITLER_W3, 6, AI.T_Chase, null, Actors.st_chase3s], // Actors.st_chase3,
-            [0, Wolf.SPR_HITLER_W3, 4, null        , null, Actors.st_chase4], // Actors.st_chase3s,
+            [0, Wolf.SPR_HITLER_W3, 4, null, null, Actors.st_chase4], // Actors.st_chase3s,
             [0, Wolf.SPR_HITLER_W4, 2, AI.T_Chase, null, Actors.st_chase1],  // Actors.st_chase4,
 
-            [0, Wolf.SPR_HITLER_W1,    1, null, ActorAI.deathScream,  Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_HITLER_W1,     10, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_HITLER_W1, 1, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
+            [0, Wolf.SPR_HITLER_W1, 10, null, null, Actors.st_die3],// Actors.st_die2,
             [0, Wolf.SPR_HITLER_DIE1, 10, null, null, Actors.st_die4],// Actors.st_die3,
             [0, Wolf.SPR_HITLER_DIE2, 10, null, null, Actors.st_die5],// Actors.st_die4,
             [0, Wolf.SPR_HITLER_DIE3, 10, null, null, Actors.st_die6],// Actors.st_die5,
@@ -416,52 +416,52 @@
         ],
         // en_mutant,
         [
-            [1, Wolf.SPR_MUT_S_1,     0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [1, Wolf.SPR_MUT_S_1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
-            [1, Wolf.SPR_MUT_W1_1,    20, AI.T_Path,     null, Actors.st_path1s],// Actors.st_path1,
-            [1, Wolf.SPR_MUT_W1_1,  5, null    ,  null, Actors.st_path2], // Actors.st_path1s,
-            [1, Wolf.SPR_MUT_W2_1, 15, AI.T_Path,  null, Actors.st_path3], // Actors.st_path2,
-            [1, Wolf.SPR_MUT_W3_1,    20, AI.T_Path,     null, Actors.st_path3s],// Actors.st_path3,
-            [1, Wolf.SPR_MUT_W3_1,     5, null    ,     null, Actors.st_path4], // Actors.st_path3s,
-            [1, Wolf.SPR_MUT_W4_1,    15, AI.T_Path,     null, Actors.st_path1], // Actors.st_path4,
+            [1, Wolf.SPR_MUT_W1_1, 20, AI.T_Path, null, Actors.st_path1s],// Actors.st_path1,
+            [1, Wolf.SPR_MUT_W1_1, 5, null, null, Actors.st_path2], // Actors.st_path1s,
+            [1, Wolf.SPR_MUT_W2_1, 15, AI.T_Path, null, Actors.st_path3], // Actors.st_path2,
+            [1, Wolf.SPR_MUT_W3_1, 20, AI.T_Path, null, Actors.st_path3s],// Actors.st_path3,
+            [1, Wolf.SPR_MUT_W3_1, 5, null, null, Actors.st_path4], // Actors.st_path3s,
+            [1, Wolf.SPR_MUT_W4_1, 15, AI.T_Path, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_MUT_PAIN_1,    10, null,     null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_MUT_PAIN_2,    10, null,     null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_MUT_SHOOT1,     6, null, AI.T_Shoot, Actors.st_shoot2], // Actors.st_shoot1,
-            [0, Wolf.SPR_MUT_SHOOT2,    20, null, null,         Actors.st_shoot3], // Actors.st_shoot2,
-            [0, Wolf.SPR_MUT_SHOOT3,    10, null, AI.T_Shoot, Actors.st_shoot4], // Actors.st_shoot3,
-            [0, Wolf.SPR_MUT_SHOOT4,    20, null, null,         Actors.st_chase1], // Actors.st_shoot4,
+            [0, Wolf.SPR_MUT_PAIN_1, 10, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_MUT_PAIN_2, 10, null, null, Actors.st_chase1],// Actors.st_pain1,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot5,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_MUT_SHOOT1, 6, null, AI.T_Shoot, Actors.st_shoot2], // Actors.st_shoot1,
+            [0, Wolf.SPR_MUT_SHOOT2, 20, null, null, Actors.st_shoot3], // Actors.st_shoot2,
+            [0, Wolf.SPR_MUT_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4], // Actors.st_shoot3,
+            [0, Wolf.SPR_MUT_SHOOT4, 20, null, null, Actors.st_chase1], // Actors.st_shoot4,
+
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [1, Wolf.SPR_MUT_W1_1, 10, AI.T_Chase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [1, Wolf.SPR_MUT_W1_1,  3, null     , null, Actors.st_chase2], // Actors.st_chase1s,
-            [1, Wolf.SPR_MUT_W2_1,  8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [1, Wolf.SPR_MUT_W1_1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [1, Wolf.SPR_MUT_W2_1, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
             [1, Wolf.SPR_MUT_W3_1, 10, AI.T_Chase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [1, Wolf.SPR_MUT_W3_1,  3, null     , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [1, Wolf.SPR_MUT_W4_1,  8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
+            [1, Wolf.SPR_MUT_W3_1, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [1, Wolf.SPR_MUT_W4_1, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_MUT_DIE_1, 7, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_MUT_DIE_2, 7, null, null,                     Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_MUT_DIE_3, 7, null, null,                     Actors.st_die4],// Actors.st_die3,
-            [0, Wolf.SPR_MUT_DIE_4, 7, null, null,                     Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_MUT_DIE_2, 7, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_MUT_DIE_3, 7, null, null, Actors.st_die4],// Actors.st_die3,
+            [0, Wolf.SPR_MUT_DIE_4, 7, null, null, Actors.st_dead],// Actors.st_die4,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
-            [0, Wolf.SPR_MUT_DEAD,    0, null,     null, Actors.st_dead] // Actors.st_dead
+            [0, Wolf.SPR_MUT_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_blinky,
         [
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -470,21 +470,21 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot4],// Actors.st_shoot3,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot5],// Actors.st_shoot4,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_BLINKY_W1, 10, AI.T_Ghosts, null, Actors.st_chase2],// Actors.st_chase1,
-            [0, Wolf.SPR_DEMO,  0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
             [0, Wolf.SPR_BLINKY_W2, 10, AI.T_Ghosts, null, Actors.st_chase1],// Actors.st_chase2,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase3s],// Actors.st_chase3,
@@ -494,18 +494,18 @@
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die2],// Actors.st_die1,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die3],// Actors.st_die2,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_dead],// Actors.st_die3,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_clyde,
         [
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -514,21 +514,21 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot4],// Actors.st_shoot3,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot5],// Actors.st_shoot4,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_CLYDE_W1, 10, AI.T_Ghosts, null, Actors.st_chase2],// Actors.st_chase1,
-            [0, Wolf.SPR_DEMO,  0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
             [0, Wolf.SPR_CLYDE_W2, 10, AI.T_Ghosts, null, Actors.st_chase1],// Actors.st_chase2,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase3s],// Actors.st_chase3,
@@ -538,18 +538,18 @@
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die2],// Actors.st_die1,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die3],// Actors.st_die2,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_dead],// Actors.st_die3,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_pinky,
         [
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -558,21 +558,21 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot4],// Actors.st_shoot3,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot5],// Actors.st_shoot4,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_PINKY_W1, 10, AI.T_Ghosts, null, Actors.st_chase2],// Actors.st_chase1,
-            [0, Wolf.SPR_DEMO,  0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
             [0, Wolf.SPR_PINKY_W2, 10, AI.T_Ghosts, null, Actors.st_chase1],// Actors.st_chase2,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase3s],// Actors.st_chase3,
@@ -582,18 +582,18 @@
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die2],// Actors.st_die1,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die3],// Actors.st_die2,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_dead],// Actors.st_die3,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_inky,
         [
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -602,21 +602,21 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot4],// Actors.st_shoot3,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot5],// Actors.st_shoot4,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot8],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_shoot9],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_INKY_W1, 10, AI.T_Ghosts, null, Actors.st_chase2],// Actors.st_chase1,
-            [0, Wolf.SPR_DEMO,  0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase2],            // Actors.st_chase1s,
             [0, Wolf.SPR_INKY_W2, 10, AI.T_Ghosts, null, Actors.st_chase1],// Actors.st_chase2,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase3s],// Actors.st_chase3,
@@ -626,18 +626,18 @@
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die2],// Actors.st_die1,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_die3],// Actors.st_die2,
             [0, Wolf.SPR_DEMO, 10, null, null, Actors.st_dead],// Actors.st_die3,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_gretel,
         [
-            [0, Wolf.SPR_GRETEL_W1,    0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_GRETEL_W1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -646,43 +646,43 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_GRETEL_SHOOT1, 30, null, null,        Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
+            [0, Wolf.SPR_GRETEL_SHOOT1, 30, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_GRETEL_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot3],// Actors.st_shoot2,
             [0, Wolf.SPR_GRETEL_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4],// Actors.st_shoot3,
-            [0, Wolf.SPR_GRETEL_SHOOT2, 10, null, AI.T_Shoot,    Actors.st_shoot5],// Actors.st_shoot4,
-            [0, Wolf.SPR_GRETEL_SHOOT3, 10, null, AI.T_Shoot,    Actors.st_shoot6],// Actors.st_shoot5,
+            [0, Wolf.SPR_GRETEL_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot5],// Actors.st_shoot4,
+            [0, Wolf.SPR_GRETEL_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot6],// Actors.st_shoot5,
             [0, Wolf.SPR_GRETEL_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot7],// Actors.st_shoot6,
             [0, Wolf.SPR_GRETEL_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot8],// Actors.st_shoot7,
-            [0, Wolf.SPR_GRETEL_SHOOT1, 10, null, null,        Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_GRETEL_SHOOT1, 10, null, null, Actors.st_chase1],// Actors.st_shoot8,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_GRETEL_W1, 10, AI.T_Chase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [0, Wolf.SPR_GRETEL_W1,  3, null        , null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_GRETEL_W2,  8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_GRETEL_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_GRETEL_W2, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_GRETEL_W3, 10, AI.T_Chase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [0, Wolf.SPR_GRETEL_W3,  3, null        , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [0, Wolf.SPR_GRETEL_W4,  8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_GRETEL_W3, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [0, Wolf.SPR_GRETEL_W4, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_GRETEL_DIE1, 15, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_GRETEL_DIE2, 15, null, null,                    Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_GRETEL_DIE3, 15, null, null,                    Actors.st_dead],// Actors.st_die3,
+            [0, Wolf.SPR_GRETEL_DIE2, 15, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_GRETEL_DIE3, 15, null, null, Actors.st_dead],// Actors.st_die3,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die4,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die5,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_GRETEL_DEAD, 0, null, null, Actors.st_dead] // Actors.st_dead
         ],
         // en_gift,
         [
-            [0, Wolf.SPR_GIFT_W1,    0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_GIFT_W1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -691,43 +691,43 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_GIFT_SHOOT1, 30, null, null,     Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
+
+            [0, Wolf.SPR_GIFT_SHOOT1, 30, null, null, Actors.st_shoot2],// Actors.st_shoot1,
             [0, Wolf.SPR_GIFT_SHOOT2, 10, null, AI.T_Launch, Actors.st_chase1],// Actors.st_shoot2,
-            
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot3,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],//  Actors.st_shoot4,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot5,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot6,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot3,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],//  Actors.st_shoot4,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot5,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_GIFT_W1, 10, AI.T_BossChase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [0, Wolf.SPR_GIFT_W1,  3, null            , null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_GIFT_W2,  8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_GIFT_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_GIFT_W2, 8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_GIFT_W3, 10, AI.T_BossChase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [0, Wolf.SPR_GIFT_W3,  3, null            , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [0, Wolf.SPR_GIFT_W4,  8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_GIFT_W3, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [0, Wolf.SPR_GIFT_W4, 8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
 
-            [0, Wolf.SPR_GIFT_W1,     10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_GIFT_W1,     10, null, null,                     Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_GIFT_DIE1, 10, null, null,                     Actors.st_die4],// Actors.st_die3,
-            [0, Wolf.SPR_GIFT_DIE2, 10, null, null,                     Actors.st_die5],// Actors.st_die4,
-            [0, Wolf.SPR_GIFT_DIE3, 10, null, null,                     Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_GIFT_W1, 10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
+            [0, Wolf.SPR_GIFT_W1, 10, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_GIFT_DIE1, 10, null, null, Actors.st_die4],// Actors.st_die3,
+            [0, Wolf.SPR_GIFT_DIE2, 10, null, null, Actors.st_die5],// Actors.st_die4,
+            [0, Wolf.SPR_GIFT_DIE3, 10, null, null, Actors.st_dead],// Actors.st_die5,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_GIFT_DEAD, 0, null, ActorAI.startDeathCam, Actors.st_dead] // Actors.st_dead
         ],
         // en_fat,
         [
-            [0, Wolf.SPR_FAT_W1,    0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
+            [0, Wolf.SPR_FAT_W1, 0, AI.T_Stand, null, Actors.st_stand], // Actors.st_stand,
 
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1s],// Actors.st_path1,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path2], // Actors.st_path1s,
@@ -736,41 +736,41 @@
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path4], // Actors.st_path3s,
             [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_path1], // Actors.st_path4,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_chase1],// Actors.st_pain1,
-        
-            [0, Wolf.SPR_FAT_SHOOT1, 30, null, null,                 Actors.st_shoot2],// Actors.st_shoot1,
-            [0, Wolf.SPR_FAT_SHOOT2, 10, null, AI.T_Launch, Actors.st_shoot3],// Actors.st_shoot2,
-            [0, Wolf.SPR_FAT_SHOOT3,    10, null,    AI.T_Shoot, Actors.st_shoot4],// Actors.st_shoot3,
-            [0, Wolf.SPR_FAT_SHOOT4,    10, null,    AI.T_Shoot, Actors.st_shoot5],//  Actors.st_shoot4,
-            [0, Wolf.SPR_FAT_SHOOT3,    10, null,    AI.T_Shoot, Actors.st_shoot6],// Actors.st_shoot5,
-            [0, Wolf.SPR_FAT_SHOOT4,    10, null,    AI.T_Shoot, Actors.st_chase1],// Actors.st_shoot6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_pain1,
 
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot7,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot8,
-            [0, Wolf.SPR_DEMO,    0, null,     null, Actors.st_chase1],// Actors.st_shoot9,
+            [0, Wolf.SPR_FAT_SHOOT1, 30, null, null, Actors.st_shoot2],// Actors.st_shoot1,
+            [0, Wolf.SPR_FAT_SHOOT2, 10, null, AI.T_Launch, Actors.st_shoot3],// Actors.st_shoot2,
+            [0, Wolf.SPR_FAT_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4],// Actors.st_shoot3,
+            [0, Wolf.SPR_FAT_SHOOT4, 10, null, AI.T_Shoot, Actors.st_shoot5],//  Actors.st_shoot4,
+            [0, Wolf.SPR_FAT_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot6],// Actors.st_shoot5,
+            [0, Wolf.SPR_FAT_SHOOT4, 10, null, AI.T_Shoot, Actors.st_chase1],// Actors.st_shoot6,
+
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_chase1],// Actors.st_shoot9,
 
             [0, Wolf.SPR_FAT_W1, 10, AI.T_BossChase, null, Actors.st_chase1s],// Actors.st_chase1,
-            [0, Wolf.SPR_FAT_W1,  3, null       , null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_FAT_W2,  8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_FAT_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_FAT_W2, 8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_FAT_W3, 10, AI.T_BossChase, null, Actors.st_chase3s],// Actors.st_chase3,
-            [0, Wolf.SPR_FAT_W3,  3, null       , null, Actors.st_chase4],     // Actors.st_chase3s,
-            [0, Wolf.SPR_FAT_W4,  8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_FAT_W3, 3, null, null, Actors.st_chase4],     // Actors.st_chase3s,
+            [0, Wolf.SPR_FAT_W4, 8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
 
-            [0, Wolf.SPR_FAT_W1,        10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
-            [0, Wolf.SPR_FAT_W1,        10, null, null,                     Actors.st_die3],// Actors.st_die2,
-            [0, Wolf.SPR_FAT_DIE1, 10, null, null,                     Actors.st_die4],// Actors.st_die3,
-            [0, Wolf.SPR_FAT_DIE2,    10, null, null,                     Actors.st_die5],// Actors.st_die4,
-            [0, Wolf.SPR_FAT_DIE3,    10, null, null,                     Actors.st_dead],// Actors.st_die5,
+            [0, Wolf.SPR_FAT_W1, 10, null, ActorAI.deathScream, Actors.st_die2],// Actors.st_die1,
+            [0, Wolf.SPR_FAT_W1, 10, null, null, Actors.st_die3],// Actors.st_die2,
+            [0, Wolf.SPR_FAT_DIE1, 10, null, null, Actors.st_die4],// Actors.st_die3,
+            [0, Wolf.SPR_FAT_DIE2, 10, null, null, Actors.st_die5],// Actors.st_die4,
+            [0, Wolf.SPR_FAT_DIE3, 10, null, null, Actors.st_dead],// Actors.st_die5,
 
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die6,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die7,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die8,
-            [0, Wolf.SPR_DEMO,    0, null, null, Actors.st_dead],// Actors.st_die9,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die6,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die7,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die8,
+            [0, Wolf.SPR_DEMO, 0, null, null, Actors.st_dead],// Actors.st_die9,
 
             [0, Wolf.SPR_FAT_DEAD, 0, null, ActorAI.startDeathCam, Actors.st_dead] // Actors.st_dead
         ],
-    // --- Projectiles
+        // --- Projectiles
         // en_needle,
         [
             ST_INFO_NULL, // Actors.st_stand,
@@ -784,7 +784,7 @@
 
             ST_INFO_NULL,// Actors.st_pain,
             ST_INFO_NULL,// Actors.st_pain1,
-        
+
             ST_INFO_NULL,// Actors.st_shoot1,
             ST_INFO_NULL,// Actors.st_shoot2,
             ST_INFO_NULL,// Actors.st_shoot3,
@@ -829,7 +829,7 @@
 
             ST_INFO_NULL,// Actors.st_pain,
             ST_INFO_NULL,// Actors.st_pain1,
-        
+
             ST_INFO_NULL,// Actors.st_shoot1,
             ST_INFO_NULL,// Actors.st_shoot2,
             ST_INFO_NULL,// Actors.st_shoot3,
@@ -874,7 +874,7 @@
 
             ST_INFO_NULL,// Actors.st_pain,
             ST_INFO_NULL,// Actors.st_pain1,
-        
+
             ST_INFO_NULL,// Actors.st_shoot1,
             ST_INFO_NULL,// Actors.st_shoot2,
             ST_INFO_NULL,// Actors.st_shoot3,
@@ -919,7 +919,7 @@
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
+
             ST_INFO_NULL, // Actors.st_shoot1,
             ST_INFO_NULL, // Actors.st_shoot2,
             ST_INFO_NULL, // Actors.st_shoot3,
@@ -955,20 +955,20 @@
         [
             ST_INFO_NULL, // Actors.st_stand,
 
-            [0, Wolf.SPR_BJ_W1, 12, AI.T_BJRun,    null, Actors.st_path1s], // Actors.st_path1,
-            [0, Wolf.SPR_BJ_W1,  3, null,               null, Actors.st_path2], // Actors.st_path1s,
-            [0, Wolf.SPR_BJ_W2,  8, AI.T_BJRun,    null, Actors.st_path3], // Actors.st_path2,
-            [0, Wolf.SPR_BJ_W3, 12, AI.T_BJRun,    null, Actors.st_path3s], // Actors.st_path3,
-            [0, Wolf.SPR_BJ_W3,  3, null,               null, Actors.st_path4], // Actors.st_path3s,
-            [0, Wolf.SPR_BJ_W4,  8, AI.T_BJRun,    null, Actors.st_path1], // Actors.st_path4,
+            [0, Wolf.SPR_BJ_W1, 12, AI.T_BJRun, null, Actors.st_path1s], // Actors.st_path1,
+            [0, Wolf.SPR_BJ_W1, 3, null, null, Actors.st_path2], // Actors.st_path1s,
+            [0, Wolf.SPR_BJ_W2, 8, AI.T_BJRun, null, Actors.st_path3], // Actors.st_path2,
+            [0, Wolf.SPR_BJ_W3, 12, AI.T_BJRun, null, Actors.st_path3s], // Actors.st_path3,
+            [0, Wolf.SPR_BJ_W3, 3, null, null, Actors.st_path4], // Actors.st_path3s,
+            [0, Wolf.SPR_BJ_W4, 8, AI.T_BJRun, null, Actors.st_path1], // Actors.st_path4,
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
-            [0, Wolf.SPR_BJ_JUMP1, 14, AI.T_BJJump,    null,               Actors.st_shoot2], // Actors.st_shoot1,
-            [0, Wolf.SPR_BJ_JUMP2, 14, AI.T_BJJump,    AI.T_BJYell,   Actors.st_shoot3], // Actors.st_shoot2,
-            [0, Wolf.SPR_BJ_JUMP3, 14, AI.T_BJJump,    null,               Actors.st_shoot4], // Actors.st_shoot3,
-            [0, Wolf.SPR_BJ_JUMP4,150, null,                AI.T_BJDone,   Actors.st_shoot4], // Actors.st_shoot4,
+
+            [0, Wolf.SPR_BJ_JUMP1, 14, AI.T_BJJump, null, Actors.st_shoot2], // Actors.st_shoot1,
+            [0, Wolf.SPR_BJ_JUMP2, 14, AI.T_BJJump, AI.T_BJYell, Actors.st_shoot3], // Actors.st_shoot2,
+            [0, Wolf.SPR_BJ_JUMP3, 14, AI.T_BJJump, null, Actors.st_shoot4], // Actors.st_shoot3,
+            [0, Wolf.SPR_BJ_JUMP4, 150, null, AI.T_BJDone, Actors.st_shoot4], // Actors.st_shoot4,
             ST_INFO_NULL, // Actors.st_shoot5,
             ST_INFO_NULL, // Actors.st_shoot6,
 
@@ -997,7 +997,7 @@
             ST_INFO_NULL  // Actors.st_dead
         ],
 
-    // --- Spear of destiny!
+        // --- Spear of destiny!
         // en_spark,
         [
             ST_INFO_NULL, // Actors.st_stand,
@@ -1011,7 +1011,7 @@
 
             ST_INFO_NULL,// Actors.st_pain,
             ST_INFO_NULL,// Actors.st_pain1,
-        
+
             ST_INFO_NULL,// Actors.st_shoot1,
             ST_INFO_NULL,// Actors.st_shoot2,
             ST_INFO_NULL,// Actors.st_shoot3,
@@ -1056,7 +1056,7 @@
 
             ST_INFO_NULL,// Actors.st_pain,
             ST_INFO_NULL,// Actors.st_pain1,
-        
+
             ST_INFO_NULL,// Actors.st_shoot1,
             ST_INFO_NULL,// Actors.st_shoot2,
             ST_INFO_NULL,// Actors.st_shoot3,
@@ -1101,7 +1101,7 @@
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
+
             ST_INFO_NULL, // Actors.st_shoot1,
             ST_INFO_NULL, // Actors.st_shoot2,
             ST_INFO_NULL, // Actors.st_shoot3,
@@ -1146,7 +1146,7 @@
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
+
             ST_INFO_NULL, // Actors.st_shoot1,
             ST_INFO_NULL, // Actors.st_shoot2,
             ST_INFO_NULL, // Actors.st_shoot3,
@@ -1189,26 +1189,26 @@
             ST_INFO_NULL, // Actors.st_path3s,
             ST_INFO_NULL, // Actors.st_path4,
 
-            [0, Wolf.SPR_ANGEL_TIRED1, 40, null,    ActorAI.breathing, Actors.st_pain1], // Actors.st_pain,
-            [0, Wolf.SPR_ANGEL_TIRED2, 40, null,    null, Actors.st_shoot4], // Actors.st_pain1,
-        
-            [0, Wolf.SPR_ANGEL_SHOOT1, 10, null,    ActorAI.startAttack, Actors.st_shoot2], // Actors.st_shoot1,
-            [0, Wolf.SPR_ANGEL_SHOOT2, 20, null,    AI.T_Launch, Actors.st_shoot3], // Actors.st_shoot2,
-            [0, Wolf.SPR_ANGEL_SHOOT1, 10, null,    ActorAI.relaunch, Actors.st_shoot2], // Actors.st_shoot3,
+            [0, Wolf.SPR_ANGEL_TIRED1, 40, null, ActorAI.breathing, Actors.st_pain1], // Actors.st_pain,
+            [0, Wolf.SPR_ANGEL_TIRED2, 40, null, null, Actors.st_shoot4], // Actors.st_pain1,
 
-            [0, Wolf.SPR_ANGEL_TIRED1, 40, null,    ActorAI.breathing, Actors.st_shoot5], // Actors.st_shoot4,
-            [0, Wolf.SPR_ANGEL_TIRED2, 40, null,    null, Actors.st_shoot6], // Actors.st_shoot5,
-            [0, Wolf.SPR_ANGEL_TIRED1, 40, null,    ActorAI.breathing, Actors.st_shoot7], // Actors.st_shoot6,
-            [0, Wolf.SPR_ANGEL_TIRED2, 40, null,    null, Actors.st_shoot8], // Actors.st_shoot7,
-            [0, Wolf.SPR_ANGEL_TIRED1, 40, null,    ActorAI.breathing, Actors.st_chase1], // Actors.st_shoot8,
+            [0, Wolf.SPR_ANGEL_SHOOT1, 10, null, ActorAI.startAttack, Actors.st_shoot2], // Actors.st_shoot1,
+            [0, Wolf.SPR_ANGEL_SHOOT2, 20, null, AI.T_Launch, Actors.st_shoot3], // Actors.st_shoot2,
+            [0, Wolf.SPR_ANGEL_SHOOT1, 10, null, ActorAI.relaunch, Actors.st_shoot2], // Actors.st_shoot3,
+
+            [0, Wolf.SPR_ANGEL_TIRED1, 40, null, ActorAI.breathing, Actors.st_shoot5], // Actors.st_shoot4,
+            [0, Wolf.SPR_ANGEL_TIRED2, 40, null, null, Actors.st_shoot6], // Actors.st_shoot5,
+            [0, Wolf.SPR_ANGEL_TIRED1, 40, null, ActorAI.breathing, Actors.st_shoot7], // Actors.st_shoot6,
+            [0, Wolf.SPR_ANGEL_TIRED2, 40, null, null, Actors.st_shoot8], // Actors.st_shoot7,
+            [0, Wolf.SPR_ANGEL_TIRED1, 40, null, ActorAI.breathing, Actors.st_chase1], // Actors.st_shoot8,
             ST_INFO_NULL, // Actors.st_shoot9,
 
-            [0, Wolf.SPR_ANGEL_W1, 10, AI.T_BossChase,    null, Actors.st_chase1s], // Actors.st_chase1,
-            [0, Wolf.SPR_ANGEL_W1,  3, null,        null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_ANGEL_W2,  8, AI.T_BossChase,    null, Actors.st_chase3], // Actors.st_chase2,
-            [0, Wolf.SPR_ANGEL_W3, 10, AI.T_BossChase,    null, Actors.st_chase3s], // Actors.st_chase3,
-            [0, Wolf.SPR_ANGEL_W3,  3, null,        null, Actors.st_chase4],    // Actors.st_chase3s,
-            [0, Wolf.SPR_ANGEL_W4,  8, AI.T_BossChase,    null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_ANGEL_W1, 10, AI.T_BossChase, null, Actors.st_chase1s], // Actors.st_chase1,
+            [0, Wolf.SPR_ANGEL_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_ANGEL_W2, 8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_ANGEL_W3, 10, AI.T_BossChase, null, Actors.st_chase3s], // Actors.st_chase3,
+            [0, Wolf.SPR_ANGEL_W3, 3, null, null, Actors.st_chase4],    // Actors.st_chase3s,
+            [0, Wolf.SPR_ANGEL_W4, 8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_ANGEL_W1, 1, null, ActorAI.deathScream, Actors.st_die2], // Actors.st_die1,
             [0, Wolf.SPR_ANGEL_W1, 1, null, null, Actors.st_die3], // Actors.st_die2,
@@ -1235,23 +1235,23 @@
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
-            [0, Wolf.SPR_TRANS_SHOOT1, 30, null,    null, Actors.st_shoot2], // Actors.st_shoot1,
-            [0, Wolf.SPR_TRANS_SHOOT2, 10, null,    AI.T_Shoot, Actors.st_shoot3], // Actors.st_shoot2,
-            [0, Wolf.SPR_TRANS_SHOOT3, 10, null,    AI.T_Shoot, Actors.st_shoot4], // Actors.st_shoot3,
-            [0, Wolf.SPR_TRANS_SHOOT2, 10, null,    AI.T_Shoot, Actors.st_shoot5], // Actors.st_shoot4,
-            [0, Wolf.SPR_TRANS_SHOOT3, 10, null,    AI.T_Shoot, Actors.st_shoot6], // Actors.st_shoot5,
-            [0, Wolf.SPR_TRANS_SHOOT2, 10, null,    AI.T_Shoot, Actors.st_shoot7], // Actors.st_shoot6,
-            [0, Wolf.SPR_TRANS_SHOOT3, 10, null,    AI.T_Shoot, Actors.st_shoot8], // Actors.st_shoot7,
-            [0, Wolf.SPR_TRANS_SHOOT1, 10, null,    null, Actors.st_chase1], // Actors.st_shoot8,
+
+            [0, Wolf.SPR_TRANS_SHOOT1, 30, null, null, Actors.st_shoot2], // Actors.st_shoot1,
+            [0, Wolf.SPR_TRANS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot3], // Actors.st_shoot2,
+            [0, Wolf.SPR_TRANS_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4], // Actors.st_shoot3,
+            [0, Wolf.SPR_TRANS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot5], // Actors.st_shoot4,
+            [0, Wolf.SPR_TRANS_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot6], // Actors.st_shoot5,
+            [0, Wolf.SPR_TRANS_SHOOT2, 10, null, AI.T_Shoot, Actors.st_shoot7], // Actors.st_shoot6,
+            [0, Wolf.SPR_TRANS_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot8], // Actors.st_shoot7,
+            [0, Wolf.SPR_TRANS_SHOOT1, 10, null, null, Actors.st_chase1], // Actors.st_shoot8,
             ST_INFO_NULL, // Actors.st_shoot9,
 
             [0, Wolf.SPR_TRANS_W1, 10, AI.T_Chase, null, Actors.st_chase1s], // Actors.st_chase1,
-            [0, Wolf.SPR_TRANS_W1,  3, null,         null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_TRANS_W2,  8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_TRANS_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_TRANS_W2, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_TRANS_W3, 10, AI.T_Chase, null, Actors.st_chase3s], // Actors.st_chase3,
-            [0, Wolf.SPR_TRANS_W3,  3, null,         null, Actors.st_chase4],    // Actors.st_chase3s,
-            [0, Wolf.SPR_TRANS_W4,  8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_TRANS_W3, 3, null, null, Actors.st_chase4],    // Actors.st_chase3s,
+            [0, Wolf.SPR_TRANS_W4, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_TRANS_W1, 1, null, ActorAI.deathScream, Actors.st_die2], // Actors.st_die1,
             [0, Wolf.SPR_TRANS_W1, 1, null, null, Actors.st_die3], // Actors.st_die2,
@@ -1278,7 +1278,7 @@
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
+
             [0, Wolf.SPR_UBER_SHOOT1, 30, null, null, Actors.st_shoot2], // Actors.st_shoot1,
             [0, Wolf.SPR_UBER_SHOOT2, 12, null, AI.T_UShoot, Actors.st_shoot3], // Actors.st_shoot2,
             [0, Wolf.SPR_UBER_SHOOT3, 12, null, AI.T_UShoot, Actors.st_shoot4], // Actors.st_shoot3,
@@ -1290,11 +1290,11 @@
             ST_INFO_NULL, // Actors.st_shoot9,
 
             [0, Wolf.SPR_UBER_W1, 10, AI.T_Chase, null, Actors.st_chase1s], // Actors.st_chase1,
-            [0, Wolf.SPR_UBER_W1,  3, null,         null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_UBER_W2,  8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_UBER_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_UBER_W2, 8, AI.T_Chase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_UBER_W3, 10, AI.T_Chase, null, Actors.st_chase3s], // Actors.st_chase3,
-            [0, Wolf.SPR_UBER_W3,  3, null,         null, Actors.st_chase4],    // Actors.st_chase3s,
-            [0, Wolf.SPR_UBER_W4,  8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_UBER_W3, 3, null, null, Actors.st_chase4],    // Actors.st_chase3s,
+            [0, Wolf.SPR_UBER_W4, 8, AI.T_Chase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_UBER_W1, 1, null, ActorAI.deathScream, Actors.st_die2], // Actors.st_die1,
             [0, Wolf.SPR_UBER_W1, 1, null, null, Actors.st_die3], // Actors.st_die2,
@@ -1321,7 +1321,7 @@
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
+
             [0, Wolf.SPR_WILL_SHOOT1, 30, null, null, Actors.st_shoot2], // Actors.st_shoot1,
             [0, Wolf.SPR_WILL_SHOOT2, 10, null, AI.T_Launch, Actors.st_shoot3], // Actors.st_shoot2,
             [0, Wolf.SPR_WILL_SHOOT3, 10, null, AI.T_Shoot, Actors.st_shoot4], // Actors.st_shoot3,
@@ -1333,11 +1333,11 @@
             ST_INFO_NULL, // Actors.st_shoot9,
 
             [0, Wolf.SPR_WILL_W1, 10, AI.T_BossChase, null, Actors.st_chase1s], // Actors.st_chase1,
-            [0, Wolf.SPR_WILL_W1,  3, null,     null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_WILL_W2,  8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_WILL_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_WILL_W2, 8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_WILL_W3, 10, AI.T_BossChase, null, Actors.st_chase3s], // Actors.st_chase3,
-            [0, Wolf.SPR_WILL_W3,  3, null,     null, Actors.st_chase4],    // Actors.st_chase3s,
-            [0, Wolf.SPR_WILL_W4,  8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_WILL_W3, 3, null, null, Actors.st_chase4],    // Actors.st_chase3s,
+            [0, Wolf.SPR_WILL_W4, 8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_WILL_W1, 1, null, ActorAI.deathScream, Actors.st_die2], // Actors.st_die1,
             [0, Wolf.SPR_WILL_W1, 10, null, null, Actors.st_die3], // Actors.st_die2,
@@ -1364,7 +1364,7 @@
 
             ST_INFO_NULL, // Actors.st_pain,
             ST_INFO_NULL, // Actors.st_pain1,
-        
+
             [0, Wolf.SPR_DEATH_SHOOT1, 30, null, null, Actors.st_shoot2], // Actors.st_shoot1,
             [0, Wolf.SPR_DEATH_SHOOT2, 10, null, AI.T_Launch, Actors.st_shoot3], // Actors.st_shoot2,
             [0, Wolf.SPR_DEATH_SHOOT4, 10, null, AI.T_Shoot, Actors.st_shoot4], // Actors.st_shoot3,
@@ -1376,11 +1376,11 @@
             ST_INFO_NULL, // Actors.st_shoot9,
 
             [0, Wolf.SPR_DEATH_W1, 10, AI.T_BossChase, null, Actors.st_chase1s], // Actors.st_chase1,
-            [0, Wolf.SPR_DEATH_W1,  3, null,      null, Actors.st_chase2], // Actors.st_chase1s,
-            [0, Wolf.SPR_DEATH_W2,  8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
+            [0, Wolf.SPR_DEATH_W1, 3, null, null, Actors.st_chase2], // Actors.st_chase1s,
+            [0, Wolf.SPR_DEATH_W2, 8, AI.T_BossChase, null, Actors.st_chase3], // Actors.st_chase2,
             [0, Wolf.SPR_DEATH_W3, 10, AI.T_BossChase, null, Actors.st_chase3s], // Actors.st_chase3,
-            [0, Wolf.SPR_DEATH_W3,  3, null,      null, Actors.st_chase4],    // Actors.st_chase3s,
-            [0, Wolf.SPR_DEATH_W4,  8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
+            [0, Wolf.SPR_DEATH_W3, 3, null, null, Actors.st_chase4],    // Actors.st_chase3s,
+            [0, Wolf.SPR_DEATH_W4, 8, AI.T_BossChase, null, Actors.st_chase1], // Actors.st_chase4,
 
             [0, Wolf.SPR_DEATH_W1, 1, null, ActorAI.deathScream, Actors.st_die2], // Actors.st_die1,
             [0, Wolf.SPR_DEATH_W1, 10, null, null, Actors.st_die3], // Actors.st_die2,
@@ -1395,8 +1395,8 @@
             [0, Wolf.SPR_DEATH_DEAD, 0, null, null, Actors.st_dead]  // Actors.st_dead
         ]
     ];
-    
-    
+
+
     // int    starthitpoints[ 4 ][ NUMENEMIES ] =
     var starthitpoints = [
         //
@@ -1439,7 +1439,7 @@
             950,    // en_will,
             1250    // en_death
         ],
-        
+
         //
         // DON'T HURT ME MODE
         //
@@ -1480,7 +1480,7 @@
             1050,   // en_will,
             1350    // en_death
         ],
-        
+
         //
         // BRING 'EM ON MODE
         //
@@ -1523,7 +1523,7 @@
             1150,   // en_will,
             1450    // en_death
         ],
-        
+
         //
         // DEATH INCARNATE MODE
         //
@@ -1567,7 +1567,7 @@
             1600    // en_death
         ]
     ];
-    
+
     /*  
     typedef struct
     {
@@ -1579,26 +1579,26 @@
         en_state next_state; // next state
     } 
     */
-    
+
     // convert to state structs
-    for (var i=0;i<objstate.length;i++) {
+    for (var i = 0; i < objstate.length; i++) {
         var obj = objstate[i];
-        for (var j=0;j<obj.length;j++) {
+        for (var j = 0; j < obj.length; j++) {
             var state = obj[j];
             obj[j] = {
-                rotate      : state[0],
-                texture     : state[1],
-                timeout     : state[2],
-                think       : state[3],
-                action      : state[4],
-                next_state  : state[5]
+                rotate: state[0],
+                texture: state[1],
+                timeout: state[2],
+                think: state[3],
+                action: state[4],
+                next_state: state[5]
             };
         }
     }
-    
+
     Wolf.setConsts({
-        objstate : objstate,
-        starthitpoints : starthitpoints
+        objstate: objstate,
+        starthitpoints: starthitpoints
     });
 
 })();

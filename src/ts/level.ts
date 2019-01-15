@@ -29,71 +29,71 @@ class Level {
 }
 
 /**
- * @namespace 
+ * @namespace
  * @description Level management
  */
-Wolf.Level = (function() {
+Wolf.Level = (function () {
 
     Wolf.setConsts({
-        WALL_TILE           : 1,
-        PUSHWALL_TILE       : (1 << 20),
-        DOOR_TILE           : 2,
-        SECRET_TILE         : 4,
-        DRESS_TILE          : 8,
-        BLOCK_TILE          : 16,
-        ACTOR_TILE          : 32,
-        DEADACTOR_TILE      : 64,
-        POWERUP_TILE        : 128,
-        AMBUSH_TILE         : 256,
-        EXIT_TILE           : 512,
-        SECRETLEVEL_TILE    : 1024,
-        ELEVATOR_TILE       : (1 << 11),
-        
-        MAPHEADER_SIZE      : 49,
-        MAP_SIGNATURE       : 0x21444921,
-        
-        TILE_IS_E_TURN      : (1 << 12),
-        TILE_IS_NE_TURN     : (1 << 13),
-        TILE_IS_N_TURN      : (1 << 14),
-        TILE_IS_NW_TURN     : (1 << 15),
-        TILE_IS_W_TURN      : (1 << 16),
-        TILE_IS_SW_TURN     : (1 << 17),
-        TILE_IS_S_TURN      : (1 << 18),
-        TILE_IS_SE_TURN     : (1 << 19),
-        
-        MAX_POWERUPS        : 1000
+        WALL_TILE: 1,
+        PUSHWALL_TILE: (1 << 20),
+        DOOR_TILE: 2,
+        SECRET_TILE: 4,
+        DRESS_TILE: 8,
+        BLOCK_TILE: 16,
+        ACTOR_TILE: 32,
+        DEADACTOR_TILE: 64,
+        POWERUP_TILE: 128,
+        AMBUSH_TILE: 256,
+        EXIT_TILE: 512,
+        SECRETLEVEL_TILE: 1024,
+        ELEVATOR_TILE: (1 << 11),
+
+        MAPHEADER_SIZE: 49,
+        MAP_SIGNATURE: 0x21444921,
+
+        TILE_IS_E_TURN: (1 << 12),
+        TILE_IS_NE_TURN: (1 << 13),
+        TILE_IS_N_TURN: (1 << 14),
+        TILE_IS_NW_TURN: (1 << 15),
+        TILE_IS_W_TURN: (1 << 16),
+        TILE_IS_SW_TURN: (1 << 17),
+        TILE_IS_S_TURN: (1 << 18),
+        TILE_IS_SE_TURN: (1 << 19),
+
+        MAX_POWERUPS: 1000
     });
     Wolf.setConsts({
-        SOLID_TILE          : (Wolf.WALL_TILE | Wolf.BLOCK_TILE | Wolf.PUSHWALL_TILE),
-        BLOCKS_MOVE_TILE    : (Wolf.WALL_TILE | Wolf.BLOCK_TILE | Wolf.PUSHWALL_TILE | Wolf.ACTOR_TILE),
-        WAYPOINT_TILE       : (Wolf.TILE_IS_E_TURN | Wolf.TILE_IS_NE_TURN | Wolf.TILE_IS_N_TURN | Wolf.TILE_IS_NW_TURN | 
-                               Wolf.TILE_IS_W_TURN | Wolf.TILE_IS_SW_TURN | Wolf.TILE_IS_S_TURN | Wolf.TILE_IS_SE_TURN )
+        SOLID_TILE: (Wolf.WALL_TILE | Wolf.BLOCK_TILE | Wolf.PUSHWALL_TILE),
+        BLOCKS_MOVE_TILE: (Wolf.WALL_TILE | Wolf.BLOCK_TILE | Wolf.PUSHWALL_TILE | Wolf.ACTOR_TILE),
+        WAYPOINT_TILE: (Wolf.TILE_IS_E_TURN | Wolf.TILE_IS_NE_TURN | Wolf.TILE_IS_N_TURN | Wolf.TILE_IS_NW_TURN |
+            Wolf.TILE_IS_W_TURN | Wolf.TILE_IS_SW_TURN | Wolf.TILE_IS_S_TURN | Wolf.TILE_IS_SE_TURN)
     });
 
     var statinfo = [
         [false, -1],                    // puddle          spr1v
-        [ true, -1],                    // Green Barrel    "
-        [ true, -1],                    // Table/chairs    "
-        [ true, -1],                    // Floor lamp      "
+        [true, -1],                    // Green Barrel    "
+        [true, -1],                    // Table/chairs    "
+        [true, -1],                    // Floor lamp      "
         [false, -1],                    // Chandelier      "
-        [ true, -1],                    // Hanged man      "
+        [true, -1],                    // Hanged man      "
         [false, Powerups.pow_alpo],            // Bad food        "
-        [ true, -1],                    // Red pillar      "
-        [ true, -1],                    // Tree            spr2v
+        [true, -1],                    // Red pillar      "
+        [true, -1],                    // Tree            spr2v
         [false, -1],                    // Skeleton flat   "
-        [ true, -1],                    // Sink            " (SOD:gibs)
-        [ true, -1],                    // Potted plant    "
-        [ true, -1],                    // Urn             "
-        [ true, -1],                    // Bare table      "
+        [true, -1],                    // Sink            " (SOD:gibs)
+        [true, -1],                    // Potted plant    "
+        [true, -1],                    // Urn             "
+        [true, -1],                    // Bare table      "
         [false, -1],                    // Ceiling light   "
         [false, -1],                    // Kitchen stuff   "
-        [ true, -1],                    // suit of armor   spr3v
-        [ true, -1],                    // Hanging cage    "
-        [ true, -1],                    // SkeletoninCage  "
+        [true, -1],                    // suit of armor   spr3v
+        [true, -1],                    // Hanging cage    "
+        [true, -1],                    // SkeletoninCage  "
         [false, -1],                    // Skeleton relax  "
         [false, Powerups.pow_key1],            // Key 1           "
         [false, Powerups.pow_key2],            // Key 2           "
-        [ true, -1],                    // stuff                (SOD:gibs)
+        [true, -1],                    // stuff                (SOD:gibs)
         [false, -1],                    // stuff
         [false, Powerups.pow_food],            // Good food       spr4v
         [false, Powerups.pow_firstaid],        // First aid       "
@@ -106,98 +106,97 @@ Wolf.Level = (function() {
         [false, Powerups.pow_crown],        // crown           spr5v
         [false, Powerups.pow_fullheal],        // one up          "
         [false, Powerups.pow_gibs],            // gibs            "
-        [ true, -1],                    // barrel          "
-        [ true, -1],                    // well            "
-        [ true, -1],                    // Empty well      "
+        [true, -1],                    // barrel          "
+        [true, -1],                    // well            "
+        [true, -1],                    // Empty well      "
         [false, Powerups.pow_gibs],            // Gibs 2          "
-        [ true, -1],                    // flag                "
-        [ true, -1],                    // Call Apogee        spr7v
+        [true, -1],                    // flag                "
+        [true, -1],                    // Call Apogee        spr7v
         [false, -1],                    // junk            "
         [false, -1],                    // junk            "
         [false, -1],                    // junk            "
         [false, -1],                    // pots            "
-        [ true, -1],                     // stove           " (SOD:gibs)
-        [ true, -1],                    // spears          " (SOD:gibs)
+        [true, -1],                     // stove           " (SOD:gibs)
+        [true, -1],                    // spears          " (SOD:gibs)
         [false, -1]                        // vines           "
     ];
-    
-    for (var i=0;i<statinfo.length;i++) {
+
+    for (var i = 0; i < statinfo.length; i++) {
         var info = {
-            idx : i,
-            block : statinfo[i][0],
-            powerup : statinfo[i][1]
+            idx: i,
+            block: statinfo[i][0],
+            powerup: statinfo[i][1]
         };
         statinfo[i] = info;
     }
 
-    
 
-     /**
+    /**
      * @description Create a new level object
-     * @private 
-     * @returns {object} The new level 
+     * @private
+     * @returns {object} The new level
      */
     function newLevel() {
         return {
             // readonly after level load
-            areas : [],
-            tileMap : [],
-            wallTexX : [],
-            wallTexY : [],
-           
-            spawn : {
+            areas: [],
+            tileMap: [],
+            wallTexX: [],
+            wallTexY: [],
+
+            spawn: {
                 x: -1,
                 y: -1,
-                angle : 0
+                angle: 0
             },
-            
-            sprites : [],
-            
-            floorNum : 0,
-            fParTime : 0,
-            sParTime : "",
-            
-            levelName : "", // the descriptive name (Outer Base, etc)
-            mapName : "",   // the server name (base1, etc)
-            nextMap : "",   // go here when fraglimit is hit
-            music : "",
+
+            sprites: [],
+
+            floorNum: 0,
+            fParTime: 0,
+            sParTime: "",
+
+            levelName: "", // the descriptive name (Outer Base, etc)
+            mapName: "",   // the server name (base1, etc)
+            nextMap: "",   // go here when fraglimit is hit
+            music: "",
 
             // state variables
-            state : {
-                framenum : 0,
-                time : 0,
+            state: {
+                framenum: 0,
+                time: 0,
 
                 // intermission state
-                levelCompleted : 0,                // in case the game was saved at the intermission
-                
-                totalSecrets : 0,
-                foundSecrets : 0,
+                levelCompleted: 0,                // in case the game was saved at the intermission
 
-                totalTreasure : 0,
-                foundTreasure : 0,
+                totalSecrets: 0,
+                foundSecrets: 0,
 
-                totalMonsters : 0,
-                killedMonsters : 0,
-                
-                areaconnect : null,
-                areabyplayer : null,
-                
-                numDoors : 0,
-                doors : [],
-                doorMap : [],
-                
-                powerups : [],
-                numPowerups : 0,
+                totalTreasure: 0,
+                foundTreasure: 0,
 
-                guards : [],
-                numGuards : 0,
-                
-                startTime : 0,
-                elapsedTime : 0
+                totalMonsters: 0,
+                killedMonsters: 0,
+
+                areaconnect: null,
+                areabyplayer: null,
+
+                numDoors: 0,
+                doors: [],
+                doorMap: [],
+
+                powerups: [],
+                numPowerups: 0,
+
+                guards: [],
+                numGuards: 0,
+
+                startTime: 0,
+                elapsedTime: 0
             }
         };
     }
-    
+
     /**
      * @description Parse map file data.
      * @private
@@ -213,21 +212,21 @@ Wolf.Level = (function() {
             layer1, layer2, layer3;
 
         file.position = 0;
-            
+
         level.file = file;
-        
+
         if (file.size < Wolf.MAPHEADER_SIZE) {
             throw new Error("Map file size is smaller than mapheader size");
         }
         if (FS.readUInt32(file) != Wolf.MAP_SIGNATURE) {
             throw new Error("File signature does not match MAP_SIGNATURE");
         }
-        
+
         var rle = FS.readUInt16(file);
-        
+
         level.width = FS.readUInt16(file);
         level.height = FS.readUInt16(file);
-        
+
         level.ceiling = [FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file)];
         level.floor = [FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file), FS.readUInt8(file)];
 
@@ -241,27 +240,26 @@ Wolf.Level = (function() {
             FS.readUInt32(file),
             FS.readUInt32(file)
         ];
-    
+
         mapNameLength = FS.readUInt16(file);
         musicNameLength = FS.readUInt16(file);
-        
+
         file.position += 4; // (single) fpartime;
-        
+
         level.sParTime = FS.readString(file, 5);
 
         if (file.size < (Wolf.MAPHEADER_SIZE + mapNameLength + musicNameLength + length[0] + length[1] + length[2])) {
             throw new Error("filesize is less than MAPHEADER_SIZE + mapNameLength + musicNameLength + etc");
         }
-        
+
         level.levelName = level.mapName = FS.readString(file, mapNameLength);
         level.music = FS.readString(file, musicNameLength);
 
         level.plane1 = readPlaneData(file, offset[0], length[0], rle);
         level.plane2 = readPlaneData(file, offset[1], length[1], rle);
         level.plane3 = readPlaneData(file, offset[2], length[2], rle);
-        
-        
-        
+
+
         // jseidelin: hack disabled since we only use up to map 30
         // HUGE HACK to take out the pushwall maze that occasionally
         // gets players stuck in level E4M2 without actually touching
@@ -277,28 +275,28 @@ Wolf.Level = (function() {
             }
         }
         */
-        
+
         Doors.reset(level);
-        
-        for (x=0;x<64;x++) {
+
+        for (x = 0; x < 64; x++) {
             level.areas[x] = [];
             level.tileMap[x] = [];
             level.wallTexX[x] = [];
             level.wallTexY[x] = [];
-            
-            for (y=0;y<64;y++) {
+
+            for (y = 0; y < 64; y++) {
                 level.areas[x][y] = 0;
                 level.tileMap[x][y] = 0;
                 level.wallTexX[x][y] = 0;
                 level.wallTexY[x][y] = 0;
             }
         }
-    
-   
+
+
         for (y0 = 0; y0 < 64; ++y0) {
             for (x = 0; x < 64; ++x) {
-                y = 63 - y0; 
-                
+                y = 63 - y0;
+
                 layer1 = level.plane1[y0 * 64 + x];
                 layer2 = level.plane2[y0 * 64 + x];
                 layer3 = level.plane3[y0 * 64 + x];
@@ -318,8 +316,8 @@ Wolf.Level = (function() {
                         level.areas[x][y] = -2; // door area
                     } else {
                         level.tileMap[x][y] |= Wolf.WALL_TILE;
-                        level.wallTexX[x][y] = (layer1-1) * 2 + 1;
-                        level.wallTexY[x][y] = (layer1-1) * 2;
+                        level.wallTexX[x][y] = (layer1 - 1) * 2 + 1;
+                        level.wallTexY[x][y] = (layer1 - 1) * 2;
                         level.areas[x][y] = -1; // wall area
                         if (layer1 == 0x15) { // elevator
                             level.tileMap[x][y] |= Wolf.ELEVATOR_TILE;
@@ -339,33 +337,33 @@ Wolf.Level = (function() {
                 // End of the map data layer
             }
         }
-        
-        
+
+
         // JDC: try to replace all the unknown areas with an adjacent area, to
         // avoid the silent attack / no damage problem when you get an ambush
         // guard stuck on their original tile
-        for (x=1;x<63;x++) {
-            for (y=1;y<63;y++) {
+        for (x = 1; x < 63; x++) {
+            for (y = 1; y < 63; y++) {
                 if (level.areas[x][y] != -3) {
                     continue;
                 }
-                if (level.areas[x-1][y] >= 0) {
-                    level.areas[x][y] = level.areas[x-1][y];
-                } else if (level.areas[x+1][y] >= 0) {
-                    level.areas[x][y] = level.areas[x+1][y];
-                } else if (level.areas[x][y-1] >= 0) {
-                    level.areas[x][y] = level.areas[x][y-1];
-                } else if (level.areas[x+1][y+1] >= 0) {
-                    level.areas[x][y] = level.areas[x][y+1];
+                if (level.areas[x - 1][y] >= 0) {
+                    level.areas[x][y] = level.areas[x - 1][y];
+                } else if (level.areas[x + 1][y] >= 0) {
+                    level.areas[x][y] = level.areas[x + 1][y];
+                } else if (level.areas[x][y - 1] >= 0) {
+                    level.areas[x][y] = level.areas[x][y - 1];
+                } else if (level.areas[x + 1][y + 1] >= 0) {
+                    level.areas[x][y] = level.areas[x][y + 1];
                 }
             }
         }
 
         Doors.setAreas(level);
-    
+
         return level;
     }
-   
+
     /**
      * @description Read plane data from map data
      * @private
@@ -377,15 +375,15 @@ Wolf.Level = (function() {
      */
     function readPlaneData(file, offset, length, rle) {
         file.position = offset;
-        
+
         var expandedLength = FS.readUInt16(file),
             carmackData = FS.readBytes(file, length - 2),
             expandedData = carmackExpand(carmackData, expandedLength);
-        
-        return rlewExpand(expandedData.slice(1), 64*64*2, rle);
+
+        return rlewExpand(expandedData.slice(1), 64 * 64 * 2, rle);
     }
 
-    
+
     /**
      * @description Expand RLE data
      * @private
@@ -402,9 +400,9 @@ Wolf.Level = (function() {
             inptr = 0,
             outptr = 0,
             dest = [];
-    
+
         end = outptr + (length >> 1);
-        
+
         do {
             value = source[inptr++];
             if (value != rlewtag) {
@@ -414,15 +412,15 @@ Wolf.Level = (function() {
                 // compressed string
                 count = source[inptr++];
                 value = source[inptr++];
-                for (i=1;i<=count;++i) {
+                for (i = 1; i <= count; ++i) {
                     dest[outptr++] = value;
                 }
             }
         } while (outptr < end);
-        
+
         return dest;
     }
-    
+
     /**
      * @description Expand Carmackized data
      * @private
@@ -432,7 +430,7 @@ Wolf.Level = (function() {
      */
     function carmackExpand(source, length) {
         var NEARTAG = 0xA7,
-            FARTAG  = 0xA8;
+            FARTAG = 0xA8;
 
         var chhigh, offset, /* W32 */
             copyptr, outptr, /* W16 */
@@ -445,19 +443,19 @@ Wolf.Level = (function() {
         inptr = 0;
         outptr = 0;
         dest = [];
-        
+
         function W16(b, i) {
-            return b[i] + (b[i+1] << 8);
+            return b[i] + (b[i + 1] << 8);
         }
 
         while (length) {
-            ch = source[inptr] + (source[inptr+1] << 8);
+            ch = source[inptr] + (source[inptr + 1] << 8);
             //ch = W16(source, inptr);
             inptr += 2;
             chhigh = ch >> 8;
             if (chhigh == NEARTAG) {
                 count = ch & 0xff;
-                if (!count) { 
+                if (!count) {
                     // have to insert a word containing the tag byte
                     ch |= source[inptr++];
                     dest[outptr++] = ch;
@@ -472,13 +470,13 @@ Wolf.Level = (function() {
                 }
             } else if (chhigh == FARTAG) {
                 count = ch & 0xff;
-                if (!count)    {
+                if (!count) {
                     // have to insert a word containing the tag byte
                     ch |= source[inptr++];
                     dest[outptr++] = ch;
                     length--;
                 } else {
-                    offset = source[inptr] + (source[inptr+1] << 8);
+                    offset = source[inptr] + (source[inptr + 1] << 8);
                     //offset = W16(source, inptr);
                     inptr += 2;
                     copyptr = offset;
@@ -494,7 +492,7 @@ Wolf.Level = (function() {
         }
         return dest;
     }
-    
+
     /**
      * @description Load level data
      * @param {string} filename The name of the level file.
@@ -502,26 +500,26 @@ Wolf.Level = (function() {
      * @returns {object} The level object.
      */
     function load(filename, callback) {
-        FS.open(filename, Wolf.MapData, function(error, file) {
+        FS.open(filename, Wolf.MapData, function (error, file) {
             var level;
             if (error) {
                 callback(error);
             }
             try {
                 level = parseMapData(file);
-            } catch(error) {
+            } catch (error) {
                 callback(error);
                 return;
             }
             callback(null, level);
         });
     }
-    
+
     function reload(level) {
         return parseMapData(level.file);
     }
 
-    
+
     /**
      * @description Spawn an object in the level at the specified position.
      * @private
@@ -592,7 +590,7 @@ Wolf.Level = (function() {
         } // end of switch( type )
 
     }
-    
+
     /**
      * @description Spawn a static object at the specified position.
      * @private
@@ -604,7 +602,7 @@ Wolf.Level = (function() {
     function spawnStatic(level, type, x, y) {
         var sprite, pu;
 
-        if (statinfo[type].powerup == -1 ) {
+        if (statinfo[type].powerup == -1) {
             if (statinfo[type].block) {    // blocking static
                 level.tileMap[x][y] |= Wolf.BLOCK_TILE;
             } else {                    // dressing static
@@ -616,18 +614,17 @@ Wolf.Level = (function() {
                 return;
             }
 
-            Wolf.Sprites.setPos(level, sprite, Wolf.TILE2POS(x), Wolf.TILE2POS(y), 0 );
+            Wolf.Sprites.setPos(level, sprite, Wolf.TILE2POS(x), Wolf.TILE2POS(y), 0);
             Wolf.Sprites.setTex(level, sprite, 0, Wolf.SPR_STAT_0 + type);
         } else {
             pu = statinfo[type].powerup;
             Powerups.spawn(level, x, y, pu);
-            
+
             if (pu == Powerups.pow_cross || pu == Powerups.pow_chalice || pu == Powerups.pow_bible || pu == Powerups.pow_crown || pu == Powerups.pow_fullheal) {
                 level.state.totalTreasure++; // FIXME: move this to Powerup_Spawn Function!
             }
         }
     }
-
 
 
     var cachedGuard = 0,
@@ -645,7 +642,7 @@ Wolf.Level = (function() {
      */
     function scanInfoPlane(level, skill) {
         var x, y, tile;
-        
+
         cachedGuard = 0;
         cachedOfficer = 0;
         cachedSS = 0;
@@ -653,8 +650,8 @@ Wolf.Level = (function() {
         cachedMutant = 0;
         progress_bar = 0;
 
-        for (y = 0;y < 64;++y) {
-            for (x = 0;x < 64;++x) {
+        for (y = 0; y < 64; ++y) {
+            for (x = 0; x < 64; ++x) {
                 tile = level.plane2[(63 - y) * 64 + x];
                 if (!tile) {
                     continue;
@@ -674,7 +671,7 @@ Wolf.Level = (function() {
                     case 145:
                     case 146:
                     case 147:
-                        if(skill < Game.gd_medium) {
+                        if (skill < Game.gd_medium) {
                             break;
                         }
                         tile -= 36;
@@ -739,7 +736,7 @@ Wolf.Level = (function() {
                     case 118:
                     case 119:
                         if (!cachedOfficer) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_OFC_S_1,Wolf.SPR_OFC_SHOOT3);
+                            Wolf.Sprites.cacheTextures(Wolf.SPR_OFC_S_1, Wolf.SPR_OFC_SHOOT3);
                             cachedOfficer = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_officer, x, y, tile - 116);
@@ -966,7 +963,7 @@ Wolf.Level = (function() {
                     case 239:
                     case 240:
                     case 241:
-                        if (skill < Game.gd_medium )
+                        if (skill < Game.gd_medium)
                             break;
                         tile -= 18;
                     case 220:
@@ -977,7 +974,7 @@ Wolf.Level = (function() {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_MUT_S_1, Wolf.SPR_MUT_SHOOT4);
                             cachedMutant = 1;
                         }
-                        Actors.spawnPatrol(level, skill, Actors.en_mutant, x, y, tile - 220 );
+                        Actors.spawnPatrol(level, skill, Actors.en_mutant, x, y, tile - 220);
                         break;
                     // ghosts
                     case 224:
@@ -1000,8 +997,8 @@ Wolf.Level = (function() {
             }
         }
     }
-    
-   
+
+
     /**
      * @description Check if there is a clear line of sight between 2 points.
      * @param {number} x1 The x coordinate of point 1.
@@ -1016,7 +1013,7 @@ Wolf.Level = (function() {
             x, y,               /* current point in !tiles! */
             xdist, ydist,
             xstep, ystep,       /* Step value for each whole xy */
-        
+
             deltafrac,          /* current point in !1/256 of tile! */
 
             frac,               /* Fractional xy stepper */
@@ -1027,18 +1024,20 @@ Wolf.Level = (function() {
             FRACBITS = 8;       /* Number of bits of fraction */
 
         // get start & end tiles
-        xt1 = x1 >> Wolf.TILESHIFT; 
+        xt1 = x1 >> Wolf.TILESHIFT;
         yt1 = y1 >> Wolf.TILESHIFT;
-        
-        xt2 = x2 >> Wolf.TILESHIFT; 
+
+        xt2 = x2 >> Wolf.TILESHIFT;
         yt2 = y2 >> Wolf.TILESHIFT;
 
         xdist = Math.abs(xt2 - xt1); // X distance in tiles
         ydist = Math.abs(yt2 - yt1); // Y distance in tiles
 
         // 1/256 tile precision (TILESHIFT is 16)
-        x1 >>= FRACBITS; y1 >>= FRACBITS;
-        x2 >>= FRACBITS; y2 >>= FRACBITS;
+        x1 >>= FRACBITS;
+        y1 >>= FRACBITS;
+        x2 >>= FRACBITS;
+        y2 >>= FRACBITS;
 
         if (xdist) { // always positive check only for 0
             if (xt2 > xt1) {
@@ -1058,13 +1057,13 @@ Wolf.Level = (function() {
             do {
                 y = frac >> FRACBITS;
                 frac += ystep;
-                
+
                 // assert( x >= 0 && x < 64 && y >= 0 && y < 64 );
                 if (level.tileMap[x][y] & Wolf.WALL_TILE) {
                     return false; // Wall is in path quitting!
                 }
 
-                if (level.tileMap[x][y] & Wolf.DOOR_TILE ) {
+                if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
                     // door, see if the door is open enough
                     if (level.state.doorMap[x][y].action != Doors.dr_open) {
                         if (level.state.doorMap[x][y].action == Doors.dr_closed) {
@@ -1101,14 +1100,14 @@ Wolf.Level = (function() {
                 frac += xstep;
 
                 //assert( x >= 0 && x < 64 && y >= 0 && y < 64 );
-                if (level.tileMap[x][y] & Wolf.WALL_TILE ) {
+                if (level.tileMap[x][y] & Wolf.WALL_TILE) {
                     return false; // Wall is in path quitting!
                 }
-                    
+
                 if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
                     // door, see if the door is open enough
                     if (level.state.doorMap[x][y].action != Doors.dr_open) {
-                        if (level.state.doorMap[x][y].action == Doors.dr_closed ) {
+                        if (level.state.doorMap[x][y].action == Doors.dr_closed) {
                             return false;
                         }
                         // checking vertical doors in action: ->_I_
@@ -1123,12 +1122,12 @@ Wolf.Level = (function() {
         }
         return true;
     }
-    
+
     return {
-        load : load,
-        reload : reload,
-        scanInfoPlane : scanInfoPlane,
-        checkLine : checkLine
+        load: load,
+        reload: reload,
+        scanInfoPlane: scanInfoPlane,
+        checkLine: checkLine
     };
 
 })();

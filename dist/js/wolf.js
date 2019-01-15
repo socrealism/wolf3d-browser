@@ -17,9 +17,15 @@ var Wolf = {
     TILESHIFT: 16,
     MINDIST: 0x5800,
     FLOATTILE: 65536.0,
-    TILE2POS: function (a) { return (((a) << Wolf.TILESHIFT) + Wolf.HALFTILE); },
-    POS2TILE: function (a) { return ((a) >> Wolf.TILESHIFT); },
-    POS2TILEf: function (a) { return ((a) / Wolf.FLOATTILE); },
+    TILE2POS: function (a) {
+        return (((a) << Wolf.TILESHIFT) + Wolf.HALFTILE);
+    },
+    POS2TILE: function (a) {
+        return ((a) >> Wolf.TILESHIFT);
+    },
+    POS2TILEf: function (a) {
+        return ((a) / Wolf.FLOATTILE);
+    },
     ASTEP: 0.0078125,
     ASTEPRAD: 0.000136354,
     ANG_1RAD: 7333.8598,
@@ -46,11 +52,21 @@ var Wolf = {
     ANG_360: 46080,
     ANGLES: 360,
     DEATHROTATE: 2,
-    FINE2RAD: function (a) { return (a * Math.PI / Wolf.ANG_180); },
-    RAD2FINE: function (a) { return (a * Wolf.ANG_180 / Math.PI); },
-    FINE2DEG: function (a) { return (a / Wolf.ANG_1) >> 0; },
-    FINE2DEGf: function (a) { return (a / Wolf.ANG_1); },
-    DEG2FINE: function (a) { return (a * Wolf.ANG_1); }
+    FINE2RAD: function (a) {
+        return (a * Math.PI / Wolf.ANG_180);
+    },
+    RAD2FINE: function (a) {
+        return (a * Wolf.ANG_180 / Math.PI);
+    },
+    FINE2DEG: function (a) {
+        return (a / Wolf.ANG_1) >> 0;
+    },
+    FINE2DEGf: function (a) {
+        return (a / Wolf.ANG_1);
+    },
+    DEG2FINE: function (a) {
+        return (a * Wolf.ANG_1);
+    }
 };
 Wolf.setConsts = function (C) {
     for (var a in C) {
@@ -59,7 +75,8 @@ Wolf.setConsts = function (C) {
         }
     }
 };
-Wolf.noop = function () { };
+Wolf.noop = function () {
+};
 Wolf.log = function (str) {
     if (typeof console != "undefined") {
         var t = new Date(), e = new Error(), f = "";

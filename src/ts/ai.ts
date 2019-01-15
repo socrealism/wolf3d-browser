@@ -1,5 +1,5 @@
 /**
- * @namespace 
+ * @namespace
  * @description Enemy AI
  */
 class AI {
@@ -85,7 +85,7 @@ class AI {
                 return false;
             }
 
-            for (n=0; n < level.state.numGuards; ++n) {
+            for (n = 0; n < level.state.numGuards; ++n) {
                 if (level.state.guards[n].state >= Actors.st_die1) {
                     continue;
                 }
@@ -201,7 +201,7 @@ class AI {
             }
 
             // assert( self.areanumber >= 0 && self.areanumber <    NUMAREAS );
-            if (!(self.flags & Actors.FL_AMBUSH) && ! level.state.areabyplayer[self.areanumber]) {
+            if (!(self.flags & Actors.FL_AMBUSH) && !level.state.areabyplayer[self.areanumber]) {
                 return false;
             }
 
@@ -371,7 +371,7 @@ class AI {
         deltax = Wolf.POS2TILE(player.position.x) - Wolf.POS2TILE(self.x);
         deltay = Wolf.POS2TILE(player.position.y) - Wolf.POS2TILE(self.y);
 
-        d[0] = deltax < 0 ? Mathematik.dir8_east  : Mathematik.dir8_west;
+        d[0] = deltax < 0 ? Mathematik.dir8_east : Mathematik.dir8_west;
         d[1] = deltay < 0 ? Mathematik.dir8_north : Mathematik.dir8_south;
 
         if (Math.abs(deltay) > Math.abs(deltax)) {
@@ -389,7 +389,7 @@ class AI {
 
         // there is no direct path to the player, so pick another direction
         if (Random.get() > 128) { // randomly determine direction of search
-            for(tdir = Mathematik.dir8_east; tdir <= Mathematik.dir8_south; tdir += 2 ) { // * Revision
+            for (tdir = Mathematik.dir8_east; tdir <= Mathematik.dir8_south; tdir += 2) { // * Revision
                 if (AI.changeDir(self, tdir, level)) {
                     return;
                 }
@@ -451,7 +451,7 @@ class AI {
             dirtry[3] = Mathematik.dir8_east;
         }
 
-        if( deltay > 0 ) {
+        if (deltay > 0) {
             dirtry[2] = Mathematik.dir8_north;
             dirtry[4] = Mathematik.dir8_south;
         } else {
@@ -461,19 +461,27 @@ class AI {
 
         // randomize a bit for dodging
         if (Math.abs(deltax) > Math.abs(deltay)) {
-            tdir = dirtry[1]; dirtry[1]=dirtry[2]; dirtry[2]=tdir; // => swap dirtry[1] & dirtry[2]
-            tdir = dirtry[3]; dirtry[3]=dirtry[4]; dirtry[4]=tdir; // => swap dirtry[3] & dirtry[4]
+            tdir = dirtry[1];
+            dirtry[1] = dirtry[2];
+            dirtry[2] = tdir; // => swap dirtry[1] & dirtry[2]
+            tdir = dirtry[3];
+            dirtry[3] = dirtry[4];
+            dirtry[4] = tdir; // => swap dirtry[3] & dirtry[4]
         }
 
         if (Random.get() < 128) {
-            tdir = dirtry[1]; dirtry[1]=dirtry[2]; dirtry[2]=tdir;
-            tdir = dirtry[3]; dirtry[3]=dirtry[4]; dirtry[4]=tdir;
+            tdir = dirtry[1];
+            dirtry[1] = dirtry[2];
+            dirtry[2] = tdir;
+            tdir = dirtry[3];
+            dirtry[3] = dirtry[4];
+            dirtry[4] = tdir;
         }
 
         dirtry[0] = Mathematik.diagonal[dirtry[1]][dirtry[2]];
 
         // try the directions util one works
-        for (i=0; i < 5; ++i) {
+        for (i = 0; i < 5; ++i) {
             if (dirtry[i] == Mathematik.dir8_nodir || dirtry[i] == turnaround) {
                 continue;
             }
@@ -488,7 +496,6 @@ class AI {
                 return;
             }
         }
-
 
 
         self.dir = Mathematik.dir8_nodir;
@@ -525,7 +532,7 @@ class AI {
     /**
      * @description Try to damage the player.
      */
-    static  T_Shoot(self, game, tics) {
+    static T_Shoot(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy, dist,
@@ -540,12 +547,11 @@ class AI {
             return; // player is behind a wall
         }
 
-        dx = Math.abs(Wolf.POS2TILE(self.x ) - Wolf.POS2TILE(player.position.x));
-        dy = Math.abs(Wolf.POS2TILE(self.y ) - Wolf.POS2TILE(player.position.y));
+        dx = Math.abs(Wolf.POS2TILE(self.x) - Wolf.POS2TILE(player.position.x));
+        dy = Math.abs(Wolf.POS2TILE(self.y) - Wolf.POS2TILE(player.position.y));
         dist = Math.max(dx, dy);
 
-        if (self.type == Actors.en_ss || self.type == Actors.en_boss )
-        {
+        if (self.type == Actors.en_ss || self.type == Actors.en_boss) {
             dist = dist * 2 / 3;                    // ss are better shots
         }
 
@@ -560,7 +566,7 @@ class AI {
         // (if CheckLine both player & enemy see each other)
         // So left only check if guard is in player's fov: FIXME: not fixed fov!
         var trans = Mathematik.transformPoint(self.x, self.y, player.position.x, player.position.y);
-        if (Angle.diff(trans, Wolf.FINE2DEG(player.angle)) < (Math.PI/3)) {
+        if (Angle.diff(trans, Wolf.FINE2DEG(player.angle)) < (Math.PI / 3)) {
             hitchance -= dist * 16;
         } else {
             hitchance -= dist * 8;
@@ -653,7 +659,7 @@ class AI {
 
         if (self.dir == Mathematik.dir8_nodir) {
             AI.dodge(self, game);
-            self.angle = Mathematik.dir8angle[ self.dir ];
+            self.angle = Mathematik.dir8angle[self.dir];
             if (self.dir == Mathematik.dir8_nodir) {
                 return; // object is blocked in
             }
@@ -698,14 +704,14 @@ class AI {
             shouldDodge = true;
         }
 
-        if( self.dir == Mathematik.dir8_nodir ) {
+        if (self.dir == Mathematik.dir8_nodir) {
             if (shouldDodge) {
                 AI.dodge(self, game);
             } else {
                 AI.chase(self, game);
             }
 
-            if( self.dir == Mathematik.dir8_nodir ) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 // object is blocked in
                 return;
             }
@@ -732,7 +738,7 @@ class AI {
 
         if (self.dir == Mathematik.dir8_nodir) {
             AI.dodge(self, game);
-            if (self.dir == Mathematik.dir8_nodir ) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 // object is blocked in
                 return;
             }
@@ -767,7 +773,7 @@ class AI {
                 self.waitfordoorx = self.waitfordoory = 0;    // go ahead, the door is now open
             }
 
-            if (move < self.distance ) {
+            if (move < self.distance) {
                 AI.T_Move(self, game, move);
                 break;
             }
@@ -805,7 +811,7 @@ class AI {
         if (Math.abs(self.x - player.position.x) <= Actors.MINACTORDIST) {
             if (Math.abs(self.y - player.position.y) <= Actors.MINACTORDIST) {
                 var t = self.type;
-                if (t == Actors.en_blinky  || t == Actors.en_clyde || t == Actors.en_pinky || t == Actors.en_inky || t == Actors.en_spectre) {
+                if (t == Actors.en_blinky || t == Actors.en_clyde || t == Actors.en_pinky || t == Actors.en_inky || t == Actors.en_spectre) {
                     Wolf.Player.damage(player, self, 2); // ghosts hurt player!
                 }
                 //
@@ -832,7 +838,7 @@ class AI {
 
         if (self.dir == Mathematik.dir8_nodir) {
             AI.chase(self, game);
-            if (self.dir == Mathematik.dir8_nodir ) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;    // object is blocked in
             }
             self.angle = Mathematik.dir8angle[self.dir];
@@ -920,13 +926,13 @@ class AI {
         proj.ticcount = 1;
         proj.dir = Mathematik.dir8_nodir;
 
-        proj.angle = Wolf.RAD2FINE(iangle)>>0;
+        proj.angle = Wolf.RAD2FINE(iangle) >> 0;
 
         proj.speed = 0x2000;
         proj.flags = Actors.FL_NONMARK; // FL_NEVERMARK;
         proj.sprite = Wolf.Sprites.getNewSprite(level);
 
-        switch(self.type) {
+        switch (self.type) {
             case Actors.en_death:
                 proj.type = Actors.en_hrocket;
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/078.wav", 1, Sound.ATTN_NORM, 0);
@@ -1011,8 +1017,8 @@ class AI {
 
         speed = self.speed * tics;
 
-        deltax = (speed * Mathematik.CosTable[self.angle])>>0;
-        deltay = (speed * Mathematik.SinTable[self.angle])>>0;
+        deltax = (speed * Mathematik.CosTable[self.angle]) >> 0;
+        deltay = (speed * Mathematik.SinTable[self.angle]) >> 0;
 
         if (deltax > Wolf.TILEGLOBAL) {
             deltax = Wolf.TILEGLOBAL;
@@ -1034,7 +1040,7 @@ class AI {
         deltay = Math.abs(self.y - player.position.y);
 
         if (!AI.projectileTryMove(self, level)) {
-            if (self.type == Actors.en_rocket || self.type == Actors.en_hrocket ) {
+            if (self.type == Actors.en_rocket || self.type == Actors.en_hrocket) {
                 // rocket ran into obstacle, draw explosion!
                 Sound.startSound(player.position, self, 1, Sound.CHAN_WEAPON, "assets/lsfx/086.wav", 1, Sound.ATTN_NORM, 0);
                 Actors.stateChange(self, Actors.st_die1);
@@ -1054,7 +1060,7 @@ class AI {
                 case Actors.en_rocket:
                 case Actors.en_hrocket:
                 case Actors.en_spark:
-                    damage = (Random.get()>>3) + 30;
+                    damage = (Random.get() >> 3) + 30;
                     break;
 
                 case Actors.en_fire:

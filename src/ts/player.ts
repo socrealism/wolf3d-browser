@@ -1,67 +1,66 @@
 /**
- * @namespace 
+ * @namespace
  * @description Player management
  */
-Wolf.Player = (function() {
+Wolf.Player = (function () {
 
     Wolf.setConsts({
-        PLAYERSIZE      : Wolf.MINDIST, // player radius
-        STOPSPEED       : 0x0D00,
-        FRICTION        : 0.25,
-        MAXMOVE         : (Wolf.MINDIST*2-1),
-        EXTRAPOINTS     : 40000,	// points for an extra life
-        ITEM_KEY_1      : 1,
-        ITEM_KEY_2      : 2,
-        ITEM_KEY_3      : 4,
-        ITEM_KEY_4      : 8,
-        ITEM_WEAPON_1   : 16,
-        ITEM_WEAPON_2   : 32,
-        ITEM_WEAPON_3   : 64,
-        ITEM_WEAPON_4   : 128,
-        ITEM_WEAPON_5   : 256,
-        ITEM_WEAPON_6   : 512,
-        ITEM_WEAPON_7   : 1024,
-        ITEM_WEAPON_8   : 2048,
-        ITEM_BACKPACK   : (1<<12), // doubles carrying capacity
-        ITEM_AUGMENT    : (1<<13), // adds 50 to maximum health
-        ITEM_UNIFORM    : (1<<14), // allows you to pass guards
-        ITEM_AUTOMAP    : (1<<15), // shows unknown map ares in other color (as in DooM)
-        ITEM_FREE       : (1<<16), // - unused -
-        PL_FLAG_REUSE   : 1, // use button pressed
-        PL_FLAG_ATTCK   : 2, // attacking
+        PLAYERSIZE: Wolf.MINDIST, // player radius
+        STOPSPEED: 0x0D00,
+        FRICTION: 0.25,
+        MAXMOVE: (Wolf.MINDIST * 2 - 1),
+        EXTRAPOINTS: 40000,	// points for an extra life
+        ITEM_KEY_1: 1,
+        ITEM_KEY_2: 2,
+        ITEM_KEY_3: 4,
+        ITEM_KEY_4: 8,
+        ITEM_WEAPON_1: 16,
+        ITEM_WEAPON_2: 32,
+        ITEM_WEAPON_3: 64,
+        ITEM_WEAPON_4: 128,
+        ITEM_WEAPON_5: 256,
+        ITEM_WEAPON_6: 512,
+        ITEM_WEAPON_7: 1024,
+        ITEM_WEAPON_8: 2048,
+        ITEM_BACKPACK: (1 << 12), // doubles carrying capacity
+        ITEM_AUGMENT: (1 << 13), // adds 50 to maximum health
+        ITEM_UNIFORM: (1 << 14), // allows you to pass guards
+        ITEM_AUTOMAP: (1 << 15), // shows unknown map ares in other color (as in DooM)
+        ITEM_FREE: (1 << 16), // - unused -
+        PL_FLAG_REUSE: 1, // use button pressed
+        PL_FLAG_ATTCK: 2, // attacking
         // debug (cheat codes) flags
-        FL_GODMODE      : (1<<4),
-        FL_NOTARGET     : (1<<6),
-        
-        WEAPON_KNIFE    : 0,
-        WEAPON_PISTOL   : 1,
-        WEAPON_AUTO     : 2,
-        WEAPON_CHAIN    : 3,
-        WEAPON_TYPES    : 4,
+        FL_GODMODE: (1 << 4),
+        FL_NOTARGET: (1 << 6),
 
-        KEY_GOLD        : 0,
-        KEY_SILVER      : 1,
-        KEY_FREE1       : 2,
-        KEY_FREE2       : 3,
-        KEY_TYPES       : 4,
+        WEAPON_KNIFE: 0,
+        WEAPON_PISTOL: 1,
+        WEAPON_AUTO: 2,
+        WEAPON_CHAIN: 3,
+        WEAPON_TYPES: 4,
 
-        AMMO_BULLETS    : 0,
-        AMMO_TYPES      : 1,
-        
-        ex_notingame    : 0,
-        ex_playing      : 1,
-        ex_dead         : 2,
-        ex_secretlevel  : 3,
-        ex_victory      : 4,
-        ex_complete     : 5,
-        
+        KEY_GOLD: 0,
+        KEY_SILVER: 1,
+        KEY_FREE1: 2,
+        KEY_FREE2: 3,
+        KEY_TYPES: 4,
+
+        AMMO_BULLETS: 0,
+        AMMO_TYPES: 1,
+
+        ex_notingame: 0,
+        ex_playing: 1,
+        ex_dead: 2,
+        ex_secretlevel: 3,
+        ex_victory: 4,
+        ex_complete: 5,
+
         // victory animation
-        BJRUNSPEED      : 2048,
-        BJJUMPSPEED     : 680
+        BJRUNSPEED: 2048,
+        BJJUMPSPEED: 680
 
     });
 
-    
 
     /*    
     struct atkinf
@@ -70,13 +69,29 @@ Wolf.Player = (function() {
     } 
     */
     var attackinfo = [ // 4 guns, 14 frames max for every gun!
-        [ {tics:6,attack:0,frame:1},{tics:6,attack:2,frame:2},{tics:6,attack:0,frame:3},{tics:6,attack:-1,frame:0}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ],
-        [ {tics:6,attack:0,frame:1},{tics:6,attack:1,frame:2},{tics:6,attack:0,frame:3},{tics:6,attack:-1,frame:0}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ],
-        [ {tics:6,attack:0,frame:1},{tics:6,attack:1,frame:2},{tics:6,attack:3,frame:3},{tics:6,attack:-1,frame:0}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ],
-        [ {tics:6,attack:0,frame:1},{tics:6,attack:1,frame:2},{tics:6,attack:4,frame:3},{tics:6,attack:-1,frame:0}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ]
+        [{tics: 6, attack: 0, frame: 1}, {tics: 6, attack: 2, frame: 2}, {tics: 6, attack: 0, frame: 3}, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+        [{tics: 6, attack: 0, frame: 1}, {tics: 6, attack: 1, frame: 2}, {tics: 6, attack: 0, frame: 3}, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+        [{tics: 6, attack: 0, frame: 1}, {tics: 6, attack: 1, frame: 2}, {tics: 6, attack: 3, frame: 3}, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+        [{tics: 6, attack: 0, frame: 1}, {tics: 6, attack: 1, frame: 2}, {tics: 6, attack: 4, frame: 3}, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
     ];
 
-    
+
     /**
      * @description Spawn the player
      * @param {object} location The location to spawn the player {origin, angle}
@@ -86,76 +101,75 @@ Wolf.Player = (function() {
      * @returns {object} The new player object
      */
     function spawn(location, level, skill, oldPlayer) {
-    
+
         var x = location.x,
             y = location.y,
             angle = location.angle,
             tileX = Wolf.POS2TILE(x),
             tileY = Wolf.POS2TILE(y),
             areanumber = level.areas[tileX][tileY];
-            
+
         // Player structure: Holds all info about player
         var player = {
-            episode : -1,
-            level : -1,
-            health : 100,
-            frags : 0,
-            ammo : [
-            ],
-            score : 0,
-            lives : 0,
-            startScore : 0,
-            nextExtra : 0,
-            items : 0, // (keys, weapon)
-            weapon : 0,
-            pendingWeapon : -1,
-            previousWeapon : -1,
-            position : {
-                x : x,
-                y : y
+            episode: -1,
+            level: -1,
+            health: 100,
+            frags: 0,
+            ammo: [],
+            score: 0,
+            lives: 0,
+            startScore: 0,
+            nextExtra: 0,
+            items: 0, // (keys, weapon)
+            weapon: 0,
+            pendingWeapon: -1,
+            previousWeapon: -1,
+            position: {
+                x: x,
+                y: y
             },
-            angle : angle,
-            tile : {
-                x : tileX,
-                y : tileY
+            angle: angle,
+            tile: {
+                x: tileX,
+                y: tileY
             },
-            mov : {
-                x : 0,
-                y : 0
+            mov: {
+                x: 0,
+                y: 0
             },
-            speed : 0,
-            armor : 0, // there are 2 types. The better one is indicated by high bit set
-            cmd : { // movement / action command
-                forwardMove : 0,
-                sideMove : 0,
-                buttons : 0,
-                impulse : 0
+            speed: 0,
+            armor: 0, // there are 2 types. The better one is indicated by high bit set
+            cmd: { // movement / action command
+                forwardMove: 0,
+                sideMove: 0,
+                buttons: 0,
+                impulse: 0
             },
-            attackFrame : 0, // attack info
-            attackCount : 0, 
-            weaponFrame : 0, 
-            
-            madenoise : false,
-            lastAttacker : null,
-            
-            faceFrame : 0, 
-            faceCount : 0,    // bj's face in the HUD // FIXME decide something!
-            faceGotGun : false, 
-            faceOuch : false,
+            attackFrame: 0, // attack info
+            attackCount: 0,
+            weaponFrame: 0,
 
-            flags : 0,
-            areanumber : areanumber,
-            playstate : 0,
-            
-            attackDirection : [0,0],
-            
-            skill : skill
+            madenoise: false,
+            lastAttacker: null,
+
+            faceFrame: 0,
+            faceCount: 0,    // bj's face in the HUD // FIXME decide something!
+            faceGotGun: false,
+            faceOuch: false,
+
+            flags: 0,
+            areanumber: areanumber,
+            playstate: 0,
+
+            attackDirection: [0, 0],
+
+            skill: skill
         };
-        
+
         if (player.areanumber < 0) {
             player.areanumber = 36;
         }
-        
+
         Areas.init(level, player.areanumber);
         Areas.connect(level, player.areanumber);
 
@@ -167,7 +181,7 @@ Wolf.Player = (function() {
 
         return player;
     }
-    
+
 
     /**
      * @description Copy player variables from another player object
@@ -184,13 +198,13 @@ Wolf.Player = (function() {
         player.previousWeapon = copyPlayer.previousWeapon;
         player.weapon = copyPlayer.weapon;
         player.pendingWeapon = copyPlayer.pendingWeapon;
-        player.items = (copyPlayer.items & Wolf.ITEM_WEAPON_1) | 
-                       (copyPlayer.items & Wolf.ITEM_WEAPON_2) |
-                       (copyPlayer.items & Wolf.ITEM_WEAPON_3) |
-                       (copyPlayer.items & Wolf.ITEM_WEAPON_4);
+        player.items = (copyPlayer.items & Wolf.ITEM_WEAPON_1) |
+            (copyPlayer.items & Wolf.ITEM_WEAPON_2) |
+            (copyPlayer.items & Wolf.ITEM_WEAPON_3) |
+            (copyPlayer.items & Wolf.ITEM_WEAPON_4);
         player.nextExtra = copyPlayer.nextExtra;
     }
-    
+
     /**
      * @description Set up player for the new game
      * @param {object} player The player object
@@ -207,8 +221,7 @@ Wolf.Player = (function() {
         player.nextExtra = Wolf.EXTRAPOINTS;
     }
 
-    
-   
+
     /**
      * @description Try to move player
      * @private
@@ -220,10 +233,10 @@ Wolf.Player = (function() {
         var xl, yl, xh, yh, x, y,
             d, n;
 
-        xl = Wolf.POS2TILE(player.position.x - Wolf.PLAYERSIZE );
-        yl = Wolf.POS2TILE(player.position.y - Wolf.PLAYERSIZE );
-        xh = Wolf.POS2TILE(player.position.x + Wolf.PLAYERSIZE );
-        yh = Wolf.POS2TILE(player.position.y + Wolf.PLAYERSIZE );
+        xl = Wolf.POS2TILE(player.position.x - Wolf.PLAYERSIZE);
+        yl = Wolf.POS2TILE(player.position.y - Wolf.PLAYERSIZE);
+        xh = Wolf.POS2TILE(player.position.x + Wolf.PLAYERSIZE);
+        yh = Wolf.POS2TILE(player.position.y + Wolf.PLAYERSIZE);
 
         // Cheching for solid walls:
         for (y = yl; y <= yh; ++y) {
@@ -264,7 +277,7 @@ Wolf.Player = (function() {
 
         return true;
     }
-    
+
     /**
      * @description Clips movement
      * @private
@@ -321,21 +334,21 @@ Wolf.Player = (function() {
 
         self.mov.x = self.mov.y = 0; // clear accumulated movement
 
-        if (self.cmd.forwardMove ) {
+        if (self.cmd.forwardMove) {
             speed = tics * self.cmd.forwardMove;
-            self.mov.x += (speed * Mathematik.CosTable[angle])>>0;
-            self.mov.y += (speed * Mathematik.SinTable[angle])>>0;
+            self.mov.x += (speed * Mathematik.CosTable[angle]) >> 0;
+            self.mov.y += (speed * Mathematik.SinTable[angle]) >> 0;
         }
         if (self.cmd.sideMove) {
             speed = tics * self.cmd.sideMove;
-            self.mov.x += (speed * Mathematik.SinTable[angle])>>0;
-            self.mov.y -= (speed * Mathematik.CosTable[angle])>>0;
+            self.mov.x += (speed * Mathematik.SinTable[angle]) >> 0;
+            self.mov.y -= (speed * Mathematik.CosTable[angle]) >> 0;
         }
 
         if (!self.mov.x && !self.mov.y) {
             return;
         }
-            
+
         self.speed = self.mov.x + self.mov.y;
 
         // bound movement
@@ -355,15 +368,15 @@ Wolf.Player = (function() {
         clipMove(self, self.mov.x, self.mov.y, level);
         self.tile.x = Wolf.POS2TILE(self.position.x);
         self.tile.y = Wolf.POS2TILE(self.position.y);
-        
+
         //    Powerup_PickUp( self.tilex, self.tiley );
-        
+
         // pick up items easier -- any tile you touch, instead of
         // just the midpoint tile
         var x, y, tileX, tileY;
-        for (x = -1 ;x <= 1; x+= 2) {
+        for (x = -1; x <= 1; x += 2) {
             tileX = Wolf.POS2TILE(self.position.x + x * Wolf.PLAYERSIZE);
-            for (y = -1; y <= 1; y+= 2) {
+            for (y = -1; y <= 1; y += 2) {
                 tileY = Wolf.POS2TILE(self.position.y + y * Wolf.PLAYERSIZE);
                 Powerups.pickUp(level, self, tileX, tileY);
             }
@@ -381,8 +394,8 @@ Wolf.Player = (function() {
             Game.victory(game);
         }
     }
-    
-    
+
+
     /**
      * @description Called if player pressed USE button
      * @private
@@ -416,16 +429,16 @@ Wolf.Player = (function() {
                 case Mathematik.dir4_south:
                     return false; // don't allow to press elevator rails
             }
-            
+
             if (level.tileMap[self.tile.x][self.tile.y] & Wolf.SECRETLEVEL_TILE) {
                 self.playstate = Wolf.ex_secretlevel;
             } else {
                 self.playstate = Wolf.ex_complete;
             }
-            Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/040.wav", 1, Sound.ATTN_NORM, 0 );
-            
+            Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/040.wav", 1, Sound.ATTN_NORM, 0);
+
             Game.startIntermission(game);
-            
+
             return true;
         }
 
@@ -442,7 +455,7 @@ Wolf.Player = (function() {
     function attack(game, player, reAttack, tics) {
         var cur,
             level = game.level;
-        
+
         player.attackCount -= tics;
         while (player.attackCount <= 0) {
             cur = attackinfo[player.weapon][player.attackFrame];
@@ -501,7 +514,7 @@ Wolf.Player = (function() {
             Wolf.log("Extra life!");
         }
     }
-    
+
     /*
     -----------------------------------------------------------------------------
      Returns: returns true if player needs this health.
@@ -529,7 +542,7 @@ Wolf.Player = (function() {
         }
 
         player.faceGotGun = false;
-        
+
         return true; // took it
     }
 
@@ -539,7 +552,7 @@ Wolf.Player = (function() {
         }
     }
 
-    
+
     function giveKey(player, key) {
         player.items |= Wolf.ITEM_KEY_1 << key;
     }
@@ -555,16 +568,15 @@ Wolf.Player = (function() {
             return; // player owns this weapon
         } else {
             player.items |= itemflag;
-            
+
             // don't switch if already using better weapon
-            if (player.weapon < weapon ) {
+            if (player.weapon < weapon) {
                 player.weapon = player.pendingWeapon = weapon;
             }
         }
     }
 
 
-    
     function giveAmmo(player, type, ammo) {
         var maxAmmo = 99;
 
@@ -588,8 +600,8 @@ Wolf.Player = (function() {
 
         return true;
     }
-    
-    
+
+
     /**
      * @description Award points to the player
      * @param {object} player The player object.
@@ -600,7 +612,7 @@ Wolf.Player = (function() {
     function damage(player, attacker, points, skill) {
         var dx, dy,
             angle, playerAngle, deltaAngle;
-        
+
         if (player.playstate == Wolf.ex_dead || player.playstate == Wolf.ex_complete || self.playstate == Wolf.ex_victory) {
             return;
         }
@@ -612,22 +624,22 @@ Wolf.Player = (function() {
         }
 
         // note the direction of the last hit for the directional blends
-            dx = attacker.x - player.position.x;
-            dy = attacker.y - player.position.y;
-        
+        dx = attacker.x - player.position.x;
+        dy = attacker.y - player.position.y;
+
         // probably won't ever have damage from self, but check anyway
         if (dx != 0 || dy != 0) {
             angle = Math.atan2(dy, dx);
             playerAngle = player.angle * 360.0 / Wolf.ANG_360;
 
             angle = angle * 180.0 / Math.PI;
-            
+
             if (angle < 0) {
                 angle = 360 + angle;
             }
-            
+
             deltaAngle = angle - playerAngle;
-            
+
             if (deltaAngle > 180) {
                 deltaAngle = deltaAngle - 360;
             }
@@ -642,10 +654,10 @@ Wolf.Player = (function() {
         }
         // do everything else but subtract health in god mode, to ease
         // testing of damage feedback
-        if (!(player.flags & Wolf.FL_GODMODE) ) {
+        if (!(player.flags & Wolf.FL_GODMODE)) {
             player.health -= points;
         }
-        
+
         if (player.health <= 0) {
             // dead
             Game.notify("You have died");
@@ -683,7 +695,7 @@ Wolf.Player = (function() {
         }
 
         //desty = ((player.tile.y-5) << Wolf.TILESHIFT) - 0x3000;
-        desty = Wolf.TILE2POS(player.tile.y+7);
+        desty = Wolf.TILE2POS(player.tile.y + 7);
 
         if (player.position.y < desty) {
             player.position.y += tics * 3072;
@@ -692,7 +704,7 @@ Wolf.Player = (function() {
             }
         }
     }
-    
+
     /**
      * @description Process player actions
      * @param {object} self The player object.
@@ -702,14 +714,14 @@ Wolf.Player = (function() {
     function process(game, self, tics) {
         var level = game.level,
             n;
-        
-        
+
+
         if (self.playstate == Wolf.ex_victory) {
             victorySpin(game, self, tics);
             return;
         }
-        
-        self.attackDirection = [0,0];
+
+        self.attackDirection = [0, 0];
         self.madenoise = false;
 
         controlMovement(game, self, level, tics);
@@ -737,18 +749,18 @@ Wolf.Player = (function() {
         switch (self.cmd.impulse) {
             case 0:
                 break; // no impulse
-                
+
             case 1:
             case 2:
             case 3:
             case 4:
                 changeWeapon(self, self.cmd.impulse - 1);
                 break;
-                
+
             case 10: // next weapon /like in Quake/ FIXME: weapprev, weapnext
                 self.pendingWeapon = self.weapon;
                 for (n = 0; n < 4; ++n) {
-                    if (++self.weapon > Wolf.WEAPON_CHAIN)  {
+                    if (++self.weapon > Wolf.WEAPON_CHAIN) {
                         self.weapon = Wolf.WEAPON_KNIFE;
                     }
                     if (changeWeapon(self, self.weapon)) {
@@ -759,23 +771,23 @@ Wolf.Player = (function() {
                 break;
 
             default:
-                Wolf.log("Unknown Impulse: ", + self.cmd.impulse);
+                Wolf.log("Unknown Impulse: ", +self.cmd.impulse);
                 break;
         }
     }
-    
+
     return {
-        spawn : spawn,
-        newGame : newGame,
-        controlMovement : controlMovement,
-        process : process,
-        damage : damage,
-        givePoints : givePoints,
-        giveHealth : giveHealth,
-        giveAmmo : giveAmmo,
-        giveWeapon : giveWeapon,
-        giveLife : giveLife,
-        giveKey : giveKey
+        spawn: spawn,
+        newGame: newGame,
+        controlMovement: controlMovement,
+        process: process,
+        damage: damage,
+        givePoints: givePoints,
+        giveHealth: giveHealth,
+        giveAmmo: giveAmmo,
+        giveWeapon: giveWeapon,
+        giveLife: giveLife,
+        giveKey: giveKey
     };
 
 })();

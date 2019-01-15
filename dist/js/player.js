@@ -49,10 +49,26 @@ Wolf.Player = (function () {
         BJJUMPSPEED: 680
     });
     var attackinfo = [
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 2, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, { tics: 6, attack: -1, frame: 0 }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, { tics: 6, attack: -1, frame: 0 }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 3, frame: 3 }, { tics: 6, attack: -1, frame: 0 }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 4, frame: 3 }, { tics: 6, attack: -1, frame: 0 }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 2, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, {
+                tics: 6,
+                attack: -1,
+                frame: 0
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, {
+                tics: 6,
+                attack: -1,
+                frame: 0
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 3, frame: 3 }, {
+                tics: 6,
+                attack: -1,
+                frame: 0
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 4, frame: 3 }, {
+                tics: 6,
+                attack: -1,
+                frame: 0
+            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
     ];
     function spawn(location, level, skill, oldPlayer) {
         var x = location.x, y = location.y, angle = location.angle, tileX = Wolf.POS2TILE(x), tileY = Wolf.POS2TILE(y), areanumber = level.areas[tileX][tileY];

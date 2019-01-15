@@ -1,5 +1,5 @@
 /**
- * @namespace 
+ * @namespace
  * @description Push wall management
  */
 class PushWall {

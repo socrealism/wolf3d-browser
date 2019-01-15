@@ -19,7 +19,7 @@ class Weapon {
         dist = 0x7fffffff;
         closest = null;
 
-        for (n=0; n<level.state.numGuards; ++n) {
+        for (n = 0; n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
             if (guard.flags & Actors.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
                 shotDist = Mathematik.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
@@ -78,9 +78,9 @@ class Weapon {
         dist = 0x7fffffff;
         closest = null;
 
-        for (n=0;n < level.state.numGuards; ++n) {
+        for (n = 0; n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
-            if (guard.flags & Actors.FL_SHOOTABLE ) { // && Guards[n].flags&FL_VISABLE
+            if (guard.flags & Actors.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
                 shotDist = Mathematik.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
                     continue; // miss
@@ -101,10 +101,10 @@ class Weapon {
 
         if (!closest) { // missed
             var tracePoint = {
-                angle : Mathematik.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
-                x : player.position.x,
-                y : player.position.y,
-                flags : Raycaster.TRACE_BULLET
+                angle: Mathematik.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
+                x: player.position.x,
+                y: player.position.y,
+                flags: Raycaster.TRACE_BULLET
             };
 
             Wolf.Raycaster.trace(level, null, tracePoint);

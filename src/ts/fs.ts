@@ -10,13 +10,13 @@ class FS {
     static openURL(url, callback) {
         const xhr = new XMLHttpRequest();
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 0) {
                     callback(null, {
-                        data : xhr.responseText,
-                        size : xhr.responseText.length,
-                        position : 0
+                        data: xhr.responseText,
+                        size: xhr.responseText.length,
+                        position: 0
                     });
                 } else {
                     callback(new Error("Server returned HTTP status: " + xhr.status));
@@ -41,9 +41,9 @@ class FS {
             const data = atob(b64data);
 
             callback(null, {
-                data : data,
-                size : data.length,
-                position : 0
+                data: data,
+                size: data.length,
+                position: 0
             });
         } else {
             callback(new Error("File not found: " + filename));
