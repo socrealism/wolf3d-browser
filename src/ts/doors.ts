@@ -263,7 +263,7 @@ class Doors {
      */
     static changeDoorState(level, player, door) {
         if (door.action < Doors.dr_opening) {
-            open(door);
+            Doors.open(door);
         } else if (door.action == Doors.dr_open && Doors.canCloseDoor(level, player, door.tile.x, door.tile.y, door.vertical)) {
             // !@# for the iphone with automatic using, don't allow any door close actions
             // Door->action = dr_closing;
