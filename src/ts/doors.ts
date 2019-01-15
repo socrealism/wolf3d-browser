@@ -41,9 +41,9 @@ class Doors {
     public static reset(level) {
         level.state.numDoors = 0;
 
-        for (var x=0;x<64;x++) {
+        for (var x = 0; x < 64; x++) {
             level.state.doorMap[x] = [];
-            for (var y=0;y<64;y++) {
+            for (var y = 0; y < 64; y++) {
                 level.state.doorMap[x][y] = 0;
             }
         }
@@ -62,60 +62,60 @@ class Doors {
             throw new Error("Too many Doors on level!");
         }
         var door = level.state.doorMap[x][y] = {
-            type : -1,
-            vertical : 0,
-            texture : -1,
-            ticcount : 0
+            type: -1,
+            vertical: 0,
+            texture: -1,
+            ticcount: 0
         };
 
-        switch(type) {
+        switch (type) {
             case 0x5A:
-                door.type       = Doors.DOOR_VERT;
-                door.vertical   = true;
-                door.texture    = Doors.TEX_DDOOR + 1;
+                door.type = Doors.DOOR_VERT;
+                door.vertical = true;
+                door.texture = Doors.TEX_DDOOR + 1;
                 break;
             case 0x5B:
-                door.type       = Doors.DOOR_HORIZ;
-                door.vertical   = false;
-                door.texture    = Doors.TEX_DDOOR;
+                door.type = Doors.DOOR_HORIZ;
+                door.vertical = false;
+                door.texture = Doors.TEX_DDOOR;
                 break;
             case 0x5C:
-                door.type       = Doors.DOOR_G_VERT;
-                door.vertical   = true;
-                door.texture    = Doors.TEX_DLOCK;
+                door.type = Doors.DOOR_G_VERT;
+                door.vertical = true;
+                door.texture = Doors.TEX_DLOCK;
                 break;
             case 0x5D:
-                door.type       = Doors.DOOR_G_HORIZ;
-                door.vertical   = false;
-                door.texture    = Doors.TEX_DLOCK;
+                door.type = Doors.DOOR_G_HORIZ;
+                door.vertical = false;
+                door.texture = Doors.TEX_DLOCK;
                 break;
             case 0x5E:
-                door.type       = Doors.DOOR_S_VERT;
-                door.vertical   = true;
-                door.texture    = Doors.TEX_DLOCK + 1;
+                door.type = Doors.DOOR_S_VERT;
+                door.vertical = true;
+                door.texture = Doors.TEX_DLOCK + 1;
                 break;
             case 0x5F:
-                door.type       = Doors.DOOR_S_HORIZ;
-                door.vertical   = false;
-                door.texture    = Doors.TEX_DLOCK + 1;
+                door.type = Doors.DOOR_S_HORIZ;
+                door.vertical = false;
+                door.texture = Doors.TEX_DLOCK + 1;
                 break;
             case 0x64:
-                door.type       = Doors.DOOR_E_VERT;
-                door.vertical   = true;
-                door.texture    = Doors.TEX_DELEV + 1;
+                door.type = Doors.DOOR_E_VERT;
+                door.vertical = true;
+                door.texture = Doors.TEX_DELEV + 1;
                 break;
             case 0x65:
-                door.type       = Doors.DOOR_E_HORIZ;
-                door.vertical   = false;
-                door.texture    = Doors.TEX_DELEV;
+                door.type = Doors.DOOR_E_HORIZ;
+                door.vertical = false;
+                door.texture = Doors.TEX_DELEV;
                 break;
             default:
                 throw new Error("Unknown door type: " + type);
         }
 
         door.tile = {
-            x : x,
-            y : y
+            x: x,
+            y: y
         };
         door.action = Doors.dr_closed;
 
@@ -147,11 +147,11 @@ class Doors {
             return;
         }
 
-        for (var n=0;n<level.state.numDoors;++n) {
+        for (var n = 0; n < level.state.numDoors; ++n) {
             var door = level.state.doors[n],
                 doorPos = {
-                    x : Wolf.TILE2POS(door.tile.x),
-                    y : Wolf.TILE2POS(door.tile.y)
+                    x: Wolf.TILE2POS(door.tile.x),
+                    y: Wolf.TILE2POS(door.tile.y)
                 };
             switch (door.action) {
                 case Doors.dr_closed: // this door is closed!
@@ -227,7 +227,7 @@ class Doors {
     public static setAreas(level) {
         var n, x, y,
             door;
-        for (n=0; n<level.state.numDoors ; ++n){
+        for (n = 0; n < level.state.numDoors; ++n) {
             door = level.state.doors[n];
             x = door.tile.x;
             y = door.tile.y;
@@ -262,7 +262,7 @@ class Doors {
      * @param {object} doors The door object.
      */
     public static changeDoorState(level, player, door) {
-        if (door.action < Doors.dr_opening ) {
+        if (door.action < Doors.dr_opening) {
             open(door);
         } else if (door.action == Doors.dr_open && Doors.canCloseDoor(level, player, door.tile.x, door.tile.y, door.vertical)) {
             // !@# for the iphone with automatic using, don't allow any door close actions
@@ -271,13 +271,13 @@ class Doors {
         }
     }
 
-    public static canCloseDoor(level, player, x, y, vert ) {
+    public static canCloseDoor(level, player, x, y, vert) {
         var n,
             tileX = Wolf.POS2TILE(player.position.x),
             tileY = Wolf.POS2TILE(player.position.y),
             guard;
 
-        if (tileX == x && tileY == y ) {
+        if (tileX == x && tileY == y) {
             return false;
         }
 
@@ -291,9 +291,9 @@ class Doors {
                 }
             }
 
-            for (n = 0; n<level.state.numGuards;++n) {
+            for (n = 0; n < level.state.numGuards; ++n) {
                 guard = level.state.guards[n];
-                if (guard.tile.x == x && guard.tile.y == y ) {
+                if (guard.tile.x == x && guard.tile.y == y) {
                     return false; // guard in door
                 }
                 if (guard.tile.x == x - 1 && guard.tile.y == y && Wolf.POS2TILE(guard.x + Doors.CLOSEWALL) == x) {
@@ -312,9 +312,9 @@ class Doors {
                     return false;
                 }
             }
-            for (n = 0; n<level.state.numGuards;++n) {
+            for (n = 0; n < level.state.numGuards; ++n) {
                 var guard = level.state.guards[n];
-                if (guard.tile.x == x && guard.tile.y == y ) {
+                if (guard.tile.x == x && guard.tile.y == y) {
                     return false; // guard in door
                 }
                 if (guard.tile.x == x && guard.tile.y == y - 1 && Wolf.POS2TILE(guard.y + Doors.CLOSEWALL) == y) {
@@ -336,7 +336,7 @@ class Doors {
      * @param {object} door The door object
      * @returns {boolean} Always returns true.
      */
-    public static tryUse(level, player, door ) {
+    public static tryUse(level, player, door) {
         switch (door.type) {
             case Doors.DOOR_VERT:
             case Doors.DOOR_HORIZ:
