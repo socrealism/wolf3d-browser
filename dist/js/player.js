@@ -246,7 +246,7 @@ Wolf.Player = (function () {
             tileX = Wolf.POS2TILE(self.position.x + x * Wolf.PLAYERSIZE);
             for (y = -1; y <= 1; y += 2) {
                 tileY = Wolf.POS2TILE(self.position.y + y * Wolf.PLAYERSIZE);
-                Wolf.Powerups.pickUp(level, self, tileX, tileY);
+                Powerups.pickUp(level, self, tileX, tileY);
             }
         }
         if (level.areas[self.tile.x][self.tile.y] >= 0 && level.areas[self.tile.x][self.tile.y] != self.areanumber) {

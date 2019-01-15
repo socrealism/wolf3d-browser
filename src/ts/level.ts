@@ -77,7 +77,7 @@ Wolf.Level = (function() {
         [ true, -1],                    // Floor lamp      "
         [false, -1],                    // Chandelier      "
         [ true, -1],                    // Hanged man      "
-        [false, Wolf.pow_alpo],            // Bad food        "
+        [false, Powerups.pow_alpo],            // Bad food        "
         [ true, -1],                    // Red pillar      "
         [ true, -1],                    // Tree            spr2v
         [false, -1],                    // Skeleton flat   "
@@ -91,25 +91,25 @@ Wolf.Level = (function() {
         [ true, -1],                    // Hanging cage    "
         [ true, -1],                    // SkeletoninCage  "
         [false, -1],                    // Skeleton relax  "
-        [false, Wolf.pow_key1],            // Key 1           "
-        [false, Wolf.pow_key2],            // Key 2           "
+        [false, Powerups.pow_key1],            // Key 1           "
+        [false, Powerups.pow_key2],            // Key 2           "
         [ true, -1],                    // stuff                (SOD:gibs)
         [false, -1],                    // stuff
-        [false, Wolf.pow_food],            // Good food       spr4v
-        [false, Wolf.pow_firstaid],        // First aid       "
-        [false, Wolf.pow_clip],            // Clip            "
-        [false, Wolf.pow_machinegun],   // Machine gun     "
-        [false, Wolf.pow_chaingun],        // Gatling gun     "
-        [false, Wolf.pow_cross],        // Cross           "
-        [false, Wolf.pow_chalice],        // Chalice         "
-        [false, Wolf.pow_bible],        // Bible           "
-        [false, Wolf.pow_crown],        // crown           spr5v
-        [false, Wolf.pow_fullheal],        // one up          "
-        [false, Wolf.pow_gibs],            // gibs            "
+        [false, Powerups.pow_food],            // Good food       spr4v
+        [false, Powerups.pow_firstaid],        // First aid       "
+        [false, Powerups.pow_clip],            // Clip            "
+        [false, Powerups.pow_machinegun],   // Machine gun     "
+        [false, Powerups.pow_chaingun],        // Gatling gun     "
+        [false, Powerups.pow_cross],        // Cross           "
+        [false, Powerups.pow_chalice],        // Chalice         "
+        [false, Powerups.pow_bible],        // Bible           "
+        [false, Powerups.pow_crown],        // crown           spr5v
+        [false, Powerups.pow_fullheal],        // one up          "
+        [false, Powerups.pow_gibs],            // gibs            "
         [ true, -1],                    // barrel          "
         [ true, -1],                    // well            "
         [ true, -1],                    // Empty well      "
-        [false, Wolf.pow_gibs],            // Gibs 2          "
+        [false, Powerups.pow_gibs],            // Gibs 2          "
         [ true, -1],                    // flag                "
         [ true, -1],                    // Call Apogee        spr7v
         [false, -1],                    // junk            "
@@ -620,9 +620,9 @@ Wolf.Level = (function() {
             Wolf.Sprites.setTex(level, sprite, 0, Wolf.SPR_STAT_0 + type);
         } else {
             pu = statinfo[type].powerup;
-            Wolf.Powerups.spawn(level, x, y, pu);
+            Powerups.spawn(level, x, y, pu);
             
-            if (pu == Wolf.pow_cross || pu == Wolf.pow_chalice || pu == Wolf.pow_bible || pu == Wolf.pow_crown || pu == Wolf.pow_fullheal) {
+            if (pu == Powerups.pow_cross || pu == Powerups.pow_chalice || pu == Powerups.pow_bible || pu == Powerups.pow_crown || pu == Powerups.pow_fullheal) {
                 level.state.totalTreasure++; // FIXME: move this to Powerup_Spawn Function!
             }
         }

@@ -65,7 +65,7 @@ Wolf.Level = (function () {
         [true, -1],
         [false, -1],
         [true, -1],
-        [false, Wolf.pow_alpo],
+        [false, Powerups.pow_alpo],
         [true, -1],
         [true, -1],
         [false, -1],
@@ -79,25 +79,25 @@ Wolf.Level = (function () {
         [true, -1],
         [true, -1],
         [false, -1],
-        [false, Wolf.pow_key1],
-        [false, Wolf.pow_key2],
+        [false, Powerups.pow_key1],
+        [false, Powerups.pow_key2],
         [true, -1],
         [false, -1],
-        [false, Wolf.pow_food],
-        [false, Wolf.pow_firstaid],
-        [false, Wolf.pow_clip],
-        [false, Wolf.pow_machinegun],
-        [false, Wolf.pow_chaingun],
-        [false, Wolf.pow_cross],
-        [false, Wolf.pow_chalice],
-        [false, Wolf.pow_bible],
-        [false, Wolf.pow_crown],
-        [false, Wolf.pow_fullheal],
-        [false, Wolf.pow_gibs],
+        [false, Powerups.pow_food],
+        [false, Powerups.pow_firstaid],
+        [false, Powerups.pow_clip],
+        [false, Powerups.pow_machinegun],
+        [false, Powerups.pow_chaingun],
+        [false, Powerups.pow_cross],
+        [false, Powerups.pow_chalice],
+        [false, Powerups.pow_bible],
+        [false, Powerups.pow_crown],
+        [false, Powerups.pow_fullheal],
+        [false, Powerups.pow_gibs],
         [true, -1],
         [true, -1],
         [true, -1],
-        [false, Wolf.pow_gibs],
+        [false, Powerups.pow_gibs],
         [true, -1],
         [true, -1],
         [false, -1],
@@ -447,8 +447,8 @@ Wolf.Level = (function () {
         }
         else {
             pu = statinfo[type].powerup;
-            Wolf.Powerups.spawn(level, x, y, pu);
-            if (pu == Wolf.pow_cross || pu == Wolf.pow_chalice || pu == Wolf.pow_bible || pu == Wolf.pow_crown || pu == Wolf.pow_fullheal) {
+            Powerups.spawn(level, x, y, pu);
+            if (pu == Powerups.pow_cross || pu == Powerups.pow_chalice || pu == Powerups.pow_bible || pu == Powerups.pow_crown || pu == Powerups.pow_fullheal) {
                 level.state.totalTreasure++;
             }
         }

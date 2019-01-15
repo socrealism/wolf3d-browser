@@ -409,25 +409,25 @@ class ActorAI {
         switch (self.type) {
             case Actors.en_guard:
                 Wolf.Player.givePoints(player, 100);
-                Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
+                Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 break;
 
             case Actors.en_officer:
                 Wolf.Player.givePoints(player, 400);
-                Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
+                Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 break;
 
             case Actors.en_mutant:
                 Wolf.Player.givePoints(player, 700);
-                Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
+                Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 break;
 
             case Actors.en_ss:
                 Wolf.Player.givePoints(player, 500);
                 if (player.items & Wolf.ITEM_WEAPON_3) { // have a schmeiser?
-                    Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_clip2);
+                    Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 } else {
-                    Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_machinegun);
+                    Powerups.spawn(level, tilex, tiley, Powerups.pow_machinegun);
                 }
                 break;
 
@@ -437,12 +437,12 @@ class ActorAI {
 
             case Actors.en_boss:
                 Wolf.Player.givePoints(player, 5000);
-                Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_key1);
+                Powerups.spawn(level, tilex, tiley, Powerups.pow_key1);
                 break;
 
             case Actors.en_gretel:
                 Wolf.Player.givePoints(player, 5000);
-                Wolf.Powerups.spawn(level, tilex, tiley, Wolf.pow_key1);
+                Powerups.spawn(level, tilex, tiley, Powerups.pow_key1);
                 break;
 
             case Actors.en_gift:
