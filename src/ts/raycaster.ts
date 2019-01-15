@@ -1,19 +1,19 @@
 class Raycaster {
-    public static readonly UPPERZCOORD =  0.6;
-    public static readonly LOWERZCOORD = -0.6;
+    static readonly UPPERZCOORD =  0.6;
+    static readonly LOWERZCOORD = -0.6;
 
     // marks
-    public static readonly TRACE_MARK_MAP = 1; // marks traced area in 'AM_AutoMap.vis' array
+    static readonly TRACE_MARK_MAP = 1; // marks traced area in 'AM_AutoMap.vis' array
 
     // obstacle levels
-    public static readonly TRACE_SIGHT = 2; // player sight
-    public static readonly TRACE_SIGHT_AI = 4; // enemy sight
-    public static readonly TRACE_BULLET = 8; // bullet
-    public static readonly TRACE_OBJECT = 16; // object
+    static readonly TRACE_SIGHT = 2; // player sight
+    static readonly TRACE_SIGHT_AI = 4; // enemy sight
+    static readonly TRACE_BULLET = 8; // bullet
+    static readonly TRACE_OBJECT = 16; // object
 
-    public static readonly TRACE_HIT_VERT = 32; // vertical wall was hit
-    public static readonly TRACE_HIT_DOOR = 64; // door was hit
-    public static readonly TRACE_HIT_PWALL = 128; // pushwall was hit
+    static readonly TRACE_HIT_VERT = 32; // vertical wall was hit
+    static readonly TRACE_HIT_DOOR = 64; // door was hit
+    static readonly TRACE_HIT_PWALL = 128; // pushwall was hit
 }
 
 Wolf.Raycaster = (function() {

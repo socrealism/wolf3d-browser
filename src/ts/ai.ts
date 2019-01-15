@@ -3,10 +3,10 @@
  * @description Enemy AI
  */
 class AI {
-    public static readonly RUNSPEED = 6000;
-    public static readonly MINSIGHT = 0x18000;
+    static readonly RUNSPEED = 6000;
+    static readonly MINSIGHT = 0x18000;
 
-    public static checkSight(self, game) {
+    static checkSight(self, game) {
         var level = game.level,
             player = game.player,
             deltax, deltay;
@@ -64,7 +64,7 @@ class AI {
      * @private
      * @returns {boolean} true if direction is OK, otherwise false.
      */
-    public static changeDir(self, new_dir, level) {
+    static changeDir(self, new_dir, level) {
         var oldx,
             oldy,
             newx,
@@ -149,7 +149,7 @@ class AI {
      * @description Entity is going to turn on a way point.
      * @private
      */
-    public static path(self, game) {
+    static path(self, game) {
         var level = game.level;
         if (level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT] & Wolf.WAYPOINT_TILE) {
 
@@ -183,7 +183,7 @@ class AI {
      * @description Called by entities that ARE NOT chasing the player.
      * @private
      */
-    public static findTarget(self, game, tics) {
+    static findTarget(self, game, tics) {
         var level = game.level,
             player = game.player;
 
@@ -265,7 +265,7 @@ class AI {
      * @description As dodge(), but doesn't try to dodge.
      * @private
      */
-    public static chase(self, game) {
+    static chase(self, game) {
         var level = game.level,
             player = game.player,
             deltax,
@@ -360,7 +360,7 @@ class AI {
      * @description Run Away from player.
      * @private
      */
-    public static retreat(self, game) {
+    static retreat(self, game) {
         var level = game.level,
             player = game.player,
             deltax,
@@ -410,7 +410,7 @@ class AI {
      *              that sends it towards the player while dodging.
      * @private
      */
-    public static dodge(self, game) {
+    static dodge(self, game) {
         var level = game.level,
             player = game.player,
             deltax,
@@ -496,13 +496,13 @@ class AI {
 
     /**
      */
-    public static T_Stand(self, game, tics) {
+    static T_Stand(self, game, tics) {
         AI.findTarget(self, game, tics);
     }
 
     /**
      */
-    public static T_Path(self, game, tics) {
+    static T_Path(self, game, tics) {
         var level = game.level;
         if (AI.findTarget(self, game, tics)) {
             return;
@@ -525,7 +525,7 @@ class AI {
     /**
      * @description Try to damage the player.
      */
-    public static  T_Shoot(self, game, tics) {
+    static  T_Shoot(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy, dist,
@@ -598,7 +598,7 @@ class AI {
     /**
      * @description
      */
-    public static T_Chase(self, game, tics) {
+    static T_Chase(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy,
@@ -646,7 +646,7 @@ class AI {
     /**
      * @description
      */
-    public static T_DogChase(self, game, tics) {
+    static T_DogChase(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy;
@@ -677,7 +677,7 @@ class AI {
     /**
      * @description Try to damage the player.
      */
-    public static T_BossChase(self, game, tics) {
+    static T_BossChase(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy, dist,
@@ -718,7 +718,7 @@ class AI {
     /**
      * @description
      */
-    public static T_Fake(self, game, tics) {
+    static T_Fake(self, game, tics) {
         var level = game.level,
             player = game.player;
 
@@ -745,7 +745,7 @@ class AI {
      * @description
      * @private
      */
-    public static T_Advance(self, game, think, tics) {
+    static T_Advance(self, game, think, tics) {
         var level = game.level,
             move, door;
 
@@ -791,7 +791,7 @@ class AI {
     /**
      * @description Moves object for distance in global units, in self.dir direction.
      */
-    public static T_Move(self, game, dist) {
+    static T_Move(self, game, dist) {
         var level = game.level,
             player = game.player;
 
@@ -826,7 +826,7 @@ class AI {
     /**
      * @description
      */
-    public static T_Ghosts(self, game, tics) {
+    static T_Ghosts(self, game, tics) {
         var level = game.level,
             player = game.player;
 
@@ -843,7 +843,7 @@ class AI {
     /**
      * @description
      */
-    public static T_Bite(self, game, tics) {
+    static T_Bite(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy;
@@ -865,7 +865,7 @@ class AI {
     /**
      * @description
      */
-    public static T_UShoot(self, game, tics) {
+    static T_UShoot(self, game, tics) {
         var level = game.level,
             player = game.player,
             dx, dy,
@@ -885,7 +885,7 @@ class AI {
     /**
      * @description
      */
-    public static T_Launch(self, game, tics) {
+    static T_Launch(self, game, tics) {
         var level = game.level,
             player = game.player,
             proj, iangle;
@@ -966,7 +966,7 @@ class AI {
      * @param {object} level The level object.
      * @returns {boolean} True if move ok, otherwise false.
      */
-    public static projectileTryMove(self, level) {
+    static projectileTryMove(self, level) {
         var PROJSIZE = 0x2000,
             xl, yl, xh, yh, x, y;
 
@@ -1002,7 +1002,7 @@ class AI {
      * @param {number} tics The number of tics.
      * @returns {boolean} True if move ok, otherwise false.
      */
-    public static T_Projectile(self, game, tics) {
+    static T_Projectile(self, game, tics) {
         var level = game.level,
             player = game.player,
             PROJECTILESIZE = 0xC000,
@@ -1078,7 +1078,7 @@ class AI {
     /**
      * @description
      */
-    public static T_BJRun(self, game, tics) {
+    static T_BJRun(self, game, tics) {
         var move = Wolf.BJRUNSPEED * tics;
 
         AI.T_Move(self, game, move);
@@ -1096,7 +1096,7 @@ class AI {
     /**
      * @description
      */
-    public static T_BJJump(self, game, tics) {
+    static T_BJJump(self, game, tics) {
         //var move = Wolf.BJRUNSPEED * tics;
         //AI.T_Move(self, game, move);
     }
@@ -1104,14 +1104,14 @@ class AI {
     /**
      * @description
      */
-    public static T_BJYell(self, game, tics) {
+    static T_BJYell(self, game, tics) {
         Sound.startSound(null, null, 0, Sound.CHAN_VOICE, "assets/sfx/082.wav", 1, Sound.ATTN_NORM, 0);
     }
 
     /**
      * @description
      */
-    public static T_BJDone(self, game, tics) {
+    static T_BJDone(self, game, tics) {
         Wolf.Player.playstate = Wolf.ex_victory; // exit castle tile
         //Wolf.Player.playstate = Wolf.ex_complete;
         Game.endEpisode(game);

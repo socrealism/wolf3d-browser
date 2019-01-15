@@ -20,7 +20,7 @@ class Areas {
      * @param {object} levelState The level state object
      * @param {number} areanumber Initial area
      */
-    public static init(level, areanumber) {
+    static init(level, areanumber) {
         level.state.areaconnect = [];
         level.state.areabyplayer = [];
         for (var i=0;i<Wolf.NUMAREAS;i++) {
@@ -39,7 +39,7 @@ class Areas {
      * @param {object} level The level object
      * @param {number} areanumber Area
      */
-    public static recursiveConnect(level, areanumber) {
+    static recursiveConnect(level, areanumber) {
         for (var i = 0;i < Wolf.NUMAREAS; ++i) {
             if (level.state.areaconnect[areanumber][i] && !level.state.areabyplayer[i]) {
                 level.state.areabyplayer[i] = true;
@@ -53,7 +53,7 @@ class Areas {
      * @param {object} level The level object
      * @param {number} areanumber New area
      */
-    public static connect(level, areanumber) {
+    static connect(level, areanumber) {
         var i, c = 0;
 
         if (areanumber >= Wolf.NUMAREAS) {
@@ -77,7 +77,7 @@ class Areas {
      * @param {number} area1 Area 1
      * @param {number} area2 Area 2
      */
-    public static join(level, area1, area2) {
+    static join(level, area1, area2) {
         if (area1 < 0 || area1 >= Wolf.NUMAREAS) {
             throw new Error("area1 < 0 || area1 >= Wolf.NUMAREAS");
         }
@@ -94,7 +94,7 @@ class Areas {
      * @param {number} area1 Area 1
      * @param {number} area2 Area 2
      */
-    public static disconnect(level, area1, area2) {
+    static disconnect(level, area1, area2) {
         if (area1 < 0 || area1 >= Wolf.NUMAREAS) {
             throw new Error("area1 < 0 || area1 >= Wolf.NUMAREAS");
         }

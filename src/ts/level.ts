@@ -1,31 +1,31 @@
 class Level {
-    public static readonly WALL_TILE = 1;
-    public static readonly PUSHWALL_TILE = (1 << 20);
-    public static readonly DOOR_TILE = 2;
-    public static readonly SECRET_TILE = 4;
-    public static readonly DRESS_TILE = 8;
-    public static readonly BLOCK_TILE = 16;
-    public static readonly ACTOR_TILE = 32;
-    public static readonly DEADACTOR_TILE = 64;
-    public static readonly POWERUP_TILE = 128;
-    public static readonly AMBUSH_TILE = 256;
-    public static readonly EXIT_TILE = 512;
-    public static readonly SECRETLEVEL_TILE = 1024;
-    public static readonly ELEVATOR_TILE = (1 << 11);
+    static readonly WALL_TILE = 1;
+    static readonly PUSHWALL_TILE = (1 << 20);
+    static readonly DOOR_TILE = 2;
+    static readonly SECRET_TILE = 4;
+    static readonly DRESS_TILE = 8;
+    static readonly BLOCK_TILE = 16;
+    static readonly ACTOR_TILE = 32;
+    static readonly DEADACTOR_TILE = 64;
+    static readonly POWERUP_TILE = 128;
+    static readonly AMBUSH_TILE = 256;
+    static readonly EXIT_TILE = 512;
+    static readonly SECRETLEVEL_TILE = 1024;
+    static readonly ELEVATOR_TILE = (1 << 11);
 
-    public static readonly MAPHEADER_SIZE = 49;
-    public static readonly MAP_SIGNATURE = 0x21444921;
+    static readonly MAPHEADER_SIZE = 49;
+    static readonly MAP_SIGNATURE = 0x21444921;
 
-    public static readonly TILE_IS_E_TURN = (1 << 12);
-    public static readonly TILE_IS_NE_TURN = (1 << 13);
-    public static readonly TILE_IS_N_TURN = (1 << 14);
-    public static readonly TILE_IS_NW_TURN = (1 << 15);
-    public static readonly TILE_IS_W_TURN = (1 << 16);
-    public static readonly TILE_IS_SW_TURN = (1 << 17);
-    public static readonly TILE_IS_S_TURN = (1 << 18);
-    public static readonly TILE_IS_SE_TURN = (1 << 19);
+    static readonly TILE_IS_E_TURN = (1 << 12);
+    static readonly TILE_IS_NE_TURN = (1 << 13);
+    static readonly TILE_IS_N_TURN = (1 << 14);
+    static readonly TILE_IS_NW_TURN = (1 << 15);
+    static readonly TILE_IS_W_TURN = (1 << 16);
+    static readonly TILE_IS_SW_TURN = (1 << 17);
+    static readonly TILE_IS_S_TURN = (1 << 18);
+    static readonly TILE_IS_SE_TURN = (1 << 19);
 
-    public static readonly MAX_POWERUPS = 1000
+    static readonly MAX_POWERUPS = 1000
 }
 
 /**

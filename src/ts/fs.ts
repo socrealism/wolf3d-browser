@@ -7,7 +7,7 @@ class FS {
      * @param {string} url The URL to open
      * @param {function} callback Is called when file has been loaded. Second argument is file obj.
      */
-    public static openURL(url, callback) {
+    static openURL(url, callback) {
         const xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = function() {
@@ -34,7 +34,7 @@ class FS {
      * @param {object} files The filetable
      * @param {function} callback Is called when file has been loaded. Second argument is file obj.
      */
-    public static open(filename, files, callback) {
+    static open(filename, files, callback) {
         const b64data = files[filename];
 
         if (b64data) {
@@ -55,7 +55,7 @@ class FS {
      * @param {object} f The file
      * @returns {number}
      */
-    public static readUInt8(f) {
+    static readUInt8(f) {
         const b = f.data.charCodeAt(f.position) & 0xFF;
 
         f.position++;
@@ -68,7 +68,7 @@ class FS {
      * @param {object} f The file
      * @returns {number}
      */
-    public static readInt8(f) {
+    static readInt8(f) {
         const v = FS.readUInt8(f);
 
         return v > 127 ? v - 256 : v;
@@ -79,7 +79,7 @@ class FS {
      * @param {object} f The file
      * @returns {number}
      */
-    public static readUInt16(f) {
+    static readUInt16(f) {
         const v = FS.readUInt8(f) + (FS.readUInt8(f) << 8);
 
         return (v < 0) ? v + 0x10000 : v;
@@ -90,7 +90,7 @@ class FS {
      * @param {object} f The file
      * @returns {number}
      */
-    public static readInt16(f) {
+    static readInt16(f) {
         const v = FS.readUInt16(f);
 
         return (v > 0x7fff) ? v - 0x10000 : v;
@@ -101,7 +101,7 @@ class FS {
      * @param {object} f The file
      * @returns {number}
      */
-    public static readUInt32(f) {
+    static readUInt32(f) {
         const b0 = FS.readUInt8(f),
             b1 = FS.readUInt8(f),
             b2 = FS.readUInt8(f),
@@ -116,7 +116,7 @@ class FS {
      * @param {object} f The file
      * @returns {number}
      */
-    public static readInt32(f) {
+    static readInt32(f) {
         const v = FS.readUInt32(f);
 
         return (v > 0x7fffffff) ? v - 0x100000000 : v;
@@ -128,7 +128,7 @@ class FS {
      * @param {number} length The length of the string
      * @returns {string}
      */
-    public static readString(f, length) {
+    static readString(f, length) {
         const str = f.data.substr(f.position, length);
 
         f.position += length;
@@ -142,7 +142,7 @@ class FS {
      * @param {number} num The number of bytes to read
      * @returns {array}
      */
-    public static readBytes(f, num) {
+    static readBytes(f, num) {
         const b = [];
 
         for (let i = 0; i < num; i++) {

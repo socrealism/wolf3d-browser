@@ -3,16 +3,16 @@
  * @description Angle math
  */
 class Angle {
-    public static readonly DEG2RAD = function (a) { // a * M_PI / 180.0f
+    static readonly DEG2RAD = function (a) { // a * M_PI / 180.0f
         return a * 0.01745329251994329576;
     };
-    public static readonly RAD2DEG = function (a) { // a * 180.0f / M_PI
+    static readonly RAD2DEG = function (a) { // a * 180.0f / M_PI
         return a / 0.01745329251994329576;
     };
-    public static readonly ANGLE2SHORT = function (x) {
+    static readonly ANGLE2SHORT = function (x) {
         return ((x * 65536 / 360) >> 0) & 65535;
     };
-    public static readonly SHORT2ANGLE = function (x) {
+    static readonly SHORT2ANGLE = function (x) {
         return x * 360.0 / 65536;
     };
 
@@ -22,7 +22,7 @@ class Angle {
      * @param {number} angle2 Angle in radians.
      * @returns {number} The absolute difference between two angles, this will always be between 0 and 180 degrees.
      */
-    public static diff(angle1, angle2) {
+    static diff(angle1, angle2) {
         let d;
 
         if (angle1 > angle2) {
@@ -44,7 +44,7 @@ class Angle {
      * @param {number} angle2 Angle in radians.
      * @returns {number} The clockwise distance from angle2 to angle1, this may be greater than 180 degrees.
      */
-    public static distCW(angle1, angle2) {
+    static distCW(angle1, angle2) {
         if (angle1 > angle2) {
             return angle1 - angle2;
         } else {
@@ -59,7 +59,7 @@ class Angle {
      * @param {number} frac Fraction.
      * @returns {number}
      */
-    public static interpolate(from, to, frac) {
+    static interpolate(from, to, frac) {
         const diff = Angle.diff(from, to) * frac;
 
         if (Angle.distCW(to, from) >= Math.PI) {
@@ -74,7 +74,7 @@ class Angle {
      * @param {number} angle
      * @returns {number}
      */
-    public static normalize(angle) {
+    static normalize(angle) {
         while (angle < 0) {
             angle += (2 * Math.PI);
         }
@@ -94,7 +94,7 @@ class Angle {
      * @returns {number}
      */
 
-    public static lerp(from, to, frac) {
+    static lerp(from, to, frac) {
         if (to - from > 180) {
             to -= 360;
         }

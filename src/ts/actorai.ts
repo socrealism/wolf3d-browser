@@ -3,8 +3,8 @@
  * @description Artificial intelligence
  */
 class ActorAI {
-    public static angel_temp = 0;
-    public static dsounds = [
+    static angel_temp = 0;
+    static dsounds = [
         "assets/sfx/025.wav",
         "assets/sfx/026.wav",
         "assets/sfx/086.wav",
@@ -19,7 +19,7 @@ class ActorAI {
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
-    public static deathScream(self, game) {
+    static deathScream(self, game) {
         var pos = game.player.position;
 
         switch (self.type) {
@@ -84,7 +84,7 @@ class ActorAI {
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
-    public static mechaSound(self, game) {
+    static mechaSound(self, game) {
         if (game.level.state.areabyplayer[self.areanumber]) {
             Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/080.wav", 1, Sound.ATTN_NORM, 0);
         }
@@ -94,7 +94,7 @@ class ActorAI {
      * @description Play Slurpie sound.
      * @param {object} self The enemy actor object.
      */
-    public static slurpie(self, game) {
+    static slurpie(self, game) {
         Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/lsfx/061.wav", 1, Sound.ATTN_NORM, 0);
     }
 
@@ -103,7 +103,7 @@ class ActorAI {
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
-    public static hitlerMorph(self, game) {
+    static hitlerMorph(self, game) {
         var hitpoints = [500, 700, 800, 900],
             level = game.level,
             hitler;
@@ -137,7 +137,7 @@ class ActorAI {
      * @description Play Angel of Death Breathing sound.
      * @param {object} self The enemy actor object.
      */
-    public static breathing(self) {
+    static breathing(self) {
         Sound.startSound(null, null, 1, Sound.CHAN_VOICE, "assets/lsfx/080.wav", 1, Sound.ATTN_NORM, 0);
     }
 
@@ -145,7 +145,7 @@ class ActorAI {
      * @description Reset Angel of Death attack counter
      * @param {object} self The enemy actor object.
      */
-    public static startAttack(self) {
+    static startAttack(self) {
         ActorAI.angel_temp = 0;
     }
 
@@ -153,7 +153,7 @@ class ActorAI {
      * @description Angel of Death AI.
      * @param {object} self The enemy actor object.
      */
-    public static relaunch(self) {
+    static relaunch(self) {
         if (++ActorAI.angel_temp == 3) {
             Actors.stateChange(self, Actors.st_pain);
             return;
@@ -168,7 +168,7 @@ class ActorAI {
     /**
      * @description Victory - start intermission.
      */
-    public static victory(game) {
+    static victory(game) {
         Game.startIntermission(game);
     }
 
@@ -177,7 +177,7 @@ class ActorAI {
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
-    public static dormant(self, game) {
+    static dormant(self, game) {
         var level = game.level,
             player = game.player,
             deltax,
@@ -234,7 +234,7 @@ class ActorAI {
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
-    public static startDeathCam(game, self) {
+    static startDeathCam(game, self) {
         self.playstate = Wolf.ex_complete;
         setTimeout(function () {
             Game.startIntermission(game);
@@ -246,7 +246,7 @@ class ActorAI {
      * @param {object} self The enemy actor object.
      * @param {object} level The level object.
      */
-    public static smoke(self, game) {
+    static smoke(self, game) {
         var level = game.level,
             smokeEnt = Actors.getNewActor(level);
 
@@ -269,7 +269,7 @@ class ActorAI {
      * @description Puts an actor into attack mode and possibly reverses the direction if the player is behind it.
      * @param {object} self The enemy actor object.
      */
-    public static firstSighting(self, game) {
+    static firstSighting(self, game) {
         switch (self.type) {
             case Actors.en_guard:
                 Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/sfx/001.wav", 1, Sound.ATTN_NORM, 0);
@@ -364,7 +364,7 @@ class ActorAI {
      * @param {object} player The player object.
      * @param {number} damage The number of damage points.
      */
-    public static damageActor(self, game, player, damage) {
+    static damageActor(self, game, player, damage) {
         player.madenoise = 1;
 
         // do double damage if shooting a non attack mode actor
@@ -401,7 +401,7 @@ class ActorAI {
      * @param {object} game The game object.
      * @param {object} player The player object.
      */
-    public static killActor(self, game, player) {
+    static killActor(self, game, player) {
         var level = game.level,
             tilex = self.tile.x = self.x >> Wolf.TILESHIFT, // drop item on center,
             tiley = self.tile.y = self.y >> Wolf.TILESHIFT;

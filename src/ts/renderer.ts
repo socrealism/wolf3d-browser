@@ -1,12 +1,12 @@
 class Renderer {
-    public static readonly FOV_RAD = 75 * Math.PI / 180;
-    public static readonly ISCHROME = /chrome/.test(navigator.userAgent.toLowerCase());
-    public static readonly ISFIREFOX = /firefox/.test(navigator.userAgent.toLowerCase());
-    public static readonly ISXP = /windows nt 5\./.test(navigator.userAgent.toLowerCase());
-    public static readonly ISWEBKIT = /webkit/.test(navigator.userAgent.toLowerCase());
+    static readonly FOV_RAD = 75 * Math.PI / 180;
+    static readonly ISCHROME = /chrome/.test(navigator.userAgent.toLowerCase());
+    static readonly ISFIREFOX = /firefox/.test(navigator.userAgent.toLowerCase());
+    static readonly ISXP = /windows nt 5\./.test(navigator.userAgent.toLowerCase());
+    static readonly ISWEBKIT = /webkit/.test(navigator.userAgent.toLowerCase());
 
-    public static readonly VIEW_DIST = (Wolf.XRES / 2) / Math.tan((Renderer.FOV_RAD / 2));
-    public static readonly TEXTURERESOLUTION = Renderer.ISCHROME ? 128 : 64;
+    static readonly VIEW_DIST = (Wolf.XRES / 2) / Math.tan((Renderer.FOV_RAD / 2));
+    static readonly TEXTURERESOLUTION = Renderer.ISCHROME ? 128 : 64;
 
     protected static slices = [];
     protected static useBackgroundImage = Renderer.ISWEBKIT;
@@ -17,7 +17,7 @@ class Renderer {
     protected static hasInit = false;
     protected static visibleSprites = [];
 
-    public static init() {
+    static init() {
         let image, slice, x;
 
         if (Renderer.hasInit) {
@@ -62,14 +62,14 @@ class Renderer {
         }
     }
 
-    public static reset() {
+    static reset() {
         $("#game .renderer .sprite").remove();
 
         Renderer.sprites = [];
         Renderer.visibleSprites = [];
     }
 
-    public static processTrace(viewport, tracePoint) {
+    static processTrace(viewport, tracePoint) {
         var x = tracePoint.x,
             y = tracePoint.y,
             vx = viewport.x,
@@ -123,7 +123,7 @@ class Renderer {
         };
     }
 
-    public static clear() {
+    static clear() {
         var n, sprite;
 
         for (n = 0; n < Renderer.visibleSprites.length; n++) {
@@ -134,7 +134,7 @@ class Renderer {
         }
     }
 
-    public static draw(viewport, level, tracers, visibleTiles) {
+    static draw(viewport, level, tracers, visibleTiles) {
         let tracePoint;
 
         for (let n = 0, len = tracers.length; n < len; ++n) {
@@ -151,7 +151,7 @@ class Renderer {
         Renderer.drawSprites(viewport, level, visibleTiles);
     }
 
-    public static updateSlice(n, textureSrc, proc) {
+    static updateSlice(n, textureSrc, proc) {
         var slice = Renderer.slices[n],
             image = slice.texture,
             sliceStyle = slice.style,
@@ -202,7 +202,7 @@ class Renderer {
         }
     }
 
-    public static drawWall(n, viewport, tracePoint, level) {
+    static drawWall(n, viewport, tracePoint, level) {
         var x = tracePoint.tileX,
             y = tracePoint.tileY,
             vx = Wolf.POS2TILE(viewport.x),
@@ -242,7 +242,7 @@ class Renderer {
         Renderer.updateSlice(n, textureSrc, proc);
     }
 
-    public static drawDoor(n, viewport, tracePoint, level) {
+    static drawDoor(n, viewport, tracePoint, level) {
         var proc = Renderer.processTrace(viewport, tracePoint),
             texture, textureSrc;
 
@@ -260,7 +260,7 @@ class Renderer {
         Renderer.updateSlice(n, textureSrc, proc);
     }
 
-    public static drawSprites(viewport, level, visibleTiles) {
+    static drawSprites(viewport, level, visibleTiles) {
         var vis, n,
             dist, dx, dy, angle,
             z, width, size,
@@ -337,14 +337,14 @@ class Renderer {
         }
     }
 
-    public static unloadSprite(sprite) {
+    static unloadSprite(sprite) {
         if (sprite.div) {
             $(sprite.div).remove();
             sprite.div = null;
         }
     }
 
-    public static loadSprite(sprite) {
+    static loadSprite(sprite) {
         var div = document.createElement("div"),
             image;
 

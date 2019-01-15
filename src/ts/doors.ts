@@ -3,42 +3,42 @@
  * @description Door management
  */
 class Doors {
-    public static readonly CLOSEWALL = Wolf.MINDIST; // Space between wall & player
-    public static readonly MAXDOORS = 64;           // max number of sliding doors
+    static readonly CLOSEWALL = Wolf.MINDIST; // Space between wall & player
+    static readonly MAXDOORS = 64;           // max number of sliding doors
 
-    public static readonly MAX_DOORS = 256; // jseidelin: doesn't look like this is used?
-    public static readonly DOOR_TIMEOUT = 300;
-    public static readonly DOOR_MINOPEN = 50;
-    public static readonly DOOR_FULLOPEN = 63;
-    public static readonly DOOR_VERT = 255;
-    public static readonly DOOR_HORIZ = 254;
-    public static readonly DOOR_E_VERT = 253;
-    public static readonly DOOR_E_HORIZ = 252;
-    public static readonly DOOR_G_VERT = 251;
-    public static readonly DOOR_G_HORIZ = 250;
-    public static readonly DOOR_S_VERT = 249;
-    public static readonly DOOR_S_HORIZ = 248;
-    public static readonly FIRST_DOOR = 248;
-    public static readonly LAST_LOCK = 251;
+    static readonly MAX_DOORS = 256; // jseidelin: doesn't look like this is used?
+    static readonly DOOR_TIMEOUT = 300;
+    static readonly DOOR_MINOPEN = 50;
+    static readonly DOOR_FULLOPEN = 63;
+    static readonly DOOR_VERT = 255;
+    static readonly DOOR_HORIZ = 254;
+    static readonly DOOR_E_VERT = 253;
+    static readonly DOOR_E_HORIZ = 252;
+    static readonly DOOR_G_VERT = 251;
+    static readonly DOOR_G_HORIZ = 250;
+    static readonly DOOR_S_VERT = 249;
+    static readonly DOOR_S_HORIZ = 248;
+    static readonly FIRST_DOOR = 248;
+    static readonly LAST_LOCK = 251;
 
-    public static readonly TEX_DOOR = 98;
+    static readonly TEX_DOOR = 98;
 
-    public static readonly dr_closing = -1;
-    public static readonly dr_closed = 0;
-    public static readonly dr_opening = 1;
-    public static readonly dr_open = 2;
+    static readonly dr_closing = -1;
+    static readonly dr_closed = 0;
+    static readonly dr_opening = 1;
+    static readonly dr_open = 2;
 
     // texture IDs used by cache routines
-    public static readonly TEX_DDOOR = (0 + Doors.TEX_DOOR); // Simple Door
-    public static readonly TEX_PLATE = (2 + Doors.TEX_DOOR); // Door Plate
-    public static readonly TEX_DELEV = (4 + Doors.TEX_DOOR); // Elevator Door
-    public static readonly TEX_DLOCK = (6 + Doors.TEX_DOOR);  // Locked Door
+    static readonly TEX_DDOOR = (0 + Doors.TEX_DOOR); // Simple Door
+    static readonly TEX_PLATE = (2 + Doors.TEX_DOOR); // Door Plate
+    static readonly TEX_DELEV = (4 + Doors.TEX_DOOR); // Elevator Door
+    static readonly TEX_DLOCK = (6 + Doors.TEX_DOOR);  // Locked Door
 
     /**
      * @description Reset doors in the level
      * @param {object} level The level object.
      */
-    public static reset(level) {
+    static reset(level) {
         level.state.numDoors = 0;
 
         for (var x = 0; x < 64; x++) {
@@ -57,7 +57,7 @@ class Doors {
      * @param {number} type The door type.
      * @returns {number} The index of the new door.
      */
-    public static spawn(level, x, y, type) {
+    static spawn(level, x, y, type) {
         if (level.state.numDoors >= Doors.MAXDOORS) {
             throw new Error("Too many Doors on level!");
         }
@@ -132,7 +132,7 @@ class Doors {
      0 if door is closed,
      >0 <DOOR_FULLOPEN if partially opened.
      */
-    public static opened(door) {
+    static opened(door) {
         return door.action == Doors.dr_open ? Doors.DOOR_FULLOPEN : door.ticcount;
     }
 
@@ -142,7 +142,7 @@ class Doors {
      * @param {object} player The player object
      * @param {number} tics Tics since last
      */
-    public static process(level, player, tics) {
+    static process(level, player, tics) {
         if (player.playstate == Wolf.ex_victory) {
             return;
         }
@@ -224,7 +224,7 @@ class Doors {
      * @param {object} level The level object.
      * @param {array} areas The areas map.
      */
-    public static setAreas(level) {
+    static setAreas(level) {
         var n, x, y,
             door;
         for (n = 0; n < level.state.numDoors; ++n) {
@@ -246,7 +246,7 @@ class Doors {
      * @description Open a door
      * @param {object} doors The door object.
      */
-    public static open(door) {
+    static open(door) {
         if (door.action == Doors.dr_open) {
             door.ticcount = 0;        // reset opened time
         } else {
@@ -261,7 +261,7 @@ class Doors {
      * @param {object} player The player object.
      * @param {object} doors The door object.
      */
-    public static changeDoorState(level, player, door) {
+    static changeDoorState(level, player, door) {
         if (door.action < Doors.dr_opening) {
             open(door);
         } else if (door.action == Doors.dr_open && Doors.canCloseDoor(level, player, door.tile.x, door.tile.y, door.vertical)) {
@@ -271,7 +271,7 @@ class Doors {
         }
     }
 
-    public static canCloseDoor(level, player, x, y, vert) {
+    static canCloseDoor(level, player, x, y, vert) {
         var n,
             tileX = Wolf.POS2TILE(player.position.x),
             tileY = Wolf.POS2TILE(player.position.y),
@@ -336,7 +336,7 @@ class Doors {
      * @param {object} door The door object
      * @returns {boolean} Always returns true.
      */
-    public static tryUse(level, player, door) {
+    static tryUse(level, player, door) {
         switch (door.type) {
             case Doors.DOOR_VERT:
             case Doors.DOOR_HORIZ:

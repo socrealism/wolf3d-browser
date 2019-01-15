@@ -24,7 +24,7 @@ class Random {
 
     protected static index: number = 0;
 
-    public static init(randomize: boolean) {
+    static init(randomize: boolean) {
         Random.index = 0;
 
         if (randomize) {
@@ -32,7 +32,7 @@ class Random {
         }
     }
 
-    public static get(): number {
+    static get(): number {
         Random.index++;
         Random.index &= 0xFF;
 

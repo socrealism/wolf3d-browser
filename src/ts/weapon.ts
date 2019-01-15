@@ -1,5 +1,5 @@
 class Weapon {
-    public static fireHit(game, player) {
+    static fireHit(game, player) {
         var level = game.level,
             closest,
             dist,
@@ -47,7 +47,7 @@ class Weapon {
         ActorAI.damageActor(closest, game, player, damage); // hit something
     }
 
-    public static fireLead(game, player) {
+    static fireLead(game, player) {
         var level = game.level,
             closest,
             damage,

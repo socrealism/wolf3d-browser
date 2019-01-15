@@ -3,104 +3,104 @@
  * @description Actors
  */
 class Actors {
-    public static readonly SPDPATROL = 512;
-    public static readonly SPDDOG = 1500;
+    static readonly SPDPATROL = 512;
+    static readonly SPDDOG = 1500;
 
-    public static readonly FL_SHOOTABLE = 1;
-    public static readonly FL_BONUS = 2;
-    public static readonly FL_NEVERMARK = 4;
-    public static readonly FL_VISABLE = 8;
-    public static readonly FL_ATTACKMODE = 16;
-    public static readonly FL_FIRSTATTACK = 32;
-    public static readonly FL_AMBUSH = 64;
-    public static readonly FL_NONMARK = 128;
+    static readonly FL_SHOOTABLE = 1;
+    static readonly FL_BONUS = 2;
+    static readonly FL_NEVERMARK = 4;
+    static readonly FL_VISABLE = 8;
+    static readonly FL_ATTACKMODE = 16;
+    static readonly FL_FIRSTATTACK = 32;
+    static readonly FL_AMBUSH = 64;
+    static readonly FL_NONMARK = 128;
 
-    public static readonly MAX_GUARDS = 255;
-    public static readonly NUMENEMIES = 31;
-    public static readonly NUMSTATES = 34;
+    static readonly MAX_GUARDS = 255;
+    static readonly NUMENEMIES = 31;
+    static readonly NUMSTATES = 34;
 
-    public static readonly MINACTORDIST = 0x10000;
+    static readonly MINACTORDIST = 0x10000;
 
-    public static readonly en_guard = 0;
-    public static readonly en_officer = 1;
-    public static readonly en_ss = 2;
-    public static readonly en_dog = 3;
-    public static readonly en_boss = 4;
-    public static readonly en_schabbs = 5;
-    public static readonly en_fake = 6;
-    public static readonly en_mecha = 7;
-    public static readonly en_hitler = 8;
-    public static readonly en_mutant = 9;
-    public static readonly en_blinky = 10;
-    public static readonly en_clyde = 11;
-    public static readonly en_pinky = 12;
-    public static readonly en_inky = 13;
-    public static readonly en_gretel = 14;
-    public static readonly en_gift = 15;
-    public static readonly en_fat = 16;
+    static readonly en_guard = 0;
+    static readonly en_officer = 1;
+    static readonly en_ss = 2;
+    static readonly en_dog = 3;
+    static readonly en_boss = 4;
+    static readonly en_schabbs = 5;
+    static readonly en_fake = 6;
+    static readonly en_mecha = 7;
+    static readonly en_hitler = 8;
+    static readonly en_mutant = 9;
+    static readonly en_blinky = 10;
+    static readonly en_clyde = 11;
+    static readonly en_pinky = 12;
+    static readonly en_inky = 13;
+    static readonly en_gretel = 14;
+    static readonly en_gift = 15;
+    static readonly en_fat = 16;
     // --- Projectiles
-    public static readonly en_needle = 17;
-    public static readonly en_fire = 18;
-    public static readonly en_rocket = 19;
-    public static readonly en_smoke = 20;
-    public static readonly en_bj = 21;
+    static readonly en_needle = 17;
+    static readonly en_fire = 18;
+    static readonly en_rocket = 19;
+    static readonly en_smoke = 20;
+    static readonly en_bj = 21;
     // --- Spear of destiny!
-    public static readonly en_spark = 22;
-    public static readonly en_hrocket = 23;
-    public static readonly en_hsmoke = 24;
+    static readonly en_spark = 22;
+    static readonly en_hrocket = 23;
+    static readonly en_hsmoke = 24;
 
-    public static readonly en_spectre = 25;
-    public static readonly en_angel = 26;
-    public static readonly en_trans = 27;
-    public static readonly en_uber = 28;
-    public static readonly en_will = 29;
-    public static readonly en_death = 30;
+    static readonly en_spectre = 25;
+    static readonly en_angel = 26;
+    static readonly en_trans = 27;
+    static readonly en_uber = 28;
+    static readonly en_will = 29;
+    static readonly en_death = 30;
 
-    public static readonly st_stand = 0;
-    public static readonly st_path1 = 1;
-    public static readonly st_path1s = 2;
-    public static readonly st_path2 = 3;
-    public static readonly st_path3 = 4;
-    public static readonly st_path3s = 5;
-    public static readonly st_path4 = 6;
-    public static readonly st_pain = 7;
-    public static readonly st_pain1 = 8;
-    public static readonly st_shoot1 = 9;
-    public static readonly st_shoot2 = 10;
-    public static readonly st_shoot3 = 11;
-    public static readonly st_shoot4 = 12;
-    public static readonly st_shoot5 = 13;
-    public static readonly st_shoot6 = 14;
-    public static readonly st_shoot7 = 15;
-    public static readonly st_shoot8 = 16;
-    public static readonly st_shoot9 = 17;
-    public static readonly st_chase1 = 18;
-    public static readonly st_chase1s = 19;
-    public static readonly st_chase2 = 20;
-    public static readonly st_chase3 = 21;
-    public static readonly st_chase3s = 22;
-    public static readonly st_chase4 = 23;
-    public static readonly st_die1 = 24;
-    public static readonly st_die2 = 25;
-    public static readonly st_die3 = 26;
-    public static readonly st_die4 = 27;
-    public static readonly st_die5 = 28;
-    public static readonly st_die6 = 29;
-    public static readonly st_die7 = 30;
-    public static readonly st_die8 = 31;
-    public static readonly st_die9 = 32;
-    public static readonly st_dead = 33;
-    public static readonly st_remove = 34;
+    static readonly st_stand = 0;
+    static readonly st_path1 = 1;
+    static readonly st_path1s = 2;
+    static readonly st_path2 = 3;
+    static readonly st_path3 = 4;
+    static readonly st_path3s = 5;
+    static readonly st_path4 = 6;
+    static readonly st_pain = 7;
+    static readonly st_pain1 = 8;
+    static readonly st_shoot1 = 9;
+    static readonly st_shoot2 = 10;
+    static readonly st_shoot3 = 11;
+    static readonly st_shoot4 = 12;
+    static readonly st_shoot5 = 13;
+    static readonly st_shoot6 = 14;
+    static readonly st_shoot7 = 15;
+    static readonly st_shoot8 = 16;
+    static readonly st_shoot9 = 17;
+    static readonly st_chase1 = 18;
+    static readonly st_chase1s = 19;
+    static readonly st_chase2 = 20;
+    static readonly st_chase3 = 21;
+    static readonly st_chase3s = 22;
+    static readonly st_chase4 = 23;
+    static readonly st_die1 = 24;
+    static readonly st_die2 = 25;
+    static readonly st_die3 = 26;
+    static readonly st_die4 = 27;
+    static readonly st_die5 = 28;
+    static readonly st_die6 = 29;
+    static readonly st_die7 = 30;
+    static readonly st_die8 = 31;
+    static readonly st_die9 = 32;
+    static readonly st_dead = 33;
+    static readonly st_remove = 34;
 
-    public static add8dir = [4, 5, 6, 7, 0, 1, 2, 3, 0];
-    public static r_add8dir = [4, 7, 6, 5, 0, 1, 2, 3, 0];
+    static add8dir = [4, 5, 6, 7, 0, 1, 2, 3, 0];
+    static r_add8dir = [4, 7, 6, 5, 0, 1, 2, 3, 0];
 
     /**
      * @description Create new actor.
      * @param {object} level The level object.
      * @returns {object} The new actor object.
      */
-    public static getNewActor(level) {
+    static getNewActor(level) {
 
         if (level.state.numGuards > Actors.MAX_GUARDS) {
             return null;
@@ -143,7 +143,7 @@ class Actors {
      * @param {number} tics The number of tics.
      * @returns {boolean} False if actor should be removed, otherwise true.
      */
-    public static doGuard(ent, game, tics) { // FIXME: revise!
+    static doGuard(ent, game, tics) { // FIXME: revise!
         var think;
 
         //assert( ent->tilex >= 0 && ent->tilex < 64 );
@@ -202,7 +202,7 @@ class Actors {
      * @param {object} ent The actor object.
      * @param {number} newState The new state.
      */
-    public static stateChange(ent, newState) {
+    static stateChange(ent, newState) {
         ent.state = newState;
         // assert( ent->type >= 0 && ent->type < NUMENEMIES );
         if (newState == Actors.st_remove) {
@@ -219,7 +219,7 @@ class Actors {
      * @param {object} player The player object.
      * @param {number} tics The number of tics.
      */
-    public static process(game, tics) {
+    static process(game, tics) {
         var level = game.level,
             player = game.player,
             n, tex, guard,
@@ -263,7 +263,7 @@ class Actors {
      * @description Reset and clear the enemy actors in the level.
      * @param {object} level The level object.
      */
-    public static resetGuards(level) {
+    static resetGuards(level) {
         level.state.guards = [];
         level.state.numGuards = 0;
         //New = NULL;
@@ -279,7 +279,7 @@ class Actors {
      * @param {number} dir The direction.
      * @returns {object} The new actor object or null if actor creation failed.
      */
-    public static spawn(level, skill, which, x, y, dir) {
+    static spawn(level, skill, which, x, y, dir) {
         var ent = Actors.getNewActor(level);
 
         if (!ent) {
@@ -319,7 +319,7 @@ class Actors {
      * @param {number} x The x position.
      * @param {number} y The y position.
      */
-    public static spawnDeadGuard(level, skill, which, x, y) {
+    static spawnDeadGuard(level, skill, which, x, y) {
         var self = Actors.spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
         if (!self) {
             return;
@@ -338,7 +338,7 @@ class Actors {
      * @param {number} x The x position.
      * @param {number} y The y position.
      */
-    public static spawnPatrol(level, skill, which, x, y, dir) {
+    static spawnPatrol(level, skill, which, x, y, dir) {
         var self = Actors.spawn(level, skill, which, x, y, dir);
         if (!self) {
             return;
@@ -361,7 +361,7 @@ class Actors {
      * @param {number} x The x position.
      * @param {number} y The y position.
      */
-    public static spawnStand(level, skill, which, x, y, dir) {
+    static spawnStand(level, skill, which, x, y, dir) {
         var self = Actors.spawn(level, skill, which, x, y, dir);
         if (!self) {
             return;
@@ -379,7 +379,7 @@ class Actors {
         level.state.totalMonsters++;
     }
 
-    public static spawnBoss(level, skill, which, x, y) {
+    static spawnBoss(level, skill, which, x, y) {
         var self,
             face;
 
@@ -425,7 +425,7 @@ class Actors {
         level.state.totalMonsters++;
     }
 
-    public static spawnGhosts(level, skill, which, x, y) {
+    static spawnGhosts(level, skill, which, x, y) {
         var self = Actors.spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
         if (!self) {
             return;
@@ -440,7 +440,7 @@ class Actors {
         level.state.totalMonsters++;
     }
 
-    public static spawnBJVictory(player, level, skill) {
+    static spawnBJVictory(player, level, skill) {
         var x = Wolf.POS2TILE(player.position.x),
             y = Wolf.POS2TILE(player.position.y),
             bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Wolf.Math.dir4_north);

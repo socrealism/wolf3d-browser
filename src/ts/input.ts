@@ -3,16 +3,16 @@
  * @description Functions for capturing keyboard/mouse input
  */
 class Input {
-    public static keys;
-    public static lmbDown = false;
-    public static rmbDown = false;
-    public static bindings = [];
-    public static hasFocus = false;
-    public static mouseX = -1;
-    public static mouseY = -1;
-    public static mouseMoveX = 0;
-    public static mouseMoveY = 0;
-    public static keysCode = {
+    static keys;
+    static lmbDown = false;
+    static rmbDown = false;
+    static bindings = [];
+    static hasFocus = false;
+    static mouseX = -1;
+    static mouseY = -1;
+    static mouseMoveX = 0;
+    static mouseMoveY = 0;
+    static keysCode = {
         LEFT: 37,
         UP: 38,
         RIGHT: 39,
@@ -84,7 +84,7 @@ class Input {
         F12: 123
     };
 
-    public static init() {
+    static init() {
         const main = $("#main");
 
         if (!Input.keys) {
@@ -192,18 +192,18 @@ class Input {
         }
     }
 
-    public static reset() {
+    static reset() {
         Input.resetMouse();
         Input.keys = [];
     }
 
-    public static resetMouse() {
+    static resetMouse() {
         Input.lmbDown = false;
         Input.rmbDown = false;
         Input.mouseX = Input.mouseY = 0.5;
     }
 
-    public static bindKey(k, handler) {
+    static bindKey(k, handler) {
         var keyCode = Input.keysCode[k];
         if (!Input.bindings[keyCode]) {
             Input.bindings[keyCode] = [];
@@ -216,7 +216,7 @@ class Input {
      * @param {array} keys Array of key names.
      * @returns {boolean} True if a key is pressed, otherwise false.
      */
-    public static checkKeys(ckeys) {
+    static checkKeys(ckeys) {
         for (var i = 0; i < ckeys.length; i++) {
             var k = ckeys[i];
             if (!!Input.keys[Input.keysCode[k]]) {
@@ -230,7 +230,7 @@ class Input {
      * @description Clear status for keys.
      * @param {array} keys Array of key names.
      */
-    public static clearKeys(ckeys) {
+    static clearKeys(ckeys) {
         for (var i = 0; i < ckeys.length; i++) {
             var k = ckeys[i];
             Input.keys[Input.keysCode[k]] = false;
@@ -238,15 +238,15 @@ class Input {
         return false;
     }
 
-    public static leftMouseDown() {
+    static leftMouseDown() {
         return Input.lmbDown;
     }
 
-    public static rightMouseDown() {
+    static rightMouseDown() {
         return Input.rmbDown;
     }
 
-    public static getMouseCoords() {
+    static getMouseCoords() {
         if (Input.mouseX < 0 || Input.mouseX > 1 || Input.mouseY < 0 || Input.mouseY > 1) {
             return null;
         } else {
@@ -257,7 +257,7 @@ class Input {
         }
     }
 
-    public static getMouseMovement() {
+    static getMouseMovement() {
         var x = Input.mouseMoveX,
             y = Input.mouseMoveY;
         Input.mouseMoveX = 0;
@@ -268,7 +268,7 @@ class Input {
         };
     }
 
-    public static getPointer() {
+    static getPointer() {
         var pointer = navigator.pointer ||
             navigator.webkitPointer ||
             navigator.mozPointer ||
@@ -277,12 +277,12 @@ class Input {
         return pointer;
     }
 
-    public static isPointerLocked() {
+    static isPointerLocked() {
         var pointer = Input.getPointer();
         return pointer && pointer.isLocked && pointer.isLocked();
     }
 
-    public static lockPointer() {
+    static lockPointer() {
         var pointer = Input.getPointer();
         if (!pointer) {
             return;
@@ -299,7 +299,7 @@ class Input {
         }
     }
 
-    public static unlockPointer() {
+    static unlockPointer() {
         var pointer = Input.getPointer();
         if (!pointer) {
             return;
