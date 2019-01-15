@@ -278,7 +278,7 @@ Wolf.Level = (function() {
         }
         */
         
-        Wolf.Doors.reset(level);
+        Doors.reset(level);
         
         for (x=0;x<64;x++) {
             level.areas[x] = [];
@@ -314,7 +314,7 @@ Wolf.Level = (function() {
                 } else if (layer1 < 0x6a) { // solid map object
                     if ((layer1 >= 0x5A && layer1 <= 0x5F) || layer1 == 0x64 || layer1 == 0x65) { // door
                         level.tileMap[x][y] |= Wolf.DOOR_TILE;
-                        Wolf.Doors.spawn(level, x, y, layer1);
+                        Doors.spawn(level, x, y, layer1);
                         level.areas[x][y] = -2; // door area
                     } else {
                         level.tileMap[x][y] |= Wolf.WALL_TILE;
@@ -361,7 +361,7 @@ Wolf.Level = (function() {
             }
         }
 
-        Wolf.Doors.setAreas(level);
+        Doors.setAreas(level);
     
         return level;
     }
@@ -1069,8 +1069,8 @@ Wolf.Level = (function() {
 
                 if (level.tileMap[x][y] & Wolf.DOOR_TILE ) {
                     // door, see if the door is open enough
-                    if (level.state.doorMap[x][y].action != Wolf.dr_open) {
-                        if (level.state.doorMap[x][y].action == Wolf.dr_closed) {
+                    if (level.state.doorMap[x][y].action != Doors.dr_open) {
+                        if (level.state.doorMap[x][y].action == Doors.dr_closed) {
                             return false;
                         }
                         // checking vertical doors in action: ->_I_
@@ -1110,8 +1110,8 @@ Wolf.Level = (function() {
                     
                 if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
                     // door, see if the door is open enough
-                    if (level.state.doorMap[x][y].action != Wolf.dr_open) {
-                        if (level.state.doorMap[x][y].action == Wolf.dr_closed ) {
+                    if (level.state.doorMap[x][y].action != Doors.dr_open) {
+                        if (level.state.doorMap[x][y].action == Doors.dr_closed ) {
                             return false;
                         }
                         // checking vertical doors in action: ->_I_

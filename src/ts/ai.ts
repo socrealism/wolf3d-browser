@@ -105,7 +105,7 @@ class AI {
             }
             if (level.tileMap[newx][newy] & Wolf.DOOR_TILE) {
                 if (self.type == Actors.en_fake || self.type == Actors.en_dog) { // they can't open doors
-                    if (level.state.doorMap[newx][newy].action != Wolf.dr_open) { // path is blocked by a closed opened door
+                    if (level.state.doorMap[newx][newy].action != Doors.dr_open) { // path is blocked by a closed opened door
                         return false;
                     }
                 } else {
@@ -767,8 +767,8 @@ class AI {
             if (self.waitfordoorx) {
                 door = level.state.doorMap[self.waitfordoorx][self.waitfordoory];
 
-                Wolf.Doors.open(door);
-                if (door.action != Wolf.dr_open) {
+                Doors.open(door);
+                if (door.action != Doors.dr_open) {
                     return; // not opened yet...
                 }
                 self.waitfordoorx = self.waitfordoory = 0;    // go ahead, the door is now open
@@ -996,7 +996,7 @@ class AI {
                     return false;
                 }
                 if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
-                    if (Wolf.Doors.opened(level.state.doorMap[x][y]) != Wolf.DOOR_FULLOPEN) {
+                    if (Doors.opened(level.state.doorMap[x][y]) != Doors.DOOR_FULLOPEN) {
                         return false;
                     }
                 }

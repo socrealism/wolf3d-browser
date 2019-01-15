@@ -129,7 +129,7 @@ Wolf.Game = (function () {
                     Actors.process(game, tics);
                 }
                 Wolf.PushWall.process(level, tics);
-                Wolf.Doors.process(level, player, tics);
+                Doors.process(level, player, tics);
             }
             else {
                 if (died(game, tics)) {

@@ -196,7 +196,7 @@ Wolf.Level = (function () {
         level.plane1 = readPlaneData(file, offset[0], length[0], rle);
         level.plane2 = readPlaneData(file, offset[1], length[1], rle);
         level.plane3 = readPlaneData(file, offset[2], length[2], rle);
-        Wolf.Doors.reset(level);
+        Doors.reset(level);
         for (x = 0; x < 64; x++) {
             level.areas[x] = [];
             level.tileMap[x] = [];
@@ -224,7 +224,7 @@ Wolf.Level = (function () {
                 else if (layer1 < 0x6a) {
                     if ((layer1 >= 0x5A && layer1 <= 0x5F) || layer1 == 0x64 || layer1 == 0x65) {
                         level.tileMap[x][y] |= Wolf.DOOR_TILE;
-                        Wolf.Doors.spawn(level, x, y, layer1);
+                        Doors.spawn(level, x, y, layer1);
                         level.areas[x][y] = -2;
                     }
                     else {
@@ -271,7 +271,7 @@ Wolf.Level = (function () {
                 }
             }
         }
-        Wolf.Doors.setAreas(level);
+        Doors.setAreas(level);
         return level;
     }
     function readPlaneData(file, offset, length, rle) {
@@ -833,8 +833,8 @@ Wolf.Level = (function () {
                     return false;
                 }
                 if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
-                    if (level.state.doorMap[x][y].action != Wolf.dr_open) {
-                        if (level.state.doorMap[x][y].action == Wolf.dr_closed) {
+                    if (level.state.doorMap[x][y].action != Doors.dr_open) {
+                        if (level.state.doorMap[x][y].action == Doors.dr_closed) {
                             return false;
                         }
                         intercept = ((frac - ystep / 2) & 0xFF) >> 4;
@@ -867,8 +867,8 @@ Wolf.Level = (function () {
                     return false;
                 }
                 if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
-                    if (level.state.doorMap[x][y].action != Wolf.dr_open) {
-                        if (level.state.doorMap[x][y].action == Wolf.dr_closed) {
+                    if (level.state.doorMap[x][y].action != Doors.dr_open) {
+                        if (level.state.doorMap[x][y].action == Doors.dr_closed) {
                             return false;
                         }
                         intercept = ((frac - xstep / 2) & 0xFF) >> 4;

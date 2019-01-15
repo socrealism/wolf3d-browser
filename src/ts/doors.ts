@@ -33,53 +33,13 @@ class Doors {
     public static readonly TEX_PLATE = (2 + Doors.TEX_DOOR); // Door Plate
     public static readonly TEX_DELEV = (4 + Doors.TEX_DOOR); // Elevator Door
     public static readonly TEX_DLOCK = (6 + Doors.TEX_DOOR);  // Locked Door
-}
-
-
-Wolf.Doors = (function() {
-
-    Wolf.setConsts({
-        CLOSEWALL       : Wolf.MINDIST, // Space between wall & player
-        MAXDOORS        : 64,           // max number of sliding doors
-
-        MAX_DOORS       : 256, // jseidelin: doesn't look like this is used?
-        DOOR_TIMEOUT    : 300,
-        DOOR_MINOPEN    : 50,
-        DOOR_FULLOPEN   : 63,
-        DOOR_VERT       : 255,
-        DOOR_HORIZ      : 254,
-        DOOR_E_VERT     : 253,
-        DOOR_E_HORIZ    : 252,
-        DOOR_G_VERT     : 251,
-        DOOR_G_HORIZ    : 250,
-        DOOR_S_VERT     : 249,
-        DOOR_S_HORIZ    : 248,
-        FIRST_DOOR      : 248,
-        LAST_LOCK       : 251,
-        
-        TEX_DOOR        : 98,
-        // TEX_DOOR        : 126,
-        
-        dr_closing      : -1,
-        dr_closed       : 0,
-        dr_opening      : 1,
-        dr_open         : 2
-    });
-    Wolf.setConsts({
-        // texture IDs used by cache routines
-        TEX_DDOOR       : (0 + Wolf.TEX_DOOR), // Simple Door
-        TEX_PLATE       : (2 + Wolf.TEX_DOOR), // Door Plate
-        TEX_DELEV       : (4 + Wolf.TEX_DOOR), // Elevator Door
-        TEX_DLOCK        : (6 + Wolf.TEX_DOOR)  // Locked Door
-    });
-
 
     /**
      * @description Reset doors in the level
      * @memberOf Wolf.Doors
      * @param {object} level The level object.
      */
-    function reset(level) {
+    public static reset(level) {
         level.state.numDoors = 0;
 
         for (var x=0;x<64;x++) {
@@ -99,57 +59,57 @@ Wolf.Doors = (function() {
      * @param {number} type The door type.
      * @returns {number} The index of the new door.
      */
-    function spawn(level, x, y, type) {
-        if (level.state.numDoors >= Wolf.MAXDOORS) {
+    public static spawn(level, x, y, type) {
+        if (level.state.numDoors >= Doors.MAXDOORS) {
             throw new Error("Too many Doors on level!");
         }
         var door = level.state.doorMap[x][y] = {
-                type : -1,
-                vertical : 0,
-                texture : -1,
-                ticcount : 0
-            };
+            type : -1,
+            vertical : 0,
+            texture : -1,
+            ticcount : 0
+        };
 
         switch(type) {
             case 0x5A:
-                door.type       = Wolf.DOOR_VERT;
+                door.type       = Doors.DOOR_VERT;
                 door.vertical   = true;
-                door.texture    = Wolf.TEX_DDOOR + 1;
+                door.texture    = Doors.TEX_DDOOR + 1;
                 break;
             case 0x5B:
-                door.type       = Wolf.DOOR_HORIZ;
+                door.type       = Doors.DOOR_HORIZ;
                 door.vertical   = false;
-                door.texture    = Wolf.TEX_DDOOR;
+                door.texture    = Doors.TEX_DDOOR;
                 break;
             case 0x5C:
-                door.type       = Wolf.DOOR_G_VERT;
+                door.type       = Doors.DOOR_G_VERT;
                 door.vertical   = true;
-                door.texture    = Wolf.TEX_DLOCK;
+                door.texture    = Doors.TEX_DLOCK;
                 break;
             case 0x5D:
-                door.type       = Wolf.DOOR_G_HORIZ;
+                door.type       = Doors.DOOR_G_HORIZ;
                 door.vertical   = false;
-                door.texture    = Wolf.TEX_DLOCK;
+                door.texture    = Doors.TEX_DLOCK;
                 break;
             case 0x5E:
-                door.type       = Wolf.DOOR_S_VERT;
+                door.type       = Doors.DOOR_S_VERT;
                 door.vertical   = true;
-                door.texture    = Wolf.TEX_DLOCK + 1;
+                door.texture    = Doors.TEX_DLOCK + 1;
                 break;
             case 0x5F:
-                door.type       = Wolf.DOOR_S_HORIZ;
+                door.type       = Doors.DOOR_S_HORIZ;
                 door.vertical   = false;
-                door.texture    = Wolf.TEX_DLOCK + 1;
+                door.texture    = Doors.TEX_DLOCK + 1;
                 break;
             case 0x64:
-                door.type       = Wolf.DOOR_E_VERT;
+                door.type       = Doors.DOOR_E_VERT;
                 door.vertical   = true;
-                door.texture    = Wolf.TEX_DELEV + 1;
+                door.texture    = Doors.TEX_DELEV + 1;
                 break;
             case 0x65:
-                door.type       = Wolf.DOOR_E_HORIZ;
+                door.type       = Doors.DOOR_E_HORIZ;
                 door.vertical   = false;
-                door.texture    = Wolf.TEX_DELEV;
+                door.texture    = Doors.TEX_DELEV;
                 break;
             default:
                 throw new Error("Unknown door type: " + type);
@@ -159,7 +119,7 @@ Wolf.Doors = (function() {
             x : x,
             y : y
         };
-        door.action = Wolf.dr_closed;
+        door.action = Doors.dr_closed;
 
         level.state.doors[level.state.numDoors] = door;
         level.state.numDoors++;
@@ -171,15 +131,14 @@ Wolf.Doors = (function() {
      * @description Check to see if a door is open. If there are no doors in tile assume a closed door!
      * @memberOf Wolf.Doors
      * @param {object} doors The door object.
-     * @returns {number} DOOR_FULLOPEN if door is opened, 
-                         0 if door is closed, 
-                         >0 <DOOR_FULLOPEN if partially opened.
+     * @returns {number} DOOR_FULLOPEN if door is opened,
+     0 if door is closed,
+     >0 <DOOR_FULLOPEN if partially opened.
      */
-    function opened(door) {     
-        return door.action == Wolf.dr_open ? Wolf.DOOR_FULLOPEN : door.ticcount;
+    public static opened(door) {
+        return door.action == Doors.dr_open ? Doors.DOOR_FULLOPEN : door.ticcount;
     }
 
-    
     /**
      * @description Process door actions.
      * @memberOf Wolf.Doors
@@ -187,7 +146,7 @@ Wolf.Doors = (function() {
      * @param {object} player The player object
      * @param {number} tics Tics since last
      */
-    function process(level, player, tics) {
+    public static process(level, player, tics) {
         if (player.playstate == Wolf.ex_victory) {
             return;
         }
@@ -199,19 +158,19 @@ Wolf.Doors = (function() {
                     y : Wolf.TILE2POS(door.tile.y)
                 };
             switch (door.action) {
-                case Wolf.dr_closed: // this door is closed!
+                case Doors.dr_closed: // this door is closed!
                     continue;
-                    
-                case Wolf.dr_opening:
-                    if (door.ticcount >= Wolf.DOOR_FULLOPEN) { // door fully opened!
-                        door.action = Wolf.dr_open;
+
+                case Doors.dr_opening:
+                    if (door.ticcount >= Doors.DOOR_FULLOPEN) { // door fully opened!
+                        door.action = Doors.dr_open;
                         door.ticcount = 0;
                     } else { // opening!
                         if (door.ticcount == 0) {
                             // door is just starting to open, so connect the areas
                             Areas.join(level, door.area1, door.area2);
                             Areas.connect(level, player.areanumber);
-                            
+
                             if (level.state.areabyplayer[door.area1]) { // Door Opening sound!
                                 Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/010.wav", 1, Sound.ATTN_STATIC, 0);
                             }
@@ -219,20 +178,20 @@ Wolf.Doors = (function() {
 
                         door.ticcount += tics;
 
-                        if (door.ticcount > Wolf.DOOR_FULLOPEN) {
-                            door.ticcount = Wolf.DOOR_FULLOPEN;
+                        if (door.ticcount > Doors.DOOR_FULLOPEN) {
+                            door.ticcount = Doors.DOOR_FULLOPEN;
                         }
                     }
                     break;
 
-                case Wolf.dr_closing:
+                case Doors.dr_closing:
                     if (door.ticcount <= 0) { // door fully closed! disconnect areas!
                         Areas.disconnect(level, door.area1, door.area2);
                         Areas.connect(level, player.areanumber);
                         door.ticcount = 0;
-                        door.action = Wolf.dr_closed;
+                        door.action = Doors.dr_closed;
                     } else { // closing!
-                        if (door.ticcount == Wolf.DOOR_FULLOPEN) {
+                        if (door.ticcount == Doors.DOOR_FULLOPEN) {
                             if (level.state.areabyplayer[door.area1]) { // Door Closing sound!
                                 Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/007.wav", 1, Sound.ATTN_STATIC, 0);
                             }
@@ -244,24 +203,24 @@ Wolf.Doors = (function() {
                     }
                     break;
 
-                case Wolf.dr_open:
-                    if (door.ticcount > Wolf.DOOR_MINOPEN) {
+                case Doors.dr_open:
+                    if (door.ticcount > Doors.DOOR_MINOPEN) {
                         // If player or something is in door do not close it!
-                        if (!canCloseDoor(level, player, door.tile.x, door.tile.y, door.vertical)) {
-                            door.ticcount = Wolf.DOOR_MINOPEN; // do not close door immediately!
+                        if (!Doors.canCloseDoor(level, player, door.tile.x, door.tile.y, door.vertical)) {
+                            door.ticcount = Doors.DOOR_MINOPEN; // do not close door immediately!
                         }
                     }
-                    if (door.ticcount >= Wolf.DOOR_TIMEOUT) {
+                    if (door.ticcount >= Doors.DOOR_TIMEOUT) {
                         // Door timeout, time to close it!
-                        door.action = Wolf.dr_closing;
-                        door.ticcount = Wolf.DOOR_FULLOPEN;
+                        door.action = Doors.dr_closing;
+                        door.ticcount = Doors.DOOR_FULLOPEN;
                     } else {
                         // Increase timeout!
                         door.ticcount += tics;
                     }
                     break;
-            } // End switch lvldoors->Doors[ n ].action        
-        } // End for n = 0 ; n < lvldoors->numDoors ; ++n 
+            } // End switch lvldoors->Doors[ n ].action
+        } // End for n = 0 ; n < lvldoors->numDoors ; ++n
     }
 
     /**
@@ -270,7 +229,7 @@ Wolf.Doors = (function() {
      * @param {object} level The level object.
      * @param {array} areas The areas map.
      */
-    function setAreas(level) {
+    public static setAreas(level) {
         var n, x, y,
             door;
         for (n=0; n<level.state.numDoors ; ++n){
@@ -288,17 +247,16 @@ Wolf.Doors = (function() {
         }
     }
 
-    
     /**
      * @description Open a door
      * @memberOf Wolf.Doors
      * @param {object} doors The door object.
      */
-    function open(door) {
-        if (door.action == Wolf.dr_open) {
+    public static open(door) {
+        if (door.action == Doors.dr_open) {
             door.ticcount = 0;        // reset opened time
         } else {
-            door.action = Wolf.dr_opening;    // start opening it
+            door.action = Doors.dr_opening;    // start opening it
         }
     }
 
@@ -309,18 +267,17 @@ Wolf.Doors = (function() {
      * @param {object} player The player object.
      * @param {object} doors The door object.
      */
-    function changeDoorState(level, player, door) {
-        if (door.action < Wolf.dr_opening ) {
+    public static changeDoorState(level, player, door) {
+        if (door.action < Doors.dr_opening ) {
             open(door);
-        } else if (door.action == Wolf.dr_open && canCloseDoor(level, player, door.tile.x, door.tile.y, door.vertical)) {
-            // !@# for the iphone with automatic using, don't allow any door close actions        
+        } else if (door.action == Doors.dr_open && Doors.canCloseDoor(level, player, door.tile.x, door.tile.y, door.vertical)) {
+            // !@# for the iphone with automatic using, don't allow any door close actions
             // Door->action = dr_closing;
             // Door->ticcount = DOOR_FULLOPEN;
         }
     }
 
-    
-    function canCloseDoor(level, player, x, y, vert ) {
+    public static canCloseDoor(level, player, x, y, vert ) {
         var n,
             tileX = Wolf.POS2TILE(player.position.x),
             tileY = Wolf.POS2TILE(player.position.y),
@@ -332,10 +289,10 @@ Wolf.Doors = (function() {
 
         if (vert) {
             if (tileY == y) {
-                if (Wolf.POS2TILE(player.position.x + Wolf.CLOSEWALL) == x) {
+                if (Wolf.POS2TILE(player.position.x + Doors.CLOSEWALL) == x) {
                     return false;
                 }
-                if (Wolf.POS2TILE(player.position.x - Wolf.CLOSEWALL) == x) {
+                if (Wolf.POS2TILE(player.position.x - Doors.CLOSEWALL) == x) {
                     return false;
                 }
             }
@@ -345,19 +302,19 @@ Wolf.Doors = (function() {
                 if (guard.tile.x == x && guard.tile.y == y ) {
                     return false; // guard in door
                 }
-                if (guard.tile.x == x - 1 && guard.tile.y == y && Wolf.POS2TILE(guard.x + Wolf.CLOSEWALL) == x) {
+                if (guard.tile.x == x - 1 && guard.tile.y == y && Wolf.POS2TILE(guard.x + Doors.CLOSEWALL) == x) {
                     return false; // guard in door
                 }
-                if (guard.tile.x == x + 1 && guard.tile.y == y && Wolf.POS2TILE(guard.x - Wolf.CLOSEWALL) == x) {
+                if (guard.tile.x == x + 1 && guard.tile.y == y && Wolf.POS2TILE(guard.x - Doors.CLOSEWALL) == x) {
                     return false; // guard in door
                 }
             }
         } else {
             if (tileX == x) {
-                if (Wolf.POS2TILE(player.position.y + Wolf.CLOSEWALL) == y) {
+                if (Wolf.POS2TILE(player.position.y + Doors.CLOSEWALL) == y) {
                     return false;
                 }
-                if (Wolf.POS2TILE(player.position.y - Wolf.CLOSEWALL) == y) {
+                if (Wolf.POS2TILE(player.position.y - Doors.CLOSEWALL) == y) {
                     return false;
                 }
             }
@@ -366,10 +323,10 @@ Wolf.Doors = (function() {
                 if (guard.tile.x == x && guard.tile.y == y ) {
                     return false; // guard in door
                 }
-                if (guard.tile.x == x && guard.tile.y == y - 1 && Wolf.POS2TILE(guard.y + Wolf.CLOSEWALL) == y) {
+                if (guard.tile.x == x && guard.tile.y == y - 1 && Wolf.POS2TILE(guard.y + Doors.CLOSEWALL) == y) {
                     return false; // guard in door
                 }
-                if (guard.tile.x == x && guard.tile.y == y + 1 && Wolf.POS2TILE(guard.y - Wolf.CLOSEWALL) == y) {
+                if (guard.tile.x == x && guard.tile.y == y + 1 && Wolf.POS2TILE(guard.y - Doors.CLOSEWALL) == y) {
                     return false; // guard in door
                 }
             }
@@ -386,28 +343,28 @@ Wolf.Doors = (function() {
      * @param {object} door The door object
      * @returns {boolean} Always returns true.
      */
-    function tryUse(level, player, door ) {
+    public static tryUse(level, player, door ) {
         switch (door.type) {
-            case Wolf.DOOR_VERT:
-            case Wolf.DOOR_HORIZ:
-            case Wolf.DOOR_E_VERT:
-            case Wolf.DOOR_E_HORIZ:
-                changeDoorState(level, player, door); // does not require key!
+            case Doors.DOOR_VERT:
+            case Doors.DOOR_HORIZ:
+            case Doors.DOOR_E_VERT:
+            case Doors.DOOR_E_HORIZ:
+                Doors.changeDoorState(level, player, door); // does not require key!
                 break;
 
-            case Wolf.DOOR_G_VERT:
-            case Wolf.DOOR_G_HORIZ:
+            case Doors.DOOR_G_VERT:
+            case Doors.DOOR_G_HORIZ:
                 if (player.items & Wolf.ITEM_KEY_1) {
-                    changeDoorState(level, player, door);
+                    Doors.changeDoorState(level, player, door);
                 } else {
                     Wolf.Game.notify("You need a gold key");
                 }
                 break;
 
-            case Wolf.DOOR_S_VERT:
-            case Wolf.DOOR_S_HORIZ:
+            case Doors.DOOR_S_VERT:
+            case Doors.DOOR_S_HORIZ:
                 if (player.items & Wolf.ITEM_KEY_2) {
-                    changeDoorState(level, player, door);
+                    Doors.changeDoorState(level, player, door);
                 } else {
                     Wolf.Game.notify("You need a silver key");
                 }
@@ -415,15 +372,4 @@ Wolf.Doors = (function() {
         }
         return true; // FIXME
     }
-    
-    return {
-        reset : reset,
-        spawn : spawn,
-        opened : opened,
-        open : open,
-        tryUse : tryUse,
-        process : process,
-        setAreas : setAreas
-    };
-
-})();
+}

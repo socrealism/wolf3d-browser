@@ -233,7 +233,7 @@ Wolf.Player = (function() {
                 if (level.tileMap[x][y] & Wolf.SOLID_TILE) {
                     return false;
                 }
-                if (level.tileMap[x][y] & Wolf.DOOR_TILE && Wolf.Doors.opened(level.state.doorMap[x][y]) != Wolf.DOOR_FULLOPEN) {
+                if (level.tileMap[x][y] & Wolf.DOOR_TILE && Doors.opened(level.state.doorMap[x][y]) != Doors.DOOR_FULLOPEN) {
                     // iphone hack to allow player to move halfway into door tiles
                     // if the player bounds doesn't cross the middle of the tile, let the move continue            
                     if (Math.abs(player.position.x - Wolf.TILE2POS(x)) <= 0x9000 && Math.abs(player.position.y - Wolf.TILE2POS(y)) <= 0x9000) {
@@ -402,7 +402,7 @@ Wolf.Player = (function() {
         y = self.tile.y + Wolf.Math.dy4dir[dir];
 
         if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
-            return Wolf.Doors.tryUse(level, self, level.state.doorMap[x][y]);
+            return Doors.tryUse(level, self, level.state.doorMap[x][y]);
         }
 
         if (level.tileMap[x][y] & Wolf.SECRET_TILE) {

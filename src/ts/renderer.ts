@@ -246,7 +246,7 @@ class Renderer {
         var proc = Renderer.processTrace(viewport, tracePoint),
             texture, textureSrc;
 
-        //texture = Wolf.TEX_DDOOR + 1;
+        //texture = Doors.TEX_DDOOR + 1;
         texture = level.state.doorMap[tracePoint.tileX][tracePoint.tileY].texture + 1;
 
         proc.texture = texture;

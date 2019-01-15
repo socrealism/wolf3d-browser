@@ -71,7 +71,7 @@ class AI {
             }
             if (level.tileMap[newx][newy] & Wolf.DOOR_TILE) {
                 if (self.type == Actors.en_fake || self.type == Actors.en_dog) {
-                    if (level.state.doorMap[newx][newy].action != Wolf.dr_open) {
+                    if (level.state.doorMap[newx][newy].action != Doors.dr_open) {
                         return false;
                     }
                 }
@@ -541,8 +541,8 @@ class AI {
         while (move > 0) {
             if (self.waitfordoorx) {
                 door = level.state.doorMap[self.waitfordoorx][self.waitfordoory];
-                Wolf.Doors.open(door);
-                if (door.action != Wolf.dr_open) {
+                Doors.open(door);
+                if (door.action != Doors.dr_open) {
                     return;
                 }
                 self.waitfordoorx = self.waitfordoory = 0;
@@ -688,7 +688,7 @@ class AI {
                     return false;
                 }
                 if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
-                    if (Wolf.Doors.opened(level.state.doorMap[x][y]) != Wolf.DOOR_FULLOPEN) {
+                    if (Doors.opened(level.state.doorMap[x][y]) != Doors.DOOR_FULLOPEN) {
                         return false;
                     }
                 }

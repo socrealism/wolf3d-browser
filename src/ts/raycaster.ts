@@ -32,7 +32,7 @@ Wolf.Raycaster = (function() {
         TRACE_HIT_DOOR = Raycaster.TRACE_HIT_DOOR,
         PUSHWALL_TILE = Wolf.PUSHWALL_TILE,
         TRACE_HIT_PWALL = Raycaster.TRACE_HIT_PWALL,
-        DOOR_FULLOPEN = Wolf.DOOR_FULLOPEN,
+        DOOR_FULLOPEN = Doors.DOOR_FULLOPEN,
         XnextTable = Wolf.Math.XnextTable,
         YnextTable = Wolf.Math.YnextTable,
         getQuadrant = Wolf.Math.getQuadrant,
@@ -62,7 +62,7 @@ Wolf.Raycaster = (function() {
             visibleTiles[x][y] = true; // this tile is visible
         }
 
-        if (tileMap[x][y] & DOOR_TILE && doorMap[x][y].action != Wolf.dr_open) {
+        if (tileMap[x][y] & DOOR_TILE && doorMap[x][y].action != Doors.dr_open) {
             door = doorMap[x][y];
             
             frac += dfrac >> 1;
@@ -72,7 +72,7 @@ Wolf.Raycaster = (function() {
             }
 
             if (vert) {
-                if (door.action != Wolf.dr_closed && (frac >> 10) > DOOR_FULLOPEN - Wolf.Doors.opened(door)) {
+                if (door.action != Doors.dr_closed && (frac >> 10) > Doors.DOOR_FULLOPEN - Doors.opened(door)) {
                     return false; // opened enough
                 }
                 tracePoint.x = TILE2POS(x);
@@ -80,7 +80,7 @@ Wolf.Raycaster = (function() {
                 tracePoint.flags |= TRACE_HIT_VERT;
                 tracePoint.frac = frac / TILEGLOBAL;
             } else {
-                if (door.action != Wolf.dr_closed && (frac >> 10) < Wolf.Doors.opened(door)) {
+                if (door.action != Doors.dr_closed && (frac >> 10) < Doors.opened(door)) {
                     return false; // opened enough
                 }
                 tracePoint.y = TILE2POS(y);
@@ -92,7 +92,7 @@ Wolf.Raycaster = (function() {
             tracePoint.flags |= TRACE_HIT_DOOR;
             tracePoint.tileX = x;
             tracePoint.tileY = y;
-            tracePoint.frac += Wolf.Doors.opened(door) / DOOR_FULLOPEN;
+            tracePoint.frac += Doors.opened(door) / Doors.DOOR_FULLOPEN;
             return true; // closed door, stop tracing
         }
         
