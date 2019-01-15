@@ -18,7 +18,6 @@ class Angle {
 
     /**
      * @description Finds the difference between two angles.
-     * @memberOf Wolf.Angle
      * @param {number} angle1 Angle in radians.
      * @param {number} angle2 Angle in radians.
      * @returns {number} The absolute difference between two angles, this will always be between 0 and 180 degrees.
@@ -41,7 +40,6 @@ class Angle {
 
     /**
      * @description Clockwise distance between two angles.
-     * @memberOf Wolf.Angle
      * @param {number} angle1 Angle in radians.
      * @param {number} angle2 Angle in radians.
      * @returns {number} The clockwise distance from angle2 to angle1, this may be greater than 180 degrees.
@@ -56,7 +54,6 @@ class Angle {
 
     /**
      * @description Linear interpolate between angle from and to by fraction frac.
-     * @memberOf Wolf.Angle
      * @param {number} from Angle in radians.
      * @param {number} to Angle in radians.
      * @param {number} frac Fraction.
@@ -74,7 +71,6 @@ class Angle {
 
     /**
      * @description Normalize angle.
-     * @memberOf Wolf.Angle
      * @param {number} angle
      * @returns {number}
      */
@@ -92,7 +88,6 @@ class Angle {
 
     /**
      * @description Linear interpolate allowing for the Modulo 360 problem.
-     * @memberOf Wolf.Angle
      * @param {number} from Angle in radians.
      * @param {number} to Angle in radians.
      * @param {number} frac fraction.

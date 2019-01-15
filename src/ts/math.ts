@@ -105,7 +105,6 @@ Wolf.Math = (function() {
 
     /**
      * @description Calculate the field of view.
-     * @memberOf Wolf.Math
      * @param {number} fovX Must be within 1 and 179 degrees.
      * @param {number} width Width of viewing area.
      * @param {number} height Height of viewing area.
@@ -123,7 +122,6 @@ Wolf.Math = (function() {
 
     /**
      * @description Clips angle to [0..360] bounds.
-     * @memberOf Wolf.Math
      * @param {number} alpha Angle in degrees.
      * @returns {number} Normalized angle.
      */
@@ -140,7 +138,6 @@ Wolf.Math = (function() {
 
     /**
      * @description Get quadrant.
-     * @memberOf Wolf.Math
      * @param {number} angle Radian angle.
      * @returns {number}
      */
@@ -160,7 +157,6 @@ Wolf.Math = (function() {
 
     /**
      * @description Get 4 point direction.
-     * @memberOf Wolf.Math
      * @param {number} angle Radian angle.
      * @returns {number} Directional point.
      */
@@ -180,7 +176,6 @@ Wolf.Math = (function() {
 
     /**
      * @description Get 8 point direction.
-     * @memberOf Wolf.Math
      * @param {number} angle Radian angle.
      * @returns {number} Directional point.
      */
@@ -208,7 +203,6 @@ Wolf.Math = (function() {
 
     /**
      * @description calculates distance between a point (x, y) and a line.
-     * @memberOf Wolf.Math
      * @param {number} x X coord of point
      * @param {number} y Y coord of point
      * @param {number} a Line angle in degrees
@@ -222,7 +216,6 @@ Wolf.Math = (function() {
 
     /**
      * @description Calculates line length to the point nearest to (poin).
-     * @memberOf Wolf.Math
      * @param {number} x X coord of point
      * @param {number} y Y coord of point
      * @param {number} a Line angle in degrees
@@ -243,7 +236,6 @@ Wolf.Math = (function() {
     */
     /**
      * @description Returns angle in radians
-     * @memberOf Wolf.Math
      * @param {number} x X coord of point
      * @param {number} y Y coord of point
      * @param {number} a Line angle in degrees

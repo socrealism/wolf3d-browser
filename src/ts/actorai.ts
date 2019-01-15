@@ -16,7 +16,6 @@ class ActorAI {
 
     /**
      * @description Initiate death scream sound effect.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
@@ -82,7 +81,6 @@ class ActorAI {
 
     /**
      * @description Play Mecha sound.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
@@ -94,7 +92,6 @@ class ActorAI {
 
     /**
      * @description Play Slurpie sound.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      */
     public static slurpie(self, game) {
@@ -103,7 +100,6 @@ class ActorAI {
 
     /**
      * @description Spawn new actor, when Mecha Hitler is dead.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
@@ -139,7 +135,6 @@ class ActorAI {
 
     /**
      * @description Play Angel of Death Breathing sound.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      */
     public static breathing(self) {
@@ -148,7 +143,6 @@ class ActorAI {
 
     /**
      * @description Reset Angel of Death attack counter
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      */
     public static startAttack(self) {
@@ -157,7 +151,6 @@ class ActorAI {
 
     /**
      * @description Angel of Death AI.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      */
     public static relaunch(self) {
@@ -174,7 +167,6 @@ class ActorAI {
 
     /**
      * @description Victory - start intermission.
-     * @memberOf Wolf.ActorAI
      */
     public static victory(game) {
         Wolf.Game.startIntermission(game);
@@ -182,7 +174,6 @@ class ActorAI {
 
     /**
      * @description Entity is dormant state.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
@@ -240,7 +231,6 @@ class ActorAI {
      * @description Death cam animation.
      *              Tthe DeathCam feature isn't implimented, but we want to
      *              give the animation time to play before declaring victory.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      */
@@ -253,7 +243,6 @@ class ActorAI {
 
     /**
      * @description Rockets emmit smoke.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} level The level object.
      */
@@ -278,7 +267,6 @@ class ActorAI {
 
     /**
      * @description Puts an actor into attack mode and possibly reverses the direction if the player is behind it.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      */
     public static firstSighting(self, game) {
@@ -371,7 +359,6 @@ class ActorAI {
     /**
      * @description Called when the player succesfully hits an enemy.
      *              Does damage points to enemy ob, either putting it into a stun frame or killing it.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      * @param {object} player The player object.
@@ -410,7 +397,6 @@ class ActorAI {
 
     /**
      * @description Actor has been killed, so give points and spawn powerups.
-     * @memberOf Wolf.ActorAI
      * @param {object} self The enemy actor object.
      * @param {object} game The game object.
      * @param {object} player The player object.

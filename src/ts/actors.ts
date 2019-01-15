@@ -97,7 +97,6 @@ class Actors {
 
     /**
      * @description Create new actor.
-     * @memberOf Wolf.Actors
      * @param {object} level The level object.
      * @returns {object} The new actor object.
      */
@@ -200,7 +199,6 @@ class Actors {
 
     /**
      * @description Changes guard's state to that defined in newState.
-     * @memberOf Wolf.Actors
      * @param {object} ent The actor object.
      * @param {number} newState The new state.
      */
@@ -217,7 +215,6 @@ class Actors {
 
     /**
      * @description Process all the enemy actors.
-     * @memberOf Wolf.Actors
      * @param {object} level The level object.
      * @param {object} player The player object.
      * @param {number} tics The number of tics.
@@ -264,7 +261,6 @@ class Actors {
 
     /**
      * @description Reset and clear the enemy actors in the level.
-     * @memberOf Wolf.Actors
      * @param {object} level The level object.
      */
     public static resetGuards(level) {
@@ -275,7 +271,6 @@ class Actors {
 
     /**
      * @description Spawn a new enemy actor at the given position.
-     * @memberOf Wolf.Actors
      * @param {object} level The level object.
      * @param {number} skill The difficulty level.
      * @param {number} which The actor type.
@@ -318,7 +313,6 @@ class Actors {
 
     /**
      * @description Spawn a dead guard.
-     * @memberOf Wolf.Actors
      * @param {object} level The level object.
      * @param {number} skill The difficulty level.
      * @param {number} which The actor type.
@@ -338,7 +332,6 @@ class Actors {
 
     /**
      * @description Spawn a patrolling guard.
-     * @memberOf Wolf.Actors
      * @param {object} level The level object.
      * @param {number} skill The difficulty level.
      * @param {number} which The actor type.
@@ -362,7 +355,6 @@ class Actors {
 
     /**
      * @description Spawn a standing guard.
-     * @memberOf Wolf.Actors
      * @param {object} level The level object.
      * @param {number} skill The difficulty level.
      * @param {number} which The actor type.

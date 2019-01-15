@@ -495,14 +495,12 @@ class AI {
     }
 
     /**
-     * @memberOf Wolf.AI
      */
     public static T_Stand(self, game, tics) {
         AI.findTarget(self, game, tics);
     }
 
     /**
-     * @memberOf Wolf.AI
      */
     public static T_Path(self, game, tics) {
         var level = game.level;
@@ -526,7 +524,6 @@ class AI {
 
     /**
      * @description Try to damage the player.
-     * @memberOf Wolf.AI
      */
     public static  T_Shoot(self, game, tics) {
         var level = game.level,
@@ -600,7 +597,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_Chase(self, game, tics) {
         var level = game.level,
@@ -649,7 +645,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_DogChase(self, game, tics) {
         var level = game.level,
@@ -681,7 +676,6 @@ class AI {
 
     /**
      * @description Try to damage the player.
-     * @memberOf Wolf.AI
      */
     public static T_BossChase(self, game, tics) {
         var level = game.level,
@@ -723,7 +717,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_Fake(self, game, tics) {
         var level = game.level,
@@ -797,7 +790,6 @@ class AI {
 
     /**
      * @description Moves object for distance in global units, in self.dir direction.
-     * @memberOf Wolf.AI
      */
     public static T_Move(self, game, dist) {
         var level = game.level,
@@ -833,7 +825,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_Ghosts(self, game, tics) {
         var level = game.level,
@@ -851,7 +842,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_Bite(self, game, tics) {
         var level = game.level,
@@ -874,7 +864,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_UShoot(self, game, tics) {
         var level = game.level,
@@ -895,7 +884,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_Launch(self, game, tics) {
         var level = game.level,
@@ -1008,7 +996,6 @@ class AI {
 
     /**
      * @description Called when projectile is airborne.
-     * @memberOf Wolf.AI
      * @param {object} self The enemy actor object.
      * @param {object} level The level object.
      * @param {object} player The player object.
@@ -1090,7 +1077,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_BJRun(self, game, tics) {
         var move = Wolf.BJRUNSPEED * tics;
@@ -1109,7 +1095,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_BJJump(self, game, tics) {
         //var move = Wolf.BJRUNSPEED * tics;
@@ -1118,7 +1103,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_BJYell(self, game, tics) {
         Sound.startSound(null, null, 0, Sound.CHAN_VOICE, "assets/sfx/082.wav", 1, Sound.ATTN_NORM, 0);
@@ -1126,7 +1110,6 @@ class AI {
 
     /**
      * @description
-     * @memberOf Wolf.AI
      */
     public static T_BJDone(self, game, tics) {
         Wolf.Player.playstate = Wolf.ex_victory; // exit castle tile

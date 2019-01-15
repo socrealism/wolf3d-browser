@@ -36,7 +36,6 @@ class Doors {
 
     /**
      * @description Reset doors in the level
-     * @memberOf Wolf.Doors
      * @param {object} level The level object.
      */
     public static reset(level) {
@@ -52,7 +51,6 @@ class Doors {
 
     /**
      * @description Spawn a door at the specified position.
-     * @memberOf Wolf.Doors
      * @param {object} level The level object.
      * @param {number} x The x coordinate.
      * @param {number} y The y coordinate.
@@ -129,7 +127,6 @@ class Doors {
 
     /**
      * @description Check to see if a door is open. If there are no doors in tile assume a closed door!
-     * @memberOf Wolf.Doors
      * @param {object} doors The door object.
      * @returns {number} DOOR_FULLOPEN if door is opened,
      0 if door is closed,
@@ -141,7 +138,6 @@ class Doors {
 
     /**
      * @description Process door actions.
-     * @memberOf Wolf.Doors
      * @param {object} level The level object
      * @param {object} player The player object
      * @param {number} tics Tics since last
@@ -225,7 +221,6 @@ class Doors {
 
     /**
      * @description Set the areas doors in a level
-     * @memberOf Wolf.Doors
      * @param {object} level The level object.
      * @param {array} areas The areas map.
      */
@@ -249,7 +244,6 @@ class Doors {
 
     /**
      * @description Open a door
-     * @memberOf Wolf.Doors
      * @param {object} doors The door object.
      */
     public static open(door) {
@@ -337,7 +331,6 @@ class Doors {
 
     /**
      * @description Try to use a door with keys that the player has.
-     * @memberOf Wolf.Doors
      * @param {object} level The level object
      * @param {object} player The player object
      * @param {object} door The door object

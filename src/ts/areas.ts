@@ -17,7 +17,6 @@ class Areas {
 
     /**
      * @description Initialize areas
-     * @memberOf Wolf.Areas
      * @param {object} levelState The level state object
      * @param {number} areanumber Initial area
      */
@@ -51,7 +50,6 @@ class Areas {
 
     /**
      * @description Connect area.
-     * @memberOf Wolf.Areas
      * @param {object} level The level object
      * @param {number} areanumber New area
      */
@@ -75,7 +73,6 @@ class Areas {
 
     /**
      * @description Join ares
-     * @memberOf Wolf.Areas
      * @param {object} level The level object
      * @param {number} area1 Area 1
      * @param {number} area2 Area 2
@@ -93,7 +90,6 @@ class Areas {
 
     /**
      * @description Disconnect ares
-     * @memberOf Wolf.Areas
      * @param {object} level The level object
      * @param {number} area1 Area 1
      * @param {number} area2 Area 2

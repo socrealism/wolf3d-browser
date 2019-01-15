@@ -567,7 +567,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Start playing the specified level of the specified episode.
-     * @memberOf Wolf.Game
      * @param {object} game The game object.
      * @param {number} episodeNum The episode number.
      * @param {number} levelNum The level number.
@@ -714,7 +713,6 @@ Wolf.Game = (function() {
    
     /**
      * @description Start a new game with the specified skill level.
-     * @memberOf Wolf.Game
      * @param {number} skill The difficulty level.
      */
     function startGame(skill) {
@@ -776,7 +774,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Start the post-level intermission.
-     * @memberOf Wolf.Game
      * @param {object} game The game object.
      */
     function startIntermission(game, delay) {
@@ -985,7 +982,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Start red damage flash.
-     * @memberOf Wolf.Game
      */
     function startDamageFlash() {
         $("#game .renderer .damage-flash").show().fadeOut(300);
@@ -993,7 +989,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Start bonus flash.
-     * @memberOf Wolf.Game
      */
     function startBonusFlash() {
         $("#game .renderer .bonus-flash").show().fadeOut(300);
@@ -1001,7 +996,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Show a notification.
-     * @memberOf Wolf.Game
      * @param {string} text The notification
      */
     function notify(text) {
@@ -1010,7 +1004,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Query fullscreen.
-     * @memberOf Wolf.Game
      * @returns boolean True if browser is in fullscreen mode, otherwise false.
      */
     function isFullscreen() {
@@ -1113,7 +1106,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Initialize the game module
-     * @memberOf Wolf.Game
      */
     function init() {
         $(document)
@@ -1157,7 +1149,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Exit to main menu
-     * @memberOf Wolf.Game
      */
     function exitToMenu() {
         if (!paused) {
@@ -1170,7 +1161,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Resume game after coming from menu
-     * @memberOf Wolf.Game
      */
     function resume() {
         $("#game").show();
@@ -1186,7 +1176,6 @@ Wolf.Game = (function() {
     
     /**
      * @description Query the game state
-     * @memberOf Wolf.Game
      * @returns {boolean} True if the is currently playing
      */
     function isPlaying() {

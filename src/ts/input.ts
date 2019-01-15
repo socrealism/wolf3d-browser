@@ -212,7 +212,6 @@ class Input {
     }
 
     /**
-     * @memberOf Wolf.Input
      * @description Check if one of the specified keys is pressed.
      * @param {array} keys Array of key names.
      * @returns {boolean} True if a key is pressed, otherwise false.
@@ -228,7 +227,6 @@ class Input {
     }
 
     /**
-     * @memberOf Wolf.Input
      * @description Clear status for keys.
      * @param {array} keys Array of key names.
      */

@@ -452,7 +452,6 @@ Wolf.Menu = (function() {
     
     /** 
      * @description Show the menu
-     * @memberOf Wolf.Menu
      */
     function show(menuName) {
         var musicOn, soundOn, mouseOn;
@@ -534,7 +533,6 @@ Wolf.Menu = (function() {
     
     /** 
      * @description Hide the menu
-     * @memberOf Wolf.Menu
      */
     function hide() {
         $("#menu").hide();

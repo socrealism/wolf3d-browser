@@ -497,7 +497,6 @@ Wolf.Level = (function() {
     
     /**
      * @description Load level data
-     * @memberOf Wolf.Level
      * @param {string} filename The name of the level file.
      * @param {function} callback Called with the resulting level object.
      * @returns {object} The level object.
@@ -641,7 +640,6 @@ Wolf.Level = (function() {
 
     /**
      * @description Spawn all actors and mark down special places.
-     * @memberOf Wolf.Level
      * @param {object} level The level object.
      * @param {number} skill The difficulty level.
      */
@@ -1006,7 +1004,6 @@ Wolf.Level = (function() {
    
     /**
      * @description Check if there is a clear line of sight between 2 points.
-     * @memberOf Wolf.Level
      * @param {number} x1 The x coordinate of point 1.
      * @param {number} y1 The y coordinate of point 1.
      * @param {number} x2 The x coordinate of point 2.

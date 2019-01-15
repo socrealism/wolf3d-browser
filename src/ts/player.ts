@@ -79,7 +79,6 @@ Wolf.Player = (function() {
     
     /**
      * @description Spawn the player
-     * @memberOf Wolf.Player
      * @param {object} location The location to spawn the player {origin, angle}
      * @param {object} level The level object
      * @param {number} skill The difficulty level
@@ -194,7 +193,6 @@ Wolf.Player = (function() {
     
     /**
      * @description Set up player for the new game
-     * @memberOf Wolf.Player
      * @param {object} player The player object
      */
     function newGame(player) {
@@ -310,7 +308,6 @@ Wolf.Player = (function() {
 
     /**
      * @description Changes player's angle and position
-     * @memberOf Wolf.Player
      * @param {object} game The game object.
      * @param {object} self The player object.
      * @param {object} level The level object.
@@ -437,7 +434,6 @@ Wolf.Player = (function() {
 
     /**
      * @description Attack
-     * @memberOf Wolf.Player
      * @param {object} game The game object.
      * @param {object} player The player object.
      * @param {boolean} reAttack True if re-attack
@@ -494,7 +490,6 @@ Wolf.Player = (function() {
 
     /**
      * @description Award points to the player
-     * @memberOf Wolf.Player
      * @param {object} player The player object.
      * @param {number} points The number of points.
      */
@@ -597,7 +592,6 @@ Wolf.Player = (function() {
     
     /**
      * @description Award points to the player
-     * @memberOf Wolf.Player
      * @param {object} player The player object.
      * @param {object} attacker The attacker actor object.
      * @param {number} points The number of damage points.
@@ -701,7 +695,6 @@ Wolf.Player = (function() {
     
     /**
      * @description Process player actions
-     * @memberOf Wolf.Player
      * @param {object} self The player object.
      * @param {object} game The game object.
      * @param {number} tics Tics since last processing.
