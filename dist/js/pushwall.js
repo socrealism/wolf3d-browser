@@ -19,8 +19,8 @@ Wolf.PushWall = (function () {
         if (PWall.active) {
             return false;
         }
-        dx = Wolf.Math.dx4dir[dir];
-        dy = Wolf.Math.dy4dir[dir];
+        dx = Mathematik.dx4dir[dir];
+        dy = Mathematik.dy4dir[dir];
         if (level.tileMap[x + dx][y + dy] & (Wolf.SOLID_TILE | Wolf.DOOR_TILE)) {
             return true;
         }

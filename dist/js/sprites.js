@@ -768,7 +768,7 @@ Wolf.Sprites = (function () {
             }
             if (visibleTiles[tx][ty] || visibleTiles[tx + 1][ty] || visibleTiles[tx][ty + 1] || visibleTiles[tx + 1][ty + 1]) {
                 var vis = vislist[vislist.length] = {};
-                vis.dist = Wolf.Math.lineLen2Point(sprt.x - viewport.x, sprt.y - viewport.y, viewport.angle);
+                vis.dist = Mathematik.lineLen2Point(sprt.x - viewport.x, sprt.y - viewport.y, viewport.angle);
                 vis.x = sprt.x;
                 vis.y = sprt.y;
                 vis.angle = sprt.angle;

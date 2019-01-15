@@ -13,7 +13,7 @@ Raycaster.TRACE_HIT_DOOR = 64;
 Raycaster.TRACE_HIT_PWALL = 128;
 Wolf.Raycaster = (function () {
     var x_tile_step = [1, -1, -1, 1], y_tile_step = [1, 1, -1, -1];
-    var TILESHIFT = Wolf.TILESHIFT, TRACE_HIT_VERT = Raycaster.TRACE_HIT_VERT, TILEGLOBAL = Wolf.TILEGLOBAL, WALL_TILE = Wolf.WALL_TILE, DOOR_TILE = Wolf.DOOR_TILE, TILE2POS = Wolf.TILE2POS, POS2TILE = Wolf.POS2TILE, FINE2RAD = Wolf.FINE2RAD, TRACE_HIT_DOOR = Raycaster.TRACE_HIT_DOOR, PUSHWALL_TILE = Wolf.PUSHWALL_TILE, TRACE_HIT_PWALL = Raycaster.TRACE_HIT_PWALL, DOOR_FULLOPEN = Doors.DOOR_FULLOPEN, XnextTable = Wolf.Math.XnextTable, YnextTable = Wolf.Math.YnextTable, getQuadrant = Wolf.Math.getQuadrant, TanTable = Wolf.Math.TanTable;
+    var TILESHIFT = Wolf.TILESHIFT, TRACE_HIT_VERT = Raycaster.TRACE_HIT_VERT, TILEGLOBAL = Wolf.TILEGLOBAL, WALL_TILE = Wolf.WALL_TILE, DOOR_TILE = Wolf.DOOR_TILE, TILE2POS = Wolf.TILE2POS, POS2TILE = Wolf.POS2TILE, FINE2RAD = Wolf.FINE2RAD, TRACE_HIT_DOOR = Raycaster.TRACE_HIT_DOOR, PUSHWALL_TILE = Wolf.PUSHWALL_TILE, TRACE_HIT_PWALL = Raycaster.TRACE_HIT_PWALL, DOOR_FULLOPEN = Doors.DOOR_FULLOPEN, XnextTable = Mathematik.XnextTable, YnextTable = Mathematik.YnextTable, getQuadrant = Mathematik.getQuadrant, TanTable = Mathematik.TanTable;
     function traceCheck(tileMap, doorMap, visibleTiles, x, y, frac, dfrac, vert, flip, tracePoint) {
         var door;
         if (tileMap[x][y] & WALL_TILE) {
@@ -157,7 +157,7 @@ Wolf.Raycaster = (function () {
             tracePoint = {
                 x: viewport.x,
                 y: viewport.y,
-                angle: Wolf.Math.normalizeAngle(viewport.angle - Wolf.Math.ColumnAngle[n * Wolf.SLICE_WIDTH]),
+                angle: Mathematik.normalizeAngle(viewport.angle - Mathematik.ColumnAngle[n * Wolf.SLICE_WIDTH]),
                 flags: Raycaster.TRACE_SIGHT | Raycaster.TRACE_MARK_MAP,
                 oob: false
             };

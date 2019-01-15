@@ -242,9 +242,9 @@ class Actors {
 
             if (Wolf.objstate[guard.type][guard.state].rotate) {
                 if (guard.type == Actors.en_rocket || guard.type == Actors.en_hrocket) {
-                    tex += Actors.r_add8dir[Wolf.Math.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
+                    tex += Actors.r_add8dir[Mathematik.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 } else {
-                    tex += Actors.add8dir[Wolf.Math.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
+                    tex += Actors.add8dir[Mathematik.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 }
             }
             Wolf.Sprites.setTex(level, guard.sprite, 0, tex);
@@ -293,8 +293,8 @@ class Actors {
         ent.tile.y = y;
 
         // assert( dir >= 0 && dir <= 4 );
-        ent.angle = Wolf.Math.dir4angle[dir];
-        ent.dir = Wolf.Math.dir4to8[dir];
+        ent.angle = Mathematik.dir4angle[dir];
+        ent.dir = Mathematik.dir4to8[dir];
 
         ent.areanumber = level.areas[x][y];
 
@@ -320,7 +320,7 @@ class Actors {
      * @param {number} y The y position.
      */
     static spawnDeadGuard(level, skill, which, x, y) {
-        var self = Actors.spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
+        var self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
         if (!self) {
             return;
         }
@@ -388,13 +388,13 @@ class Actors {
             case Actors.en_schabbs:
             case Actors.en_fat:
             case Actors.en_hitler:
-                face = Wolf.Math.dir4_south;
+                face = Mathematik.dir4_south;
                 break;
 
             case Actors.en_fake:
             case Actors.en_gretel:
             case Actors.en_gift:
-                face = Wolf.Math.dir4_north;
+                face = Mathematik.dir4_north;
                 break;
 
             case Actors.en_trans:
@@ -403,11 +403,11 @@ class Actors {
             case Actors.en_death:
             case Actors.en_angel:
             case Actors.en_spectre:
-                face = Wolf.Math.dir4_nodir;
+                face = Mathematik.dir4_nodir;
                 break;
 
             default:
-                face = Wolf.Math.dir4_nodir;
+                face = Mathematik.dir4_nodir;
                 break;
         }
 
@@ -426,7 +426,7 @@ class Actors {
     }
 
     static spawnGhosts(level, skill, which, x, y) {
-        var self = Actors.spawn(level, skill, which, x, y, Wolf.Math.dir4_nodir);
+        var self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
         if (!self) {
             return;
         }
@@ -443,7 +443,7 @@ class Actors {
     static spawnBJVictory(player, level, skill) {
         var x = Wolf.POS2TILE(player.position.x),
             y = Wolf.POS2TILE(player.position.y),
-            bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Wolf.Math.dir4_north);
+            bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Mathematik.dir4_north);
 
         if (!bj) {
             return;

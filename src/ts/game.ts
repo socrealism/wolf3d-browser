@@ -190,7 +190,7 @@ class Game {
             if (player.playstate != Wolf.ex_dead) {
                 Game.updatePlayerControls(player, tics);
 
-                player.angle = Wolf.Math.normalizeAngle(player.angle);
+                player.angle = Mathematik.normalizeAngle(player.angle);
 
                 Wolf.Player.process(game, player, tics);
                 if (Game.processAI) {

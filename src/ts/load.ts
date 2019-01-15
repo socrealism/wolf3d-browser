@@ -83,6 +83,7 @@ $(document).ready(function() {
             complete : function() {
                 progress.remove();
                 $("#title-screen").fadeOut(1500, function() {
+                    Mathematik.init();
                     Input.init();
                     Sound.init();
                     Game.init();

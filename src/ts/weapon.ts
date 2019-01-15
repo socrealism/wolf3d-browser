@@ -18,13 +18,13 @@ class Weapon {
         for (n=0; n<level.state.numGuards; ++n) {
             guard = level.state.guards[n];
             if (guard.flags & Actors.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
-                shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                shotDist = Mathematik.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
 
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
                     continue; // miss
                 }
 
-                d1 = Wolf.Math.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                d1 = Mathematik.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
 
                 if (d1 < 0 || d1 > dist) {
                     continue;
@@ -77,12 +77,12 @@ class Weapon {
         for (n=0;n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
             if (guard.flags & Actors.FL_SHOOTABLE ) { // && Guards[n].flags&FL_VISABLE
-                shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                shotDist = Mathematik.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
                     continue; // miss
                 }
 
-                d1 = Wolf.Math.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                d1 = Mathematik.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 if (d1 < 0 || d1 > dist) {
                     continue;
                 }
@@ -97,7 +97,7 @@ class Weapon {
 
         if (!closest) { // missed
             var tracePoint = {
-                angle : Wolf.Math.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
+                angle : Mathematik.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
                 x : player.position.x,
                 y : player.position.y,
                 flags : Raycaster.TRACE_BULLET
@@ -158,13 +158,13 @@ Wolf.Weapon = (function() {
         for (n=0; n<level.state.numGuards; ++n) {
             guard = level.state.guards[n];
             if (guard.flags & Actors.FL_SHOOTABLE) { // && Guards[n].flags&FL_VISABLE
-                shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                shotDist = Mathematik.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
                     continue; // miss
                 }
                 
-                d1 = Wolf.Math.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                d1 = Mathematik.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 
                 if (d1 < 0 || d1 > dist) {
                     continue;
@@ -218,12 +218,12 @@ Wolf.Weapon = (function() {
         for (n=0;n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
             if (guard.flags & Actors.FL_SHOOTABLE ) { // && Guards[n].flags&FL_VISABLE
-                shotDist = Wolf.Math.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                shotDist = Mathematik.point2LineDist(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 if (shotDist > (2 * Wolf.TILEGLOBAL / 3)) {
                     continue; // miss
                 }
 
-                d1 = Wolf.Math.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
+                d1 = Mathematik.lineLen2Point(guard.x - player.position.x, guard.y - player.position.y, player.angle);
                 if (d1 < 0 || d1 > dist) {
                     continue;
                 }
@@ -238,7 +238,7 @@ Wolf.Weapon = (function() {
 
         if (!closest) { // missed
             var tracePoint = {
-                angle : Wolf.Math.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
+                angle : Mathematik.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
                 x : player.position.x,
                 y : player.position.y,
                 flags : Raycaster.TRACE_BULLET

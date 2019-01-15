@@ -323,13 +323,13 @@ Wolf.Player = (function() {
 
         if (self.cmd.forwardMove ) {
             speed = tics * self.cmd.forwardMove;
-            self.mov.x += (speed * Wolf.Math.CosTable[angle])>>0;
-            self.mov.y += (speed * Wolf.Math.SinTable[angle])>>0;
+            self.mov.x += (speed * Mathematik.CosTable[angle])>>0;
+            self.mov.y += (speed * Mathematik.SinTable[angle])>>0;
         }
         if (self.cmd.sideMove) {
             speed = tics * self.cmd.sideMove;
-            self.mov.x += (speed * Wolf.Math.SinTable[angle])>>0;
-            self.mov.y -= (speed * Wolf.Math.CosTable[angle])>>0;
+            self.mov.x += (speed * Mathematik.SinTable[angle])>>0;
+            self.mov.y -= (speed * Mathematik.CosTable[angle])>>0;
         }
 
         if (!self.mov.x && !self.mov.y) {
@@ -394,9 +394,9 @@ Wolf.Player = (function() {
         var x, y, dir, newtex,
             level = game.level;
 
-        dir = Wolf.Math.get4dir(Wolf.FINE2RAD(self.angle));
-        x = self.tile.x + Wolf.Math.dx4dir[dir];
-        y = self.tile.y + Wolf.Math.dy4dir[dir];
+        dir = Mathematik.get4dir(Wolf.FINE2RAD(self.angle));
+        x = self.tile.x + Mathematik.dx4dir[dir];
+        y = self.tile.y + Mathematik.dy4dir[dir];
 
         if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
             return Doors.tryUse(level, self, level.state.doorMap[x][y]);
@@ -408,12 +408,12 @@ Wolf.Player = (function() {
 
         if (level.tileMap[x][y] & Wolf.ELEVATOR_TILE) {
             switch (dir) {
-                case Wolf.Math.dir4_east:
-                case Wolf.Math.dir4_west:
+                case Mathematik.dir4_east:
+                case Mathematik.dir4_west:
                     newtex = level.wallTexX[x][y] += 2;
                     break;
-                case Wolf.Math.dir4_north:
-                case Wolf.Math.dir4_south:
+                case Mathematik.dir4_north:
+                case Mathematik.dir4_south:
                     return false; // don't allow to press elevator rails
             }
             

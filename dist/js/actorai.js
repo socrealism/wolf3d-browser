@@ -127,7 +127,7 @@ class ActorAI {
         }
         self.flags |= Actors.FL_AMBUSH | Actors.FL_SHOOTABLE;
         self.flags &= ~Actors.FL_ATTACKMODE;
-        self.dir = Wolf.Math.dir8_nodir;
+        self.dir = Mathematik.dir8_nodir;
         Actors.stateChange(self, Actors.st_path1);
     }
     static startDeathCam(game, self) {
@@ -217,7 +217,7 @@ class ActorAI {
         if (self.waitfordoorx) {
             self.waitfordoorx = self.waitfordoory = 0;
         }
-        self.dir = Wolf.Math.dir8_nodir;
+        self.dir = Mathematik.dir8_nodir;
         self.flags |= Actors.FL_ATTACKMODE | Actors.FL_FIRSTATTACK;
     }
     static damageActor(self, game, player, damage) {

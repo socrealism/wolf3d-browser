@@ -223,7 +223,7 @@ class ActorAI {
 
         self.flags |= Actors.FL_AMBUSH | Actors.FL_SHOOTABLE;
         self.flags &= ~Actors.FL_ATTACKMODE;
-        self.dir = Wolf.Math.dir8_nodir;
+        self.dir = Mathematik.dir8_nodir;
         Actors.stateChange(self, Actors.st_path1);
     }
 
@@ -352,7 +352,7 @@ class ActorAI {
             self.waitfordoorx = self.waitfordoory = 0;    // ignore the door opening command
         }
 
-        self.dir = Wolf.Math.dir8_nodir;
+        self.dir = Mathematik.dir8_nodir;
         self.flags |= Actors.FL_ATTACKMODE | Actors.FL_FIRSTATTACK;
     }
 

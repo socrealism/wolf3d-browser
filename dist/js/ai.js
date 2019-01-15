@@ -13,22 +13,22 @@ class AI {
             return true;
         }
         switch (self.dir) {
-            case Wolf.Math.dir8_north:
+            case Mathematik.dir8_north:
                 if (deltay < 0) {
                     return false;
                 }
                 break;
-            case Wolf.Math.dir8_east:
+            case Mathematik.dir8_east:
                 if (deltax < 0) {
                     return false;
                 }
                 break;
-            case Wolf.Math.dir8_south:
+            case Mathematik.dir8_south:
                 if (deltay > 0) {
                     return false;
                 }
                 break;
-            case Wolf.Math.dir8_west:
+            case Mathematik.dir8_west:
                 if (deltax > 0) {
                     return false;
                 }
@@ -42,8 +42,8 @@ class AI {
         var oldx, oldy, newx, newy, n, moveok = false;
         oldx = Wolf.POS2TILE(self.x);
         oldy = Wolf.POS2TILE(self.y);
-        newx = oldx + Wolf.Math.dx8dir[new_dir];
-        newy = oldy + Wolf.Math.dy8dir[new_dir];
+        newx = oldx + Mathematik.dx8dir[new_dir];
+        newy = oldy + Mathematik.dy8dir[new_dir];
         if (new_dir & 0x01) {
             if (level.tileMap[newx][oldy] & Wolf.SOLID_TILE ||
                 level.tileMap[oldx][newy] & Wolf.SOLID_TILE ||
@@ -108,32 +108,32 @@ class AI {
         if (level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT] & Wolf.WAYPOINT_TILE) {
             var tileinfo = level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT];
             if (tileinfo & Wolf.TILE_IS_E_TURN) {
-                self.dir = Wolf.Math.dir8_east;
+                self.dir = Mathematik.dir8_east;
             }
             else if (tileinfo & Wolf.TILE_IS_NE_TURN) {
-                self.dir = Wolf.Math.dir8_northeast;
+                self.dir = Mathematik.dir8_northeast;
             }
             else if (tileinfo & Wolf.TILE_IS_N_TURN) {
-                self.dir = Wolf.Math.dir8_north;
+                self.dir = Mathematik.dir8_north;
             }
             else if (tileinfo & Wolf.TILE_IS_NW_TURN) {
-                self.dir = Wolf.Math.dir8_northwest;
+                self.dir = Mathematik.dir8_northwest;
             }
             else if (tileinfo & Wolf.TILE_IS_W_TURN) {
-                self.dir = Wolf.Math.dir8_west;
+                self.dir = Mathematik.dir8_west;
             }
             else if (tileinfo & Wolf.TILE_IS_SW_TURN) {
-                self.dir = Wolf.Math.dir8_southwest;
+                self.dir = Mathematik.dir8_southwest;
             }
             else if (tileinfo & Wolf.TILE_IS_S_TURN) {
-                self.dir = Wolf.Math.dir8_south;
+                self.dir = Mathematik.dir8_south;
             }
             else if (tileinfo & Wolf.TILE_IS_SE_TURN) {
-                self.dir = Wolf.Math.dir8_southeast;
+                self.dir = Mathematik.dir8_southeast;
             }
         }
         if (!AI.changeDir(self, self.dir, level)) {
-            self.dir = Wolf.Math.dir8_nodir;
+            self.dir = Mathematik.dir8_nodir;
         }
     }
     static findTarget(self, game, tics) {
@@ -202,21 +202,21 @@ class AI {
             return;
         }
         olddir = self.dir;
-        turnaround = Wolf.Math.opposite8[olddir];
-        d[0] = d[1] = Wolf.Math.dir8_nodir;
+        turnaround = Mathematik.opposite8[olddir];
+        d[0] = d[1] = Mathematik.dir8_nodir;
         deltax = Wolf.POS2TILE(player.position.x) - Wolf.POS2TILE(self.x);
         deltay = Wolf.POS2TILE(player.position.y) - Wolf.POS2TILE(self.y);
         if (deltax > 0) {
-            d[0] = Wolf.Math.dir8_east;
+            d[0] = Mathematik.dir8_east;
         }
         else if (deltax < 0) {
-            d[0] = Wolf.Math.dir8_west;
+            d[0] = Mathematik.dir8_west;
         }
         if (deltay > 0) {
-            d[1] = Wolf.Math.dir8_north;
+            d[1] = Mathematik.dir8_north;
         }
         else if (deltay < 0) {
-            d[1] = Wolf.Math.dir8_south;
+            d[1] = Mathematik.dir8_south;
         }
         if (Math.abs(deltay) > Math.abs(deltax)) {
             tdir = d[0];
@@ -224,28 +224,28 @@ class AI {
             d[1] = tdir;
         }
         if (d[0] == turnaround) {
-            d[0] = Wolf.Math.dir8_nodir;
+            d[0] = Mathematik.dir8_nodir;
         }
         if (d[1] == turnaround) {
-            d[1] = Wolf.Math.dir8_nodir;
+            d[1] = Mathematik.dir8_nodir;
         }
-        if (d[0] != Wolf.Math.dir8_nodir) {
+        if (d[0] != Mathematik.dir8_nodir) {
             if (AI.changeDir(self, d[0], level)) {
                 return;
             }
         }
-        if (d[1] != Wolf.Math.dir8_nodir) {
+        if (d[1] != Mathematik.dir8_nodir) {
             if (AI.changeDir(self, d[1], level)) {
                 return;
             }
         }
-        if (olddir != Wolf.Math.dir8_nodir) {
+        if (olddir != Mathematik.dir8_nodir) {
             if (AI.changeDir(self, olddir, level)) {
                 return;
             }
         }
         if (Random.get() > 128) {
-            for (tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2) {
+            for (tdir = Mathematik.dir8_east; tdir <= Mathematik.dir8_south; tdir += 2) {
                 if (tdir != turnaround) {
                     if (AI.changeDir(self, tdir, level)) {
                         return;
@@ -254,7 +254,7 @@ class AI {
             }
         }
         else {
-            for (tdir = Wolf.Math.dir8_south; tdir >= Wolf.Math.dir8_east; tdir -= 2) {
+            for (tdir = Mathematik.dir8_south; tdir >= Mathematik.dir8_east; tdir -= 2) {
                 if (tdir != turnaround) {
                     if (AI.changeDir(self, tdir, level)) {
                         return;
@@ -262,19 +262,19 @@ class AI {
                 }
             }
         }
-        if (turnaround != Wolf.Math.dir8_nodir) {
+        if (turnaround != Mathematik.dir8_nodir) {
             if (AI.changeDir(self, turnaround, level)) {
                 return;
             }
         }
-        self.dir = Wolf.Math.dir8_nodir;
+        self.dir = Mathematik.dir8_nodir;
     }
     static retreat(self, game) {
         var level = game.level, player = game.player, deltax, deltay, d = [], tdir;
         deltax = Wolf.POS2TILE(player.position.x) - Wolf.POS2TILE(self.x);
         deltay = Wolf.POS2TILE(player.position.y) - Wolf.POS2TILE(self.y);
-        d[0] = deltax < 0 ? Wolf.Math.dir8_east : Wolf.Math.dir8_west;
-        d[1] = deltay < 0 ? Wolf.Math.dir8_north : Wolf.Math.dir8_south;
+        d[0] = deltax < 0 ? Mathematik.dir8_east : Mathematik.dir8_west;
+        d[1] = deltay < 0 ? Mathematik.dir8_north : Mathematik.dir8_south;
         if (Math.abs(deltay) > Math.abs(deltax)) {
             tdir = d[0];
             d[0] = d[1];
@@ -287,20 +287,20 @@ class AI {
             return;
         }
         if (Random.get() > 128) {
-            for (tdir = Wolf.Math.dir8_east; tdir <= Wolf.Math.dir8_south; tdir += 2) {
+            for (tdir = Mathematik.dir8_east; tdir <= Mathematik.dir8_south; tdir += 2) {
                 if (AI.changeDir(self, tdir, level)) {
                     return;
                 }
             }
         }
         else {
-            for (tdir = Wolf.Math.dir8_south; tdir >= Wolf.Math.dir8_east; tdir -= 2) {
+            for (tdir = Mathematik.dir8_south; tdir >= Mathematik.dir8_east; tdir -= 2) {
                 if (AI.changeDir(self, tdir, level)) {
                     return;
                 }
             }
         }
-        self.dir = Wolf.Math.dir8_nodir;
+        self.dir = Mathematik.dir8_nodir;
     }
     static dodge(self, game) {
         var level = game.level, player = game.player, deltax, deltay, i, dirtry = [], turnaround, tdir;
@@ -308,29 +308,29 @@ class AI {
             return;
         }
         if (self.flags & Actors.FL_FIRSTATTACK) {
-            turnaround = Wolf.Math.dir8_nodir;
+            turnaround = Mathematik.dir8_nodir;
             self.flags &= ~Actors.FL_FIRSTATTACK;
         }
         else {
-            turnaround = Wolf.Math.opposite8[self.dir];
+            turnaround = Mathematik.opposite8[self.dir];
         }
         deltax = Wolf.POS2TILE(player.position.x) - Wolf.POS2TILE(self.x);
         deltay = Wolf.POS2TILE(player.position.y) - Wolf.POS2TILE(self.y);
         if (deltax > 0) {
-            dirtry[1] = Wolf.Math.dir8_east;
-            dirtry[3] = Wolf.Math.dir8_west;
+            dirtry[1] = Mathematik.dir8_east;
+            dirtry[3] = Mathematik.dir8_west;
         }
         else {
-            dirtry[1] = Wolf.Math.dir8_west;
-            dirtry[3] = Wolf.Math.dir8_east;
+            dirtry[1] = Mathematik.dir8_west;
+            dirtry[3] = Mathematik.dir8_east;
         }
         if (deltay > 0) {
-            dirtry[2] = Wolf.Math.dir8_north;
-            dirtry[4] = Wolf.Math.dir8_south;
+            dirtry[2] = Mathematik.dir8_north;
+            dirtry[4] = Mathematik.dir8_south;
         }
         else {
-            dirtry[2] = Wolf.Math.dir8_south;
-            dirtry[4] = Wolf.Math.dir8_north;
+            dirtry[2] = Mathematik.dir8_south;
+            dirtry[4] = Mathematik.dir8_north;
         }
         if (Math.abs(deltax) > Math.abs(deltay)) {
             tdir = dirtry[1];
@@ -348,21 +348,21 @@ class AI {
             dirtry[3] = dirtry[4];
             dirtry[4] = tdir;
         }
-        dirtry[0] = Wolf.Math.diagonal[dirtry[1]][dirtry[2]];
+        dirtry[0] = Mathematik.diagonal[dirtry[1]][dirtry[2]];
         for (i = 0; i < 5; ++i) {
-            if (dirtry[i] == Wolf.Math.dir8_nodir || dirtry[i] == turnaround) {
+            if (dirtry[i] == Mathematik.dir8_nodir || dirtry[i] == turnaround) {
                 continue;
             }
             if (AI.changeDir(self, dirtry[i], level)) {
                 return;
             }
         }
-        if (turnaround != Wolf.Math.dir8_nodir) {
+        if (turnaround != Mathematik.dir8_nodir) {
             if (AI.changeDir(self, turnaround, level)) {
                 return;
             }
         }
-        self.dir = Wolf.Math.dir8_nodir;
+        self.dir = Mathematik.dir8_nodir;
     }
     static T_Stand(self, game, tics) {
         AI.findTarget(self, game, tics);
@@ -375,9 +375,9 @@ class AI {
         if (!self.speed) {
             return;
         }
-        if (self.dir == Wolf.Math.dir8_nodir) {
+        if (self.dir == Mathematik.dir8_nodir) {
             AI.path(self, game);
-            if (self.dir == Wolf.Math.dir8_nodir) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;
             }
         }
@@ -403,7 +403,7 @@ class AI {
         else {
             hitchance = 256;
         }
-        var trans = Wolf.Math.transformPoint(self.x, self.y, player.position.x, player.position.y);
+        var trans = Mathematik.transformPoint(self.x, self.y, player.position.x, player.position.y);
         if (Angle.diff(trans, Wolf.FINE2DEG(player.angle)) < (Math.PI / 3)) {
             hitchance -= dist * 16;
         }
@@ -456,26 +456,26 @@ class AI {
             }
             shouldDodge = true;
         }
-        if (self.dir == Wolf.Math.dir8_nodir) {
+        if (self.dir == Mathematik.dir8_nodir) {
             if (shouldDodge) {
                 AI.dodge(self, game);
             }
             else {
                 AI.chase(self, game);
             }
-            if (self.dir == Wolf.Math.dir8_nodir) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;
             }
-            self.angle = Wolf.Math.dir8angle[self.dir];
+            self.angle = Mathematik.dir8angle[self.dir];
         }
         AI.T_Advance(self, game, shouldDodge ? AI.dodge : AI.chase, tics);
     }
     static T_DogChase(self, game, tics) {
         var level = game.level, player = game.player, dx, dy;
-        if (self.dir == Wolf.Math.dir8_nodir) {
+        if (self.dir == Mathematik.dir8_nodir) {
             AI.dodge(self, game);
-            self.angle = Wolf.Math.dir8angle[self.dir];
-            if (self.dir == Wolf.Math.dir8_nodir) {
+            self.angle = Mathematik.dir8angle[self.dir];
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;
             }
         }
@@ -501,14 +501,14 @@ class AI {
             }
             shouldDodge = true;
         }
-        if (self.dir == Wolf.Math.dir8_nodir) {
+        if (self.dir == Mathematik.dir8_nodir) {
             if (shouldDodge) {
                 AI.dodge(self, game);
             }
             else {
                 AI.chase(self, game);
             }
-            if (self.dir == Wolf.Math.dir8_nodir) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;
             }
         }
@@ -523,9 +523,9 @@ class AI {
                 return;
             }
         }
-        if (self.dir == Wolf.Math.dir8_nodir) {
+        if (self.dir == Mathematik.dir8_nodir) {
             AI.dodge(self, game);
-            if (self.dir == Wolf.Math.dir8_nodir) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;
             }
         }
@@ -555,27 +555,27 @@ class AI {
             self.y = Wolf.TILE2POS(self.tile.y);
             move -= self.distance;
             think(self, game, tics);
-            self.angle = Wolf.Math.dir8angle[self.dir];
-            if (self.dir == Wolf.Math.dir8_nodir) {
+            self.angle = Mathematik.dir8angle[self.dir];
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;
             }
         }
     }
     static T_Move(self, game, dist) {
         var level = game.level, player = game.player;
-        if (self.dir == Wolf.Math.dir8_nodir || !dist) {
+        if (self.dir == Mathematik.dir8_nodir || !dist) {
             return;
         }
-        self.x += dist * Wolf.Math.dx8dir[self.dir];
-        self.y += dist * Wolf.Math.dy8dir[self.dir];
+        self.x += dist * Mathematik.dx8dir[self.dir];
+        self.y += dist * Mathematik.dy8dir[self.dir];
         if (Math.abs(self.x - player.position.x) <= Actors.MINACTORDIST) {
             if (Math.abs(self.y - player.position.y) <= Actors.MINACTORDIST) {
                 var t = self.type;
                 if (t == Actors.en_blinky || t == Actors.en_clyde || t == Actors.en_pinky || t == Actors.en_inky || t == Actors.en_spectre) {
                     Wolf.Player.damage(player, self, 2);
                 }
-                self.x -= dist * Wolf.Math.dx8dir[self.dir];
-                self.y -= dist * Wolf.Math.dy8dir[self.dir];
+                self.x -= dist * Mathematik.dx8dir[self.dir];
+                self.y -= dist * Mathematik.dy8dir[self.dir];
                 return;
             }
         }
@@ -586,12 +586,12 @@ class AI {
     }
     static T_Ghosts(self, game, tics) {
         var level = game.level, player = game.player;
-        if (self.dir == Wolf.Math.dir8_nodir) {
+        if (self.dir == Mathematik.dir8_nodir) {
             AI.chase(self, game);
-            if (self.dir == Wolf.Math.dir8_nodir) {
+            if (self.dir == Mathematik.dir8_nodir) {
                 return;
             }
-            self.angle = Wolf.Math.dir8angle[self.dir];
+            self.angle = Mathematik.dir8angle[self.dir];
         }
         AI.T_Advance(self, game, AI.chase, tics);
     }
@@ -621,17 +621,17 @@ class AI {
     }
     static T_Launch(self, game, tics) {
         var level = game.level, player = game.player, proj, iangle;
-        iangle = Wolf.Math.transformPoint(self.x, self.y, player.position.x, player.position.y) + Math.PI;
+        iangle = Mathematik.transformPoint(self.x, self.y, player.position.x, player.position.y) + Math.PI;
         if (iangle > 2 * Math.PI) {
             iangle -= 2 * Math.PI;
         }
         if (self.type == Actors.en_death) {
             AI.T_Shoot(self, game, tics);
             if (self.state == Actors.st_shoot2) {
-                iangle = Wolf.Math.normalizeAngle(iangle - Angle.DEG2RAD(4));
+                iangle = Mathematik.normalizeAngle(iangle - Angle.DEG2RAD(4));
             }
             else {
-                iangle = Wolf.Math.normalizeAngle(iangle + Angle.DEG2RAD(4));
+                iangle = Mathematik.normalizeAngle(iangle + Angle.DEG2RAD(4));
             }
         }
         proj = Actors.getNewActor(level);
@@ -644,7 +644,7 @@ class AI {
         proj.tile.y = self.tile.y;
         proj.state = Actors.st_stand;
         proj.ticcount = 1;
-        proj.dir = Wolf.Math.dir8_nodir;
+        proj.dir = Mathematik.dir8_nodir;
         proj.angle = Wolf.RAD2FINE(iangle) >> 0;
         proj.speed = 0x2000;
         proj.flags = Actors.FL_NONMARK;
@@ -699,8 +699,8 @@ class AI {
     static T_Projectile(self, game, tics) {
         var level = game.level, player = game.player, PROJECTILESIZE = 0xC000, deltax, deltay, speed, damage;
         speed = self.speed * tics;
-        deltax = (speed * Wolf.Math.CosTable[self.angle]) >> 0;
-        deltay = (speed * Wolf.Math.SinTable[self.angle]) >> 0;
+        deltax = (speed * Mathematik.CosTable[self.angle]) >> 0;
+        deltay = (speed * Mathematik.SinTable[self.angle]) >> 0;
         if (deltax > Wolf.TILEGLOBAL) {
             deltax = Wolf.TILEGLOBAL;
         }

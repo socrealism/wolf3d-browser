@@ -1000,7 +1000,7 @@ Wolf.Sprites = (function() {
                 // player spoted it
                 var vis = vislist[vislist.length] = {};
                 
-                vis.dist = Wolf.Math.lineLen2Point(sprt.x - viewport.x, sprt.y - viewport.y, viewport.angle);
+                vis.dist = Mathematik.lineLen2Point(sprt.x - viewport.x, sprt.y - viewport.y, viewport.angle);
                 vis.x = sprt.x;
                 vis.y = sprt.y;
                 vis.angle = sprt.angle;

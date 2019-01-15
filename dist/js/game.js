@@ -93,7 +93,7 @@ class Game {
             var player = game.player, level = game.level, lives, score, tics = Game.calcTics();
             if (player.playstate != Wolf.ex_dead) {
                 Game.updatePlayerControls(player, tics);
-                player.angle = Wolf.Math.normalizeAngle(player.angle);
+                player.angle = Mathematik.normalizeAngle(player.angle);
                 Wolf.Player.process(game, player, tics);
                 if (Game.processAI) {
                     Actors.process(game, tics);

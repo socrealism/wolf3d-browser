@@ -2,106 +2,204 @@
  * @namespace 
  * @description Math functions and lookup tables
  */
-Wolf.Math = (function() {
- 
-        // ------------------------- * LUTs * -------------------------
-    var SinTable = [], // [ ANG_360 + ANG_90 + 1 ], 
-        CosTable = [], // SinTable + ANG_90,
-        TanTable = [], //[ ANG_360 + 1 ];
+class Mathematik {
 
-        XnextTable = [], //[ ANG_360 + 1 ],
-        YnextTable = [], //[ ANG_360 + 1 ],
+    // ------------------------- * LUTs * -------------------------
+    static SinTable = []; // [ ANG_360 + ANG_90 + 1 ],
+    static CosTable = []; // SinTable + ANG_90,
+    static TanTable = []; //[ ANG_360 + 1 ];
 
-        ColumnAngle = [], // [ 640 ]; // ViewAngle=PlayerAngle+ColumnAngle[curcolumn]; /in fines/
-        
-        // Angle Direction Types & LUTs (Hard Coded! Please do not mess them)
-        q_first = 0, q_second = 1, q_third = 2, q_fourth = 3, // quadrant;
-        dir4_east = 0, dir4_north = 1, dir4_west = 2, dir4_south = 3, dir4_nodir = 4,   // dir4type;
-        
-        dir8_east = 0, dir8_northeast = 1, dir8_north = 2, dir8_northwest = 3, dir8_west = 4,
-        dir8_southwest = 5,    dir8_south = 6,    dir8_southeast = 7,    dir8_nodir = 8, // dir8type;
+    static XnextTable = []; //[ ANG_360 + 1 ],
+    static YnextTable = []; //[ ANG_360 + 1 ],
 
-        dx4dir = [1, 0, -1,  0, 0],  // dx & dy based on direction
-        dy4dir = [0, 1,  0, -1, 0],
-        dx8dir = [1, 1, 0, -1, -1, -1,  0,  1, 0],  // dx & dy based on direction
-        dy8dir = [0, 1, 1,  1,  0, -1, -1, -1, 0],
-        opposite4 = [2, 3, 0, 1, 4],
-        opposite8 = [4, 5, 6, 7, 0, 1, 2, 3, 8],
-        dir4to8 = [0, 2, 4, 6, 8],
-        diagonal = [
-            /* east */  [dir8_nodir, dir8_nodir, dir8_northeast, dir8_nodir, dir8_nodir, dir8_nodir, dir8_southeast, dir8_nodir, dir8_nodir],
-                        [dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir],
-            /* north */ [dir8_northeast, dir8_nodir, dir8_nodir, dir8_nodir, dir8_northwest, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir],
-                        [dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir],
-            /* west */  [dir8_nodir, dir8_nodir, dir8_northwest, dir8_nodir, dir8_nodir, dir8_nodir, dir8_southwest, dir8_nodir, dir8_nodir],
-                        [dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir],
-            /* south */ [dir8_southeast, dir8_nodir, dir8_nodir, dir8_nodir, dir8_southwest, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir],
-                        [dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir],
-                        [dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir, dir8_nodir]
+    static ColumnAngle = []; // [ 640 ]; // ViewAngle=PlayerAngle+ColumnAngle[curcolumn]; /in fines/
+
+    // Angle Direction Types & LUTs (Hard Coded! Please do not mess them)
+    static q_first = 0;
+    static q_second = 1;
+    static q_third = 2;
+    static q_fourth = 3; // quadrant;
+
+    static dir4_east = 0;
+    static dir4_north = 1;
+    static dir4_west = 2;
+    static dir4_south = 3;
+    static dir4_nodir = 4;   // dir4type;
+
+    static dir8_east = 0;
+    static dir8_northeast = 1;
+    static dir8_north = 2;
+    static dir8_northwest = 3;
+    static dir8_west = 4;
+    static dir8_southwest = 5;
+    static dir8_south = 6;
+    static dir8_southeast = 7;
+    static dir8_nodir = 8; // dir8type;
+
+    static dx4dir = [1, 0, -1,  0, 0];  // dx & dy based on direction
+    static dy4dir = [0, 1,  0, -1, 0];
+    static dx8dir = [1, 1, 0, -1, -1, -1,  0,  1, 0];  // dx & dy based on direction
+    static dy8dir = [0, 1, 1,  1,  0, -1, -1, -1, 0];
+    static opposite4 = [2, 3, 0, 1, 4];
+    static opposite8 = [4, 5, 6, 7, 0, 1, 2, 3, 8];
+    static dir4to8 = [0, 2, 4, 6, 8];
+    static diagonal = [
+        /* east */  [
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_northeast,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_southeast,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
+        ], [
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
         ],
-
-        // dir of delta tooks dx{-1|0|1}+1 & dy{-1|0|1}+1 and give direction
-        dir4d = [
-            [dir4_nodir, dir4_west , dir4_nodir],
-            [dir4_south, dir4_nodir, dir4_north],
-            [dir4_nodir, dir4_east , dir4_nodir]
+        /* north */ [
+            Mathematik.dir8_northeast,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_northwest,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
+        ], [
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
         ],
-        dir8angle = [Wolf.ANG_0, Wolf.ANG_45, Wolf.ANG_90, Wolf.ANG_135, Wolf.ANG_180, Wolf.ANG_225, Wolf.ANG_270, Wolf.ANG_315, Wolf.ANG_0],
-        dir4angle = [Wolf.ANG_0, Wolf.ANG_90, Wolf.ANG_180, Wolf.ANG_270, Wolf.ANG_0];
+        /* west */  [
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_northwest,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_southwest,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
+        ], [
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
+        ],
+        /* south */ [
+            Mathematik.dir8_southeast,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_southwest,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
+        ], [
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
+        ], [
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir,
+            Mathematik.dir8_nodir
+        ]
+    ];
 
+    // dir of delta tooks dx{-1|0|1}+1 & dy{-1|0|1}+1 and give direction
+    static dir4d = [
+        [Mathematik.dir4_nodir, Mathematik.dir4_west , Mathematik.dir4_nodir],
+        [Mathematik.dir4_south, Mathematik.dir4_nodir, Mathematik.dir4_north],
+        [Mathematik.dir4_nodir, Mathematik.dir4_east , Mathematik.dir4_nodir]
+    ];
+    static dir8angle = [Wolf.ANG_0, Wolf.ANG_45, Wolf.ANG_90, Wolf.ANG_135, Wolf.ANG_180, Wolf.ANG_225, Wolf.ANG_270, Wolf.ANG_315, Wolf.ANG_0];
+    static dir4angle = [Wolf.ANG_0, Wolf.ANG_90, Wolf.ANG_180, Wolf.ANG_270, Wolf.ANG_0];
 
-    /** 
-     * @private 
+    /**
+     * @private
      * @description Build LUTs, etc.
      */
-    function buildTables() {
+    static buildTables() {
         var angle, tanfov2, tanval, value,
             n;
 
         for (n = 0; n <= Wolf.ANG_90 ; ++n) {
             angle = Wolf.FINE2RAD(n);
             value = Math.sin(angle);
-            SinTable[n] = SinTable[Wolf.ANG_180 - n] = SinTable[n + Wolf.ANG_360] = value;
-            SinTable[Wolf.ANG_180 + n] = SinTable[Wolf.ANG_360 - n] = -value;
+            Mathematik.SinTable[n] = Mathematik.SinTable[Wolf.ANG_180 - n] = Mathematik.SinTable[n + Wolf.ANG_360] = value;
+            Mathematik.SinTable[Wolf.ANG_180 + n] = Mathematik.SinTable[Wolf.ANG_360 - n] = -value;
         }
 
-        for (n = 0; n <= SinTable.length - Wolf.ANG_90; ++n) {
-            CosTable[n] = SinTable[n + Wolf.ANG_90];
+        for (n = 0; n <= Mathematik.SinTable.length - Wolf.ANG_90; ++n) {
+            Mathematik.CosTable[n] = Mathematik.SinTable[n + Wolf.ANG_90];
         }
 
         for (n = 0; n <= Wolf.ANG_360 ; ++n) {
             angle = Wolf.FINE2RAD(n); //angle is in radians, n is in FINEs
 
             if (n == Wolf.ANG_90 || n == Wolf.ANG_270) {
-                TanTable[n] = Math.tan(Wolf.FINE2RAD(n - 0.5));    // infinity
-                YnextTable[n] = (Wolf.FLOATTILE * Math.tan(Wolf.FINE2RAD(n - 0.5)))>>0; // infinity
+                Mathematik.TanTable[n] = Math.tan(Wolf.FINE2RAD(n - 0.5));    // infinity
+                Mathematik.YnextTable[n] = (Wolf.FLOATTILE * Math.tan(Wolf.FINE2RAD(n - 0.5)))>>0; // infinity
             } else {
-                TanTable[n] = Math.tan(angle);
-                YnextTable[n] = (Wolf.FLOATTILE * Math.tan(angle))>>0;
+                Mathematik.TanTable[n] = Math.tan(angle);
+                Mathematik.YnextTable[n] = (Wolf.FLOATTILE * Math.tan(angle))>>0;
             }
 
             if(n == Wolf.ANG_0 || n == Wolf.ANG_360) {
-                XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n + 0.5)))>>0; // infinity
+                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n + 0.5)))>>0; // infinity
             } else if (n == Wolf.ANG_180) {
-                XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n - 0.5)))>>0; // -infinity
+                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(Wolf.FINE2RAD(n - 0.5)))>>0; // -infinity
             } else if (n == Wolf.ANG_90 || n == Wolf.ANG_270) {
-                XnextTable[n] = 0;
+                Mathematik.XnextTable[n] = 0;
             } else {
-                XnextTable[n] = (Wolf.FLOATTILE / Math.tan(angle))>>0;
+                Mathematik.XnextTable[n] = (Wolf.FLOATTILE / Math.tan(angle))>>0;
             }
         }
 
-        tanfov2 = (Math.tan(Angle.DEG2RAD((calcFov(75, Wolf.XRES, Wolf.YRES) / 2.0)))) * (Wolf.XRES / Wolf.YRES);
+        tanfov2 = (Math.tan(Angle.DEG2RAD((Mathematik.calcFov(75, Wolf.XRES, Wolf.YRES) / 2.0)))) * (Wolf.XRES / Wolf.YRES);
         for (n = 0; n < Wolf.XRES; ++n) {
             tanval = tanfov2 * (-1.0 + 2.0 * n / (Wolf.XRES-1));
-            ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
+            Mathematik.ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
         }
 
         Random.init(true); // random number generators
 
         return 1;
     }
-
 
     /**
      * @description Calculate the field of view.
@@ -110,8 +208,8 @@ Wolf.Math = (function() {
      * @param {number} height Height of viewing area.
      * @returns {number} The field of view in degrees.
      */
-         
-    function calcFov(fovX, width, height) {
+
+    static calcFov(fovX, width, height) {
         if (fovX < 1 || fovX > 179) {
             throw Error("Bad fov: " + fovX );
         }
@@ -119,13 +217,12 @@ Wolf.Math = (function() {
         return Angle.RAD2DEG(Math.atan(height / (width / Math.tan(fovX / 360 * Math.PI)))) * 2;
     }
 
-
     /**
      * @description Clips angle to [0..360] bounds.
      * @param {number} alpha Angle in degrees.
      * @returns {number} Normalized angle.
      */
-    function normalizeAngle(alpha) {
+    static normalizeAngle(alpha) {
         if (alpha > Wolf.ANG_360) {
             alpha %= Wolf.ANG_360;
         }
@@ -135,23 +232,22 @@ Wolf.Math = (function() {
         return alpha;
     }
 
-
     /**
      * @description Get quadrant.
      * @param {number} angle Radian angle.
      * @returns {number}
      */
-    function getQuadrant(angle) {
+    static getQuadrant(angle) {
         angle = Angle.normalize(angle);
 
         if (angle < Math.PI / 2) {
-            return q_first;
+            return Mathematik.q_first;
         } else if (angle < Math.PI) {
-            return q_second;
+            return Mathematik.q_second;
         } else if (angle < 3 * Math.PI / 2) {
-            return q_third;
+            return Mathematik.q_third;
         } else {
-            return q_fourth;
+            return Mathematik.q_fourth;
         }
     }
 
@@ -160,17 +256,17 @@ Wolf.Math = (function() {
      * @param {number} angle Radian angle.
      * @returns {number} Directional point.
      */
-    function get4dir(angle) {
+    static get4dir(angle) {
         angle = Angle.normalize(angle + Math.PI / 4);
 
         if (angle < Math.PI / 2) {
-            return dir4_east;
+            return Mathematik.dir4_east;
         } else if( angle < Math.PI ) {
-            return dir4_north;
+            return Mathematik.dir4_north;
         } else if( angle < 3 * Math.PI / 2 ) {
-            return dir4_west;
+            return Mathematik.dir4_west;
         } else {
-            return dir4_south;
+            return Mathematik.dir4_south;
         }
     }
 
@@ -179,25 +275,25 @@ Wolf.Math = (function() {
      * @param {number} angle Radian angle.
      * @returns {number} Directional point.
      */
-    function get8dir(angle) {
+    static get8dir(angle) {
         angle = Angle.normalize(angle + Math.PI / 12);
 
         if ( angle <= (Math.PI / 4)) {
-            return dir8_east;
+            return Mathematik.dir8_east;
         } else if (angle < (Math.PI / 2)) {
-            return dir8_northeast;
+            return Mathematik.dir8_northeast;
         } else if (angle <= (3 * Math.PI / 4)) {
-            return dir8_north;
+            return Mathematik.dir8_north;
         } else if (angle < Math.PI)  {
-            return dir8_northwest;
+            return Mathematik.dir8_northwest;
         } else if (angle <= (5 * Math.PI / 4)) {
-            return dir8_west;
+            return Mathematik.dir8_west;
         } else if (angle < (3 * Math.PI / 2)) {
-            return dir8_southwest;
+            return Mathematik.dir8_southwest;
         } else if (angle <= (7 * Math.PI / 4)) {
-            return dir8_south;
+            return Mathematik.dir8_south;
         } else {
-            return dir8_southeast;
+            return Mathematik.dir8_southeast;
         }
     }
 
@@ -208,11 +304,9 @@ Wolf.Math = (function() {
      * @param {number} a Line angle in degrees
      * @returns {number} Distance
      */
-    function point2LineDist(x, y, a) {
-        return Math.abs( (x * SinTable[a] - y * CosTable[a]) >> 0);
+    static point2LineDist(x, y, a) {
+        return Math.abs( (x * Mathematik.SinTable[a] - y * Mathematik.CosTable[a]) >> 0);
     }
-
-
 
     /**
      * @description Calculates line length to the point nearest to (poin).
@@ -221,15 +315,14 @@ Wolf.Math = (function() {
      * @param {number} a Line angle in degrees
      * @returns {number} Distance
      */
-    function lineLen2Point( x, y, a) {
-        return (x * CosTable[a] + y * SinTable[a]) >> 0;
+    static lineLen2Point( x, y, a) {
+        return (x * Mathematik.CosTable[a] + y * Mathematik.SinTable[a]) >> 0;
     }
-
 
     /*
                 point2 = {x,y}
                   / |
-                /   |    
+                /   |
                /     |
             /a______|----------> x
         point1 = {x, y}
@@ -241,55 +334,12 @@ Wolf.Math = (function() {
      * @param {number} a Line angle in degrees
      * @returns {number} Distance
      */
-    function transformPoint(point1X, point1Y, point2X, point2Y) {
+    static transformPoint(point1X, point1Y, point2X, point2Y) {
         var angle = Math.atan2(point1Y - point2Y, point1X - point2X);
         return Angle.normalize(angle);
     }
 
-
-    buildTables();
-
-    return {
-        calcFov : calcFov,
-        normalizeAngle : normalizeAngle,
-        getQuadrant : getQuadrant,
-        get4dir : get4dir,
-        get8dir : get8dir,
-        point2LineDist : point2LineDist,
-        lineLen2Point : lineLen2Point,
-        transformPoint : transformPoint,
-        
-        SinTable : SinTable,
-        CosTable : CosTable,
-        TanTable : TanTable,
-        XnextTable : XnextTable,
-        YnextTable : YnextTable,
-        ColumnAngle : ColumnAngle,
-        
-        dir4_east : dir4_east,
-        dir4_north : dir4_north, 
-        dir4_west : dir4_west, 
-        dir4_south : dir4_south, 
-        dir4_nodir : dir4_nodir,
-        dir8_east : dir8_east,
-        dir8_northeast : dir8_northeast,
-        dir8_north : dir8_north,
-        dir8_northwest : dir8_northwest,
-        dir8_west : dir8_west,
-        dir8_southwest : dir8_southwest,
-        dir8_south : dir8_south,
-        dir8_southeast : dir8_southeast,
-        dir8_nodir : dir8_nodir,
-        dx4dir : dx4dir,
-        dy4dir  : dy4dir,
-        dx8dir : dx8dir,
-        dy8dir : dy8dir,
-        dir4angle : dir4angle,
-        dir8angle : dir8angle,
-        dir4to8 : dir4to8,
-        opposite4 : opposite4,
-        opposite8 : opposite8,
-        diagonal : diagonal
-    };
-
-})();
+    static init() {
+        Mathematik.buildTables();
+    }
+}
