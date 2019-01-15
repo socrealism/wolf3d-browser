@@ -266,7 +266,7 @@ Wolf.Player = (function () {
             return Doors.tryUse(level, self, level.state.doorMap[x][y]);
         }
         if (level.tileMap[x][y] & Wolf.SECRET_TILE) {
-            return Wolf.PushWall.push(level, x, y, dir);
+            return PushWall.push(level, x, y, dir);
         }
         if (level.tileMap[x][y] & Wolf.ELEVATOR_TILE) {
             switch (dir) {

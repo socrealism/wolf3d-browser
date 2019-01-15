@@ -403,7 +403,7 @@ Wolf.Player = (function() {
         }
 
         if (level.tileMap[x][y] & Wolf.SECRET_TILE) {
-            return Wolf.PushWall.push(level, x, y, dir);
+            return PushWall.push(level, x, y, dir);
         }
 
         if (level.tileMap[x][y] & Wolf.ELEVATOR_TILE) {

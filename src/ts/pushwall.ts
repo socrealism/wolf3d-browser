@@ -2,29 +2,38 @@
  * @namespace 
  * @description Push wall management
  */
-Wolf.PushWall = (function() {
+class PushWall {
 
-    var PWall = {};
-    reset();
+    static PWall = {
+        active: false,
+        tilesMoved: 0,
+        pointsMoved: 0,
+        dir: 0,
+        x: 0,
+        y: 0,
+        dx: 0,
+        dy: 0,
+        texX: 0,
+        texY: 0,
+    };
 
-    function reset() {
-        PWall.active = false;
-        PWall.tilesMoved = 0;
-        PWall.pointsMoved = 0;
-        PWall.dir = 0;
-        PWall.x = 0;
-        PWall.y = 0;
-        PWall.dx = 0; 
-        PWall.dy = 0;
-        PWall.texX = 0;
-        PWall.texY = 0;
+    static reset() {
+        PushWall.PWall.active = false;
+        PushWall.PWall.tilesMoved = 0;
+        PushWall.PWall.pointsMoved = 0;
+        PushWall.PWall.dir = 0;
+        PushWall.PWall.x = 0;
+        PushWall.PWall.y = 0;
+        PushWall.PWall.dx = 0;
+        PushWall.PWall.dy = 0;
+        PushWall.PWall.texX = 0;
+        PushWall.PWall.texY = 0;
     }
 
-    
-    function push(level, x, y, dir) {
+    static push(level, x, y, dir) {
         var dx, dy;
 
-        if (PWall.active) {
+        if (PushWall.PWall.active) {
             return false; // another PWall is moving [only one at a time!]
         }
 
@@ -56,64 +65,55 @@ Wolf.PushWall = (function() {
         level.wallTexY[x + dx][y + dy] = level.wallTexY[x][y];
 
         // write down PWall info
-        PWall.active = true;
-        PWall.tilesMoved = PWall.pointsMoved = 0;
-        PWall.dir = dir;
-        PWall.x = x;
-        PWall.y = y;
-        PWall.dx = dx;
-        PWall.dy = dy;
-        PWall.texX = level.wallTexX[x][y];
-        PWall.texY = level.wallTexY[x][y];
+        PushWall.PWall.active = true;
+        PushWall.PWall.tilesMoved = PushWall.PWall.pointsMoved = 0;
+        PushWall.PWall.dir = dir;
+        PushWall.PWall.x = x;
+        PushWall.PWall.y = y;
+        PushWall.PWall.dx = dx;
+        PushWall.PWall.dy = dy;
+        PushWall.PWall.texX = level.wallTexX[x][y];
+        PushWall.PWall.texY = level.wallTexY[x][y];
 
         return true;
     }
 
-
-    function process(level, tics) {
-        if (!PWall.active) {
+    static process(level, tics) {
+        if (!PushWall.PWall.active) {
             return; // no active PWall to work with
         }
 
-        PWall.pointsMoved += tics;
-        
-        if (PWall.pointsMoved < 128) {
+        PushWall.PWall.pointsMoved += tics;
+
+        if (PushWall.PWall.pointsMoved < 128) {
             return;
         }
 
-        PWall.pointsMoved -= 128;
-        PWall.tilesMoved++;
+        PushWall.PWall.pointsMoved -= 128;
+        PushWall.PWall.tilesMoved++;
         // Free tile
-        level.tileMap[PWall.x][PWall.y] &= (~Wolf.PUSHWALL_TILE);
+        level.tileMap[PushWall.PWall.x][PushWall.PWall.y] &= (~Wolf.PUSHWALL_TILE);
         // Occupy new tile
-        PWall.x += PWall.dx;
-        PWall.y += PWall.dy;
+        PushWall.PWall.x += PushWall.PWall.dx;
+        PushWall.PWall.y += PushWall.PWall.dy;
 
         // Shall we move further?
-        if (level.tileMap[PWall.x + PWall.dx][PWall.y + PWall.dy] & (Wolf.SOLID_TILE | Wolf.DOOR_TILE | Wolf.ACTOR_TILE | Wolf.POWERUP_TILE) || PWall.tilesMoved == 3) {
-            level.tileMap[PWall.x][PWall.y] &= (~Wolf.PUSHWALL_TILE); // wall now
-            level.tileMap[PWall.x][PWall.y] |= Wolf.WALL_TILE; // wall now
-            level.wallTexX[PWall.x][PWall.y] = PWall.texX;
-            level.wallTexY[PWall.x][PWall.y] = PWall.texY;
-            PWall.active = false; // Free Push Wall
+        if (level.tileMap[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] & (Wolf.SOLID_TILE | Wolf.DOOR_TILE | Wolf.ACTOR_TILE | Wolf.POWERUP_TILE) || PushWall.PWall.tilesMoved == 3) {
+            level.tileMap[PushWall.PWall.x][PushWall.PWall.y] &= (~Wolf.PUSHWALL_TILE); // wall now
+            level.tileMap[PushWall.PWall.x][PushWall.PWall.y] |= Wolf.WALL_TILE; // wall now
+            level.wallTexX[PushWall.PWall.x][PushWall.PWall.y] = PushWall.PWall.texX;
+            level.wallTexY[PushWall.PWall.x][PushWall.PWall.y] = PushWall.PWall.texY;
+            PushWall.PWall.active = false; // Free Push Wall
         } else {
-            level.tileMap[PWall.x + PWall.dx][PWall.y + PWall.dy] |= Wolf.PUSHWALL_TILE;
-            
+            level.tileMap[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] |= Wolf.PUSHWALL_TILE;
+
             // Not sure if this is right but it fixed an issue with the pushwall texture changing mid-slide.
-            level.wallTexX[PWall.x + PWall.dx][PWall.y + PWall.dy] = PWall.texX;
-            level.wallTexY[PWall.x + PWall.dx][PWall.y + PWall.dy] = PWall.texY;
+            level.wallTexX[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] = PushWall.PWall.texX;
+            level.wallTexY[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] = PushWall.PWall.texY;
         }
     }
-    
-    function get() {
-        return PWall;
+
+    static get() {
+        return PushWall.PWall;
     }
-
-    return {
-        reset : reset,
-        process : process,
-        push : push,
-        get : get
-    };
-
-})();
+}

@@ -99,7 +99,7 @@ Wolf.Raycaster = (function() {
         
         if (tileMap[x][y] & PUSHWALL_TILE) {
             
-            var pwall = Wolf.PushWall.get(),
+            var pwall = PushWall.get(),
                 offset = pwall.pointsMoved / 128;
 
             frac += dfrac * offset;

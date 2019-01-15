@@ -196,7 +196,7 @@ class Game {
                 if (Game.processAI) {
                     Actors.process(game, tics);
                 }
-                Wolf.PushWall.process(level, tics);
+                PushWall.process(level, tics);
                 Doors.process(level, player, tics);
             } else {
 
