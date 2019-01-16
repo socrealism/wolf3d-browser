@@ -246,7 +246,7 @@ class Level {
         return dest;
     }
     static load(filename, callback) {
-        FS.open(filename, Wolf.MapData, function (error, file) {
+        FS.open(filename, Maps.data, function (error, file) {
             var level;
             if (error) {
                 callback(error);

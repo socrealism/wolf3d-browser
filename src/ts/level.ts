@@ -475,7 +475,7 @@ class Level {
      * @returns {object} The level object.
      */
     static load(filename, callback) {
-        FS.open(filename, Wolf.MapData, function (error, file) {
+        FS.open(filename, Maps.data, function (error, file) {
             var level;
             if (error) {
                 callback(error);
