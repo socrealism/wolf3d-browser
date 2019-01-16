@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Game management
  */
 class Game {

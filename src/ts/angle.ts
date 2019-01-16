@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Angle math
  */
 class Angle {

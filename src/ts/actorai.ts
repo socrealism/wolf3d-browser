@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Artificial intelligence
  */
 class ActorAI {

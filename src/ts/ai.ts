@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Enemy AI
  */
 class AI {

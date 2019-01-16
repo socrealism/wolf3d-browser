@@ -1,10 +1,13 @@
+/**
+ * @description Powerups
+ */
 class Powerups {
     static readonly pow_gibs = 0;    //  1% if <=10%; SLURPIESND
     static readonly pow_gibs2 = 1;    //  1% if <=10%; SLURPIESND
     static readonly pow_alpo = 2;    //  4% if <100%; HEALTH1SND
     static readonly pow_firstaid = 3;    // 25% if <100%; HEALTH2SND
-    static readonly pow_key1 = 4;    // gold key;		GETKEYSND
-    static readonly pow_key2 = 5;    // silver key;	GETKEYSND
+    static readonly pow_key1 = 4;    // gold key; GETKEYSND
+    static readonly pow_key2 = 5;    // silver key; GETKEYSND
     static readonly pow_key3 = 6;    // not used
     static readonly pow_key4 = 7;    // not used
     static readonly pow_cross = 8;    //  100pts; BONUS1SND

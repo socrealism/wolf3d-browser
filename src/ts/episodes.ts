@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Episode data
  */
 Wolf.Episodes = [

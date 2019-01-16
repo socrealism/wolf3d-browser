@@ -1,3 +1,6 @@
+/**
+ * @description Audio subsystem
+ */
 class Sound {
     // Sound channels
     // Channel 0 never willingly overrides

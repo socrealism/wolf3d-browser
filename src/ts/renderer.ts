@@ -1,3 +1,6 @@
+/**
+ * @description DOM renderer
+ */
 class Renderer {
     static readonly FOV_RAD = 75 * Math.PI / 180;
     static readonly ISCHROME = /chrome/.test(navigator.userAgent.toLowerCase());

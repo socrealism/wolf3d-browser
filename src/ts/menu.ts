@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Game menu management
  */
 Wolf.Menu = (function () {

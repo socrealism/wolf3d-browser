@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Player management
  */
 Wolf.Player = (function () {

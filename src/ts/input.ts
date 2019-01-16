@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Functions for capturing keyboard/mouse input
  */
 class Input {

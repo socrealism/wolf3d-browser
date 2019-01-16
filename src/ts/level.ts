@@ -1,3 +1,6 @@
+/**
+ * @description Level management
+ */
 class Level {
     static readonly WALL_TILE = 1;
     static readonly PUSHWALL_TILE = (1 << 20);
@@ -28,10 +31,7 @@ class Level {
     static readonly MAX_POWERUPS = 1000
 }
 
-/**
- * @namespace
- * @description Level management
- */
+
 Wolf.Level = (function () {
 
     Wolf.setConsts({

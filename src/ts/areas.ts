@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Area management
  */
 class Areas {

@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Weapons
  */
 class Weapon {

@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Math functions and lookup tables
  */
 class Mathematik {

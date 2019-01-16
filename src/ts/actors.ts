@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Actors
  */
 class Actors {

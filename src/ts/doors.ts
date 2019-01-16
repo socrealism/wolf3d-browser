@@ -1,5 +1,4 @@
 /**
- * @namespace
  * @description Door management
  */
 class Doors {

@@ -1,3 +1,6 @@
+/**
+ * @description Carmack's randomizer
+ */
 class Random {
     /* This is just John Carmack's table driven pseudo-random number generator */
     protected static readonly table = [
