@@ -1,74 +1,17 @@
 "use strict";
-Wolf.Menu = (function () {
-    var setupDone = false, menuInputActive = false, activeIndex = 0, activeMouseItem = null, activeEpisode, messageBlink, activeMessage, activeSkill;
-    var keySprites = {}, i, keySpriteNames = [
-        "BLANK",
-        "QUESTION",
-        "SHIFT",
-        "SPACE",
-        "CTRL",
-        "LEFT",
-        "RIGHT",
-        "UP",
-        "DOWN",
-        "ENTER",
-        "DEL",
-        "PGUP",
-        "PGDN",
-        "INS",
-        "SLASH",
-        "HOME",
-        "COMMA",
-        "PERIOD",
-        "PLUS",
-        "MINUS",
-        "0",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z"
-    ];
-    for (i = 0; i < keySpriteNames.length; i++) {
-        if (keySpriteNames[i] !== "") {
-            keySprites[keySpriteNames[i]] = i;
+class Menu {
+    static init() {
+        for (let i = 0; i < Menu.keySpriteNames.length; i++) {
+            if (Menu.keySpriteNames[i] !== "") {
+                Menu.keySprites[Menu.keySpriteNames[i]] = i;
+            }
         }
     }
-    function playSound(file) {
+    static playSound(file) {
         Sound.startSound(null, null, 1, Sound.CHAN_AUTO, file, 1, Sound.ATTN_NORM, 0);
     }
-    function setActiveItem(item) {
-        playSound("assets/lsfx/005.wav");
+    static setActiveItem(item) {
+        Menu.playSound("assets/lsfx/005.wav");
         $("#menu div.menu.active li").removeClass("active");
         item.addClass("active");
         if ($("#menu div.menu.active").hasClass("skill")) {
@@ -77,64 +20,64 @@ Wolf.Menu = (function () {
                 .addClass("face " + item.data("skill"));
         }
     }
-    function setupEvents() {
+    static setupEvents() {
         $(document).on("keydown", function (e) {
             if (!$("#menu").is(":visible")) {
                 return;
             }
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
-            var oldActive = activeIndex;
+            var oldActive = Menu.activeIndex;
             switch (e.keyCode) {
                 case 38:
-                    activeIndex--;
-                    activeMouseItem = null;
+                    Menu.activeIndex--;
+                    Menu.activeMouseItem = null;
                     break;
                 case 40:
-                    activeIndex++;
-                    activeMouseItem = null;
+                    Menu.activeIndex++;
+                    Menu.activeMouseItem = null;
                     break;
                 case 13:
-                    if (activeMouseItem) {
-                        activeMouseItem.trigger("click");
+                    if (Menu.activeMouseItem) {
+                        Menu.activeMouseItem.trigger("click");
                     }
                     else {
-                        $("#menu div.menu.active li").eq(activeIndex).trigger("click");
+                        $("#menu div.menu.active li").eq(Menu.activeIndex).trigger("click");
                     }
                     break;
                 case 27:
                     var back = $("#menu div.menu.active").data("backmenu");
                     if (back) {
-                        playSound("assets/lsfx/039.wav");
-                        show(back);
+                        Menu.playSound("assets/lsfx/039.wav");
+                        Menu.show(back);
                     }
                     return;
             }
-            if (oldActive != activeIndex) {
+            if (oldActive != Menu.activeIndex) {
                 var items = $("#menu div.menu.active li:not(.hidden)");
-                if (activeIndex < 0) {
-                    activeIndex += items.length;
+                if (Menu.activeIndex < 0) {
+                    Menu.activeIndex += items.length;
                 }
-                activeIndex %= items.length;
-                setActiveItem(items.eq(activeIndex));
+                Menu.activeIndex %= items.length;
+                Menu.setActiveItem(items.eq(Menu.activeIndex));
             }
         });
         $("#menu li").mouseover(function () {
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
-            activeMouseItem = $(this);
-            setActiveItem($(this));
+            Menu.activeMouseItem = $(this);
+            Menu.setActiveItem($(this));
         });
         $("#menu li").on("click", function (e) {
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
-            playSound("assets/lsfx/032.wav");
+            Menu.playSound("assets/lsfx/032.wav");
             var $this = $(this), sub = $this.data("submenu");
             if (sub) {
-                show(sub);
+                Menu.show(sub);
                 e.stopPropagation();
             }
             if ($this.hasClass("sfxon")) {
@@ -163,71 +106,71 @@ Wolf.Menu = (function () {
                 Game.enableMouse(!mouseOn);
             }
             if ($this.hasClass("customizekeys")) {
-                customizeKeys($this);
+                Menu.customizeKeys($this);
                 e.stopPropagation();
             }
         });
         $("#menu div.menu.episodes li").on("click", function (e) {
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
             var episode = $(this).data("episode");
             if (Game.isPlaying()) {
-                showMessage("confirm-newgame", true, function (result) {
+                Menu.showMessage("confirm-newgame", true, function (result) {
                     if (result) {
-                        activeEpisode = episode;
-                        show("skill");
+                        Menu.activeEpisode = episode;
+                        Menu.show("skill");
                     }
                     else {
-                        show("main");
+                        Menu.show("main");
                     }
                 });
             }
             else {
-                activeEpisode = episode;
-                show("skill");
+                Menu.activeEpisode = episode;
+                Menu.show("skill");
             }
         });
         $("#menu div.menu.skill li").on("click", function (e) {
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
-            activeSkill = $(this).data("skill");
+            Menu.activeSkill = $(this).data("skill");
         });
         $("#menu div.menu.main li.resumegame").on("click", function (e) {
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
             if (Game.isPlaying()) {
-                hide();
+                Menu.hide();
                 Game.resume();
             }
         });
         $("#menu div.menu.main li.readthis").on("click", function (e) {
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
-            menuInputActive = false;
+            Menu.menuInputActive = false;
             $("#menu").fadeOut(null, function () {
-                showText("help", 11, function () {
+                Menu.showText("help", 11, function () {
                     $("#menu").fadeIn();
                 });
             });
             e.stopPropagation();
         });
         $("#menu div.menu.levels li").on("click", function (e) {
-            if (!menuInputActive) {
+            if (!Menu.menuInputActive) {
                 return;
             }
             var level, gameState;
-            hide();
+            Menu.hide();
             level = $(this).data("level");
-            gameState = Game.startGame(Game[activeSkill]);
-            Game.startLevel(gameState, activeEpisode, level);
+            gameState = Game.startGame(Game[Menu.activeSkill]);
+            Game.startLevel(gameState, Menu.activeEpisode, level);
         });
     }
-    function customizeKeys($this) {
-        menuInputActive = false;
+    static customizeKeys($this) {
+        Menu.menuInputActive = false;
         var current = 0, isBinding = false, blinkInterval;
         function selectKey(index) {
             if (index < 0)
@@ -235,39 +178,39 @@ Wolf.Menu = (function () {
             index = index % 4;
             var currentSprite = $("span.active", $this);
             if (currentSprite[0]) {
-                setCustomizeKey(currentSprite.data("action"), currentSprite.data("keyIndex"), false);
+                Menu.setCustomizeKey(currentSprite.data("action"), currentSprite.data("keyIndex"), false);
             }
             var sprite = $("span.k" + (index + 1), $this);
-            setCustomizeKey(sprite.data("action"), sprite.data("keyIndex"), true);
+            Menu.setCustomizeKey(sprite.data("action"), sprite.data("keyIndex"), true);
             current = index;
         }
         function activateKey(index) {
             isBinding = true;
             var sprite = $("span.k" + (index + 1), $this), blink = false;
-            setCustomizeKey(sprite.data("action"), "QUESTION", true);
+            Menu.setCustomizeKey(sprite.data("action"), "QUESTION", true);
             if (blinkInterval) {
                 clearInterval(blinkInterval);
             }
             blinkInterval = setInterval(function () {
-                setCustomizeKey(sprite.data("action"), (blink = !blink) ? "BLANK" : "QUESTION", true);
+                Menu.setCustomizeKey(sprite.data("action"), (blink = !blink) ? "BLANK" : "QUESTION", true);
             }, 500);
         }
         function bindKey(index, key) {
             var sprite = $("span.k" + (index + 1), $this);
-            setCustomizeKey(sprite.data("action"), key, true);
+            Menu.setCustomizeKey(sprite.data("action"), key, true);
             Game.bindControl(sprite.data("action"), [key]);
         }
         function exitCustomize() {
             $(document).off("keydown", keyHandler);
-            initCustomizeMenu();
-            menuInputActive = true;
+            Menu.initCustomizeMenu();
+            Menu.menuInputActive = true;
         }
         function keyHandler(e) {
             var i;
             if (isBinding) {
-                for (i = 2; i < keySpriteNames.length; i++) {
-                    if (Input.keysCode[keySpriteNames[i]] == e.keyCode) {
-                        bindKey(current, keySpriteNames[i]);
+                for (i = 2; i < Menu.keySpriteNames.length; i++) {
+                    if (Input.keysCode[Menu.keySpriteNames[i]] == e.keyCode) {
+                        bindKey(current, Menu.keySpriteNames[i]);
                         isBinding = false;
                         clearInterval(blinkInterval);
                         blinkInterval = 0;
@@ -296,26 +239,26 @@ Wolf.Menu = (function () {
         $(document).on("keydown", keyHandler);
         selectKey(current);
     }
-    function setCustomizeKey(action, keyIndex, active) {
-        var menu = $("#menu div.menu.customize"), x = (active ? -256 : 0), y = -keySprites[keyIndex] * 32;
+    static setCustomizeKey(action, keyIndex, active) {
+        var menu = $("#menu div.menu.customize"), x = (active ? -256 : 0), y = -Menu.keySprites[keyIndex] * 32;
         $("span." + action, menu)
             .css("backgroundPosition", x + "px " + y + "px")
             .data("keyIndex", keyIndex)
             .toggleClass("active", !!active);
     }
-    function initCustomizeMenu() {
+    static initCustomizeMenu() {
         var controls = Game.getControls(), keys = ["run", "use", "attack", "strafe", "left", "right", "up", "down"], i;
         for (i = 0; i < keys.length; i++) {
-            setCustomizeKey(keys[i], controls[keys[i]][0]);
+            Menu.setCustomizeKey(keys[i], controls[keys[i]][0]);
         }
     }
-    function showMessage(name, blink, onclose) {
+    static showMessage(name, blink, onclose) {
         var box, blinkOn = false;
-        activeMessage = name;
-        menuInputActive = false;
-        if (messageBlink) {
-            clearInterval(messageBlink);
-            messageBlink = 0;
+        Menu.activeMessage = name;
+        Menu.menuInputActive = false;
+        if (Menu.messageBlink) {
+            clearInterval(Menu.messageBlink);
+            Menu.messageBlink = 0;
         }
         $("#menu .message." + name).show();
         box = $("#menu .message." + name + " div.box");
@@ -332,14 +275,14 @@ Wolf.Menu = (function () {
             }, 200);
         }
         function close(value) {
-            playSound("assets/lsfx/039.wav");
+            Menu.playSound("assets/lsfx/039.wav");
             $(document).off("keydown", keyHandler);
             $("#menu .message." + name).hide();
-            if (messageBlink) {
-                clearInterval(messageBlink);
-                messageBlink = 0;
+            if (Menu.messageBlink) {
+                clearInterval(Menu.messageBlink);
+                Menu.messageBlink = 0;
             }
-            menuInputActive = true;
+            Menu.menuInputActive = true;
             if (onclose) {
                 onclose(value);
             }
@@ -357,11 +300,11 @@ Wolf.Menu = (function () {
         }
         $(document).on("keydown", keyHandler);
     }
-    function show(menuName) {
+    static show(menuName) {
         var musicOn, soundOn, mouseOn;
-        if (!setupDone) {
-            setupEvents();
-            setupDone = true;
+        if (!Menu.setupDone) {
+            Menu.setupEvents();
+            Menu.setupDone = true;
         }
         Sound.startMusic("assets/music/WONDERIN.ogg");
         menuName = menuName || "main";
@@ -378,7 +321,7 @@ Wolf.Menu = (function () {
             }
         }
         if (menuName == "customize") {
-            initCustomizeMenu();
+            Menu.initCustomizeMenu();
         }
         if (menuName == "episodes") {
             $("#menu div.menu.episodes li")
@@ -421,17 +364,17 @@ Wolf.Menu = (function () {
         $("#menu div.menu." + menuName).addClass("active").show();
         $("#menu div.menu." + menuName + " ul li").first().addClass("active");
         $("#menu").focus();
-        activeIndex = 0;
-        activeMouseItem = null;
-        menuInputActive = true;
+        Menu.activeIndex = 0;
+        Menu.activeMouseItem = null;
+        Menu.menuInputActive = true;
     }
-    function hide() {
+    static hide() {
         $("#menu").hide();
-        menuInputActive = false;
+        Menu.menuInputActive = false;
     }
-    function showText(name, num, closeFunction) {
+    static showText(name, num, closeFunction) {
         var screen = $("#text-screen"), current = 0;
-        menuInputActive = false;
+        Menu.menuInputActive = false;
         function show(moveIdx) {
             current += moveIdx;
             if (current < 0) {
@@ -447,7 +390,7 @@ Wolf.Menu = (function () {
         function close() {
             $(document).off("keydown", keyHandler);
             screen.fadeOut(null, closeFunction);
-            menuInputActive = true;
+            Menu.menuInputActive = true;
         }
         function keyHandler(e) {
             switch (e.keyCode) {
@@ -467,9 +410,67 @@ Wolf.Menu = (function () {
             $(document).on("keydown", keyHandler);
         });
     }
-    return {
-        show: show,
-        hide: hide,
-        showText: showText
-    };
-})();
+}
+Menu.setupDone = false;
+Menu.menuInputActive = false;
+Menu.activeIndex = 0;
+Menu.activeMouseItem = null;
+Menu.keySprites = {};
+Menu.keySpriteNames = [
+    "BLANK",
+    "QUESTION",
+    "SHIFT",
+    "SPACE",
+    "CTRL",
+    "LEFT",
+    "RIGHT",
+    "UP",
+    "DOWN",
+    "ENTER",
+    "DEL",
+    "PGUP",
+    "PGDN",
+    "INS",
+    "SLASH",
+    "HOME",
+    "COMMA",
+    "PERIOD",
+    "PLUS",
+    "MINUS",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z"
+];

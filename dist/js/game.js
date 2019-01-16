@@ -207,7 +207,7 @@ class Game {
             $(document).off("keydown", progress);
             $("#game").fadeOut(null, function () {
                 $("#game .gameover").hide();
-                Wolf.Menu.show();
+                Menu.show();
             });
         }
         function progress(e) {
@@ -484,8 +484,8 @@ class Game {
         Game.endGame();
         $("#game").fadeOut(null, function () {
             var name = "victory" + (game.episodeNum + 1), num = (game.episodeNum == 2) ? 1 : 2;
-            Wolf.Menu.showText(name, num, function () {
-                Wolf.Menu.show("main");
+            Menu.showText(name, num, function () {
+                Menu.show("main");
             });
         });
     }
@@ -786,7 +786,7 @@ class Game {
         }
         $("#game").hide();
         Game.keyInputActive = false;
-        Wolf.Menu.show("main");
+        Menu.show("main");
     }
     static resume() {
         $("#game").show();

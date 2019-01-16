@@ -88,7 +88,8 @@
                         Sound.init();
                         Game.init();
                         Level.init();
-                        Wolf.Menu.show();
+                        Menu.init();
+                        Menu.show();
                     });
                     // preload non-essential art
                     Modernizr.load(files2);
