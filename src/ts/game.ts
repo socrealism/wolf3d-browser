@@ -449,7 +449,7 @@ class Game {
                 angle: player.angle
             };
 
-        var res = Wolf.Raycaster.traceRays(viewport, level);
+        var res = Raycaster.traceRays(viewport, level);
 
         Renderer.clear();
         Renderer.draw(viewport, level, res.tracers, res.visibleTiles);

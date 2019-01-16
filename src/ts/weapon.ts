@@ -107,7 +107,7 @@ class Weapon {
                 flags: Raycaster.TRACE_BULLET
             };
 
-            Wolf.Raycaster.trace(level, null, tracePoint);
+            Raycaster.trace(level, null, tracePoint);
 
             if (tracePoint.flags & Raycaster.TRACE_HIT_DOOR) {
                 Sound.startSound(null, null, 0, Sound.CHAN_AUTO, "assets/lsfx/028.wav", 1, Sound.ATTN_NORM, 0);
