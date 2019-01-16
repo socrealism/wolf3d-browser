@@ -228,7 +228,7 @@ class Game {
                     }
                 }
             }
-            Wolf.Sprites.clean(level);
+            Sprites.clean(level);
             Game.updateHUD(game, tics);
 
         }
@@ -678,7 +678,7 @@ class Game {
         for (i=0;i<level.state.guards.length;++i) {
             texture = level.state.guards[i].sprite;
             if (texture) {
-                f = spritePath + Wolf.Sprites.getTexture(texture).sheet;
+                f = spritePath + Sprites.getTexture(texture).sheet;
                 if (!preloadSprites[f]) {
                     files.push(f);
                     preloadSprites[f] = true;

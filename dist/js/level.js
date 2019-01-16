@@ -332,12 +332,12 @@ class Level {
             else {
                 level.tileMap[x][y] |= Level.DRESS_TILE;
             }
-            sprite = Wolf.Sprites.getNewSprite(level);
+            sprite = Sprites.getNewSprite(level);
             if (!sprite) {
                 return;
             }
-            Wolf.Sprites.setPos(level, sprite, Wolf.TILE2POS(x), Wolf.TILE2POS(y), 0);
-            Wolf.Sprites.setTex(level, sprite, 0, Wolf.SPR_STAT_0 + type);
+            Sprites.setPos(level, sprite, Wolf.TILE2POS(x), Wolf.TILE2POS(y), 0);
+            Sprites.setTex(level, sprite, 0, Sprites.SPR_STAT_0 + type);
         }
         else {
             pu = Level.statinfo[type].powerup;
@@ -383,7 +383,7 @@ class Level {
                     case 110:
                     case 111:
                         if (!Level.cachedGuard) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_GRD_S_1, Wolf.SPR_GRD_SHOOT3);
+                            Sprites.cacheTextures(Sprites.SPR_GRD_S_1, Sprites.SPR_GRD_SHOOT3);
                             Level.cachedGuard = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_guard, x, y, tile - 108);
@@ -409,7 +409,7 @@ class Level {
                     case 114:
                     case 115:
                         if (!Level.cachedGuard) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_GRD_S_1, Wolf.SPR_GRD_SHOOT3);
+                            Sprites.cacheTextures(Sprites.SPR_GRD_S_1, Sprites.SPR_GRD_SHOOT3);
                             Level.cachedGuard = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_guard, x, y, tile - 112);
@@ -438,7 +438,7 @@ class Level {
                     case 118:
                     case 119:
                         if (!Level.cachedOfficer) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_OFC_S_1, Wolf.SPR_OFC_SHOOT3);
+                            Sprites.cacheTextures(Sprites.SPR_OFC_S_1, Sprites.SPR_OFC_SHOOT3);
                             Level.cachedOfficer = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_officer, x, y, tile - 116);
@@ -464,7 +464,7 @@ class Level {
                     case 122:
                     case 123:
                         if (!Level.cachedOfficer) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_OFC_S_1, Wolf.SPR_OFC_SHOOT3);
+                            Sprites.cacheTextures(Sprites.SPR_OFC_S_1, Sprites.SPR_OFC_SHOOT3);
                             Level.cachedOfficer = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_officer, x, y, tile - 120);
@@ -490,7 +490,7 @@ class Level {
                     case 128:
                     case 129:
                         if (!Level.cachedSS) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_SS_S_1, Wolf.SPR_SS_SHOOT3);
+                            Sprites.cacheTextures(Sprites.SPR_SS_S_1, Sprites.SPR_SS_SHOOT3);
                             Level.cachedSS = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_ss, x, y, tile - 126);
@@ -516,7 +516,7 @@ class Level {
                     case 132:
                     case 133:
                         if (!Level.cachedSS) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_SS_S_1, Wolf.SPR_SS_SHOOT3);
+                            Sprites.cacheTextures(Sprites.SPR_SS_S_1, Sprites.SPR_SS_SHOOT3);
                             Level.cachedSS = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_ss, x, y, tile - 130);
@@ -542,7 +542,7 @@ class Level {
                     case 136:
                     case 137:
                         if (!Level.cachedDog) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_DOG_W1_1, Wolf.SPR_DOG_JUMP3);
+                            Sprites.cacheTextures(Sprites.SPR_DOG_W1_1, Sprites.SPR_DOG_JUMP3);
                             Level.cachedDog = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_dog, x, y, tile - 134);
@@ -568,61 +568,61 @@ class Level {
                     case 140:
                     case 141:
                         if (!Level.cachedDog) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_DOG_W1_1, Wolf.SPR_DOG_JUMP3);
+                            Sprites.cacheTextures(Sprites.SPR_DOG_W1_1, Sprites.SPR_DOG_JUMP3);
                             Level.cachedDog = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_dog, x, y, tile - 138);
                         break;
                     case 214:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_BOSS_W1, Wolf.SPR_BOSS_DIE3);
+                        Sprites.cacheTextures(Sprites.SPR_BOSS_W1, Sprites.SPR_BOSS_DIE3);
                         Actors.spawnBoss(level, skill, Actors.en_boss, x, y);
                         break;
                     case 197:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_GRETEL_W1, Wolf.SPR_GRETEL_DIE3);
+                        Sprites.cacheTextures(Sprites.SPR_GRETEL_W1, Sprites.SPR_GRETEL_DIE3);
                         Actors.spawnBoss(level, skill, Actors.en_gretel, x, y);
                         break;
                     case 215:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_GIFT_W1, Wolf.SPR_GIFT_DEAD);
+                        Sprites.cacheTextures(Sprites.SPR_GIFT_W1, Sprites.SPR_GIFT_DEAD);
                         Actors.spawnBoss(level, skill, Actors.en_gift, x, y);
                         break;
                     case 179:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_FAT_W1, Wolf.SPR_FAT_DEAD);
+                        Sprites.cacheTextures(Sprites.SPR_FAT_W1, Sprites.SPR_FAT_DEAD);
                         Actors.spawnBoss(level, skill, Actors.en_fat, x, y);
                         break;
                     case 196:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_SCHABB_W1, Wolf.SPR_HYPO4);
+                        Sprites.cacheTextures(Sprites.SPR_SCHABB_W1, Sprites.SPR_HYPO4);
                         Actors.spawnBoss(level, skill, Actors.en_schabbs, x, y);
                         break;
                     case 160:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_FAKE_W1, Wolf.SPR_FAKE_DEAD);
+                        Sprites.cacheTextures(Sprites.SPR_FAKE_W1, Sprites.SPR_FAKE_DEAD);
                         Actors.spawnBoss(level, skill, Actors.en_fake, x, y);
                         break;
                     case 178:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_MECHA_W1, Wolf.SPR_HITLER_DIE7);
+                        Sprites.cacheTextures(Sprites.SPR_MECHA_W1, Sprites.SPR_HITLER_DIE7);
                         Actors.spawnBoss(level, skill, Actors.en_mecha, x, y);
                         break;
                     case 106:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_SPECTRE_W1, Wolf.SPR_SPECTRE_F4);
+                        Sprites.cacheTextures(Sprites.SPR_SPECTRE_W1, Sprites.SPR_SPECTRE_F4);
                         Actors.spawnBoss(level, skill, Actors.en_spectre, x, y);
                         break;
                     case 107:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_ANGEL_W1, Wolf.SPR_ANGEL_DEAD);
+                        Sprites.cacheTextures(Sprites.SPR_ANGEL_W1, Sprites.SPR_ANGEL_DEAD);
                         Actors.spawnBoss(level, skill, Actors.en_angel, x, y);
                         break;
                     case 125:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_TRANS_W1, Wolf.SPR_TRANS_DIE3);
+                        Sprites.cacheTextures(Sprites.SPR_TRANS_W1, Sprites.SPR_TRANS_DIE3);
                         Actors.spawnBoss(level, skill, Actors.en_trans, x, y);
                         break;
                     case 142:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_UBER_W1, Wolf.SPR_UBER_DEAD);
+                        Sprites.cacheTextures(Sprites.SPR_UBER_W1, Sprites.SPR_UBER_DEAD);
                         Actors.spawnBoss(level, skill, olf.en_uber, x, y);
                         break;
                     case 143:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_WILL_W1, Wolf.SPR_WILL_DEAD);
+                        Sprites.cacheTextures(Sprites.SPR_WILL_W1, Sprites.SPR_WILL_DEAD);
                         Actors.spawnBoss(level, skill, Actors.en_will, x, y);
                         break;
                     case 161:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_DEATH_W1, Wolf.SPR_DEATH_DEAD);
+                        Sprites.cacheTextures(Sprites.SPR_DEATH_W1, Sprites.SPR_DEATH_DEAD);
                         Actors.spawnBoss(level, skill, Actors.en_death, x, y);
                         break;
                     case 252:
@@ -644,7 +644,7 @@ class Level {
                     case 218:
                     case 219:
                         if (!Level.cachedMutant) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_MUT_S_1, Wolf.SPR_MUT_SHOOT4);
+                            Sprites.cacheTextures(Sprites.SPR_MUT_S_1, Sprites.SPR_MUT_SHOOT4);
                             Level.cachedMutant = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_mutant, x, y, tile - 216);
@@ -668,25 +668,25 @@ class Level {
                     case 222:
                     case 223:
                         if (!Level.cachedMutant) {
-                            Wolf.Sprites.cacheTextures(Wolf.SPR_MUT_S_1, Wolf.SPR_MUT_SHOOT4);
+                            Sprites.cacheTextures(Sprites.SPR_MUT_S_1, Sprites.SPR_MUT_SHOOT4);
                             Level.cachedMutant = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_mutant, x, y, tile - 220);
                         break;
                     case 224:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_BLINKY_W1, Wolf.SPR_BLINKY_W2);
+                        Sprites.cacheTextures(Sprites.SPR_BLINKY_W1, Sprites.SPR_BLINKY_W2);
                         Actors.spawnGhosts(level, skill, Actors.en_blinky, x, y);
                         break;
                     case 225:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_PINKY_W1, Wolf.SPR_PINKY_W2);
+                        Sprites.cacheTextures(Sprites.SPR_PINKY_W1, Sprites.SPR_PINKY_W2);
                         Actors.spawnGhosts(level, skill, Actors.en_clyde, x, y);
                         break;
                     case 226:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_CLYDE_W1, Wolf.SPR_CLYDE_W2);
+                        Sprites.cacheTextures(Sprites.SPR_CLYDE_W1, Sprites.SPR_CLYDE_W2);
                         Actors.spawnGhosts(level, skill, Actors.en_pinky, x, y);
                         break;
                     case 227:
-                        Wolf.Sprites.cacheTextures(Wolf.SPR_INKY_W1, Wolf.SPR_INKY_W2);
+                        Sprites.cacheTextures(Sprites.SPR_INKY_W1, Sprites.SPR_INKY_W2);
                         Actors.spawnGhosts(level, skill, Actors.en_inky, x, y);
                         break;
                 }

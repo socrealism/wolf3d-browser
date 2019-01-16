@@ -72,7 +72,7 @@ class ActorAI {
         hitler.speed = Actors.SPDPATROL * 5;
         hitler.ticcount = 0;
         hitler.flags = self.flags | Actors.FL_SHOOTABLE;
-        hitler.sprite = Wolf.Sprites.getNewSprite(level);
+        hitler.sprite = Sprites.getNewSprite(level);
     }
     static breathing(self) {
         Sound.startSound(null, null, 1, Sound.CHAN_VOICE, "assets/lsfx/080.wav", 1, Sound.ATTN_NORM, 0);
@@ -149,7 +149,7 @@ class ActorAI {
         smokeEnt.type = (self.type == Actors.en_hrocket) ? Actors.en_hsmoke : Actors.en_smoke;
         smokeEnt.ticcount = 6;
         smokeEnt.flags = Actors.FL_NEVERMARK;
-        smokeEnt.sprite = Wolf.Sprites.getNewSprite(level);
+        smokeEnt.sprite = Sprites.getNewSprite(level);
     }
     static firstSighting(self, game) {
         switch (self.type) {

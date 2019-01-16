@@ -88,6 +88,7 @@
                         Sound.init();
                         Menu.init();
                         Game.init();
+                        //Sprites.init();
                         Actstat.init();
                         Level.init();
                         Menu.show();

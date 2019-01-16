@@ -68,15 +68,6 @@ var Wolf = {
         return (a * Wolf.ANG_1);
     }
 };
-Wolf.setConsts = function (C) {
-    for (var a in C) {
-        if (C.hasOwnProperty(a) && !(a in Wolf)) {
-            Wolf[a] = C[a];
-        }
-    }
-};
-Wolf.noop = function () {
-};
 Wolf.log = function (str) {
     if (typeof console != "undefined") {
         var t = new Date(), e = new Error(), f = "";

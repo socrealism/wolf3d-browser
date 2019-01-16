@@ -76,11 +76,11 @@ class Actors {
         for (n = 0; n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
             if (!Actors.doGuard(guard, game, tics)) {
-                Wolf.Sprites.remove(level, guard.sprite);
+                Sprites.remove(level, guard.sprite);
                 level.state.guards[n] = null;
                 continue;
             }
-            Wolf.Sprites.setPos(level, guard.sprite, guard.x, guard.y, guard.angle);
+            Sprites.setPos(level, guard.sprite, guard.x, guard.y, guard.angle);
             tex = Actstat.objstate[guard.type][guard.state].texture;
             if (Actstat.objstate[guard.type][guard.state].rotate) {
                 if (guard.type == Actors.en_rocket || guard.type == Actors.en_hrocket) {
@@ -90,7 +90,7 @@ class Actors {
                     tex += Actors.add8dir[Mathematik.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 }
             }
-            Wolf.Sprites.setTex(level, guard.sprite, 0, tex);
+            Sprites.setTex(level, guard.sprite, 0, tex);
         }
         for (n = 0; n < level.state.numGuards; ++n) {
             if (level.state.guards[n]) {
@@ -121,7 +121,7 @@ class Actors {
         }
         ent.type = which;
         ent.health = Actstat.starthitpoints[skill][which];
-        ent.sprite = Wolf.Sprites.getNewSprite(level);
+        ent.sprite = Sprites.getNewSprite(level);
         return ent;
     }
     static spawnDeadGuard(level, skill, which, x, y) {

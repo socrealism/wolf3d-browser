@@ -21,10 +21,10 @@ class Powerups {
     }
     static spawn(level, x, y, type) {
         var newp = Powerups.addNew(level);
-        newp.sprite = Wolf.Sprites.getNewSprite(level);
+        newp.sprite = Sprites.getNewSprite(level);
         newp.type = type;
-        Wolf.Sprites.setPos(level, newp.sprite, Wolf.TILE2POS(newp.x = x), Wolf.TILE2POS(newp.y = y), 0);
-        Wolf.Sprites.setTex(level, newp.sprite, -1, Powerups.texture[type]);
+        Sprites.setPos(level, newp.sprite, Wolf.TILE2POS(newp.x = x), Wolf.TILE2POS(newp.y = y), 0);
+        Sprites.setTex(level, newp.sprite, -1, Powerups.texture[type]);
         level.tileMap[x][y] |= Level.POWERUP_TILE;
     }
     static give(level, player, type) {
@@ -148,7 +148,7 @@ class Powerups {
             if (pow.x == x && pow.y == y) {
                 if (Powerups.give(level, player, pow.type)) {
                     p_pick = true;
-                    Wolf.Sprites.remove(level, pow.sprite);
+                    Sprites.remove(level, pow.sprite);
                     Powerups.remove(level, pow);
                 }
                 else {
@@ -186,24 +186,24 @@ Powerups.pow_25clip = 18;
 Powerups.pow_spear = 19;
 Powerups.pow_last = 20;
 Powerups.texture = [
-    Wolf.SPR_STAT_34,
-    Wolf.SPR_STAT_38,
-    Wolf.SPR_STAT_6,
-    Wolf.SPR_STAT_25,
-    Wolf.SPR_STAT_20,
-    Wolf.SPR_STAT_21,
-    Wolf.SPR_STAT_20,
-    Wolf.SPR_STAT_20,
-    Wolf.SPR_STAT_29,
-    Wolf.SPR_STAT_30,
-    Wolf.SPR_STAT_31,
-    Wolf.SPR_STAT_32,
-    Wolf.SPR_STAT_26,
-    Wolf.SPR_STAT_26,
-    Wolf.SPR_STAT_27,
-    Wolf.SPR_STAT_28,
-    Wolf.SPR_STAT_24,
-    Wolf.SPR_STAT_33,
-    Wolf.SPR_STAT_49,
-    Wolf.SPR_STAT_51
+    Sprites.SPR_STAT_34,
+    Sprites.SPR_STAT_38,
+    Sprites.SPR_STAT_6,
+    Sprites.SPR_STAT_25,
+    Sprites.SPR_STAT_20,
+    Sprites.SPR_STAT_21,
+    Sprites.SPR_STAT_20,
+    Sprites.SPR_STAT_20,
+    Sprites.SPR_STAT_29,
+    Sprites.SPR_STAT_30,
+    Sprites.SPR_STAT_31,
+    Sprites.SPR_STAT_32,
+    Sprites.SPR_STAT_26,
+    Sprites.SPR_STAT_26,
+    Sprites.SPR_STAT_27,
+    Sprites.SPR_STAT_28,
+    Sprites.SPR_STAT_24,
+    Sprites.SPR_STAT_33,
+    Sprites.SPR_STAT_49,
+    Sprites.SPR_STAT_51
 ];

@@ -1,9 +1,20 @@
-Wolf.Sprites = (function () {
-    var spriteTextures = [];
+/**
+ * @description Sprites
+ */
+class Sprites {
+    static readonly SPRT_ONE_TEX = 1;
+    static readonly SPRT_NO_ROT = 2;
+    static readonly SPRT_CHG_POS = 4;
+    static readonly SPRT_CHG_TEX = 8;
+    static readonly SPRT_REMOVE = 16;
+    static readonly MAX_SPRITES = 1024;
+    static readonly MAX_VIS_SPRITES = 128;
+
+    static spriteTextures = [];
     //
     // sprite constants
     //
-    var spriteNames = [
+    static spriteNames = [
         "SPR_DEMO",
         "SPR_DEATHCAM",
         //
@@ -299,12 +310,9 @@ Wolf.Sprites = (function () {
         "SPR_CHAINATK4"
     ];
 
-    var spriteConsts = {};
-    for (var i = 0, n = spriteNames.length; i < n; i++) {
-        spriteConsts[spriteNames[i]] = i;
-    }
+    static spriteConsts = {};
 
-    var sheets = [
+    static sheets = [
         {},
         {},
         {sheet: "002_053.png", size: 128, idx: 0, num: 52},
@@ -841,19 +849,23 @@ Wolf.Sprites = (function () {
         {sheet: "514_533.png", size: 128, idx: 19, num: 20}
     ];
 
-    Wolf.setConsts(spriteConsts);
+    static init() {
+        for (let i = 0, n = Sprites.spriteNames.length; i < n; i++) {
+            Sprites.spriteConsts[Sprites.spriteNames[i]] = i;
+        }
 
-    Wolf.setConsts({
-        SPRT_ONE_TEX: 1,
-        SPRT_NO_ROT: 2,
-        SPRT_CHG_POS: 4,
-        SPRT_CHG_TEX: 8,
-        SPRT_REMOVE: 16,
-        MAX_SPRITES: 1024,
-        MAX_VIS_SPRITES: 128
-    });
+        Sprites.setConsts(Sprites.spriteConsts);
+    }
 
-    function getNewSprite(level) {
+    static setConsts = function (C) {
+        for (var a in C) {
+            if (C.hasOwnProperty(a) && !(a in Sprites)) {
+                Sprites[a] = C[a];
+            }
+        }
+    };
+
+    static getNewSprite(level) {
         var n;
 
         var newSprite = {
@@ -886,7 +898,7 @@ Wolf.Sprites = (function () {
         /*
         for (n=0; n < level.numSprites ; ++n) {
             sprt = level.sprites[n];
-            if (sprt.flags & Wolf.SPRT_REMOVE) {
+            if (sprt.flags & Sprites.SPRT_REMOVE) {
                 // free spot: clear it first
                 //memset( sprt, 0, sizeof( sprite_t ) );
                 level.sprites[n] = newSprite;
@@ -896,7 +908,7 @@ Wolf.Sprites = (function () {
         */
 
         /*
-        if (level.numSprites >= Wolf.MAX_SPRITES) {
+        if (level.numSprites >= Sprites.MAX_SPRITES) {
             Wolf.log("Warning n_of_sprt == MAX_SPRITES");
             return -1;
         }
@@ -911,7 +923,7 @@ Wolf.Sprites = (function () {
         //return level.numSprites-1;
     }
 
-    function setPos(level, sprite, x, y, angle) {
+    static setPos(level, sprite, x, y, angle) {
         /*
         if (sprite_id == -1) {
             return;
@@ -925,7 +937,7 @@ Wolf.Sprites = (function () {
         sprite.angle = angle;
         sprite.tile.x = Wolf.POS2TILE(x);
         sprite.tile.y = Wolf.POS2TILE(y);
-        sprite.flags |= Wolf.SPRT_CHG_POS;
+        sprite.flags |= Sprites.SPRT_CHG_POS;
 
         if (!(x & Wolf.HALFTILE)) { // (x%TILEGLOBAL>=HALFTILE)
             sprite.tile.x--;
@@ -936,7 +948,7 @@ Wolf.Sprites = (function () {
         }
     }
 
-    function setTex(level, sprite, index, tex) {
+    static setTex(level, sprite, index, tex) {
         /*
         if (sprite_id == -1) {
             return;
@@ -947,30 +959,29 @@ Wolf.Sprites = (function () {
 
         if (index == -1) {    // one texture for each phase
             sprite.tex[0] = tex;
-            sprite.flags |= Wolf.SPRT_ONE_TEX;
+            sprite.flags |= Sprites.SPRT_ONE_TEX;
         } else {
             sprite.tex[index] = tex;
         }
-        sprite.flags |= Wolf.SPRT_CHG_TEX;
+        sprite.flags |= Sprites.SPRT_CHG_TEX;
     }
 
-    function cacheTextures(start, end) {
+    static cacheTextures(start, end) {
         var i, texname;
 
         for (i = start; i <= end; ++i) {
-            if (!spriteTextures[i]) {
+            if (!Sprites.spriteTextures[i]) {
                 //texname = "sprites/" + () + ".png";
                 //spriteTextures[i] = TM_FindTexture( texname, TT_Sprite );
             }
         }
     }
 
-    function getTexture(id) {
-        return sheets[id];
+    static getTexture(id) {
+        return Sprites.sheets[id];
     }
 
-
-    function createVisList(viewport, level, visibleTiles) {
+    static createVisList(viewport, level, visibleTiles) {
         var tx, ty, n, num, numVisible,
             vislist,
             sprt;
@@ -980,7 +991,7 @@ Wolf.Sprites = (function () {
 
         for (n = 0, num = level.sprites.length; n < num; ++n) {
             sprt = level.sprites[n];
-            if (sprt.flags & Wolf.SPRT_REMOVE) {
+            if (sprt.flags & Sprites.SPRT_REMOVE) {
                 continue;
             }
 
@@ -1007,7 +1018,7 @@ Wolf.Sprites = (function () {
                 vis.tex = sprt.tex[0]; //FIXME!
                 vis.sprite = sprt;
 
-                if (++numVisible > Wolf.MAX_VIS_SPRITES) {
+                if (++numVisible > Sprites.MAX_VIS_SPRITES) {
                     break; // vislist full
                 }
             }
@@ -1023,37 +1034,27 @@ Wolf.Sprites = (function () {
         return vislist;
     }
 
-    function remove(level, sprite) {
+    static remove(level, sprite) {
         if (!sprite) {
             return;
         }
 
-        sprite.flags |= Wolf.SPRT_REMOVE;
+        sprite.flags |= Sprites.SPRT_REMOVE;
         Renderer.unloadSprite(sprite);
     }
 
-    function clean(level) {
+    static clean(level) {
         var i, num,
             liveSprites = [];
 
         for (i = 0, num = level.sprites.length; i < num; ++i) {
-            if (level.sprites[i].flags & Wolf.SPRT_REMOVE) {
+            if (level.sprites[i].flags & Sprites.SPRT_REMOVE) {
                 continue;
             }
             liveSprites.push(level.sprites[i]);
         }
         level.sprites = liveSprites;
     }
+}
 
-    return {
-        getNewSprite: getNewSprite,
-        setPos: setPos,
-        setTex: setTex,
-        cacheTextures: cacheTextures,
-        getTexture: getTexture,
-        createVisList: createVisList,
-        remove: remove,
-        clean: clean
-    };
-
-})();
+Sprites.init();

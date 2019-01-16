@@ -648,7 +648,7 @@ class AI {
         proj.angle = Wolf.RAD2FINE(iangle) >> 0;
         proj.speed = 0x2000;
         proj.flags = Actors.FL_NONMARK;
-        proj.sprite = Wolf.Sprites.getNewSprite(level);
+        proj.sprite = Sprites.getNewSprite(level);
         switch (self.type) {
             case Actors.en_death:
                 proj.type = Actors.en_hrocket;

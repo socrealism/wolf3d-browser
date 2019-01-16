@@ -132,7 +132,7 @@ class Game {
                     }
                 }
             }
-            Wolf.Sprites.clean(level);
+            Sprites.clean(level);
             Game.updateHUD(game, tics);
         }
         Game.lastTimeCount = (new Date).getTime();

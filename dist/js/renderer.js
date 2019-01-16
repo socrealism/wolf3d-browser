@@ -184,7 +184,7 @@ class Renderer {
     }
     static drawSprites(viewport, level, visibleTiles) {
         var vis, n, dist, dx, dy, angle, z, width, size, div, image, divStyle, imgStyle;
-        Renderer.visibleSprites = Wolf.Sprites.createVisList(viewport, level, visibleTiles);
+        Renderer.visibleSprites = Sprites.createVisList(viewport, level, visibleTiles);
         for (n = 0; n < Renderer.visibleSprites.length; ++n) {
             vis = Renderer.visibleSprites[n];
             dist = vis.dist;
@@ -206,7 +206,7 @@ class Renderer {
             divStyle.height = size + "px";
             divStyle.left = (Wolf.XRES / 2 - size / 2 - Math.tan(angle) * Renderer.VIEW_DIST) + "px";
             divStyle.top = (Wolf.YRES / 2 - size / 2) + "px";
-            var texture = Wolf.Sprites.getTexture(vis.sprite.tex[0]);
+            var texture = Sprites.getTexture(vis.sprite.tex[0]);
             var textureSrc = Renderer.spritePath + texture.sheet;
             if (image._src != textureSrc) {
                 image._src = textureSrc;

@@ -270,9 +270,8 @@ class Renderer {
             div, image,
             divStyle, imgStyle;
 
-
         // build visible sprites list
-        Renderer.visibleSprites = Wolf.Sprites.createVisList(viewport, level, visibleTiles);
+        Renderer.visibleSprites = Sprites.createVisList(viewport, level, visibleTiles);
 
         for (n = 0; n < Renderer.visibleSprites.length; ++n) {
             vis = Renderer.visibleSprites[n];
@@ -309,7 +308,7 @@ class Renderer {
 
             divStyle.top = (Wolf.YRES / 2 - size / 2) + "px";
 
-            var texture = Wolf.Sprites.getTexture(vis.sprite.tex[0]);
+            var texture = Sprites.getTexture(vis.sprite.tex[0]);
             var textureSrc = Renderer.spritePath + texture.sheet;
 
             if (image._src != textureSrc) {

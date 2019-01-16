@@ -26,29 +26,29 @@ class Powerups {
     // add new types <!only!> here (after last)
 
     static texture = [
-        Wolf.SPR_STAT_34, // pow_gibs
-        Wolf.SPR_STAT_38, // pow_gibs2
-        Wolf.SPR_STAT_6,  // pow_alpo
-        Wolf.SPR_STAT_25, // pow_firstaid
-        Wolf.SPR_STAT_20, // pow_key1
-        Wolf.SPR_STAT_21, // pow_key2
+        Sprites.SPR_STAT_34, // pow_gibs
+        Sprites.SPR_STAT_38, // pow_gibs2
+        Sprites.SPR_STAT_6,  // pow_alpo
+        Sprites.SPR_STAT_25, // pow_firstaid
+        Sprites.SPR_STAT_20, // pow_key1
+        Sprites.SPR_STAT_21, // pow_key2
         // not used
-        Wolf.SPR_STAT_20, // pow_key3
-        Wolf.SPR_STAT_20, // pow_key4
+        Sprites.SPR_STAT_20, // pow_key3
+        Sprites.SPR_STAT_20, // pow_key4
 
-        Wolf.SPR_STAT_29, // pow_cross
-        Wolf.SPR_STAT_30, // pow_chalice
-        Wolf.SPR_STAT_31, // pow_bible
-        Wolf.SPR_STAT_32, // pow_crown
-        Wolf.SPR_STAT_26, // pow_clip
-        Wolf.SPR_STAT_26, // pow_clip2
-        Wolf.SPR_STAT_27, // pow_machinegun
-        Wolf.SPR_STAT_28, // pow_chaingun
-        Wolf.SPR_STAT_24, // pow_food
-        Wolf.SPR_STAT_33, // pow_fullheal
+        Sprites.SPR_STAT_29, // pow_cross
+        Sprites.SPR_STAT_30, // pow_chalice
+        Sprites.SPR_STAT_31, // pow_bible
+        Sprites.SPR_STAT_32, // pow_crown
+        Sprites.SPR_STAT_26, // pow_clip
+        Sprites.SPR_STAT_26, // pow_clip2
+        Sprites.SPR_STAT_27, // pow_machinegun
+        Sprites.SPR_STAT_28, // pow_chaingun
+        Sprites.SPR_STAT_24, // pow_food
+        Sprites.SPR_STAT_33, // pow_fullheal
         // spear
-        Wolf.SPR_STAT_49, // pow_25clip
-        Wolf.SPR_STAT_51  // pow_spear
+        Sprites.SPR_STAT_49, // pow_25clip
+        Sprites.SPR_STAT_51  // pow_spear
     ];
 
     static remove(level, powerup) {
@@ -92,12 +92,12 @@ class Powerups {
     static spawn(level, x, y, type) {
         var newp = Powerups.addNew(level);
 
-        newp.sprite = Wolf.Sprites.getNewSprite(level);
+        newp.sprite = Sprites.getNewSprite(level);
         newp.type = type;
 
-        Wolf.Sprites.setPos(level, newp.sprite, Wolf.TILE2POS(newp.x = x), Wolf.TILE2POS(newp.y = y), 0);
+        Sprites.setPos(level, newp.sprite, Wolf.TILE2POS(newp.x = x), Wolf.TILE2POS(newp.y = y), 0);
 
-        Wolf.Sprites.setTex(level, newp.sprite, -1, Powerups.texture[type]);
+        Sprites.setTex(level, newp.sprite, -1, Powerups.texture[type]);
 
         level.tileMap[x][y] |= Level.POWERUP_TILE;
         // good place to update total treasure count!
@@ -254,7 +254,7 @@ class Powerups {
                 if (Powerups.give(level, player, pow.type)) { //FIXME script
                     // picked up this stuff, remove it!
                     p_pick = true;
-                    Wolf.Sprites.remove(level, pow.sprite);
+                    Sprites.remove(level, pow.sprite);
                     Powerups.remove(level, pow);
                 } else {
                     // player do not need it, so may be next time!

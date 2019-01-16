@@ -929,7 +929,7 @@ class AI {
 
         proj.speed = 0x2000;
         proj.flags = Actors.FL_NONMARK; // FL_NEVERMARK;
-        proj.sprite = Wolf.Sprites.getNewSprite(level);
+        proj.sprite = Sprites.getNewSprite(level);
 
         switch (self.type) {
             case Actors.en_death:
