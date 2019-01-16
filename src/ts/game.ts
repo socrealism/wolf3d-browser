@@ -208,8 +208,8 @@ class Game {
                         if (game.player.lives > 0) {
                             lives = game.player.lives;
                             score = game.player.startScore;
-                            game.level = Wolf.Level.reload(level);
-                            Wolf.Level.scanInfoPlane(game.level, game.skill); // Spawn items/guards
+                            game.level = Level.reload(level);
+                            Level.scanInfoPlane(game.level, game.skill); // Spawn items/guards
                             game.player = Wolf.Player.spawn(game.level.spawn, game.level, game.skill);
                             game.player.lives = lives - 1;
                             game.player.score = score;
@@ -575,7 +575,7 @@ class Game {
 
         var episode = Wolf.Episodes[game.episodeNum];
 
-        Wolf.Level.load(episode.levels[game.levelNum].file, function (error, level) {
+        Level.load(episode.levels[game.levelNum].file, function (error, level) {
             if (error) {
                 throw error;
             }
@@ -599,7 +599,7 @@ class Game {
 
             Game.levelMusic = level.music;
 
-            Wolf.Level.scanInfoPlane(level, game.skill); // Spawn items/guards
+            Level.scanInfoPlane(level, game.skill); // Spawn items/guards
 
             /*
             game.player.position.x = 1944862;

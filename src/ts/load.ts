@@ -87,6 +87,7 @@
                         Input.init();
                         Sound.init();
                         Game.init();
+                        Level.init();
                         Wolf.Menu.show();
                     });
                     // preload non-essential art

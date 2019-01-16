@@ -65,7 +65,7 @@ class Powerups {
         }
         */
         /*
-        if (level.state.numPowerups == Wolf.MAX_POWERUPS ) {
+        if (level.state.numPowerups == Level.MAX_POWERUPS ) {
             return level.state.powerups[0];
         }
         */
@@ -99,7 +99,7 @@ class Powerups {
 
         Wolf.Sprites.setTex(level, newp.sprite, -1, Powerups.texture[type]);
 
-        level.tileMap[x][y] |= Wolf.POWERUP_TILE;
+        level.tileMap[x][y] |= Level.POWERUP_TILE;
         // good place to update total treasure count!
     }
 
@@ -264,9 +264,9 @@ class Powerups {
         }
 
         if (p_left) {
-            level.tileMap[x][y] |= Wolf.POWERUP_TILE;
+            level.tileMap[x][y] |= Level.POWERUP_TILE;
         } else {
-            level.tileMap[x][y] &= ~Wolf.POWERUP_TILE;
+            level.tileMap[x][y] &= ~Level.POWERUP_TILE;
         }
     }
 }

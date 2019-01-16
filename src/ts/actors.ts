@@ -371,7 +371,7 @@ class Actors {
         self.ticcount = Wolf.objstate[which][Actors.st_stand].timeout ? Random.get() % Wolf.objstate[which][Actors.st_stand].timeout + 1 : 0;
         self.flags |= Actors.FL_SHOOTABLE;
 
-        if (level.tileMap[x][y] & Wolf.AMBUSH_TILE) {
+        if (level.tileMap[x][y] & Level.AMBUSH_TILE) {
             self.flags |= Actors.FL_AMBUSH;
         }
 

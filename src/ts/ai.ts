@@ -53,7 +53,7 @@ class AI {
         }
 
         // trace a line to check for blocking tiles (corners)
-        return Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level);
+        return Level.checkLine(self.x, self.y, player.position.x, player.position.y, level);
     }
 
     /**
@@ -78,9 +78,9 @@ class AI {
         newy = oldy + Mathematik.dy8dir[new_dir];
 
         if (new_dir & 0x01) { // same as %2 (diagonal dir)
-            if (level.tileMap[newx][oldy] & Wolf.SOLID_TILE ||
-                level.tileMap[oldx][newy] & Wolf.SOLID_TILE ||
-                level.tileMap[newx][newy] & Wolf.SOLID_TILE) {
+            if (level.tileMap[newx][oldy] & Level.SOLID_TILE ||
+                level.tileMap[oldx][newy] & Level.SOLID_TILE ||
+                level.tileMap[newx][newy] & Level.SOLID_TILE) {
                 return false;
             }
 
@@ -99,10 +99,10 @@ class AI {
                 }
             }
         } else { // linear dir (E, N, W, S)
-            if (level.tileMap[newx][newy] & Wolf.SOLID_TILE) {
+            if (level.tileMap[newx][newy] & Level.SOLID_TILE) {
                 return false;
             }
-            if (level.tileMap[newx][newy] & Wolf.DOOR_TILE) {
+            if (level.tileMap[newx][newy] & Level.DOOR_TILE) {
                 if (self.type == Actors.en_fake || self.type == Actors.en_dog) { // they can't open doors
                     if (level.state.doorMap[newx][newy].action != Doors.dr_open) { // path is blocked by a closed opened door
                         return false;
@@ -129,8 +129,8 @@ class AI {
         self.tile.x = newx;
         self.tile.y = newy;
 
-        level.tileMap[oldx][oldy] &= ~Wolf.ACTOR_TILE; // update map status
-        level.tileMap[newx][newy] |= Wolf.ACTOR_TILE;
+        level.tileMap[oldx][oldy] &= ~Level.ACTOR_TILE; // update map status
+        level.tileMap[newx][newy] |= Level.ACTOR_TILE;
 
         if (level.areas[newx][newy] > 0) {
             // ambush tiles don't have valid area numbers (-3), so don't change the area if walking over them
@@ -150,25 +150,25 @@ class AI {
      */
     static path(self, game) {
         var level = game.level;
-        if (level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT] & Wolf.WAYPOINT_TILE) {
+        if (level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT] & Level.WAYPOINT_TILE) {
 
             var tileinfo = level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT];
 
-            if (tileinfo & Wolf.TILE_IS_E_TURN) {
+            if (tileinfo & Level.TILE_IS_E_TURN) {
                 self.dir = Mathematik.dir8_east;
-            } else if (tileinfo & Wolf.TILE_IS_NE_TURN) {
+            } else if (tileinfo & Level.TILE_IS_NE_TURN) {
                 self.dir = Mathematik.dir8_northeast;
-            } else if (tileinfo & Wolf.TILE_IS_N_TURN) {
+            } else if (tileinfo & Level.TILE_IS_N_TURN) {
                 self.dir = Mathematik.dir8_north;
-            } else if (tileinfo & Wolf.TILE_IS_NW_TURN) {
+            } else if (tileinfo & Level.TILE_IS_NW_TURN) {
                 self.dir = Mathematik.dir8_northwest;
-            } else if (tileinfo & Wolf.TILE_IS_W_TURN) {
+            } else if (tileinfo & Level.TILE_IS_W_TURN) {
                 self.dir = Mathematik.dir8_west;
-            } else if (tileinfo & Wolf.TILE_IS_SW_TURN) {
+            } else if (tileinfo & Level.TILE_IS_SW_TURN) {
                 self.dir = Mathematik.dir8_southwest;
-            } else if (tileinfo & Wolf.TILE_IS_S_TURN) {
+            } else if (tileinfo & Level.TILE_IS_S_TURN) {
                 self.dir = Mathematik.dir8_south;
-            } else if (tileinfo & Wolf.TILE_IS_SE_TURN) {
+            } else if (tileinfo & Level.TILE_IS_SE_TURN) {
                 self.dir = Mathematik.dir8_southeast;
             }
         }
@@ -542,7 +542,7 @@ class AI {
             return;
         }
 
-        if (!Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
+        if (!Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             return; // player is behind a wall
         }
 
@@ -612,7 +612,7 @@ class AI {
             shouldDodge = false;
 
         // if (gamestate.victoryflag) return;
-        if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) { // got a shot at player?
+        if (Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) { // got a shot at player?
             dx = Math.abs(Wolf.POS2TILE(self.x) - Wolf.POS2TILE(player.position.x));
             dy = Math.abs(Wolf.POS2TILE(self.y) - Wolf.POS2TILE(player.position.y));
             dist = Math.max(dx, dy);
@@ -693,7 +693,7 @@ class AI {
         dy = Math.abs(self.tile.y - Wolf.POS2TILE(player.position.y));
         dist = Math.max(dx, dy);
 
-        if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
+        if (Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             // got a shot at player?
             if (Random.get() < tics << 3) {
                 // go into attack frame
@@ -727,7 +727,7 @@ class AI {
         var level = game.level,
             player = game.player;
 
-        if (Wolf.Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
+        if (Level.checkLine(self.x, self.y, player.position.x, player.position.y, level)) {
             if (Random.get() < tics << 1) {
                 // go into attack frame
                 Actors.stateChange(self, Actors.st_shoot1);
@@ -985,10 +985,10 @@ class AI {
         for (y = yl; y <= yh; ++y) {
             for (x = xl; x <= xh; ++x) {
                 // FIXME: decide what to do with statics & Doors!
-                if (level.tileMap[x][y] & (Wolf.WALL_TILE | Wolf.BLOCK_TILE)) {
+                if (level.tileMap[x][y] & (Level.WALL_TILE | Level.BLOCK_TILE)) {
                     return false;
                 }
-                if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
+                if (level.tileMap[x][y] & Level.DOOR_TILE) {
                     if (Doors.opened(level.state.doorMap[x][y]) != Doors.DOOR_FULLOPEN) {
                         return false;
                     }

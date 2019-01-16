@@ -72,6 +72,7 @@
                         Input.init();
                         Sound.init();
                         Game.init();
+                        Level.init();
                         Wolf.Menu.show();
                     });
                     Modernizr.load(files2);

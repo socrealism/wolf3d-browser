@@ -25,7 +25,7 @@ class Raycaster {
     static traceCheck(tileMap, doorMap, visibleTiles, x, y, frac, dfrac, vert, flip, tracePoint) {
         var door;
 
-        if (tileMap[x][y] & Wolf.WALL_TILE) {
+        if (tileMap[x][y] & Level.WALL_TILE) {
             if (vert) {
                 tracePoint.x = (x << Wolf.TILESHIFT) + (flip ? Wolf.TILEGLOBAL : 0);
                 tracePoint.y = (y << Wolf.TILESHIFT) + frac;
@@ -46,7 +46,7 @@ class Raycaster {
             visibleTiles[x][y] = true; // this tile is visible
         }
 
-        if (tileMap[x][y] & Wolf.DOOR_TILE && doorMap[x][y].action != Doors.dr_open) {
+        if (tileMap[x][y] & Level.DOOR_TILE && doorMap[x][y].action != Doors.dr_open) {
             door = doorMap[x][y];
 
             frac += dfrac >> 1;
@@ -81,7 +81,7 @@ class Raycaster {
         }
 
 
-        if (tileMap[x][y] & Wolf.PUSHWALL_TILE) {
+        if (tileMap[x][y] & Level.PUSHWALL_TILE) {
 
             var pwall = PushWall.get(),
                 offset = pwall.pointsMoved / 128;

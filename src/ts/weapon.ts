@@ -33,7 +33,7 @@ class Weapon {
                     continue;
                 }
 
-                if (!Wolf.Level.checkLine(guard.x, guard.y, player.position.x, player.position.y, level)) {
+                if (!Level.checkLine(guard.x, guard.y, player.position.x, player.position.y, level)) {
                     continue; // obscured
                 }
                 dist = d1;
@@ -89,7 +89,7 @@ class Weapon {
                 if (d1 < 0 || d1 > dist) {
                     continue;
                 }
-                if (!Wolf.Level.checkLine(guard.x, guard.y, player.position.x, player.position.y, level)) {
+                if (!Level.checkLine(guard.x, guard.y, player.position.x, player.position.y, level)) {
                     continue; // obscured
                 }
 

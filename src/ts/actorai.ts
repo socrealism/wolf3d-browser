@@ -206,7 +206,7 @@ class ActorAI {
 
         for (y = yl; y <= yh; ++y) {
             for (x = xl; x <= xh; ++x) {
-                if (level.tileMap[x][y] & Wolf.SOLID_TILE) {
+                if (level.tileMap[x][y] & Level.SOLID_TILE) {
                     return;
                 }
                 for (n = 0; n < level.state.numGuards; ++n) {

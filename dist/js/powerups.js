@@ -25,7 +25,7 @@ class Powerups {
         newp.type = type;
         Wolf.Sprites.setPos(level, newp.sprite, Wolf.TILE2POS(newp.x = x), Wolf.TILE2POS(newp.y = y), 0);
         Wolf.Sprites.setTex(level, newp.sprite, -1, Powerups.texture[type]);
-        level.tileMap[x][y] |= Wolf.POWERUP_TILE;
+        level.tileMap[x][y] |= Level.POWERUP_TILE;
     }
     static give(level, player, type) {
         var keynames = ["Gold", "Silver", "?", "?"];
@@ -157,10 +157,10 @@ class Powerups {
             }
         }
         if (p_left) {
-            level.tileMap[x][y] |= Wolf.POWERUP_TILE;
+            level.tileMap[x][y] |= Level.POWERUP_TILE;
         }
         else {
-            level.tileMap[x][y] &= ~Wolf.POWERUP_TILE;
+            level.tileMap[x][y] &= ~Level.POWERUP_TILE;
         }
     }
 }

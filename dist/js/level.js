@@ -1,122 +1,16 @@
 "use strict";
 class Level {
-}
-Level.WALL_TILE = 1;
-Level.PUSHWALL_TILE = (1 << 20);
-Level.DOOR_TILE = 2;
-Level.SECRET_TILE = 4;
-Level.DRESS_TILE = 8;
-Level.BLOCK_TILE = 16;
-Level.ACTOR_TILE = 32;
-Level.DEADACTOR_TILE = 64;
-Level.POWERUP_TILE = 128;
-Level.AMBUSH_TILE = 256;
-Level.EXIT_TILE = 512;
-Level.SECRETLEVEL_TILE = 1024;
-Level.ELEVATOR_TILE = (1 << 11);
-Level.MAPHEADER_SIZE = 49;
-Level.MAP_SIGNATURE = 0x21444921;
-Level.TILE_IS_E_TURN = (1 << 12);
-Level.TILE_IS_NE_TURN = (1 << 13);
-Level.TILE_IS_N_TURN = (1 << 14);
-Level.TILE_IS_NW_TURN = (1 << 15);
-Level.TILE_IS_W_TURN = (1 << 16);
-Level.TILE_IS_SW_TURN = (1 << 17);
-Level.TILE_IS_S_TURN = (1 << 18);
-Level.TILE_IS_SE_TURN = (1 << 19);
-Level.MAX_POWERUPS = 1000;
-Wolf.Level = (function () {
-    Wolf.setConsts({
-        WALL_TILE: 1,
-        PUSHWALL_TILE: (1 << 20),
-        DOOR_TILE: 2,
-        SECRET_TILE: 4,
-        DRESS_TILE: 8,
-        BLOCK_TILE: 16,
-        ACTOR_TILE: 32,
-        DEADACTOR_TILE: 64,
-        POWERUP_TILE: 128,
-        AMBUSH_TILE: 256,
-        EXIT_TILE: 512,
-        SECRETLEVEL_TILE: 1024,
-        ELEVATOR_TILE: (1 << 11),
-        MAPHEADER_SIZE: 49,
-        MAP_SIGNATURE: 0x21444921,
-        TILE_IS_E_TURN: (1 << 12),
-        TILE_IS_NE_TURN: (1 << 13),
-        TILE_IS_N_TURN: (1 << 14),
-        TILE_IS_NW_TURN: (1 << 15),
-        TILE_IS_W_TURN: (1 << 16),
-        TILE_IS_SW_TURN: (1 << 17),
-        TILE_IS_S_TURN: (1 << 18),
-        TILE_IS_SE_TURN: (1 << 19),
-        MAX_POWERUPS: 1000
-    });
-    Wolf.setConsts({
-        SOLID_TILE: (Wolf.WALL_TILE | Wolf.BLOCK_TILE | Wolf.PUSHWALL_TILE),
-        BLOCKS_MOVE_TILE: (Wolf.WALL_TILE | Wolf.BLOCK_TILE | Wolf.PUSHWALL_TILE | Wolf.ACTOR_TILE),
-        WAYPOINT_TILE: (Wolf.TILE_IS_E_TURN | Wolf.TILE_IS_NE_TURN | Wolf.TILE_IS_N_TURN | Wolf.TILE_IS_NW_TURN |
-            Wolf.TILE_IS_W_TURN | Wolf.TILE_IS_SW_TURN | Wolf.TILE_IS_S_TURN | Wolf.TILE_IS_SE_TURN)
-    });
-    var statinfo = [
-        [false, -1],
-        [true, -1],
-        [true, -1],
-        [true, -1],
-        [false, -1],
-        [true, -1],
-        [false, Powerups.pow_alpo],
-        [true, -1],
-        [true, -1],
-        [false, -1],
-        [true, -1],
-        [true, -1],
-        [true, -1],
-        [true, -1],
-        [false, -1],
-        [false, -1],
-        [true, -1],
-        [true, -1],
-        [true, -1],
-        [false, -1],
-        [false, Powerups.pow_key1],
-        [false, Powerups.pow_key2],
-        [true, -1],
-        [false, -1],
-        [false, Powerups.pow_food],
-        [false, Powerups.pow_firstaid],
-        [false, Powerups.pow_clip],
-        [false, Powerups.pow_machinegun],
-        [false, Powerups.pow_chaingun],
-        [false, Powerups.pow_cross],
-        [false, Powerups.pow_chalice],
-        [false, Powerups.pow_bible],
-        [false, Powerups.pow_crown],
-        [false, Powerups.pow_fullheal],
-        [false, Powerups.pow_gibs],
-        [true, -1],
-        [true, -1],
-        [true, -1],
-        [false, Powerups.pow_gibs],
-        [true, -1],
-        [true, -1],
-        [false, -1],
-        [false, -1],
-        [false, -1],
-        [false, -1],
-        [true, -1],
-        [true, -1],
-        [false, -1]
-    ];
-    for (var i = 0; i < statinfo.length; i++) {
-        var info = {
-            idx: i,
-            block: statinfo[i][0],
-            powerup: statinfo[i][1]
-        };
-        statinfo[i] = info;
+    static init() {
+        for (let i = 0; i < Level.statinfo.length; i++) {
+            const info = {
+                idx: i,
+                block: Level.statinfo[i][0],
+                powerup: Level.statinfo[i][1]
+            };
+            Level.statinfo[i] = info;
+        }
     }
-    function newLevel() {
+    static newLevel() {
         return {
             areas: [],
             tileMap: [],
@@ -159,14 +53,14 @@ Wolf.Level = (function () {
             }
         };
     }
-    function parseMapData(file) {
-        var level = newLevel(), length, offset, mapNameLength, musicNameLength, x, y, y0, layer1, layer2, layer3;
+    static parseMapData(file) {
+        var level = Level.newLevel(), length, offset, mapNameLength, musicNameLength, x, y, y0, layer1, layer2, layer3;
         file.position = 0;
         level.file = file;
-        if (file.size < Wolf.MAPHEADER_SIZE) {
+        if (file.size < Level.MAPHEADER_SIZE) {
             throw new Error("Map file size is smaller than mapheader size");
         }
-        if (FS.readUInt32(file) != Wolf.MAP_SIGNATURE) {
+        if (FS.readUInt32(file) != Level.MAP_SIGNATURE) {
             throw new Error("File signature does not match MAP_SIGNATURE");
         }
         var rle = FS.readUInt16(file);
@@ -188,14 +82,14 @@ Wolf.Level = (function () {
         musicNameLength = FS.readUInt16(file);
         file.position += 4;
         level.sParTime = FS.readString(file, 5);
-        if (file.size < (Wolf.MAPHEADER_SIZE + mapNameLength + musicNameLength + length[0] + length[1] + length[2])) {
+        if (file.size < (Level.MAPHEADER_SIZE + mapNameLength + musicNameLength + length[0] + length[1] + length[2])) {
             throw new Error("filesize is less than MAPHEADER_SIZE + mapNameLength + musicNameLength + etc");
         }
         level.levelName = level.mapName = FS.readString(file, mapNameLength);
         level.music = FS.readString(file, musicNameLength);
-        level.plane1 = readPlaneData(file, offset[0], length[0], rle);
-        level.plane2 = readPlaneData(file, offset[1], length[1], rle);
-        level.plane3 = readPlaneData(file, offset[2], length[2], rle);
+        level.plane1 = Level.readPlaneData(file, offset[0], length[0], rle);
+        level.plane2 = Level.readPlaneData(file, offset[1], length[1], rle);
+        level.plane3 = Level.readPlaneData(file, offset[2], length[2], rle);
         Doors.reset(level);
         for (x = 0; x < 64; x++) {
             level.areas[x] = [];
@@ -216,34 +110,34 @@ Wolf.Level = (function () {
                 layer2 = level.plane2[y0 * 64 + x];
                 layer3 = level.plane3[y0 * 64 + x];
                 if (layer2) {
-                    spawnObj(level, layer2, x, y);
+                    Level.spawnObj(level, layer2, x, y);
                 }
                 if (layer1 == 0) {
                     level.areas[x][y] = -3;
                 }
                 else if (layer1 < 0x6a) {
                     if ((layer1 >= 0x5A && layer1 <= 0x5F) || layer1 == 0x64 || layer1 == 0x65) {
-                        level.tileMap[x][y] |= Wolf.DOOR_TILE;
+                        level.tileMap[x][y] |= Level.DOOR_TILE;
                         Doors.spawn(level, x, y, layer1);
                         level.areas[x][y] = -2;
                     }
                     else {
-                        level.tileMap[x][y] |= Wolf.WALL_TILE;
+                        level.tileMap[x][y] |= Level.WALL_TILE;
                         level.wallTexX[x][y] = (layer1 - 1) * 2 + 1;
                         level.wallTexY[x][y] = (layer1 - 1) * 2;
                         level.areas[x][y] = -1;
                         if (layer1 == 0x15) {
-                            level.tileMap[x][y] |= Wolf.ELEVATOR_TILE;
+                            level.tileMap[x][y] |= Level.ELEVATOR_TILE;
                         }
                     }
                 }
                 else if (layer1 == 0x6a) {
-                    level.tileMap[x][y] |= Wolf.AMBUSH_TILE;
+                    level.tileMap[x][y] |= Level.AMBUSH_TILE;
                     level.areas[x][y] = -3;
                 }
                 else if (layer1 >= Wolf.FIRSTAREA && layer1 < (Wolf.FIRSTAREA + Wolf.NUMAREAS)) {
                     if (layer1 == Wolf.FIRSTAREA) {
-                        level.tileMap[x][y] |= Wolf.SECRETLEVEL_TILE;
+                        level.tileMap[x][y] |= Level.SECRETLEVEL_TILE;
                     }
                     level.areas[x][y] = layer1 - Wolf.FIRSTAREA;
                 }
@@ -274,12 +168,12 @@ Wolf.Level = (function () {
         Doors.setAreas(level);
         return level;
     }
-    function readPlaneData(file, offset, length, rle) {
+    static readPlaneData(file, offset, length, rle) {
         file.position = offset;
-        var expandedLength = FS.readUInt16(file), carmackData = FS.readBytes(file, length - 2), expandedData = carmackExpand(carmackData, expandedLength);
-        return rlewExpand(expandedData.slice(1), 64 * 64 * 2, rle);
+        var expandedLength = FS.readUInt16(file), carmackData = FS.readBytes(file, length - 2), expandedData = Level.carmackExpand(carmackData, expandedLength);
+        return Level.rlewExpand(expandedData.slice(1), 64 * 64 * 2, rle);
     }
-    function rlewExpand(source, length, rlewtag) {
+    static rlewExpand(source, length, rlewtag) {
         var value, count, i, end, inptr = 0, outptr = 0, dest = [];
         end = outptr + (length >> 1);
         do {
@@ -297,7 +191,7 @@ Wolf.Level = (function () {
         } while (outptr < end);
         return dest;
     }
-    function carmackExpand(source, length) {
+    static carmackExpand(source, length) {
         var NEARTAG = 0xA7, FARTAG = 0xA8;
         var chhigh, offset, copyptr, outptr, inptr, ch, count, dest;
         length /= 2;
@@ -351,14 +245,14 @@ Wolf.Level = (function () {
         }
         return dest;
     }
-    function load(filename, callback) {
+    static load(filename, callback) {
         FS.open(filename, Wolf.MapData, function (error, file) {
             var level;
             if (error) {
                 callback(error);
             }
             try {
-                level = parseMapData(file);
+                level = Level.parseMapData(file);
             }
             catch (error) {
                 callback(error);
@@ -367,12 +261,12 @@ Wolf.Level = (function () {
             callback(null, level);
         });
     }
-    function reload(level) {
-        return parseMapData(level.file);
+    static reload(level) {
+        return Level.parseMapData(level.file);
     }
-    function spawnObj(level, type, x, y) {
-        if (type >= 23 && type < 23 + statinfo.length) {
-            spawnStatic(level, type - 23, x, y);
+    static spawnObj(level, type, x, y) {
+        if (type >= 23 && type < 23 + Level.statinfo.length) {
+            Level.spawnStatic(level, type - 23, x, y);
             return;
         }
         switch (type) {
@@ -397,46 +291,46 @@ Wolf.Level = (function () {
                 level.spawn.angle = Wolf.ANG_180;
                 break;
             case 0x5a:
-                level.tileMap[x][y] |= Wolf.TILE_IS_E_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_E_TURN;
                 break;
             case 0x5b:
-                level.tileMap[x][y] |= Wolf.TILE_IS_NE_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_NE_TURN;
                 break;
             case 0x5c:
-                level.tileMap[x][y] |= Wolf.TILE_IS_N_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_N_TURN;
                 break;
             case 0x5d:
-                level.tileMap[x][y] |= Wolf.TILE_IS_NW_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_NW_TURN;
                 break;
             case 0x5e:
-                level.tileMap[x][y] |= Wolf.TILE_IS_W_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_W_TURN;
                 break;
             case 0x5f:
-                level.tileMap[x][y] |= Wolf.TILE_IS_SW_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_SW_TURN;
                 break;
             case 0x60:
-                level.tileMap[x][y] |= Wolf.TILE_IS_S_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_S_TURN;
                 break;
             case 0x61:
-                level.tileMap[x][y] |= Wolf.TILE_IS_SE_TURN;
+                level.tileMap[x][y] |= Level.TILE_IS_SE_TURN;
                 break;
             case 0x62:
-                level.tileMap[x][y] |= Wolf.SECRET_TILE;
+                level.tileMap[x][y] |= Level.SECRET_TILE;
                 level.state.totalSecrets++;
                 break;
             case 0x63:
-                level.tileMap[x][y] |= Wolf.EXIT_TILE;
+                level.tileMap[x][y] |= Level.EXIT_TILE;
                 break;
         }
     }
-    function spawnStatic(level, type, x, y) {
+    static spawnStatic(level, type, x, y) {
         var sprite, pu;
-        if (statinfo[type].powerup == -1) {
-            if (statinfo[type].block) {
-                level.tileMap[x][y] |= Wolf.BLOCK_TILE;
+        if (Level.statinfo[type].powerup == -1) {
+            if (Level.statinfo[type].block) {
+                level.tileMap[x][y] |= Level.BLOCK_TILE;
             }
             else {
-                level.tileMap[x][y] |= Wolf.DRESS_TILE;
+                level.tileMap[x][y] |= Level.DRESS_TILE;
             }
             sprite = Wolf.Sprites.getNewSprite(level);
             if (!sprite) {
@@ -446,22 +340,21 @@ Wolf.Level = (function () {
             Wolf.Sprites.setTex(level, sprite, 0, Wolf.SPR_STAT_0 + type);
         }
         else {
-            pu = statinfo[type].powerup;
+            pu = Level.statinfo[type].powerup;
             Powerups.spawn(level, x, y, pu);
             if (pu == Powerups.pow_cross || pu == Powerups.pow_chalice || pu == Powerups.pow_bible || pu == Powerups.pow_crown || pu == Powerups.pow_fullheal) {
                 level.state.totalTreasure++;
             }
         }
     }
-    var cachedGuard = 0, cachedOfficer = 0, cachedSS = 0, cachedDog = 0, cachedMutant = 0, progress_bar = 0;
-    function scanInfoPlane(level, skill) {
+    static scanInfoPlane(level, skill) {
         var x, y, tile;
-        cachedGuard = 0;
-        cachedOfficer = 0;
-        cachedSS = 0;
-        cachedDog = 0;
-        cachedMutant = 0;
-        progress_bar = 0;
+        Level.cachedGuard = 0;
+        Level.cachedOfficer = 0;
+        Level.cachedSS = 0;
+        Level.cachedDog = 0;
+        Level.cachedMutant = 0;
+        Level.progress_bar = 0;
         for (y = 0; y < 64; ++y) {
             for (x = 0; x < 64; ++x) {
                 tile = level.plane2[(63 - y) * 64 + x];
@@ -489,9 +382,9 @@ Wolf.Level = (function () {
                     case 109:
                     case 110:
                     case 111:
-                        if (!cachedGuard) {
+                        if (!Level.cachedGuard) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_GRD_S_1, Wolf.SPR_GRD_SHOOT3);
-                            cachedGuard = 1;
+                            Level.cachedGuard = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_guard, x, y, tile - 108);
                         break;
@@ -515,9 +408,9 @@ Wolf.Level = (function () {
                     case 113:
                     case 114:
                     case 115:
-                        if (!cachedGuard) {
+                        if (!Level.cachedGuard) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_GRD_S_1, Wolf.SPR_GRD_SHOOT3);
-                            cachedGuard = 1;
+                            Level.cachedGuard = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_guard, x, y, tile - 112);
                         break;
@@ -544,9 +437,9 @@ Wolf.Level = (function () {
                     case 117:
                     case 118:
                     case 119:
-                        if (!cachedOfficer) {
+                        if (!Level.cachedOfficer) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_OFC_S_1, Wolf.SPR_OFC_SHOOT3);
-                            cachedOfficer = 1;
+                            Level.cachedOfficer = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_officer, x, y, tile - 116);
                         break;
@@ -570,9 +463,9 @@ Wolf.Level = (function () {
                     case 121:
                     case 122:
                     case 123:
-                        if (!cachedOfficer) {
+                        if (!Level.cachedOfficer) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_OFC_S_1, Wolf.SPR_OFC_SHOOT3);
-                            cachedOfficer = 1;
+                            Level.cachedOfficer = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_officer, x, y, tile - 120);
                         break;
@@ -596,9 +489,9 @@ Wolf.Level = (function () {
                     case 127:
                     case 128:
                     case 129:
-                        if (!cachedSS) {
+                        if (!Level.cachedSS) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_SS_S_1, Wolf.SPR_SS_SHOOT3);
-                            cachedSS = 1;
+                            Level.cachedSS = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_ss, x, y, tile - 126);
                         break;
@@ -622,9 +515,9 @@ Wolf.Level = (function () {
                     case 131:
                     case 132:
                     case 133:
-                        if (!cachedSS) {
+                        if (!Level.cachedSS) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_SS_S_1, Wolf.SPR_SS_SHOOT3);
-                            cachedSS = 1;
+                            Level.cachedSS = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_ss, x, y, tile - 130);
                         break;
@@ -648,9 +541,9 @@ Wolf.Level = (function () {
                     case 135:
                     case 136:
                     case 137:
-                        if (!cachedDog) {
+                        if (!Level.cachedDog) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_DOG_W1_1, Wolf.SPR_DOG_JUMP3);
-                            cachedDog = 1;
+                            Level.cachedDog = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_dog, x, y, tile - 134);
                         break;
@@ -674,9 +567,9 @@ Wolf.Level = (function () {
                     case 139:
                     case 140:
                     case 141:
-                        if (!cachedDog) {
+                        if (!Level.cachedDog) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_DOG_W1_1, Wolf.SPR_DOG_JUMP3);
-                            cachedDog = 1;
+                            Level.cachedDog = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_dog, x, y, tile - 138);
                         break;
@@ -750,9 +643,9 @@ Wolf.Level = (function () {
                     case 217:
                     case 218:
                     case 219:
-                        if (!cachedMutant) {
+                        if (!Level.cachedMutant) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_MUT_S_1, Wolf.SPR_MUT_SHOOT4);
-                            cachedMutant = 1;
+                            Level.cachedMutant = 1;
                         }
                         Actors.spawnStand(level, skill, Actors.en_mutant, x, y, tile - 216);
                         break;
@@ -774,9 +667,9 @@ Wolf.Level = (function () {
                     case 221:
                     case 222:
                     case 223:
-                        if (!cachedMutant) {
+                        if (!Level.cachedMutant) {
                             Wolf.Sprites.cacheTextures(Wolf.SPR_MUT_S_1, Wolf.SPR_MUT_SHOOT4);
-                            cachedMutant = 1;
+                            Level.cachedMutant = 1;
                         }
                         Actors.spawnPatrol(level, skill, Actors.en_mutant, x, y, tile - 220);
                         break;
@@ -800,7 +693,7 @@ Wolf.Level = (function () {
             }
         }
     }
-    function checkLine(x1, y1, x2, y2, level) {
+    static checkLine(x1, y1, x2, y2, level) {
         var xt1, yt1, xt2, yt2, x, y, xdist, ydist, xstep, ystep, deltafrac, frac, partial, intercept, FRACBITS = 8;
         xt1 = x1 >> Wolf.TILESHIFT;
         yt1 = y1 >> Wolf.TILESHIFT;
@@ -829,10 +722,10 @@ Wolf.Level = (function () {
             do {
                 y = frac >> FRACBITS;
                 frac += ystep;
-                if (level.tileMap[x][y] & Wolf.WALL_TILE) {
+                if (level.tileMap[x][y] & Level.WALL_TILE) {
                     return false;
                 }
-                if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
+                if (level.tileMap[x][y] & Level.DOOR_TILE) {
                     if (level.state.doorMap[x][y].action != Doors.dr_open) {
                         if (level.state.doorMap[x][y].action == Doors.dr_closed) {
                             return false;
@@ -863,10 +756,10 @@ Wolf.Level = (function () {
             do {
                 x = frac >> FRACBITS;
                 frac += xstep;
-                if (level.tileMap[x][y] & Wolf.WALL_TILE) {
+                if (level.tileMap[x][y] & Level.WALL_TILE) {
                     return false;
                 }
-                if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
+                if (level.tileMap[x][y] & Level.DOOR_TILE) {
                     if (level.state.doorMap[x][y].action != Doors.dr_open) {
                         if (level.state.doorMap[x][y].action == Doors.dr_closed) {
                             return false;
@@ -882,10 +775,88 @@ Wolf.Level = (function () {
         }
         return true;
     }
-    return {
-        load: load,
-        reload: reload,
-        scanInfoPlane: scanInfoPlane,
-        checkLine: checkLine
-    };
-})();
+}
+Level.WALL_TILE = 1;
+Level.PUSHWALL_TILE = (1 << 20);
+Level.DOOR_TILE = 2;
+Level.SECRET_TILE = 4;
+Level.DRESS_TILE = 8;
+Level.BLOCK_TILE = 16;
+Level.ACTOR_TILE = 32;
+Level.DEADACTOR_TILE = 64;
+Level.POWERUP_TILE = 128;
+Level.AMBUSH_TILE = 256;
+Level.EXIT_TILE = 512;
+Level.SECRETLEVEL_TILE = 1024;
+Level.ELEVATOR_TILE = (1 << 11);
+Level.MAPHEADER_SIZE = 49;
+Level.MAP_SIGNATURE = 0x21444921;
+Level.TILE_IS_E_TURN = (1 << 12);
+Level.TILE_IS_NE_TURN = (1 << 13);
+Level.TILE_IS_N_TURN = (1 << 14);
+Level.TILE_IS_NW_TURN = (1 << 15);
+Level.TILE_IS_W_TURN = (1 << 16);
+Level.TILE_IS_SW_TURN = (1 << 17);
+Level.TILE_IS_S_TURN = (1 << 18);
+Level.TILE_IS_SE_TURN = (1 << 19);
+Level.MAX_POWERUPS = 1000;
+Level.SOLID_TILE = (Level.WALL_TILE | Level.BLOCK_TILE | Level.PUSHWALL_TILE);
+Level.BLOCKS_MOVE_TILE = (Level.WALL_TILE | Level.BLOCK_TILE | Level.PUSHWALL_TILE | Level.ACTOR_TILE);
+Level.WAYPOINT_TILE = (Level.TILE_IS_E_TURN | Level.TILE_IS_NE_TURN | Level.TILE_IS_N_TURN | Level.TILE_IS_NW_TURN |
+    Level.TILE_IS_W_TURN | Level.TILE_IS_SW_TURN | Level.TILE_IS_S_TURN | Level.TILE_IS_SE_TURN);
+Level.statinfo = [
+    [false, -1],
+    [true, -1],
+    [true, -1],
+    [true, -1],
+    [false, -1],
+    [true, -1],
+    [false, Powerups.pow_alpo],
+    [true, -1],
+    [true, -1],
+    [false, -1],
+    [true, -1],
+    [true, -1],
+    [true, -1],
+    [true, -1],
+    [false, -1],
+    [false, -1],
+    [true, -1],
+    [true, -1],
+    [true, -1],
+    [false, -1],
+    [false, Powerups.pow_key1],
+    [false, Powerups.pow_key2],
+    [true, -1],
+    [false, -1],
+    [false, Powerups.pow_food],
+    [false, Powerups.pow_firstaid],
+    [false, Powerups.pow_clip],
+    [false, Powerups.pow_machinegun],
+    [false, Powerups.pow_chaingun],
+    [false, Powerups.pow_cross],
+    [false, Powerups.pow_chalice],
+    [false, Powerups.pow_bible],
+    [false, Powerups.pow_crown],
+    [false, Powerups.pow_fullheal],
+    [false, Powerups.pow_gibs],
+    [true, -1],
+    [true, -1],
+    [true, -1],
+    [false, Powerups.pow_gibs],
+    [true, -1],
+    [true, -1],
+    [false, -1],
+    [false, -1],
+    [false, -1],
+    [false, -1],
+    [true, -1],
+    [true, -1],
+    [false, -1]
+];
+Level.cachedGuard = 0;
+Level.cachedOfficer = 0;
+Level.cachedSS = 0;
+Level.cachedDog = 0;
+Level.cachedMutant = 0;
+Level.progress_bar = 0;

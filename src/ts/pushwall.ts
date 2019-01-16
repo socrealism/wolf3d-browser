@@ -39,15 +39,15 @@ class PushWall {
         dx = Mathematik.dx4dir[dir];
         dy = Mathematik.dy4dir[dir];
 
-        if (level.tileMap[x + dx][y + dy] & (Wolf.SOLID_TILE | Wolf.DOOR_TILE)) {
+        if (level.tileMap[x + dx][y + dy] & (Level.SOLID_TILE | Level.DOOR_TILE)) {
             // noway (smth is blocking)
             return true;
         }
 
         // remove secret flag & make everything needed when pushwall used!
-        level.tileMap[x][y] &= (~Wolf.SECRET_TILE);
-        level.tileMap[x][y] &= (~Wolf.WALL_TILE);
-        level.tileMap[x][y] |= Wolf.PUSHWALL_TILE;
+        level.tileMap[x][y] &= (~Level.SECRET_TILE);
+        level.tileMap[x][y] &= (~Level.WALL_TILE);
+        level.tileMap[x][y] |= Level.PUSHWALL_TILE;
 
         if (++level.state.foundSecrets == level.state.totalSecrets) {
             Game.notify("You found the last secret!");
@@ -59,7 +59,7 @@ class PushWall {
 
         // good way to avoid stuckness; [un]comment one more down!
         // it makes a tile behind pushwall unpassable
-        level.tileMap[x + dx][y + dy] |= Wolf.PUSHWALL_TILE;
+        level.tileMap[x + dx][y + dy] |= Level.PUSHWALL_TILE;
         level.wallTexX[x + dx][y + dy] = level.wallTexX[x][y];
         level.wallTexY[x + dx][y + dy] = level.wallTexY[x][y];
 
@@ -91,20 +91,20 @@ class PushWall {
         PushWall.PWall.pointsMoved -= 128;
         PushWall.PWall.tilesMoved++;
         // Free tile
-        level.tileMap[PushWall.PWall.x][PushWall.PWall.y] &= (~Wolf.PUSHWALL_TILE);
+        level.tileMap[PushWall.PWall.x][PushWall.PWall.y] &= (~Level.PUSHWALL_TILE);
         // Occupy new tile
         PushWall.PWall.x += PushWall.PWall.dx;
         PushWall.PWall.y += PushWall.PWall.dy;
 
         // Shall we move further?
-        if (level.tileMap[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] & (Wolf.SOLID_TILE | Wolf.DOOR_TILE | Wolf.ACTOR_TILE | Wolf.POWERUP_TILE) || PushWall.PWall.tilesMoved == 3) {
-            level.tileMap[PushWall.PWall.x][PushWall.PWall.y] &= (~Wolf.PUSHWALL_TILE); // wall now
-            level.tileMap[PushWall.PWall.x][PushWall.PWall.y] |= Wolf.WALL_TILE; // wall now
+        if (level.tileMap[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] & (Level.SOLID_TILE | Level.DOOR_TILE | Level.ACTOR_TILE | Level.POWERUP_TILE) || PushWall.PWall.tilesMoved == 3) {
+            level.tileMap[PushWall.PWall.x][PushWall.PWall.y] &= (~Level.PUSHWALL_TILE); // wall now
+            level.tileMap[PushWall.PWall.x][PushWall.PWall.y] |= Level.WALL_TILE; // wall now
             level.wallTexX[PushWall.PWall.x][PushWall.PWall.y] = PushWall.PWall.texX;
             level.wallTexY[PushWall.PWall.x][PushWall.PWall.y] = PushWall.PWall.texY;
             PushWall.PWall.active = false; // Free Push Wall
         } else {
-            level.tileMap[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] |= Wolf.PUSHWALL_TILE;
+            level.tileMap[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] |= Level.PUSHWALL_TILE;
 
             // Not sure if this is right but it fixed an issue with the pushwall texture changing mid-slide.
             level.wallTexX[PushWall.PWall.x + PushWall.PWall.dx][PushWall.PWall.y + PushWall.PWall.dy] = PushWall.PWall.texX;

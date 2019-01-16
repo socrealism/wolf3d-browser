@@ -169,10 +169,10 @@ Wolf.Player = (function () {
         yh = Wolf.POS2TILE(player.position.y + Wolf.PLAYERSIZE);
         for (y = yl; y <= yh; ++y) {
             for (x = xl; x <= xh; ++x) {
-                if (level.tileMap[x][y] & Wolf.SOLID_TILE) {
+                if (level.tileMap[x][y] & Level.SOLID_TILE) {
                     return false;
                 }
-                if (level.tileMap[x][y] & Wolf.DOOR_TILE && Doors.opened(level.state.doorMap[x][y]) != Doors.DOOR_FULLOPEN) {
+                if (level.tileMap[x][y] & Level.DOOR_TILE && Doors.opened(level.state.doorMap[x][y]) != Doors.DOOR_FULLOPEN) {
                     if (Math.abs(player.position.x - Wolf.TILE2POS(x)) <= 0x9000 && Math.abs(player.position.y - Wolf.TILE2POS(y)) <= 0x9000) {
                         return false;
                     }
@@ -269,7 +269,7 @@ Wolf.Player = (function () {
             self.areanumber = level.areas[self.tile.x][self.tile.y];
             Areas.connect(level, self.areanumber);
         }
-        if (level.tileMap[self.tile.x][self.tile.y] & Wolf.EXIT_TILE) {
+        if (level.tileMap[self.tile.x][self.tile.y] & Level.EXIT_TILE) {
             Game.victory(game);
         }
     }
@@ -278,13 +278,13 @@ Wolf.Player = (function () {
         dir = Mathematik.get4dir(Wolf.FINE2RAD(self.angle));
         x = self.tile.x + Mathematik.dx4dir[dir];
         y = self.tile.y + Mathematik.dy4dir[dir];
-        if (level.tileMap[x][y] & Wolf.DOOR_TILE) {
+        if (level.tileMap[x][y] & Level.DOOR_TILE) {
             return Doors.tryUse(level, self, level.state.doorMap[x][y]);
         }
-        if (level.tileMap[x][y] & Wolf.SECRET_TILE) {
+        if (level.tileMap[x][y] & Level.SECRET_TILE) {
             return PushWall.push(level, x, y, dir);
         }
-        if (level.tileMap[x][y] & Wolf.ELEVATOR_TILE) {
+        if (level.tileMap[x][y] & Level.ELEVATOR_TILE) {
             switch (dir) {
                 case Mathematik.dir4_east:
                 case Mathematik.dir4_west:
@@ -294,7 +294,7 @@ Wolf.Player = (function () {
                 case Mathematik.dir4_south:
                     return false;
             }
-            if (level.tileMap[self.tile.x][self.tile.y] & Wolf.SECRETLEVEL_TILE) {
+            if (level.tileMap[self.tile.x][self.tile.y] & Level.SECRETLEVEL_TILE) {
                 self.playstate = Wolf.ex_secretlevel;
             }
             else {
