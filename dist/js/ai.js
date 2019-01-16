@@ -146,7 +146,7 @@ class AI {
             self.temp2 = 0;
         }
         else {
-            if (player.flags & Wolf.FL_NOTARGET) {
+            if (player.flags & Player.FL_NOTARGET) {
                 return false;
             }
             if (!(self.flags & Actors.FL_AMBUSH) && !level.state.areabyplayer[self.areanumber]) {
@@ -198,7 +198,7 @@ class AI {
     }
     static chase(self, game) {
         var level = game.level, player = game.player, deltax, deltay, d = [], tdir, olddir, turnaround;
-        if (game.player.playstate == Wolf.ex_victory) {
+        if (game.player.playstate == Player.ex_victory) {
             return;
         }
         olddir = self.dir;
@@ -304,7 +304,7 @@ class AI {
     }
     static dodge(self, game) {
         var level = game.level, player = game.player, deltax, deltay, i, dirtry = [], turnaround, tdir;
-        if (game.player.playstate == Wolf.ex_victory) {
+        if (game.player.playstate == Player.ex_victory) {
             return;
         }
         if (self.flags & Actors.FL_FIRSTATTACK) {
@@ -420,7 +420,7 @@ class AI {
             else {
                 damage = Random.get() >> 4;
             }
-            Wolf.Player.damage(player, self, damage);
+            Player.damage(player, self, damage);
         }
         switch (self.type) {
             case Actors.en_ss:
@@ -572,7 +572,7 @@ class AI {
             if (Math.abs(self.y - player.position.y) <= Actors.MINACTORDIST) {
                 var t = self.type;
                 if (t == Actors.en_blinky || t == Actors.en_clyde || t == Actors.en_pinky || t == Actors.en_inky || t == Actors.en_spectre) {
-                    Wolf.Player.damage(player, self, 2);
+                    Player.damage(player, self, 2);
                 }
                 self.x -= dist * Mathematik.dx8dir[self.dir];
                 self.y -= dist * Mathematik.dy8dir[self.dir];
@@ -603,7 +603,7 @@ class AI {
             dy = Math.abs(player.position.y - self.y) - Wolf.TILEGLOBAL;
             if (dy <= Actors.MINACTORDIST) {
                 if (Random.get() < 180) {
-                    Wolf.Player.damage(player, self, Random.get() >> 4);
+                    Player.damage(player, self, Random.get() >> 4);
                     return;
                 }
             }
@@ -616,7 +616,7 @@ class AI {
         dy = Math.abs(self.tile.y - Wolf.POS2TILE(player.position.y));
         dist = Math.max(dx, dy);
         if (dist <= 1) {
-            Wolf.Player.damage(player, self, 10);
+            Player.damage(player, self, 10);
         }
     }
     static T_Launch(self, game, tics) {
@@ -744,7 +744,7 @@ class AI {
                     damage = 0;
                     break;
             }
-            Wolf.Player.damage(player, self, damage);
+            Player.damage(player, self, damage);
             Actors.stateChange(self, Actors.st_remove);
             return;
         }
@@ -752,13 +752,13 @@ class AI {
         self.tile.y = self.y >> Wolf.TILESHIFT;
     }
     static T_BJRun(self, game, tics) {
-        var move = Wolf.BJRUNSPEED * tics;
+        var move = Player.BJRUNSPEED * tics;
         AI.T_Move(self, game, move);
         if (!self.distance) {
             self.distance = Wolf.TILEGLOBAL;
             if (!(--self.temp2)) {
                 Actors.stateChange(self, Actors.st_shoot1);
-                self.speed = Wolf.BJJUMPSPEED;
+                self.speed = Player.BJJUMPSPEED;
                 return;
             }
         }
@@ -769,7 +769,7 @@ class AI {
         Sound.startSound(null, null, 0, Sound.CHAN_VOICE, "assets/sfx/082.wav", 1, Sound.ATTN_NORM, 0);
     }
     static T_BJDone(self, game, tics) {
-        Wolf.Player.playstate = Wolf.ex_victory;
+        Player.playstate = Player.ex_victory;
         Game.endEpisode(game);
     }
 }

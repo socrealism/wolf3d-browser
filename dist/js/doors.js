@@ -76,7 +76,7 @@ class Doors {
         return door.action == Doors.dr_open ? Doors.DOOR_FULLOPEN : door.ticcount;
     }
     static process(level, player, tics) {
-        if (player.playstate == Wolf.ex_victory) {
+        if (player.playstate == Player.ex_victory) {
             return;
         }
         for (var n = 0; n < level.state.numDoors; ++n) {
@@ -234,7 +234,7 @@ class Doors {
                 break;
             case Doors.DOOR_G_VERT:
             case Doors.DOOR_G_HORIZ:
-                if (player.items & Wolf.ITEM_KEY_1) {
+                if (player.items & Player.ITEM_KEY_1) {
                     Doors.changeDoorState(level, player, door);
                 }
                 else {
@@ -243,7 +243,7 @@ class Doors {
                 break;
             case Doors.DOOR_S_VERT:
             case Doors.DOOR_S_HORIZ:
-                if (player.items & Wolf.ITEM_KEY_2) {
+                if (player.items & Player.ITEM_KEY_2) {
                     Doors.changeDoorState(level, player, door);
                 }
                 else {

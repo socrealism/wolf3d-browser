@@ -71,9 +71,10 @@
                         Mathematik.init();
                         Input.init();
                         Sound.init();
-                        Game.init();
-                        Level.init();
                         Menu.init();
+                        Game.init();
+                        Actstat.init();
+                        Level.init();
                         Menu.show();
                     });
                     Modernizr.load(files2);

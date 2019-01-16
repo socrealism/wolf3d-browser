@@ -142,7 +142,7 @@ class Doors {
      * @param {number} tics Tics since last
      */
     static process(level, player, tics) {
-        if (player.playstate == Wolf.ex_victory) {
+        if (player.playstate == Player.ex_victory) {
             return;
         }
 
@@ -346,7 +346,7 @@ class Doors {
 
             case Doors.DOOR_G_VERT:
             case Doors.DOOR_G_HORIZ:
-                if (player.items & Wolf.ITEM_KEY_1) {
+                if (player.items & Player.ITEM_KEY_1) {
                     Doors.changeDoorState(level, player, door);
                 } else {
                     Game.notify("You need a gold key");
@@ -355,7 +355,7 @@ class Doors {
 
             case Doors.DOOR_S_VERT:
             case Doors.DOOR_S_HORIZ:
-                if (player.items & Wolf.ITEM_KEY_2) {
+                if (player.items & Player.ITEM_KEY_2) {
                     Doors.changeDoorState(level, player, door);
                 } else {
                     Game.notify("You need a silver key");

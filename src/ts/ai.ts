@@ -195,7 +195,7 @@ class AI {
         } else {
 
             // check if we can/want to see/hear player
-            if (player.flags & Wolf.FL_NOTARGET) {
+            if (player.flags & Player.FL_NOTARGET) {
                 return false; // notarget cheat
             }
 
@@ -272,7 +272,7 @@ class AI {
             d = [],
             tdir, olddir, turnaround;
 
-        if (game.player.playstate == Wolf.ex_victory) {
+        if (game.player.playstate == Player.ex_victory) {
             return;
         }
 
@@ -420,7 +420,7 @@ class AI {
             turnaround,
             tdir;
 
-        if (game.player.playstate == Wolf.ex_victory) {
+        if (game.player.playstate == Player.ex_victory) {
             return;
         }
 
@@ -580,7 +580,7 @@ class AI {
             } else {
                 damage = Random.get() >> 4;
             }
-            Wolf.Player.damage(player, self, damage);
+            Player.damage(player, self, damage);
         }
 
         switch (self.type) {
@@ -811,7 +811,7 @@ class AI {
             if (Math.abs(self.y - player.position.y) <= Actors.MINACTORDIST) {
                 var t = self.type;
                 if (t == Actors.en_blinky || t == Actors.en_clyde || t == Actors.en_pinky || t == Actors.en_inky || t == Actors.en_spectre) {
-                    Wolf.Player.damage(player, self, 2); // ghosts hurt player!
+                    Player.damage(player, self, 2); // ghosts hurt player!
                 }
                 //
                 // back up
@@ -860,7 +860,7 @@ class AI {
             dy = Math.abs(player.position.y - self.y) - Wolf.TILEGLOBAL;
             if (dy <= Actors.MINACTORDIST) {
                 if (Random.get() < 180) {
-                    Wolf.Player.damage(player, self, Random.get() >> 4);
+                    Player.damage(player, self, Random.get() >> 4);
                     return;
                 }
             }
@@ -883,7 +883,7 @@ class AI {
         dist = Math.max(dx, dy);
 
         if (dist <= 1) {
-            Wolf.Player.damage(player, self, 10);
+            Player.damage(player, self, 10);
         }
     }
 
@@ -1071,7 +1071,7 @@ class AI {
                     break;
             }
 
-            Wolf.Player.damage(player, self, damage);
+            Player.damage(player, self, damage);
             Actors.stateChange(self, Actors.st_remove); // mark for removal
             return;
         }
@@ -1084,7 +1084,7 @@ class AI {
      * @description
      */
     static T_BJRun(self, game, tics) {
-        var move = Wolf.BJRUNSPEED * tics;
+        var move = Player.BJRUNSPEED * tics;
 
         AI.T_Move(self, game, move);
 
@@ -1092,7 +1092,7 @@ class AI {
             self.distance = Wolf.TILEGLOBAL;
             if (!(--self.temp2)) {
                 Actors.stateChange(self, Actors.st_shoot1);
-                self.speed = Wolf.BJJUMPSPEED;
+                self.speed = Player.BJJUMPSPEED;
                 return;
             }
         }
@@ -1102,7 +1102,7 @@ class AI {
      * @description
      */
     static T_BJJump(self, game, tics) {
-        //var move = Wolf.BJRUNSPEED * tics;
+        //var move = Player.BJRUNSPEED * tics;
         //AI.T_Move(self, game, move);
     }
 
@@ -1117,8 +1117,8 @@ class AI {
      * @description
      */
     static T_BJDone(self, game, tics) {
-        Wolf.Player.playstate = Wolf.ex_victory; // exit castle tile
-        //Wolf.Player.playstate = Wolf.ex_complete;
+        Player.playstate = Player.ex_victory; // exit castle tile
+        //Player.playstate = Player.ex_complete;
         Game.endEpisode(game);
     }
 }

@@ -131,7 +131,7 @@ class ActorAI {
         Actors.stateChange(self, Actors.st_path1);
     }
     static startDeathCam(game, self) {
-        self.playstate = Wolf.ex_complete;
+        self.playstate = Player.ex_complete;
         setTimeout(function () {
             Game.startIntermission(game);
         }, 5000);
@@ -252,20 +252,20 @@ class ActorAI {
         var level = game.level, tilex = self.tile.x = self.x >> Wolf.TILESHIFT, tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
         switch (self.type) {
             case Actors.en_guard:
-                Wolf.Player.givePoints(player, 100);
+                Player.givePoints(player, 100);
                 Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 break;
             case Actors.en_officer:
-                Wolf.Player.givePoints(player, 400);
+                Player.givePoints(player, 400);
                 Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 break;
             case Actors.en_mutant:
-                Wolf.Player.givePoints(player, 700);
+                Player.givePoints(player, 700);
                 Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 break;
             case Actors.en_ss:
-                Wolf.Player.givePoints(player, 500);
-                if (player.items & Wolf.ITEM_WEAPON_3) {
+                Player.givePoints(player, 500);
+                if (player.items & Player.ITEM_WEAPON_3) {
                     Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 }
                 else {
@@ -273,37 +273,37 @@ class ActorAI {
                 }
                 break;
             case Actors.en_dog:
-                Wolf.Player.givePoints(player, 200);
+                Player.givePoints(player, 200);
                 break;
             case Actors.en_boss:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 Powerups.spawn(level, tilex, tiley, Powerups.pow_key1);
                 break;
             case Actors.en_gretel:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 Powerups.spawn(level, tilex, tiley, Powerups.pow_key1);
                 break;
             case Actors.en_gift:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 ActorAI.startDeathCam(game, self);
                 break;
             case Actors.en_fat:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 ActorAI.startDeathCam(game, self);
                 break;
             case Actors.en_schabbs:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 ActorAI.deathScream(self, game);
                 ActorAI.startDeathCam(game, self);
                 break;
             case Actors.en_fake:
-                Wolf.Player.givePoints(player, 2000);
+                Player.givePoints(player, 2000);
                 break;
             case Actors.en_mecha:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 break;
             case Actors.en_hitler:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 ActorAI.deathScream(self, game);
                 ActorAI.startDeathCam(game, self);
                 break;

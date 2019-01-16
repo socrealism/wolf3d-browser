@@ -35,25 +35,25 @@ class Actors {
         if (ent.ticcount) {
             ent.ticcount -= tics;
             while (ent.ticcount <= 0) {
-                think = Wolf.objstate[ent.type][ent.state].action;
+                think = Actstat.objstate[ent.type][ent.state].action;
                 if (think) {
                     think(ent, game, tics);
                     if (ent.state == Actors.st_remove) {
                         return false;
                     }
                 }
-                ent.state = Wolf.objstate[ent.type][ent.state].next_state;
+                ent.state = Actstat.objstate[ent.type][ent.state].next_state;
                 if (ent.state == Actors.st_remove) {
                     return false;
                 }
-                if (!Wolf.objstate[ent.type][ent.state].timeout) {
+                if (!Actstat.objstate[ent.type][ent.state].timeout) {
                     ent.ticcount = 0;
                     break;
                 }
-                ent.ticcount += Wolf.objstate[ent.type][ent.state].timeout;
+                ent.ticcount += Actstat.objstate[ent.type][ent.state].timeout;
             }
         }
-        think = Wolf.objstate[ent.type][ent.state].think;
+        think = Actstat.objstate[ent.type][ent.state].think;
         if (think) {
             think(ent, game, tics);
             if (ent.state == Actors.st_remove) {
@@ -68,7 +68,7 @@ class Actors {
             ent.ticcount = 0;
         }
         else {
-            ent.ticcount = Wolf.objstate[ent.type][ent.state].timeout;
+            ent.ticcount = Actstat.objstate[ent.type][ent.state].timeout;
         }
     }
     static process(game, tics) {
@@ -81,8 +81,8 @@ class Actors {
                 continue;
             }
             Wolf.Sprites.setPos(level, guard.sprite, guard.x, guard.y, guard.angle);
-            tex = Wolf.objstate[guard.type][guard.state].texture;
-            if (Wolf.objstate[guard.type][guard.state].rotate) {
+            tex = Actstat.objstate[guard.type][guard.state].texture;
+            if (Actstat.objstate[guard.type][guard.state].rotate) {
                 if (guard.type == Actors.en_rocket || guard.type == Actors.en_hrocket) {
                     tex += Actors.r_add8dir[Mathematik.get8dir(Angle.distCW(Wolf.FINE2RAD(player.angle), Wolf.FINE2RAD(guard.angle)))];
                 }
@@ -120,7 +120,7 @@ class Actors {
             ent.areanumber = 0;
         }
         ent.type = which;
-        ent.health = Wolf.starthitpoints[skill][which];
+        ent.health = Actstat.starthitpoints[skill][which];
         ent.sprite = Wolf.Sprites.getNewSprite(level);
         return ent;
     }
@@ -132,7 +132,7 @@ class Actors {
         self.state = Actors.st_dead;
         self.speed = 0;
         self.health = 0;
-        self.ticcount = Wolf.objstate[which][Actors.st_dead].timeout ? Random.get() % Wolf.objstate[which][Actors.st_dead].timeout + 1 : 0;
+        self.ticcount = Actstat.objstate[which][Actors.st_dead].timeout ? Random.get() % Actstat.objstate[which][Actors.st_dead].timeout + 1 : 0;
     }
     static spawnPatrol(level, skill, which, x, y, dir) {
         var self = Actors.spawn(level, skill, which, x, y, dir);
@@ -142,7 +142,7 @@ class Actors {
         self.state = Actors.st_path1;
         self.speed = (which == Actors.en_dog) ? Actors.SPDDOG : Actors.SPDPATROL;
         self.distance = Wolf.TILEGLOBAL;
-        self.ticcount = Wolf.objstate[which][Actors.st_path1].timeout ? Random.get() % Wolf.objstate[which][Actors.st_path1].timeout + 1 : 0;
+        self.ticcount = Actstat.objstate[which][Actors.st_path1].timeout ? Random.get() % Actstat.objstate[which][Actors.st_path1].timeout + 1 : 0;
         self.flags |= Actors.FL_SHOOTABLE;
         level.state.totalMonsters++;
     }
@@ -153,7 +153,7 @@ class Actors {
         }
         self.state = Actors.st_stand;
         self.speed = Actors.SPDPATROL;
-        self.ticcount = Wolf.objstate[which][Actors.st_stand].timeout ? Random.get() % Wolf.objstate[which][Actors.st_stand].timeout + 1 : 0;
+        self.ticcount = Actstat.objstate[which][Actors.st_stand].timeout ? Random.get() % Actstat.objstate[which][Actors.st_stand].timeout + 1 : 0;
         self.flags |= Actors.FL_SHOOTABLE;
         if (level.tileMap[x][y] & Level.AMBUSH_TILE) {
             self.flags |= Actors.FL_AMBUSH;
@@ -192,8 +192,8 @@ class Actors {
         }
         self.state = which == Actors.en_spectre ? Actors.st_path1 : Actors.st_stand;
         self.speed = Actors.SPDPATROL;
-        self.health = Wolf.starthitpoints[skill][which];
-        self.ticcount = Wolf.objstate[which][Actors.st_stand].timeout ? Random.get() % Wolf.objstate[which][Actors.st_stand].timeout + 1 : 0;
+        self.health = Actstat.starthitpoints[skill][which];
+        self.ticcount = Actstat.objstate[which][Actors.st_stand].timeout ? Random.get() % Actstat.objstate[which][Actors.st_stand].timeout + 1 : 0;
         self.flags |= Actors.FL_SHOOTABLE | Actors.FL_AMBUSH;
         level.state.totalMonsters++;
     }
@@ -204,8 +204,8 @@ class Actors {
         }
         self.state = Actors.st_chase1;
         self.speed = Actors.SPDPATROL * 3;
-        self.health = Wolf.starthitpoints[skill][which];
-        self.ticcount = Wolf.objstate[which][Actors.st_chase1].timeout ? Random.get() % Wolf.objstate[which][Actors.st_chase1].timeout + 1 : 0;
+        self.health = Actstat.starthitpoints[skill][which];
+        self.ticcount = Actstat.objstate[which][Actors.st_chase1].timeout ? Random.get() % Actstat.objstate[which][Actors.st_chase1].timeout + 1 : 0;
         self.flags |= Actors.FL_AMBUSH;
         level.state.totalMonsters++;
     }
@@ -217,7 +217,7 @@ class Actors {
         bj.x = player.position.x;
         bj.y = player.position.y;
         bj.state = Actors.st_path1;
-        bj.speed = Wolf.BJRUNSPEED;
+        bj.speed = Player.BJRUNSPEED;
         bj.flags = Actors.FL_NONMARK;
         bj.temp2 = 6;
         bj.ticcount = 1;

@@ -32,13 +32,13 @@ class Weapon {
     static fireLead(game, player) {
         var level = game.level, closest, damage, dx, dy, dist, d1, shotDist, n, guard;
         switch (player.weapon) {
-            case Wolf.WEAPON_PISTOL:
+            case Player.WEAPON_PISTOL:
                 Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/012.wav", 1, Sound.ATTN_NORM, 0);
                 break;
-            case Wolf.WEAPON_AUTO:
+            case Player.WEAPON_AUTO:
                 Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/011.wav", 1, Sound.ATTN_NORM, 0);
                 break;
-            case Wolf.WEAPON_CHAIN:
+            case Player.WEAPON_CHAIN:
                 Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/013.wav", 1, Sound.ATTN_NORM, 0);
                 break;
         }

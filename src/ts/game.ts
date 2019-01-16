@@ -135,17 +135,17 @@ class Game {
         }
 
         // change weapon?
-        if (Input.checkKeys(Game.controls.weapon1) && player.items & Wolf.ITEM_WEAPON_1) {
-            changeWeapon = Wolf.WEAPON_KNIFE;
-        } else if (Input.checkKeys(Game.controls.weapon2) && player.items & Wolf.ITEM_WEAPON_2 && player.ammo[Wolf.AMMO_BULLETS]) {
-            changeWeapon = Wolf.WEAPON_PISTOL;
-        } else if (Input.checkKeys(Game.controls.weapon3) && player.items & Wolf.ITEM_WEAPON_3 && player.ammo[Wolf.AMMO_BULLETS]) {
-            changeWeapon = Wolf.WEAPON_AUTO;
-        } else if (Input.checkKeys(Game.controls.weapon4) && player.items & Wolf.ITEM_WEAPON_4 && player.ammo[Wolf.AMMO_BULLETS]) {
-            changeWeapon = Wolf.WEAPON_CHAIN;
+        if (Input.checkKeys(Game.controls.weapon1) && player.items & Player.ITEM_WEAPON_1) {
+            changeWeapon = Player.WEAPON_KNIFE;
+        } else if (Input.checkKeys(Game.controls.weapon2) && player.items & Player.ITEM_WEAPON_2 && player.ammo[Player.AMMO_BULLETS]) {
+            changeWeapon = Player.WEAPON_PISTOL;
+        } else if (Input.checkKeys(Game.controls.weapon3) && player.items & Player.ITEM_WEAPON_3 && player.ammo[Player.AMMO_BULLETS]) {
+            changeWeapon = Player.WEAPON_AUTO;
+        } else if (Input.checkKeys(Game.controls.weapon4) && player.items & Player.ITEM_WEAPON_4 && player.ammo[Player.AMMO_BULLETS]) {
+            changeWeapon = Player.WEAPON_CHAIN;
         }
         if (changeWeapon > -1) {
-            player.previousWeapon = Wolf.WEAPON_KNIFE;
+            player.previousWeapon = Player.WEAPON_KNIFE;
             player.weapon = player.pendingWeapon = changeWeapon;
         }
 
@@ -186,12 +186,12 @@ class Game {
                 lives, score,
                 tics = Game.calcTics();
 
-            if (player.playstate != Wolf.ex_dead) {
+            if (player.playstate != Player.ex_dead) {
                 Game.updatePlayerControls(player, tics);
 
                 player.angle = Mathematik.normalizeAngle(player.angle);
 
-                Wolf.Player.process(game, player, tics);
+                Player.process(game, player, tics);
                 if (Game.processAI) {
                     Actors.process(game, tics);
                 }
@@ -210,7 +210,7 @@ class Game {
                             score = game.player.startScore;
                             game.level = Level.reload(level);
                             Level.scanInfoPlane(game.level, game.skill); // Spawn items/guards
-                            game.player = Wolf.Player.spawn(game.level.spawn, game.level, game.skill);
+                            game.player = Player.spawn(game.level.spawn, game.level, game.skill);
                             game.player.lives = lives - 1;
                             game.player.score = score;
                             game.player.startScore = score;
@@ -348,14 +348,14 @@ class Game {
     }
 
     static victory(game) {
-        if (game.player.playstate == Wolf.ex_victory) {
+        if (game.player.playstate == Player.ex_victory) {
             return;
         }
         Game.keyInputActive = false;
         Wolf.log("Victory!");
         $("#game .renderer .player-weapon").hide();
         Actors.spawnBJVictory(game.player, game.level, game.skill);
-        game.player.playstate = Wolf.ex_victory;
+        game.player.playstate = Player.ex_victory;
     }
 
     static endEpisode(game) {
@@ -405,7 +405,7 @@ class Game {
         var player = game.player,
             frame = player.weapon * 4 + player.weaponFrame;
 
-        if (player.playstate == Wolf.ex_dead || player.playstate == Wolf.ex_victory) {
+        if (player.playstate == Player.ex_dead || player.playstate == Player.ex_victory) {
             $("#game .renderer .player-weapon").css("display", "none");
         } else {
             $("#game .renderer .player-weapon").css({
@@ -419,13 +419,13 @@ class Game {
         });
 
         $("#game .hud .key1").css({
-            display: (player.items & Wolf.ITEM_KEY_1) ? "block" : "none"
+            display: (player.items & Player.ITEM_KEY_1) ? "block" : "none"
         });
         $("#game .hud .key2").css({
-            display: (player.items & Wolf.ITEM_KEY_2) ? "block" : "none"
+            display: (player.items & Player.ITEM_KEY_2) ? "block" : "none"
         });
 
-        Game.updateStat("ammo", player.ammo[Wolf.AMMO_BULLETS]);
+        Game.updateStat("ammo", player.ammo[Player.AMMO_BULLETS]);
         Game.updateStat("health", player.health);
         Game.updateStat("lives", player.lives);
         Game.updateStat("score", player.score);
@@ -492,7 +492,7 @@ class Game {
                 pic = (3 * ((100 - h) / 16) >> 0) + player.faceFrame;
 
                 //gsh
-                if ((player.flags & Wolf.FL_GODMODE)) {
+                if ((player.flags & Player.FL_GODMODE)) {
                     pic = 23 + player.faceFrame;
                 }
             }
@@ -613,7 +613,7 @@ class Game {
 
                 Sound.startMusic('assets/' + level.music);
 
-                game.player = Wolf.Player.spawn(level.spawn, level, game.skill, game.player);
+                game.player = Player.spawn(level.spawn, level, game.skill, game.player);
 
                 game.player.startScore = game.player.score;
 
@@ -912,7 +912,7 @@ class Game {
             }
             if (e.keyCode == 13 || e.keyCode == 32) {
                 exitIntermission();
-                if (game.player.playstate == Wolf.ex_secretlevel) {
+                if (game.player.playstate == Player.ex_secretlevel) {
                     nextLevel = 9;
                 } else {
                     if (game.levelNum == 8) { // Level was boss level - end of episode.
@@ -949,7 +949,7 @@ class Game {
                         nextLevel = game.levelNum + 1;
                     }
                 }
-                Wolf.Player.givePoints(game.player, bonus);
+                Player.givePoints(game.player, bonus);
                 Game.startLevel(game, game.episodeNum, nextLevel);
             }
         }
@@ -1226,9 +1226,9 @@ class Game {
     static debugGodMode(enable) {
         if (Game.currentGame && Game.currentGame.player) {
             if (enable) {
-                Game.currentGame.player.flags |= Wolf.FL_GODMODE;
+                Game.currentGame.player.flags |= Player.FL_GODMODE;
             } else {
-                Game.currentGame.player.flags &= ~Wolf.FL_GODMODE;
+                Game.currentGame.player.flags &= ~Player.FL_GODMODE;
             }
             Wolf.log("God mode " + (enable ? "enabled" : "disabled"));
         }
@@ -1237,9 +1237,9 @@ class Game {
     static debugNoTarget(enable) {
         if (Game.currentGame && Game.currentGame.player) {
             if (enable) {
-                Game.currentGame.player.flags |= Wolf.FL_NOTARGET;
+                Game.currentGame.player.flags |= Player.FL_NOTARGET;
             } else {
-                Game.currentGame.player.flags &= ~Wolf.FL_NOTARGET;
+                Game.currentGame.player.flags &= ~Player.FL_NOTARGET;
             }
             Wolf.log("No target " + (enable ? "enabled" : "disabled"));
         }
@@ -1264,13 +1264,13 @@ class Game {
 
     static debugGiveAll() {
         if (Game.currentGame && Game.currentGame.player) {
-            Wolf.Player.givePoints(Game.currentGame.player, 10000);
-            Wolf.Player.giveHealth(Game.currentGame.player, 100, 100);
-            Wolf.Player.giveKey(Game.currentGame.player, 0);
-            Wolf.Player.giveKey(Game.currentGame.player, 1);
-            Wolf.Player.giveWeapon(Game.currentGame.player, 2);
-            Wolf.Player.giveWeapon(Game.currentGame.player, 3);
-            Wolf.Player.giveAmmo(Game.currentGame.player, Wolf.AMMO_BULLETS, 99);
+            Player.givePoints(Game.currentGame.player, 10000);
+            Player.giveHealth(Game.currentGame.player, 100, 100);
+            Player.giveKey(Game.currentGame.player, 0);
+            Player.giveKey(Game.currentGame.player, 1);
+            Player.giveWeapon(Game.currentGame.player, 2);
+            Player.giveWeapon(Game.currentGame.player, 3);
+            Player.giveAmmo(Game.currentGame.player, Player.AMMO_BULLETS, 99);
             Wolf.log("Giving keys, weapons, ammo, health and 10000 points");
         }
     }

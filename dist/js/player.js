@@ -1,76 +1,6 @@
 "use strict";
-Wolf.Player = (function () {
-    Wolf.setConsts({
-        PLAYERSIZE: Wolf.MINDIST,
-        STOPSPEED: 0x0D00,
-        FRICTION: 0.25,
-        MAXMOVE: (Wolf.MINDIST * 2 - 1),
-        EXTRAPOINTS: 40000,
-        ITEM_KEY_1: 1,
-        ITEM_KEY_2: 2,
-        ITEM_KEY_3: 4,
-        ITEM_KEY_4: 8,
-        ITEM_WEAPON_1: 16,
-        ITEM_WEAPON_2: 32,
-        ITEM_WEAPON_3: 64,
-        ITEM_WEAPON_4: 128,
-        ITEM_WEAPON_5: 256,
-        ITEM_WEAPON_6: 512,
-        ITEM_WEAPON_7: 1024,
-        ITEM_WEAPON_8: 2048,
-        ITEM_BACKPACK: (1 << 12),
-        ITEM_AUGMENT: (1 << 13),
-        ITEM_UNIFORM: (1 << 14),
-        ITEM_AUTOMAP: (1 << 15),
-        ITEM_FREE: (1 << 16),
-        PL_FLAG_REUSE: 1,
-        PL_FLAG_ATTCK: 2,
-        FL_GODMODE: (1 << 4),
-        FL_NOTARGET: (1 << 6),
-        WEAPON_KNIFE: 0,
-        WEAPON_PISTOL: 1,
-        WEAPON_AUTO: 2,
-        WEAPON_CHAIN: 3,
-        WEAPON_TYPES: 4,
-        KEY_GOLD: 0,
-        KEY_SILVER: 1,
-        KEY_FREE1: 2,
-        KEY_FREE2: 3,
-        KEY_TYPES: 4,
-        AMMO_BULLETS: 0,
-        AMMO_TYPES: 1,
-        ex_notingame: 0,
-        ex_playing: 1,
-        ex_dead: 2,
-        ex_secretlevel: 3,
-        ex_victory: 4,
-        ex_complete: 5,
-        BJRUNSPEED: 2048,
-        BJJUMPSPEED: 680
-    });
-    var attackinfo = [
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 2, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, {
-                tics: 6,
-                attack: -1,
-                frame: 0
-            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, {
-                tics: 6,
-                attack: -1,
-                frame: 0
-            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 3, frame: 3 }, {
-                tics: 6,
-                attack: -1,
-                frame: 0
-            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-        [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 4, frame: 3 }, {
-                tics: 6,
-                attack: -1,
-                frame: 0
-            }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
-    ];
-    function spawn(location, level, skill, oldPlayer) {
+class Player {
+    static spawn(location, level, skill, oldPlayer) {
         var x = location.x, y = location.y, angle = location.angle, tileX = Wolf.POS2TILE(x), tileY = Wolf.POS2TILE(y), areanumber = level.areas[tileX][tileY];
         var player = {
             episode: -1,
@@ -128,14 +58,14 @@ Wolf.Player = (function () {
         Areas.init(level, player.areanumber);
         Areas.connect(level, player.areanumber);
         if (oldPlayer) {
-            copyPlayer(player, oldPlayer);
+            Player.copyPlayer(player, oldPlayer);
         }
         else {
-            newGame(player);
+            Player.newGame(player);
         }
         return player;
     }
-    function copyPlayer(player, copyPlayer) {
+    static copyPlayer(player, copyPlayer) {
         player.health = copyPlayer.health;
         player.ammo = copyPlayer.ammo;
         player.score = copyPlayer.score;
@@ -144,29 +74,29 @@ Wolf.Player = (function () {
         player.previousWeapon = copyPlayer.previousWeapon;
         player.weapon = copyPlayer.weapon;
         player.pendingWeapon = copyPlayer.pendingWeapon;
-        player.items = (copyPlayer.items & Wolf.ITEM_WEAPON_1) |
-            (copyPlayer.items & Wolf.ITEM_WEAPON_2) |
-            (copyPlayer.items & Wolf.ITEM_WEAPON_3) |
-            (copyPlayer.items & Wolf.ITEM_WEAPON_4);
+        player.items = (copyPlayer.items & Player.ITEM_WEAPON_1) |
+            (copyPlayer.items & Player.ITEM_WEAPON_2) |
+            (copyPlayer.items & Player.ITEM_WEAPON_3) |
+            (copyPlayer.items & Player.ITEM_WEAPON_4);
         player.nextExtra = copyPlayer.nextExtra;
     }
-    function newGame(player) {
+    static newGame(player) {
         player.health = 100;
-        player.ammo[Wolf.AMMO_BULLETS] = 8;
+        player.ammo[Player.AMMO_BULLETS] = 8;
         player.score = 0;
         player.startScore = 0;
         player.lives = 3;
-        player.previousWeapon = Wolf.WEAPON_KNIFE;
-        player.weapon = player.pendingWeapon = Wolf.WEAPON_PISTOL;
-        player.items = Wolf.ITEM_WEAPON_1 | Wolf.ITEM_WEAPON_2;
-        player.nextExtra = Wolf.EXTRAPOINTS;
+        player.previousWeapon = Player.WEAPON_KNIFE;
+        player.weapon = player.pendingWeapon = Player.WEAPON_PISTOL;
+        player.items = Player.ITEM_WEAPON_1 | Player.ITEM_WEAPON_2;
+        player.nextExtra = Player.EXTRAPOINTS;
     }
-    function tryMove(player, level) {
+    static tryMove(player, level) {
         var xl, yl, xh, yh, x, y, d, n;
-        xl = Wolf.POS2TILE(player.position.x - Wolf.PLAYERSIZE);
-        yl = Wolf.POS2TILE(player.position.y - Wolf.PLAYERSIZE);
-        xh = Wolf.POS2TILE(player.position.x + Wolf.PLAYERSIZE);
-        yh = Wolf.POS2TILE(player.position.y + Wolf.PLAYERSIZE);
+        xl = Wolf.POS2TILE(player.position.x - Player.PLAYERSIZE);
+        yl = Wolf.POS2TILE(player.position.y - Player.PLAYERSIZE);
+        xh = Wolf.POS2TILE(player.position.x + Player.PLAYERSIZE);
+        yh = Wolf.POS2TILE(player.position.y + Player.PLAYERSIZE);
         for (y = yl; y <= yh; ++y) {
             for (x = xl; x <= xh; ++x) {
                 if (level.tileMap[x][y] & Level.SOLID_TILE) {
@@ -198,33 +128,33 @@ Wolf.Player = (function () {
         }
         return true;
     }
-    function clipMove(self, xmove, ymove, level) {
+    static clipMove(self, xmove, ymove, level) {
         var basex, basey;
         basex = self.position.x;
         basey = self.position.y;
         self.position.x += xmove;
         self.position.y += ymove;
-        if (tryMove(self, level)) {
+        if (Player.tryMove(self, level)) {
             return;
         }
         if (xmove) {
             self.position.x = basex + xmove;
             self.position.y = basey;
-            if (tryMove(self, level)) {
+            if (Player.tryMove(self, level)) {
                 return;
             }
         }
         if (ymove) {
             self.position.x = basex;
             self.position.y = basey + ymove;
-            if (tryMove(self, level)) {
+            if (Player.tryMove(self, level)) {
                 return;
             }
         }
         self.position.x = basex;
         self.position.y = basey;
     }
-    function controlMovement(game, self, level, tics) {
+    static controlMovement(game, self, level, tics) {
         var angle, speed;
         angle = self.angle;
         self.mov.x = self.mov.y = 0;
@@ -242,26 +172,26 @@ Wolf.Player = (function () {
             return;
         }
         self.speed = self.mov.x + self.mov.y;
-        if (self.mov.x > Wolf.MAXMOVE) {
-            self.mov.x = Wolf.MAXMOVE;
+        if (self.mov.x > Player.MAXMOVE) {
+            self.mov.x = Player.MAXMOVE;
         }
-        else if (self.mov.x < -Wolf.MAXMOVE) {
-            self.mov.x = -Wolf.MAXMOVE;
+        else if (self.mov.x < -Player.MAXMOVE) {
+            self.mov.x = -Player.MAXMOVE;
         }
-        if (self.mov.y > Wolf.MAXMOVE) {
-            self.mov.y = Wolf.MAXMOVE;
+        if (self.mov.y > Player.MAXMOVE) {
+            self.mov.y = Player.MAXMOVE;
         }
-        else if (self.mov.y < -Wolf.MAXMOVE) {
-            self.mov.y = -Wolf.MAXMOVE;
+        else if (self.mov.y < -Player.MAXMOVE) {
+            self.mov.y = -Player.MAXMOVE;
         }
-        clipMove(self, self.mov.x, self.mov.y, level);
+        Player.clipMove(self, self.mov.x, self.mov.y, level);
         self.tile.x = Wolf.POS2TILE(self.position.x);
         self.tile.y = Wolf.POS2TILE(self.position.y);
         var x, y, tileX, tileY;
         for (x = -1; x <= 1; x += 2) {
-            tileX = Wolf.POS2TILE(self.position.x + x * Wolf.PLAYERSIZE);
+            tileX = Wolf.POS2TILE(self.position.x + x * Player.PLAYERSIZE);
             for (y = -1; y <= 1; y += 2) {
-                tileY = Wolf.POS2TILE(self.position.y + y * Wolf.PLAYERSIZE);
+                tileY = Wolf.POS2TILE(self.position.y + y * Player.PLAYERSIZE);
                 Powerups.pickUp(level, self, tileX, tileY);
             }
         }
@@ -273,7 +203,7 @@ Wolf.Player = (function () {
             Game.victory(game);
         }
     }
-    function use(self, game) {
+    static use(self, game) {
         var x, y, dir, newtex, level = game.level;
         dir = Mathematik.get4dir(Wolf.FINE2RAD(self.angle));
         x = self.tile.x + Mathematik.dx4dir[dir];
@@ -295,10 +225,10 @@ Wolf.Player = (function () {
                     return false;
             }
             if (level.tileMap[self.tile.x][self.tile.y] & Level.SECRETLEVEL_TILE) {
-                self.playstate = Wolf.ex_secretlevel;
+                self.playstate = Player.ex_secretlevel;
             }
             else {
-                self.playstate = Wolf.ex_complete;
+                self.playstate = Player.ex_complete;
             }
             Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/040.wav", 1, Sound.ATTN_NORM, 0);
             Game.startIntermission(game);
@@ -306,16 +236,16 @@ Wolf.Player = (function () {
         }
         return false;
     }
-    function attack(game, player, reAttack, tics) {
+    static attack(game, player, reAttack, tics) {
         var cur, level = game.level;
         player.attackCount -= tics;
         while (player.attackCount <= 0) {
-            cur = attackinfo[player.weapon][player.attackFrame];
+            cur = Player.attackinfo[player.weapon][player.attackFrame];
             switch (cur.attack) {
                 case -1:
-                    player.flags &= ~Wolf.PL_FLAG_ATTCK;
-                    if (!player.ammo[Wolf.AMMO_BULLETS]) {
-                        player.weapon = Wolf.WEAPON_KNIFE;
+                    player.flags &= ~Player.PL_FLAG_ATTCK;
+                    if (!player.ammo[Player.AMMO_BULLETS]) {
+                        player.weapon = Player.WEAPON_KNIFE;
                     }
                     else if (player.weapon != player.pendingWeapon) {
                         player.weapon = player.pendingWeapon;
@@ -323,45 +253,45 @@ Wolf.Player = (function () {
                     player.attackFrame = player.weaponFrame = 0;
                     return;
                 case 4:
-                    if (!player.ammo[Wolf.AMMO_BULLETS]) {
+                    if (!player.ammo[Player.AMMO_BULLETS]) {
                         break;
                     }
                     if (reAttack) {
                         player.attackFrame -= 2;
                     }
                 case 1:
-                    if (!player.ammo[Wolf.AMMO_BULLETS]) {
+                    if (!player.ammo[Player.AMMO_BULLETS]) {
                         player.attackFrame++;
                         break;
                     }
                     Weapon.fireLead(game, player);
-                    player.ammo[Wolf.AMMO_BULLETS]--;
+                    player.ammo[Player.AMMO_BULLETS]--;
                     break;
                 case 2:
                     Weapon.fireHit(game, player);
                     break;
                 case 3:
-                    if (player.ammo[Wolf.AMMO_BULLETS] && reAttack) {
+                    if (player.ammo[Player.AMMO_BULLETS] && reAttack) {
                         player.attackFrame -= 2;
                     }
                     break;
             }
             player.attackCount += cur.tics;
             player.attackFrame++;
-            player.weaponFrame = attackinfo[player.weapon][player.attackFrame].frame;
+            player.weaponFrame = Player.attackinfo[player.weapon][player.attackFrame].frame;
         }
     }
-    function givePoints(player, points) {
+    static givePoints(player, points) {
         player.score += points;
         while (player.score >= player.nextExtra) {
-            player.nextExtra += Wolf.EXTRAPOINTS;
-            giveLife(player);
+            player.nextExtra += Player.EXTRAPOINTS;
+            Player.giveLife(player);
             Wolf.log("Extra life!");
         }
     }
-    function giveHealth(player, points, max) {
+    static giveHealth(player, points, max) {
         if (max == 0) {
-            max = (player.items & Wolf.ITEM_AUGMENT) ? 150 : 100;
+            max = (player.items & Player.ITEM_AUGMENT) ? 150 : 100;
         }
         if (player.health >= max) {
             return false;
@@ -373,18 +303,18 @@ Wolf.Player = (function () {
         player.faceGotGun = false;
         return true;
     }
-    function giveLife(player) {
+    static giveLife(player) {
         if (player.lives < 9) {
             player.lives++;
         }
     }
-    function giveKey(player, key) {
-        player.items |= Wolf.ITEM_KEY_1 << key;
+    static giveKey(player, key) {
+        player.items |= Player.ITEM_KEY_1 << key;
     }
-    function giveWeapon(player, weapon) {
+    static giveWeapon(player, weapon) {
         var itemflag;
-        giveAmmo(player, Wolf.AMMO_BULLETS, 6);
-        itemflag = Wolf.ITEM_WEAPON_1 << weapon;
+        Player.giveAmmo(player, Player.AMMO_BULLETS, 6);
+        itemflag = Player.ITEM_WEAPON_1 << weapon;
         if (player.items & itemflag) {
             return;
         }
@@ -395,9 +325,9 @@ Wolf.Player = (function () {
             }
         }
     }
-    function giveAmmo(player, type, ammo) {
+    static giveAmmo(player, type, ammo) {
         var maxAmmo = 99;
-        if (player.items & Wolf.ITEM_BACKPACK) {
+        if (player.items & Player.ITEM_BACKPACK) {
             maxAmmo *= 2;
         }
         if (player.ammo[type] >= maxAmmo) {
@@ -412,9 +342,9 @@ Wolf.Player = (function () {
         }
         return true;
     }
-    function damage(player, attacker, points, skill) {
+    static damage(player, attacker, points, skill) {
         var dx, dy, angle, playerAngle, deltaAngle;
-        if (player.playstate == Wolf.ex_dead || player.playstate == Wolf.ex_complete || self.playstate == Wolf.ex_victory) {
+        if (player.playstate == Player.ex_dead || player.playstate == Player.ex_complete || player.playstate == Player.ex_victory) {
             return;
         }
         player.lastAttacker = attacker;
@@ -444,13 +374,13 @@ Wolf.Player = (function () {
                 player.attackDirection[1] = 1;
             }
         }
-        if (!(player.flags & Wolf.FL_GODMODE)) {
+        if (!(player.flags & Player.FL_GODMODE)) {
             player.health -= points;
         }
         if (player.health <= 0) {
             Game.notify("You have died");
             player.health = 0;
-            player.playstate = Wolf.ex_dead;
+            player.playstate = Player.ex_dead;
             Sound.startSound(null, null, 0, Sound.CHAN_BODY, "assets/lsfx/009.wav", 1, Sound.ATTN_NORM, 0);
         }
         Game.startDamageFlash(points);
@@ -460,7 +390,7 @@ Wolf.Player = (function () {
             player.faceCount = 0;
         }
     }
-    function victorySpin(game, player, tics) {
+    static victorySpin(game, player, tics) {
         var desty;
         if (player.angle > Wolf.ANG_270) {
             player.angle -= tics * Wolf.ANG_1 * 3;
@@ -482,32 +412,32 @@ Wolf.Player = (function () {
             }
         }
     }
-    function process(game, self, tics) {
+    static process(game, self, tics) {
         var level = game.level, n;
-        if (self.playstate == Wolf.ex_victory) {
-            victorySpin(game, self, tics);
+        if (self.playstate == Player.ex_victory) {
+            Player.victorySpin(game, self, tics);
             return;
         }
         self.attackDirection = [0, 0];
         self.madenoise = false;
-        controlMovement(game, self, level, tics);
-        if (self.flags & Wolf.PL_FLAG_ATTCK) {
-            attack(game, self, self.cmd.buttons & Game.BUTTON_ATTACK, tics);
+        Player.controlMovement(game, self, level, tics);
+        if (self.flags & Player.PL_FLAG_ATTCK) {
+            Player.attack(game, self, self.cmd.buttons & Game.BUTTON_ATTACK, tics);
         }
         else {
             if (self.cmd.buttons & Game.BUTTON_USE) {
-                if (!(self.flags & Wolf.PL_FLAG_REUSE) && use(self, game)) {
-                    self.flags |= Wolf.PL_FLAG_REUSE;
+                if (!(self.flags & Player.PL_FLAG_REUSE) && Player.use(self, game)) {
+                    self.flags |= Player.PL_FLAG_REUSE;
                 }
             }
             else {
-                self.flags &= ~Wolf.PL_FLAG_REUSE;
+                self.flags &= ~Player.PL_FLAG_REUSE;
             }
             if (self.cmd.buttons & Game.BUTTON_ATTACK) {
-                self.flags |= Wolf.PL_FLAG_ATTCK;
+                self.flags |= Player.PL_FLAG_ATTCK;
                 self.attackFrame = 0;
-                self.attackCount = attackinfo[self.weapon][0].tics;
-                self.weaponFrame = attackinfo[self.weapon][0].frame;
+                self.attackCount = Player.attackinfo[self.weapon][0].tics;
+                self.weaponFrame = Player.attackinfo[self.weapon][0].frame;
             }
         }
         switch (self.cmd.impulse) {
@@ -522,8 +452,8 @@ Wolf.Player = (function () {
             case 10:
                 self.pendingWeapon = self.weapon;
                 for (n = 0; n < 4; ++n) {
-                    if (++self.weapon > Wolf.WEAPON_CHAIN) {
-                        self.weapon = Wolf.WEAPON_KNIFE;
+                    if (++self.weapon > Player.WEAPON_CHAIN) {
+                        self.weapon = Player.WEAPON_KNIFE;
                     }
                     if (changeWeapon(self, self.weapon)) {
                         break;
@@ -536,17 +466,65 @@ Wolf.Player = (function () {
                 break;
         }
     }
-    return {
-        spawn: spawn,
-        newGame: newGame,
-        controlMovement: controlMovement,
-        process: process,
-        damage: damage,
-        givePoints: givePoints,
-        giveHealth: giveHealth,
-        giveAmmo: giveAmmo,
-        giveWeapon: giveWeapon,
-        giveLife: giveLife,
-        giveKey: giveKey
-    };
-})();
+}
+Player.PLAYERSIZE = Wolf.MINDIST;
+Player.STOPSPEED = 0x0D00;
+Player.FRICTION = 0.25;
+Player.MAXMOVE = (Wolf.MINDIST * 2 - 1);
+Player.EXTRAPOINTS = 40000;
+Player.ITEM_KEY_1 = 1;
+Player.ITEM_KEY_2 = 2;
+Player.ITEM_KEY_3 = 4;
+Player.ITEM_KEY_4 = 8;
+Player.ITEM_WEAPON_1 = 16;
+Player.ITEM_WEAPON_2 = 32;
+Player.ITEM_WEAPON_3 = 64;
+Player.ITEM_WEAPON_4 = 128;
+Player.ITEM_WEAPON_5 = 256;
+Player.ITEM_WEAPON_6 = 512;
+Player.ITEM_WEAPON_7 = 1024;
+Player.ITEM_WEAPON_8 = 2048;
+Player.ITEM_BACKPACK = (1 << 12);
+Player.ITEM_AUGMENT = (1 << 13);
+Player.ITEM_UNIFORM = (1 << 14);
+Player.ITEM_AUTOMAP = (1 << 15);
+Player.ITEM_FREE = (1 << 16);
+Player.PL_FLAG_REUSE = 1;
+Player.PL_FLAG_ATTCK = 2;
+Player.FL_GODMODE = (1 << 4);
+Player.FL_NOTARGET = (1 << 6);
+Player.WEAPON_KNIFE = 0;
+Player.WEAPON_PISTOL = 1;
+Player.WEAPON_AUTO = 2;
+Player.WEAPON_CHAIN = 3;
+Player.WEAPON_TYPES = 4;
+Player.KEY_GOLD = 0;
+Player.KEY_SILVER = 1;
+Player.KEY_FREE1 = 2;
+Player.KEY_FREE2 = 3;
+Player.KEY_TYPES = 4;
+Player.ex_complete = 5;
+Player.BJRUNSPEED = 2048;
+Player.BJJUMPSPEED = 680;
+Player.attackinfo = [
+    [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 2, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+    [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 0, frame: 3 }, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+    [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 3, frame: 3 }, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+    [{ tics: 6, attack: 0, frame: 1 }, { tics: 6, attack: 1, frame: 2 }, { tics: 6, attack: 4, frame: 3 }, {
+            tics: 6,
+            attack: -1,
+            frame: 0
+        }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+];

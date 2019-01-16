@@ -35,96 +35,96 @@ class Powerups {
             case Powerups.pow_key3:
             case Powerups.pow_key4:
                 type -= Powerups.pow_key1;
-                Wolf.Player.giveKey(player, type);
+                Player.giveKey(player, type);
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/012.wav", 1, Sound.ATTN_NORM, 0);
                 Game.notify(keynames[type] + " key");
                 break;
             case Powerups.pow_cross:
-                Wolf.Player.givePoints(player, 100);
+                Player.givePoints(player, 100);
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/035.wav", 1, Sound.ATTN_NORM, 0);
                 if (++level.state.foundTreasure == level.state.totalTreasure) {
                     Game.notify("You found the last treasure!");
                 }
                 break;
             case Powerups.pow_chalice:
-                Wolf.Player.givePoints(player, 500);
+                Player.givePoints(player, 500);
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/036.wav", 1, Sound.ATTN_NORM, 0);
                 if (++level.state.foundTreasure == level.state.totalTreasure) {
                     Game.notify("You found the last treasure!");
                 }
                 break;
             case Powerups.pow_bible:
-                Wolf.Player.givePoints(player, 1000);
+                Player.givePoints(player, 1000);
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/037.wav", 1, Sound.ATTN_NORM, 0);
                 if (++level.state.foundTreasure == level.state.totalTreasure) {
                     Game.notify("You found the last treasure!");
                 }
                 break;
             case Powerups.pow_crown:
-                Wolf.Player.givePoints(player, 5000);
+                Player.givePoints(player, 5000);
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/045.wav", 1, Sound.ATTN_NORM, 0);
                 if (++level.state.foundTreasure == level.state.totalTreasure) {
                     Game.notify("You found the last treasure!");
                 }
                 break;
             case Powerups.pow_gibs:
-                if (!Wolf.Player.giveHealth(player, 1, 11)) {
+                if (!Player.giveHealth(player, 1, 11)) {
                     return false;
                 }
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/061.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Powerups.pow_alpo:
-                if (!Wolf.Player.giveHealth(player, 4, 0)) {
+                if (!Player.giveHealth(player, 4, 0)) {
                     return false;
                 }
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/033.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Powerups.pow_food:
-                if (!Wolf.Player.giveHealth(player, 10, 0)) {
+                if (!Player.giveHealth(player, 10, 0)) {
                     return false;
                 }
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/033.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Powerups.pow_firstaid:
-                if (!Wolf.Player.giveHealth(player, 25, 0)) {
+                if (!Player.giveHealth(player, 25, 0)) {
                     return false;
                 }
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/034.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Powerups.pow_clip:
-                if (!Wolf.Player.giveAmmo(player, Wolf.AMMO_BULLETS, 8)) {
+                if (!Player.giveAmmo(player, Player.AMMO_BULLETS, 8)) {
                     return false;
                 }
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/031.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Powerups.pow_clip2:
-                if (!Wolf.Player.giveAmmo(player, Wolf.AMMO_BULLETS, 4)) {
+                if (!Player.giveAmmo(player, Player.AMMO_BULLETS, 4)) {
                     return false;
                 }
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/031.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Powerups.pow_25clip:
-                if (!Wolf.Player.giveAmmo(player, Wolf.AMMO_BULLETS, 25)) {
+                if (!Player.giveAmmo(player, Player.AMMO_BULLETS, 25)) {
                     return false;
                 }
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/031.wav", 1, Sound.ATTN_NORM, 0);
                 break;
             case Powerups.pow_machinegun:
-                Wolf.Player.giveWeapon(player, Wolf.WEAPON_AUTO);
+                Player.giveWeapon(player, Player.WEAPON_AUTO);
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/030.wav", 1, Sound.ATTN_NORM, 0);
                 Game.notify("Machinegun");
                 break;
             case Powerups.pow_chaingun:
-                Wolf.Player.giveWeapon(player, Wolf.WEAPON_CHAIN);
+                Player.giveWeapon(player, Player.WEAPON_CHAIN);
                 Sound.startSound(null, null, 0, Sound.CHAN_ITEM, "assets/lsfx/038.wav", 1, Sound.ATTN_NORM, 0);
                 Game.notify("Chaingun");
                 player.faceCount = -100;
                 player.faceGotGun = true;
                 break;
             case Powerups.pow_fullheal:
-                Wolf.Player.giveHealth(player, 99, 99);
-                Wolf.Player.giveAmmo(player, Wolf.AMMO_BULLETS, 25);
-                Wolf.Player.giveLife(player);
+                Player.giveHealth(player, 99, 99);
+                Player.giveAmmo(player, Player.AMMO_BULLETS, 25);
+                Player.giveLife(player);
                 if (++level.state.foundTreasure == level.state.totalTreasure) {
                     Game.notify("You found the last treasure!");
                 }
