@@ -486,17 +486,17 @@ class Menu {
                 .removeClass("hidden")
                 .show();
 
-            if (!Wolf.Episodes[0].enabled) {
+            if (!Episodes.data[0].enabled) {
                 $("#menu div.menu.episodes li.episode-0")
                     .addClass("hidden")
                     .hide();
             }
-            if (!Wolf.Episodes[1].enabled) {
+            if (!Episodes.data[1].enabled) {
                 $("#menu div.menu.episodes li.episode-1")
                     .addClass("hidden")
                     .hide();
             }
-            if (!Wolf.Episodes[2].enabled) {
+            if (!Episodes.data[2].enabled) {
                 $("#menu div.menu.episodes li.episode-2")
                     .addClass("hidden")
                     .hide();

@@ -563,7 +563,7 @@ class Game {
      * @param {number} levelNum The level number.
      */
     static startLevel(game, episodeNum, levelNum) {
-        if (!Wolf.Episodes[episodeNum].enabled) {
+        if (!Episodes.data[episodeNum].enabled) {
             return;
         }
 
@@ -573,7 +573,7 @@ class Game {
         game.episodeNum = episodeNum;
         game.levelNum = levelNum;
 
-        var episode = Wolf.Episodes[game.episodeNum];
+        var episode = Episodes.data[game.episodeNum];
 
         Level.load(episode.levels[game.levelNum].file, function (error, level) {
             if (error) {
@@ -767,7 +767,7 @@ class Game {
      * @param {object} game The game object.
      */
     static startIntermission(game, delay) {
-        var episode = Wolf.Episodes[game.episodeNum],
+        var episode = Episodes.data[game.episodeNum],
             parTime = episode.levels[game.levelNum].partime * 60,
             bonus = 0,
             parBonusAmount = 500,

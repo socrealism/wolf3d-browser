@@ -1,5 +1,7 @@
 "use strict";
-Wolf.Episodes = [
+class Episodes {
+}
+Episodes.data = [
     {
         name: "Escape from Wolfenstein",
         enabled: true,

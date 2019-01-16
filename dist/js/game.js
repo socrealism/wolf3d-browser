@@ -358,14 +358,14 @@ class Game {
         nextFrame();
     }
     static startLevel(game, episodeNum, levelNum) {
-        if (!Wolf.Episodes[episodeNum].enabled) {
+        if (!Episodes.data[episodeNum].enabled) {
             return;
         }
         Game.playing = false;
         Game.rendering = false;
         game.episodeNum = episodeNum;
         game.levelNum = levelNum;
-        var episode = Wolf.Episodes[game.episodeNum];
+        var episode = Episodes.data[game.episodeNum];
         Level.load(episode.levels[game.levelNum].file, function (error, level) {
             if (error) {
                 throw error;
@@ -490,7 +490,7 @@ class Game {
         });
     }
     static startIntermission(game, delay) {
-        var episode = Wolf.Episodes[game.episodeNum], parTime = episode.levels[game.levelNum].partime * 60, bonus = 0, parBonusAmount = 500, ratioBonusAmount = 10000, levelState = game.level.state, killRatio = levelState.totalMonsters ? ((levelState.killedMonsters / levelState.totalMonsters * 100) >> 0) : 0, secretRatio = levelState.totalSecrets ? ((levelState.foundSecrets / levelState.totalSecrets * 100) >> 0) : 0, treasureRatio = levelState.totalTreasure ? ((levelState.foundTreasure / levelState.totalTreasure * 100) >> 0) : 0, time = levelState.elapsedTime + ((new Date).getTime() - levelState.startTime), totalTime, i, avgKill = 0, avgSecret = 0, avgTreasure = 0;
+        var episode = Episodes.data[game.episodeNum], parTime = episode.levels[game.levelNum].partime * 60, bonus = 0, parBonusAmount = 500, ratioBonusAmount = 10000, levelState = game.level.state, killRatio = levelState.totalMonsters ? ((levelState.killedMonsters / levelState.totalMonsters * 100) >> 0) : 0, secretRatio = levelState.totalSecrets ? ((levelState.foundSecrets / levelState.totalSecrets * 100) >> 0) : 0, treasureRatio = levelState.totalTreasure ? ((levelState.foundTreasure / levelState.totalTreasure * 100) >> 0) : 0, time = levelState.elapsedTime + ((new Date).getTime() - levelState.startTime), totalTime, i, avgKill = 0, avgSecret = 0, avgTreasure = 0;
         Game.playing = false;
         Sound.startMusic("assets/music/URAHERO.ogg");
         $("#game .renderer").hide();
