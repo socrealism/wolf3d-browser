@@ -3,9 +3,9 @@ class Areas {
     static init(level, areanumber) {
         level.state.areaconnect = [];
         level.state.areabyplayer = [];
-        for (var i = 0; i < Wolf.NUMAREAS; i++) {
+        for (let i = 0; i < Wolf.NUMAREAS; i++) {
             level.state.areaconnect[i] = [];
-            for (var j = 0; j < Wolf.NUMAREAS; j++) {
+            for (let j = 0; j < Wolf.NUMAREAS; j++) {
                 level.state.areaconnect[i][j] = 0;
             }
             level.state.areabyplayer[i] = false;
@@ -13,7 +13,7 @@ class Areas {
         level.state.areabyplayer[areanumber] = true;
     }
     static recursiveConnect(level, areanumber) {
-        for (var i = 0; i < Wolf.NUMAREAS; ++i) {
+        for (let i = 0; i < Wolf.NUMAREAS; ++i) {
             if (level.state.areaconnect[areanumber][i] && !level.state.areabyplayer[i]) {
                 level.state.areabyplayer[i] = true;
                 Areas.recursiveConnect(level, i);
@@ -21,7 +21,7 @@ class Areas {
         }
     }
     static connect(level, areanumber) {
-        var i, c = 0;
+        let i, c = 0;
         if (areanumber >= Wolf.NUMAREAS) {
             throw new Error("areanumber >= Wolf.NUMAREAS");
         }

@@ -2,9 +2,9 @@
 class Wolf {
     static log(str) {
         if (typeof console != "undefined") {
-            var t = new Date(), e = new Error(), f = "";
+            let t = new Date(), e = new Error(), f = "";
             if (typeof str == "object" && typeof e.stack == "string") {
-                var s = e.stack.split("\n")[2] + "", m = s.match(/at (.*)$/);
+                const s = e.stack.split("\n")[2] + "", m = s.match(/at (.*)$/);
                 f = m ? "\t[" + m[1] + "]" : "";
             }
             console.log(t.toLocaleTimeString() + ": " + str + f);

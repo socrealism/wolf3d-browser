@@ -1,7 +1,7 @@
 "use strict";
 class Raycaster {
     static traceCheck(tileMap, doorMap, visibleTiles, x, y, frac, dfrac, vert, flip, tracePoint) {
-        var door;
+        let door;
         if (tileMap[x][y] & Level.WALL_TILE) {
             if (vert) {
                 tracePoint.x = (x << Wolf.TILESHIFT) + (flip ? Wolf.TILEGLOBAL : 0);
@@ -52,7 +52,7 @@ class Raycaster {
             return true;
         }
         if (tileMap[x][y] & Level.PUSHWALL_TILE) {
-            var pwall = PushWall.get(), offset = pwall.pointsMoved / 128;
+            let pwall = PushWall.get(), offset = pwall.pointsMoved / 128;
             frac += dfrac * offset;
             if (Wolf.POS2TILE(frac)) {
                 return false;
@@ -76,7 +76,7 @@ class Raycaster {
         return false;
     }
     static trace(level, visibleTiles, tracePoint) {
-        var xtilestep, ytilestep, xstep, ystep, xtile, ytile, xintercept, yintercept, YmapPos, XmapPos, tileMap = level.tileMap, doorMap = level.state.doorMap, q;
+        let xtilestep, ytilestep, xstep, ystep, xtile, ytile, xintercept, yintercept, YmapPos, XmapPos, tileMap = level.tileMap, doorMap = level.state.doorMap, q;
         q = Mathematik.getQuadrant(Wolf.FINE2RAD(tracePoint.angle));
         xtilestep = Raycaster.x_tile_step[q];
         ytilestep = Raycaster.y_tile_step[q];
@@ -93,7 +93,7 @@ class Raycaster {
         if (visibleTiles) {
             visibleTiles[Wolf.POS2TILE(tracePoint.x)][Wolf.POS2TILE(tracePoint.y)] = true;
         }
-        var traceCount = 0;
+        let traceCount = 0;
         while (1) {
             traceCount++;
             while (!(ytilestep == -1 && YmapPos <= ytile) && !(ytilestep == 1 && YmapPos >= ytile)) {
@@ -132,7 +132,7 @@ class Raycaster {
         }
     }
     static traceRays(viewport, level) {
-        var n, i, j, tileMap = level.tileMap, tracePoint, visibleTiles = [], numRays = Wolf.XRES / Wolf.SLICE_WIDTH, tracers = [];
+        let n, i, j, tileMap = level.tileMap, tracePoint, visibleTiles = [], numRays = Wolf.XRES / Wolf.SLICE_WIDTH, tracers = [];
         for (i = 0; i < 64; i++) {
             visibleTiles[i] = [];
             for (j = 0; j < 64; j++) {

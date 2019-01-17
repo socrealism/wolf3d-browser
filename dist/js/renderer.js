@@ -6,7 +6,7 @@ class Renderer {
             return;
         }
         Renderer.hasInit = true;
-        $("#game .renderer")
+        $("#renderer")
             .width(Wolf.XRES + "px")
             .height(Wolf.YRES + "px");
         for (x = 0; x < Wolf.XRES; x += Wolf.SLICE_WIDTH) {
@@ -19,7 +19,7 @@ class Renderer {
                 top: 0,
                 overflow: "hidden"
             });
-            slice.appendTo("#game .renderer");
+            slice.appendTo("#renderer");
             image = Renderer.useBackgroundImage ? $("<div>") : $("<img>");
             image.css({
                 position: "absolute",
@@ -36,7 +36,7 @@ class Renderer {
         }
     }
     static reset() {
-        $("#game .renderer .sprite").remove();
+        $("#renderer .sprite").remove();
         Renderer.sprites = [];
         Renderer.visibleSprites = [];
     }
@@ -261,7 +261,7 @@ class Renderer {
         div.image = image[0];
         div.appendChild(div.image);
         sprite.div = div;
-        $("#game .renderer").append(div);
+        $("#renderer").append(div);
     }
 }
 Renderer.FOV_RAD = 75 * Math.PI / 180;

@@ -29,8 +29,8 @@ class PushWall {
         PushWall.PWall.texY = 0;
     }
 
-    static push(level, x, y, dir) {
-        var dx, dy;
+    static push(level, x: number, y: number, dir) {
+        let dx, dy;
 
         if (PushWall.PWall.active) {
             return false; // another PWall is moving [only one at a time!]

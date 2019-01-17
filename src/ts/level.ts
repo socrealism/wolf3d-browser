@@ -1087,3 +1087,5 @@ class Level {
         return true;
     }
 }
+
+Level.init();

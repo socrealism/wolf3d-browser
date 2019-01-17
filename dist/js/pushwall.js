@@ -13,7 +13,7 @@ class PushWall {
         PushWall.PWall.texY = 0;
     }
     static push(level, x, y, dir) {
-        var dx, dy;
+        let dx, dy;
         if (PushWall.PWall.active) {
             return false;
         }

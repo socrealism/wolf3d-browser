@@ -19,7 +19,7 @@ class ActorAI {
      * @param {object} game The game object.
      */
     static deathScream(self, game) {
-        var pos = game.player.position;
+        const pos = game.player.position;
 
         switch (self.type) {
             case Actors.en_mutant:
@@ -103,11 +103,10 @@ class ActorAI {
      * @param {object} game The game object.
      */
     static hitlerMorph(self, game) {
-        var hitpoints = [500, 700, 800, 900],
+        const hitpoints = [500, 700, 800, 900],
             level = game.level,
-            hitler;
+            hitler = Actors.getNewActor(level);
 
-        hitler = Actors.getNewActor(level);
         if (!hitler) {
             return;
         }
@@ -127,7 +126,6 @@ class ActorAI {
         hitler.ticcount = 0;
         hitler.flags = self.flags | Actors.FL_SHOOTABLE;
         hitler.sprite = Sprites.getNewSprite(level);
-
     }
 
     /* Angel of Death */
@@ -177,7 +175,7 @@ class ActorAI {
      * @param {object} game The game object.
      */
     static dormant(self, game) {
-        var level = game.level,
+        let level = game.level,
             player = game.player,
             deltax,
             deltay,
@@ -246,7 +244,7 @@ class ActorAI {
      * @param {object} level The level object.
      */
     static smoke(self, game) {
-        var level = game.level,
+        const level = game.level,
             smokeEnt = Actors.getNewActor(level);
 
         if (!smokeEnt) {
@@ -401,7 +399,7 @@ class ActorAI {
      * @param {object} player The player object.
      */
     static killActor(self, game, player) {
-        var level = game.level,
+        const level = game.level,
             tilex = self.tile.x = self.x >> Wolf.TILESHIFT, // drop item on center,
             tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
 
@@ -423,6 +421,7 @@ class ActorAI {
 
             case Actors.en_ss:
                 Player.givePoints(player, 500);
+
                 if (player.items & Player.ITEM_WEAPON_3) { // have a schmeiser?
                     Powerups.spawn(level, tilex, tiley, Powerups.pow_clip2);
                 } else {

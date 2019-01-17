@@ -7,8 +7,7 @@ class Sprites {
         Sprites.setConsts(Sprites.spriteConsts);
     }
     static getNewSprite(level) {
-        var n;
-        var newSprite = {
+        const newSprite = {
             x: 0,
             y: 0,
             angle: 0,
@@ -48,7 +47,7 @@ class Sprites {
         sprite.flags |= Sprites.SPRT_CHG_TEX;
     }
     static cacheTextures(start, end) {
-        var i, texname;
+        let i, texname;
         for (i = start; i <= end; ++i) {
             if (!Sprites.spriteTextures[i]) {
             }
@@ -58,7 +57,7 @@ class Sprites {
         return Sprites.sheets[id];
     }
     static createVisList(viewport, level, visibleTiles) {
-        var tx, ty, n, num, numVisible, vislist, sprt;
+        let tx, ty, n, num, numVisible, vislist, sprt;
         vislist = [];
         numVisible = 0;
         for (n = 0, num = level.sprites.length; n < num; ++n) {
@@ -75,7 +74,7 @@ class Sprites {
                 ty = 63;
             }
             if (visibleTiles[tx][ty] || visibleTiles[tx + 1][ty] || visibleTiles[tx][ty + 1] || visibleTiles[tx + 1][ty + 1]) {
-                var vis = vislist[vislist.length] = {};
+                const vis = vislist[vislist.length] = {};
                 vis.dist = Mathematik.lineLen2Point(sprt.x - viewport.x, sprt.y - viewport.y, viewport.angle);
                 vis.x = sprt.x;
                 vis.y = sprt.y;
@@ -99,7 +98,7 @@ class Sprites {
         Renderer.unloadSprite(sprite);
     }
     static clean(level) {
-        var i, num, liveSprites = [];
+        let i, num, liveSprites = [];
         for (i = 0, num = level.sprites.length; i < num; ++i) {
             if (level.sprites[i].flags & Sprites.SPRT_REMOVE) {
                 continue;
@@ -802,7 +801,7 @@ Sprites.sheets = [
     { sheet: "514_533.png", size: 128, idx: 19, num: 20 }
 ];
 Sprites.setConsts = function (C) {
-    for (var a in C) {
+    for (const a in C) {
         if (C.hasOwnProperty(a) && !(a in Sprites)) {
             Sprites[a] = C[a];
         }

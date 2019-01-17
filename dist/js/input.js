@@ -276,3 +276,4 @@ Input.keysCode = {
     F11: 122,
     F12: 123
 };
+Input.init();

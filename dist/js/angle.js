@@ -23,15 +23,6 @@ class Angle {
             return angle1 + 2 * Math.PI - angle2;
         }
     }
-    static interpolate(from, to, frac) {
-        const diff = Angle.diff(from, to) * frac;
-        if (Angle.distCW(to, from) >= Math.PI) {
-            return from - diff;
-        }
-        else {
-            return from + diff;
-        }
-    }
     static normalize(angle) {
         while (angle < 0) {
             angle += (2 * Math.PI);
@@ -40,15 +31,6 @@ class Angle {
             angle -= (2 * Math.PI);
         }
         return angle;
-    }
-    static lerp(from, to, frac) {
-        if (to - from > 180) {
-            to -= 360;
-        }
-        if (to - from < -180) {
-            to += 360;
-        }
-        return from + frac * (to - from);
     }
 }
 Angle.DEG2RAD = function (a) {

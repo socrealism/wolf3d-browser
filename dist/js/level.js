@@ -860,3 +860,4 @@ Level.cachedSS = 0;
 Level.cachedDog = 0;
 Level.cachedMutant = 0;
 Level.progress_bar = 0;
+Level.init();

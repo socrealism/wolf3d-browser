@@ -210,7 +210,7 @@ class Actors {
         level.state.totalMonsters++;
     }
     static spawnBJVictory(player, level, skill) {
-        var x = Wolf.POS2TILE(player.position.x), y = Wolf.POS2TILE(player.position.y), bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Mathematik.dir4_north);
+        const x = Wolf.POS2TILE(player.position.x), y = Wolf.POS2TILE(player.position.y), bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Mathematik.dir4_north);
         if (!bj) {
             return;
         }

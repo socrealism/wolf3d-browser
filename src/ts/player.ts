@@ -45,11 +45,11 @@ class Player {
     static readonly AMMO_BULLETS: 0;
     static readonly AMMO_TYPES: 1;
 
-    static readonly ex_notingame: 0;
-    static readonly ex_playing: 1;
-    static readonly ex_dead: 2;
-    static readonly ex_secretlevel: 3;
-    static readonly ex_victory: 4;
+    static readonly ex_notingame = 0;
+    static readonly ex_playing = 1;
+    static readonly ex_dead = 2;
+    static readonly ex_secretlevel = 3;
+    static readonly ex_victory = 4;
     static readonly ex_complete = 5;
 
     // victory animation
@@ -697,7 +697,7 @@ class Player {
      * @param {number} tics Tics since last processing.
      */
     static process(game, self, tics) {
-        var level = game.level,
+        let level = game.level,
             n;
 
 

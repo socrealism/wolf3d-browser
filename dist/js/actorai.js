@@ -1,7 +1,7 @@
 "use strict";
 class ActorAI {
     static deathScream(self, game) {
-        var pos = game.player.position;
+        const pos = game.player.position;
         switch (self.type) {
             case Actors.en_mutant:
                 Sound.startSound(pos, self, 1, Sound.CHAN_VOICE, "assets/sfx/037.wav", 1, Sound.ATTN_NORM, 0);
@@ -53,8 +53,7 @@ class ActorAI {
         Sound.startSound(game.player.position, self, 1, Sound.CHAN_VOICE, "assets/lsfx/061.wav", 1, Sound.ATTN_NORM, 0);
     }
     static hitlerMorph(self, game) {
-        var hitpoints = [500, 700, 800, 900], level = game.level, hitler;
-        hitler = Actors.getNewActor(level);
+        const hitpoints = [500, 700, 800, 900], level = game.level, hitler = Actors.getNewActor(level);
         if (!hitler) {
             return;
         }
@@ -94,7 +93,7 @@ class ActorAI {
         Game.startIntermission(game);
     }
     static dormant(self, game) {
-        var level = game.level, player = game.player, deltax, deltay, xl, xh, yl, yh, x, y, n, moveok = false;
+        let level = game.level, player = game.player, deltax, deltay, xl, xh, yl, yh, x, y, n, moveok = false;
         deltax = self.x - player.position.x;
         deltay = self.y - player.position.y;
         if (deltax < -Actors.MINACTORDIST || deltax > Actors.MINACTORDIST) {
@@ -137,7 +136,7 @@ class ActorAI {
         }, 5000);
     }
     static smoke(self, game) {
-        var level = game.level, smokeEnt = Actors.getNewActor(level);
+        const level = game.level, smokeEnt = Actors.getNewActor(level);
         if (!smokeEnt) {
             return;
         }
@@ -249,7 +248,7 @@ class ActorAI {
         }
     }
     static killActor(self, game, player) {
-        var level = game.level, tilex = self.tile.x = self.x >> Wolf.TILESHIFT, tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
+        const level = game.level, tilex = self.tile.x = self.x >> Wolf.TILESHIFT, tiley = self.tile.y = self.y >> Wolf.TILESHIFT;
         switch (self.type) {
             case Actors.en_guard:
                 Player.givePoints(player, 100);

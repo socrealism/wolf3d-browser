@@ -251,7 +251,7 @@ body {
   background-repeat : no-repeat;
 }
 
-#game .fps {
+.fps {
   position : absolute;
   display : none;
   z-index : 1000;
@@ -259,9 +259,13 @@ body {
   top : 15px;
   font-family: "Courier New", monospace;
   font-size : 16px;
-  background : rgba(0,0,0,0.3);
+  background : fade(black, 30%);
   color : rgb(200,200,200);
   padding : 5px;
+
+  &_active {
+    display: block;
+  }
 }
 
 

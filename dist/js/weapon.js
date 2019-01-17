@@ -1,7 +1,7 @@
 "use strict";
 class Weapon {
     static fireHit(game, player) {
-        var level = game.level, closest, dist, d1, n, shotDist, damage, guard;
+        let level = game.level, closest, dist, d1, n, shotDist, damage, guard;
         Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/lsfx/023.wav", 1, Sound.ATTN_NORM, 0);
         dist = 0x7fffffff;
         closest = null;
@@ -30,7 +30,7 @@ class Weapon {
         ActorAI.damageActor(closest, game, player, damage);
     }
     static fireLead(game, player) {
-        var level = game.level, closest, damage, dx, dy, dist, d1, shotDist, n, guard;
+        let level = game.level, closest, damage, dx, dy, dist, d1, shotDist, n, guard;
         switch (player.weapon) {
             case Player.WEAPON_PISTOL:
                 Sound.startSound(null, null, 0, Sound.CHAN_WEAPON, "assets/sfx/012.wav", 1, Sound.ATTN_NORM, 0);
@@ -64,7 +64,7 @@ class Weapon {
             }
         }
         if (!closest) {
-            var tracePoint = {
+            const tracePoint = {
                 angle: Mathematik.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
                 x: player.position.x,
                 y: player.position.y,

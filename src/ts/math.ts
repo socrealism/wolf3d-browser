@@ -153,7 +153,7 @@ class Mathematik {
      * @description Build LUTs, etc.
      */
     static buildTables() {
-        var angle, tanfov2, tanval, value,
+        let angle, tanfov2, tanval, value,
             n;
 
         for (n = 0; n <= Wolf.ANG_90; ++n) {
@@ -208,7 +208,7 @@ class Mathematik {
      * @returns {number} The field of view in degrees.
      */
 
-    static calcFov(fovX, width, height) {
+    static calcFov(fovX: number, width: number, height: number): number {
         if (fovX < 1 || fovX > 179) {
             throw Error("Bad fov: " + fovX);
         }
@@ -221,7 +221,7 @@ class Mathematik {
      * @param {number} alpha Angle in degrees.
      * @returns {number} Normalized angle.
      */
-    static normalizeAngle(alpha) {
+    static normalizeAngle(alpha: number): number {
         if (alpha > Wolf.ANG_360) {
             alpha %= Wolf.ANG_360;
         }
@@ -236,7 +236,7 @@ class Mathematik {
      * @param {number} angle Radian angle.
      * @returns {number}
      */
-    static getQuadrant(angle) {
+    static getQuadrant(angle: number): number {
         angle = Angle.normalize(angle);
 
         if (angle < Math.PI / 2) {
@@ -255,7 +255,7 @@ class Mathematik {
      * @param {number} angle Radian angle.
      * @returns {number} Directional point.
      */
-    static get4dir(angle) {
+    static get4dir(angle: number): number {
         angle = Angle.normalize(angle + Math.PI / 4);
 
         if (angle < Math.PI / 2) {
@@ -274,7 +274,7 @@ class Mathematik {
      * @param {number} angle Radian angle.
      * @returns {number} Directional point.
      */
-    static get8dir(angle) {
+    static get8dir(angle: number): number {
         angle = Angle.normalize(angle + Math.PI / 12);
 
         if (angle <= (Math.PI / 4)) {
@@ -303,7 +303,7 @@ class Mathematik {
      * @param {number} a Line angle in degrees
      * @returns {number} Distance
      */
-    static point2LineDist(x, y, a) {
+    static point2LineDist(x: number, y: number, a: number): number {
         return Math.abs((x * Mathematik.SinTable[a] - y * Mathematik.CosTable[a]) >> 0);
     }
 
@@ -314,7 +314,7 @@ class Mathematik {
      * @param {number} a Line angle in degrees
      * @returns {number} Distance
      */
-    static lineLen2Point(x, y, a) {
+    static lineLen2Point(x: number, y: number, a: number): number {
         return (x * Mathematik.CosTable[a] + y * Mathematik.SinTable[a]) >> 0;
     }
 
@@ -333,8 +333,8 @@ class Mathematik {
      * @param {number} a Line angle in degrees
      * @returns {number} Distance
      */
-    static transformPoint(point1X, point1Y, point2X, point2Y) {
-        var angle = Math.atan2(point1Y - point2Y, point1X - point2X);
+    static transformPoint(point1X: number, point1Y: number, point2X: number, point2Y: number): number {
+        const angle = Math.atan2(point1Y - point2Y, point1X - point2X);
         return Angle.normalize(angle);
     }
 
@@ -342,3 +342,5 @@ class Mathematik {
         Mathematik.buildTables();
     }
 }
+
+Mathematik.init();

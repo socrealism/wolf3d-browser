@@ -150,6 +150,7 @@ class Menu {
             if (!Menu.menuInputActive) {
                 return;
             }
+
             Menu.activeMouseItem = $(this);
             Menu.setActiveItem($(this));
         });
@@ -201,7 +202,7 @@ class Menu {
 
         });
 
-        $("#menu div.menu.episodes li").on("click", function (e) {
+        $("#menu div.menu.episodes li").on("click", function () {
             if (!Menu.menuInputActive) {
                 return;
             }
@@ -221,17 +222,19 @@ class Menu {
             }
         });
 
-        $("#menu div.menu.skill li").on("click", function (e) {
+        $("#menu div.menu.skill li").on("click", function () {
             if (!Menu.menuInputActive) {
                 return;
             }
+
             Menu.activeSkill = $(this).data("skill");
         });
 
-        $("#menu div.menu.main li.resumegame").on("click", function (e) {
+        $("#menu div.menu.main li.resumegame").on("click", () => {
             if (!Menu.menuInputActive) {
                 return;
             }
+
             if (Game.isPlaying()) {
                 Menu.hide();
                 Game.resume();
@@ -251,16 +254,15 @@ class Menu {
             e.stopPropagation();
         });
 
-        $("#menu div.menu.levels li").on("click", function (e) {
+        $("#menu div.menu.levels li").on("click", function () {
             if (!Menu.menuInputActive) {
                 return;
             }
-            var level, gameState;
+
+            const level = $(this).data("level"),
+                  gameState = Game.startGame(Game[Menu.activeSkill]); //FIXME: insecure skill selecting ugly hack
 
             Menu.hide();
-            level = $(this).data("level");
-
-            gameState = Game.startGame(Game[Menu.activeSkill]); //FIXME: insecure skill selecting ugly hack
             Game.startLevel(gameState, Menu.activeEpisode, level);
         });
 
@@ -454,7 +456,7 @@ class Menu {
     /**
      * @description Show the menu
      */
-    static show(menuName) {
+    static show(menuName: string = 'main') {
         var musicOn, soundOn, mouseOn;
 
         if (!Menu.setupDone) {
@@ -588,3 +590,5 @@ class Menu {
         });
     }
 }
+
+Menu.init();

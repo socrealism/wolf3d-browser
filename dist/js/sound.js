@@ -4,14 +4,14 @@ class Sound {
         if (!Sound.available)
             return;
         if (!Sound.ext) {
-            for (var i = 0; i < Sound.exts.length; i++) {
+            for (let i = 0; i < Sound.exts.length; i++) {
                 if (Modernizr.audio[Sound.exts[i]] == "probably") {
                     Sound.ext = Sound.exts[i];
                     break;
                 }
             }
             if (!Sound.ext) {
-                for (var i = 0; i < Sound.exts.length; i++) {
+                for (let i = 0; i < Sound.exts.length; i++) {
                     if (Modernizr.audio[Sound.exts[i]] == "maybe") {
                         Sound.ext = Sound.exts[i];
                         break;
@@ -24,18 +24,18 @@ class Sound {
     static createAudioElement() {
         if (!Sound.available)
             return;
-        var audio = new Audio();
+        const audio = new Audio();
         Sound.audioElements.push(audio);
         return audio;
     }
     static startSound(posPlayer, posSound, entNum, entChannel, file, volume, attenuation, timeOfs) {
         if (!Sound.available)
             return;
-        var audio, dx, dy, dist;
+        let audio, dx, dy, dist;
         if (!Sound.sounds[file]) {
             Sound.sounds[file] = [];
         }
-        for (var i = 0; i < Sound.sounds[file].length; i++) {
+        for (let i = 0; i < Sound.sounds[file].length; i++) {
             if (Sound.sounds[file][i].ended || Sound.sounds[file][i].paused) {
                 audio = Sound.sounds[file][i];
                 break;
@@ -62,7 +62,7 @@ class Sound {
             Sound.music = Sound.createAudioElement();
             Sound.music.loop = true;
         }
-        var filename = Sound.getFileName(file);
+        const filename = Sound.getFileName(file);
         if (Sound.currentMusic != filename) {
             Sound.music.src = Sound.currentMusic = filename;
             Sound.music.volume = Sound.MUSIC_VOLUME * Sound.MASTER_VOLUME * (Sound.musicEnabled ? 1 : 0);
@@ -72,7 +72,7 @@ class Sound {
     static stopAllSounds() {
         if (!Sound.available)
             return;
-        for (var i = 0; i < Sound.audioElements.length; i++) {
+        for (let i = 0; i < Sound.audioElements.length; i++) {
             if (Sound.audioElements[i].currentTime > 0) {
                 Sound.audioElements[i].currentTime = 0;
                 Sound.audioElements[i].pause();
@@ -149,3 +149,4 @@ Sound.soundEnabled = true;
 Sound.musicEnabled = true;
 Sound.exts = ["ogg", "mp3"];
 Sound.available = true;
+Sound.init();

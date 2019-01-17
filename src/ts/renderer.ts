@@ -29,7 +29,7 @@ class Renderer {
 
         Renderer.hasInit = true;
 
-        $("#game .renderer")
+        $("#renderer")
             .width(Wolf.XRES + "px")
             .height(Wolf.YRES + "px");
 
@@ -43,7 +43,7 @@ class Renderer {
                 top: 0,
                 overflow: "hidden"
             });
-            slice.appendTo("#game .renderer");
+            slice.appendTo("#renderer");
 
             image = Renderer.useBackgroundImage ? $("<div>") : $("<img>");
 
@@ -66,7 +66,7 @@ class Renderer {
     }
 
     static reset() {
-        $("#game .renderer .sprite").remove();
+        $("#renderer .sprite").remove();
 
         Renderer.sprites = [];
         Renderer.visibleSprites = [];
@@ -373,6 +373,6 @@ class Renderer {
         div.appendChild(div.image);
 
         sprite.div = div;
-        $("#game .renderer").append(div);
+        $("#renderer").append(div);
     }
 }

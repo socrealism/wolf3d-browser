@@ -858,7 +858,7 @@ class Sprites {
     }
 
     static setConsts = function (C) {
-        for (var a in C) {
+        for (const a in C) {
             if (C.hasOwnProperty(a) && !(a in Sprites)) {
                 Sprites[a] = C[a];
             }
@@ -866,9 +866,7 @@ class Sprites {
     };
 
     static getNewSprite(level) {
-        var n;
-
-        var newSprite = {
+        const newSprite = {
             x: 0,
             y: 0,
             angle: 0,
@@ -896,7 +894,7 @@ class Sprites {
 
         // check if we can recycle a spot first
         /*
-        for (n=0; n < level.numSprites ; ++n) {
+        for (let n = 0; n < level.numSprites ; ++n) {
             sprt = level.sprites[n];
             if (sprt.flags & Sprites.SPRT_REMOVE) {
                 // free spot: clear it first
@@ -967,7 +965,7 @@ class Sprites {
     }
 
     static cacheTextures(start, end) {
-        var i, texname;
+        let i, texname;
 
         for (i = start; i <= end; ++i) {
             if (!Sprites.spriteTextures[i]) {
@@ -982,7 +980,7 @@ class Sprites {
     }
 
     static createVisList(viewport, level, visibleTiles) {
-        var tx, ty, n, num, numVisible,
+        let tx, ty, n, num, numVisible,
             vislist,
             sprt;
 
@@ -1009,7 +1007,7 @@ class Sprites {
             if (visibleTiles[tx][ty] || visibleTiles[tx + 1][ty] || visibleTiles[tx][ty + 1] || visibleTiles[tx + 1][ty + 1]) {
 
                 // player spoted it
-                var vis = vislist[vislist.length] = {};
+                const vis = vislist[vislist.length] = {};
 
                 vis.dist = Mathematik.lineLen2Point(sprt.x - viewport.x, sprt.y - viewport.y, viewport.angle);
                 vis.x = sprt.x;
@@ -1044,15 +1042,17 @@ class Sprites {
     }
 
     static clean(level) {
-        var i, num,
+        let i, num,
             liveSprites = [];
 
         for (i = 0, num = level.sprites.length; i < num; ++i) {
             if (level.sprites[i].flags & Sprites.SPRT_REMOVE) {
                 continue;
             }
+
             liveSprites.push(level.sprites[i]);
         }
+
         level.sprites = liveSprites;
     }
 }

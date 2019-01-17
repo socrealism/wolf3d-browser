@@ -6,7 +6,7 @@ class Powerups {
     }
     static addNew(level) {
         level.state.numPowerups++;
-        var newp = {
+        const newp = {
             x: -1,
             y: -1,
             type: 0,
@@ -20,7 +20,7 @@ class Powerups {
         level.state.powerups = [];
     }
     static spawn(level, x, y, type) {
-        var newp = Powerups.addNew(level);
+        const newp = Powerups.addNew(level);
         newp.sprite = Sprites.getNewSprite(level);
         newp.type = type;
         Sprites.setPos(level, newp.sprite, Wolf.TILE2POS(newp.x = x), Wolf.TILE2POS(newp.y = y), 0);
@@ -28,7 +28,7 @@ class Powerups {
         level.tileMap[x][y] |= Level.POWERUP_TILE;
     }
     static give(level, player, type) {
-        var keynames = ["Gold", "Silver", "?", "?"];
+        const keynames = ["Gold", "Silver", "?", "?"];
         switch (type) {
             case Powerups.pow_key1:
             case Powerups.pow_key2:
@@ -142,7 +142,7 @@ class Powerups {
         return true;
     }
     static pickUp(level, player, x, y) {
-        var i, pow, p_left = false, p_pick = false;
+        let i, pow, p_left = false, p_pick = false;
         for (i = 0; i < level.state.numPowerups; i++) {
             pow = level.state.powerups[i];
             if (pow.x == x && pow.y == y) {

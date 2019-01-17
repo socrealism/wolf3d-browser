@@ -52,23 +52,6 @@ class Angle {
     }
 
     /**
-     * @description Linear interpolate between angle from and to by fraction frac.
-     * @param {number} from Angle in radians.
-     * @param {number} to Angle in radians.
-     * @param {number} frac Fraction.
-     * @returns {number}
-     */
-    static interpolate(from, to, frac) {
-        const diff = Angle.diff(from, to) * frac;
-
-        if (Angle.distCW(to, from) >= Math.PI) {
-            return from - diff;
-        } else {
-            return from + diff;
-        }
-    }
-
-    /**
      * @description Normalize angle.
      * @param {number} angle
      * @returns {number}
@@ -83,25 +66,5 @@ class Angle {
         }
 
         return angle;
-    }
-
-    /**
-     * @description Linear interpolate allowing for the Modulo 360 problem.
-     * @param {number} from Angle in radians.
-     * @param {number} to Angle in radians.
-     * @param {number} frac fraction.
-     * @returns {number}
-     */
-
-    static lerp(from, to, frac) {
-        if (to - from > 180) {
-            to -= 360;
-        }
-
-        if (to - from < -180) {
-            to += 360;
-        }
-
-        return from + frac * (to - from);
     }
 }

@@ -306,3 +306,5 @@ class Input {
         pointer.unlock($("#game")[0]);
     }
 }
+
+Input.init();

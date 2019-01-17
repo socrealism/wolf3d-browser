@@ -1,6 +1,6 @@
 "use strict";
 (function ($) {
-    var files = [
+    const files = [
         "js/wolf.js",
         "js/random.js",
         "js/angle.js",
@@ -30,7 +30,7 @@
         "preload!assets/art/menuitems.png",
         "preload!assets/art/menuselector.png"
     ];
-    var files2 = [
+    const files2 = [
         "preload!assets/art/menubg_episodes.png",
         "preload!assets/art/menuitems_episodes.png",
         "preload!assets/art/menubg_skill.png",
@@ -46,13 +46,13 @@
         "preload!assets/art/paused.png"
     ];
     $(document).ready(function () {
-        var progress = $("<div>"), n = 0;
+        let progress = $("<div>"), n = 0;
         progress.addClass("load-progress").appendTo("#title-screen");
         $("#title-screen").show();
         yepnope.addPrefix("preload", function (resource) {
             resource.noexec = true;
             resource.instead = function (input, callback) {
-                var image = new Image();
+                const image = new Image();
                 image.onload = callback;
                 image.onerror = callback;
                 image.src = input.substr(input.lastIndexOf("!") + 1);
@@ -68,13 +68,6 @@
                 complete: function () {
                     progress.remove();
                     $("#title-screen").fadeOut(1500, function () {
-                        Mathematik.init();
-                        Input.init();
-                        Sound.init();
-                        Menu.init();
-                        Game.init();
-                        Actstat.init();
-                        Level.init();
                         Menu.show();
                     });
                     Modernizr.load(files2);

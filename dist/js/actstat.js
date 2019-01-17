@@ -1,10 +1,10 @@
 "use strict";
 class Actstat {
     static init() {
-        for (var i = 0; i < Actstat.objstate.length; i++) {
-            var obj = Actstat.objstate[i];
-            for (var j = 0; j < obj.length; j++) {
-                var state = obj[j];
+        for (let i = 0; i < Actstat.objstate.length; i++) {
+            let obj = Actstat.objstate[i];
+            for (let j = 0; j < obj.length; j++) {
+                let state = obj[j];
                 obj[j] = {
                     rotate: state[0],
                     texture: state[1],
@@ -1270,3 +1270,4 @@ Actstat.starthitpoints = [
         1600
     ]
 ];
+Actstat.init();

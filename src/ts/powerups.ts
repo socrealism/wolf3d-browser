@@ -71,7 +71,7 @@ class Powerups {
         */
         level.state.numPowerups++;
 
-        var newp = {
+        const newp = {
             x: -1,
             y: -1,
             type: 0,
@@ -90,7 +90,7 @@ class Powerups {
 
     // x,y are in TILES.
     static spawn(level, x, y, type) {
-        var newp = Powerups.addNew(level);
+        const newp = Powerups.addNew(level);
 
         newp.sprite = Sprites.getNewSprite(level);
         newp.type = type;
@@ -104,7 +104,7 @@ class Powerups {
     }
 
     static give(level, player, type) {
-        var keynames = ["Gold", "Silver", "?", "?"];
+        const keynames = ["Gold", "Silver", "?", "?"];
 
         switch (type) {
             // Keys
@@ -243,12 +243,13 @@ class Powerups {
 
     // x,y are in TILES.
     static pickUp(level, player, x, y) {
-        var i, pow,
+        let i, pow,
             p_left = false,
             p_pick = false;
 
         for (i = 0; i < level.state.numPowerups; i++) {
             pow = level.state.powerups[i];
+
             if (pow.x == x && pow.y == y) {
                 // got a powerup here
                 if (Powerups.give(level, player, pow.type)) { //FIXME script

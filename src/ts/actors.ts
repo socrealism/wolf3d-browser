@@ -142,7 +142,7 @@ class Actors {
      * @param {number} tics The number of tics.
      * @returns {boolean} False if actor should be removed, otherwise true.
      */
-    static doGuard(ent, game, tics) { // FIXME: revise!
+    static doGuard(ent, game, tics: number) { // FIXME: revise!
         var think;
 
         //assert( ent->tilex >= 0 && ent->tilex < 64 );
@@ -440,9 +440,9 @@ class Actors {
     }
 
     static spawnBJVictory(player, level, skill) {
-        var x = Wolf.POS2TILE(player.position.x),
-            y = Wolf.POS2TILE(player.position.y),
-            bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Mathematik.dir4_north);
+        const x = Wolf.POS2TILE(player.position.x),
+              y = Wolf.POS2TILE(player.position.y),
+              bj = Actors.spawn(level, skill, Actors.en_bj, x, y + 1, Mathematik.dir4_north);
 
         if (!bj) {
             return;

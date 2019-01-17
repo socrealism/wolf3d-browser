@@ -23,7 +23,7 @@ class Raycaster {
     static y_tile_step = [1, 1, -1, -1];
 
     static traceCheck(tileMap, doorMap, visibleTiles, x, y, frac, dfrac, vert, flip, tracePoint) {
-        var door;
+        let door;
 
         if (tileMap[x][y] & Level.WALL_TILE) {
             if (vert) {
@@ -83,7 +83,7 @@ class Raycaster {
 
         if (tileMap[x][y] & Level.PUSHWALL_TILE) {
 
-            var pwall = PushWall.get(),
+            let pwall = PushWall.get(),
                 offset = pwall.pointsMoved / 128;
 
             frac += dfrac * offset;
@@ -113,7 +113,7 @@ class Raycaster {
     }
 
     static trace(level, visibleTiles, tracePoint) {
-        var xtilestep, ytilestep,
+        let xtilestep, ytilestep,
             xstep, ystep,
             xtile, ytile,
             xintercept, yintercept,
@@ -147,7 +147,7 @@ class Raycaster {
             visibleTiles[Wolf.POS2TILE(tracePoint.x)][Wolf.POS2TILE(tracePoint.y)] = true;
         }
 
-        var traceCount = 0;
+        let traceCount = 0;
 
         // Start of ray-casting
         while (1) {
@@ -206,7 +206,7 @@ class Raycaster {
     }
 
     static traceRays(viewport, level) {
-        var n, i, j,
+        let n, i, j,
             tileMap = level.tileMap,
             tracePoint,
             visibleTiles = [],

@@ -98,16 +98,14 @@
                     <li data-level="9" class="level-9"><div class="button"></div></li>
                 </ul>
             </div>
-
         </div>
 
         <div id="text-screen"></div>
 
-
         <div id="game">
-            <div class="fps">0.00</div>
+            <div id="fps" class="fps">0.00</div>
 
-            <div class="renderer">
+            <div id="renderer" class="renderer">
                 <div class="ceiling"></div>
                 <div class="floor"></div>
                 <div class="player-weapon"></div>
@@ -117,11 +115,11 @@
                 <div class="pause overlay"><img alt="" src="assets/art/paused.png"/></div>
             </div>
 
-            <div class="loading"><img alt="" src="assets/art/getpsyched.png"/></div>
+            <div id="loading" class="loading"><img alt="" src="assets/art/getpsyched.png"></div>
 
-            <div class="gameover"></div>
+            <div id="gameover" class="gameover"></div>
 
-            <div class="intermission">
+            <div id="intermission" class="intermission">
                 <div class="background"></div>
                 <div class="background-secret"></div>
                 <div class="background-victory"></div>
@@ -193,8 +191,7 @@
                 </div>
             </div>
 
-
-            <div class="hud">
+            <div id="hud" class="hud">
                 <div class="floor number-container">
                     <div class="number"></div>
                 </div>
@@ -253,7 +250,7 @@
 
     <script src="vendor/modernizr.custom.js"></script>
     <script src="vendor/jquery-3.3.1.min.js"></script>
-    <script src="js/load.js"></script>
+    <script src="js/bootstrap.js"></script>
 
 </body>
 </html>

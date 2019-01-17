@@ -106,7 +106,7 @@ class Game {
                     deathTics += tics;
                     if (deathTics >= deathTicsMax) {
                         deathTics = 0;
-                        $("#game .renderer .death").css("display", "none");
+                        $("#renderer .death").css("display", "none");
                         if (game.player.lives > 0) {
                             lives = game.player.lives;
                             score = game.player.startScore;
@@ -120,12 +120,12 @@ class Game {
                             game.level.state.elapsedTime = 0;
                         }
                         else {
-                            gameOver(game);
+                            Game.gameOver(game);
                             return;
                         }
                     }
                     else {
-                        $("#game .renderer .death").css({
+                        $("#renderer .death").css({
                             display: "block",
                             backgroundColor: "rgba(255,0,0," + (deathTics / deathTicsMax) + ")"
                         });
@@ -197,21 +197,22 @@ class Game {
         return false;
     }
     static gameOver(game) {
+        const $fps = document.getElementById('fps');
         Game.playing = false;
         Game.rendering = false;
-        $("#game .renderer").hide();
-        $("#game .fps").hide();
-        $("#game .gameover").show();
+        $("#renderer").hide();
+        $fps.classList.remove('fps_active');
+        $("#gameover").show();
         Game.endGame();
         function exit() {
             $(document).off("keydown", progress);
             $("#game").fadeOut(null, function () {
-                $("#game .gameover").hide();
+                $("#gameover").hide();
                 Menu.show();
             });
         }
         function progress(e) {
-            if (!$("#game .gameover").is(":visible")) {
+            if (!$("#gameover").is(":visible")) {
                 exit();
                 return;
             }
@@ -227,7 +228,7 @@ class Game {
         }
         Game.keyInputActive = false;
         Wolf.log("Victory!");
-        $("#game .renderer .player-weapon").hide();
+        $("#renderer .player-weapon").hide();
         Actors.spawnBJVictory(game.player, game.level, game.skill);
         game.player.playstate = Player.ex_victory;
     }
@@ -254,10 +255,10 @@ class Game {
     static updateHUD(game, tics) {
         var player = game.player, frame = player.weapon * 4 + player.weaponFrame;
         if (player.playstate == Player.ex_dead || player.playstate == Player.ex_victory) {
-            $("#game .renderer .player-weapon").css("display", "none");
+            $("#renderer .player-weapon").css("display", "none");
         }
         else {
-            $("#game .renderer .player-weapon").css({
+            $("#renderer .player-weapon").css({
                 display: "block",
                 backgroundPosition: -(frame * Wolf.HUD_WEAPON_WIDTH) + "px 0"
             });
@@ -328,12 +329,13 @@ class Game {
         });
     }
     static updateFPS() {
-        var now = (new Date).getTime(), dt = (now - Game.lastFPSTime) / 1000, frames = Game.frameNum - Game.lastFrame;
+        const now = (new Date).getTime(), dt = (now - Game.lastFPSTime) / 1000, frames = Game.frameNum - Game.lastFrame, $fps = document.getElementById('fps');
         Game.lastFPSTime = now;
         Game.lastFrame = Game.frameNum;
-        $("#game .fps").html((frames / dt).toFixed(2));
+        $fps.innerHTML = (frames / dt).toFixed(2);
     }
     static startRenderCycle(game) {
+        const $fps = document.getElementById('fps');
         if (Game.hndRender) {
             cancelAnimationFrame(Game.hndRender);
             Game.hndRender = 0;
@@ -341,9 +343,9 @@ class Game {
         if (!Game.hndFps) {
             Game.hndFps = setInterval(Game.updateFPS, 1000);
         }
-        $("#game .fps").show();
+        $fps.classList.add('fps_active');
         Renderer.init();
-        $("#game .renderer").show();
+        $("#renderer").show();
         function nextFrame() {
             if (!Game.rendering) {
                 return;
@@ -370,13 +372,13 @@ class Game {
             if (error) {
                 throw error;
             }
-            $("#game .renderer .floor").css({
+            $("#renderer .floor").css({
                 "background-color": "rgb("
                     + level.floor[0] + ","
                     + level.floor[1] + ","
                     + level.floor[2] + ")"
             });
-            $("#game .renderer .ceiling").css({
+            $("#renderer .ceiling").css({
                 "background-color": "rgb("
                     + level.ceiling[0] + ","
                     + level.ceiling[1] + ","
@@ -399,7 +401,7 @@ class Game {
                 Input.lockPointer();
                 $("#game .loading").hide();
                 $("#game").focus();
-                $("#game .renderer .player-weapon").show();
+                $("#renderer .player-weapon").show();
                 Game.keyInputActive = true;
             });
         });
@@ -448,9 +450,9 @@ class Game {
             Game.levelMusic = null;
             Sound.stopAllSounds();
         }
-        $("#game .renderer .death").hide();
-        $("#game .renderer .damage-flash").hide();
-        $("#game .renderer .bonus-flash").hide();
+        $("#renderer .death").hide();
+        $("#renderer .damage-flash").hide();
+        $("#renderer .bonus-flash").hide();
         $("#game").show();
         var game = {
             episode: -1,
@@ -489,12 +491,13 @@ class Game {
             });
         });
     }
-    static startIntermission(game, delay) {
-        var episode = Episodes.data[game.episodeNum], parTime = episode.levels[game.levelNum].partime * 60, bonus = 0, parBonusAmount = 500, ratioBonusAmount = 10000, levelState = game.level.state, killRatio = levelState.totalMonsters ? ((levelState.killedMonsters / levelState.totalMonsters * 100) >> 0) : 0, secretRatio = levelState.totalSecrets ? ((levelState.foundSecrets / levelState.totalSecrets * 100) >> 0) : 0, treasureRatio = levelState.totalTreasure ? ((levelState.foundTreasure / levelState.totalTreasure * 100) >> 0) : 0, time = levelState.elapsedTime + ((new Date).getTime() - levelState.startTime), totalTime, i, avgKill = 0, avgSecret = 0, avgTreasure = 0;
+    static startIntermission(game) {
+        let episode = Episodes.data[game.episodeNum], parTime = episode.levels[game.levelNum].partime * 60, bonus = 0, parBonusAmount = 500, ratioBonusAmount = 10000, levelState = game.level.state, killRatio = levelState.totalMonsters ? ((levelState.killedMonsters / levelState.totalMonsters * 100) >> 0) : 0, secretRatio = levelState.totalSecrets ? ((levelState.foundSecrets / levelState.totalSecrets * 100) >> 0) : 0, treasureRatio = levelState.totalTreasure ? ((levelState.foundTreasure / levelState.totalTreasure * 100) >> 0) : 0, time = levelState.elapsedTime + ((new Date).getTime() - levelState.startTime), totalTime, i, avgKill = 0, avgSecret = 0, avgTreasure = 0;
+        const $fps = document.getElementById('fps');
         Game.playing = false;
         Sound.startMusic("assets/music/URAHERO.ogg");
-        $("#game .renderer").hide();
-        $("#game .fps").hide();
+        $("#renderer").hide();
+        $fps.classList.remove('fps_active');
         $("#game .intermission .digit").hide();
         $("#game .intermission").show();
         $("#game .intermission .background").hide();
@@ -656,10 +659,10 @@ class Game {
         digits.show();
     }
     static startDamageFlash() {
-        $("#game .renderer .damage-flash").show().fadeOut(300);
+        $("#renderer .damage-flash").show().fadeOut(300);
     }
     static startBonusFlash() {
-        $("#game .renderer .bonus-flash").show().fadeOut(300);
+        $("#renderer .bonus-flash").show().fadeOut(300);
     }
     static notify(text) {
         Wolf.log(text);
@@ -810,7 +813,7 @@ class Game {
             Sound.pauseMusic(false);
             Game.lastTimeCount = (new Date).getTime();
         }
-        $("#game .renderer div.pause.overlay").toggle(Game.paused);
+        $("#renderer div.pause.overlay").toggle(Game.paused);
     }
     static enableMouse(enable) {
         Game.mouseEnabled = enable;
@@ -931,3 +934,4 @@ Game.controls = {
 };
 Game.ticsPerSecond = 70;
 Game.lastTimeCount = 0;
+Game.init();

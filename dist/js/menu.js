@@ -110,7 +110,7 @@ class Menu {
                 e.stopPropagation();
             }
         });
-        $("#menu div.menu.episodes li").on("click", function (e) {
+        $("#menu div.menu.episodes li").on("click", function () {
             if (!Menu.menuInputActive) {
                 return;
             }
@@ -131,13 +131,13 @@ class Menu {
                 Menu.show("skill");
             }
         });
-        $("#menu div.menu.skill li").on("click", function (e) {
+        $("#menu div.menu.skill li").on("click", function () {
             if (!Menu.menuInputActive) {
                 return;
             }
             Menu.activeSkill = $(this).data("skill");
         });
-        $("#menu div.menu.main li.resumegame").on("click", function (e) {
+        $("#menu div.menu.main li.resumegame").on("click", () => {
             if (!Menu.menuInputActive) {
                 return;
             }
@@ -158,14 +158,12 @@ class Menu {
             });
             e.stopPropagation();
         });
-        $("#menu div.menu.levels li").on("click", function (e) {
+        $("#menu div.menu.levels li").on("click", function () {
             if (!Menu.menuInputActive) {
                 return;
             }
-            var level, gameState;
+            const level = $(this).data("level"), gameState = Game.startGame(Game[Menu.activeSkill]);
             Menu.hide();
-            level = $(this).data("level");
-            gameState = Game.startGame(Game[Menu.activeSkill]);
             Game.startLevel(gameState, Menu.activeEpisode, level);
         });
     }
@@ -300,7 +298,7 @@ class Menu {
         }
         $(document).on("keydown", keyHandler);
     }
-    static show(menuName) {
+    static show(menuName = 'main') {
         var musicOn, soundOn, mouseOn;
         if (!Menu.setupDone) {
             Menu.setupEvents();
@@ -474,3 +472,4 @@ Menu.keySpriteNames = [
     "Y",
     "Z"
 ];
+Menu.init();

@@ -413,7 +413,7 @@ class Player {
         }
     }
     static process(game, self, tics) {
-        var level = game.level, n;
+        let level = game.level, n;
         if (self.playstate == Player.ex_victory) {
             Player.victorySpin(game, self, tics);
             return;
@@ -503,6 +503,11 @@ Player.KEY_SILVER = 1;
 Player.KEY_FREE1 = 2;
 Player.KEY_FREE2 = 3;
 Player.KEY_TYPES = 4;
+Player.ex_notingame = 0;
+Player.ex_playing = 1;
+Player.ex_dead = 2;
+Player.ex_secretlevel = 3;
+Player.ex_victory = 4;
 Player.ex_complete = 5;
 Player.BJRUNSPEED = 2048;
 Player.BJJUMPSPEED = 680;

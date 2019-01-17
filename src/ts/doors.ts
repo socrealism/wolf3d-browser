@@ -40,9 +40,10 @@ class Doors {
     static reset(level) {
         level.state.numDoors = 0;
 
-        for (var x = 0; x < 64; x++) {
+        for (let x = 0; x < 64; x++) {
             level.state.doorMap[x] = [];
-            for (var y = 0; y < 64; y++) {
+
+            for (let y = 0; y < 64; y++) {
                 level.state.doorMap[x][y] = 0;
             }
         }
@@ -56,15 +57,21 @@ class Doors {
      * @param {number} type The door type.
      * @returns {number} The index of the new door.
      */
-    static spawn(level, x, y, type) {
+    static spawn(level, x: number, y: number, type: number) {
         if (level.state.numDoors >= Doors.MAXDOORS) {
-            throw new Error("Too many Doors on level!");
+            throw new Error('Too many Doors on level!');
         }
-        var door = level.state.doorMap[x][y] = {
+
+        const door = level.state.doorMap[x][y] = {
             type: -1,
-            vertical: 0,
+            vertical: false,
             texture: -1,
-            ticcount: 0
+            ticcount: 0,
+            tile: {
+                x,
+                y,
+            },
+            action: Doors.dr_closed,
         };
 
         switch (type) {
@@ -112,12 +119,6 @@ class Doors {
                 throw new Error("Unknown door type: " + type);
         }
 
-        door.tile = {
-            x: x,
-            y: y
-        };
-        door.action = Doors.dr_closed;
-
         level.state.doors[level.state.numDoors] = door;
         level.state.numDoors++;
 
@@ -141,17 +142,18 @@ class Doors {
      * @param {object} player The player object
      * @param {number} tics Tics since last
      */
-    static process(level, player, tics) {
+    static process(level, player, tics: number) {
         if (player.playstate == Player.ex_victory) {
             return;
         }
 
-        for (var n = 0; n < level.state.numDoors; ++n) {
-            var door = level.state.doors[n],
-                doorPos = {
+        for (let n = 0; n < level.state.numDoors; ++n) {
+            const door = level.state.doors[n],
+                  doorPos = {
                     x: Wolf.TILE2POS(door.tile.x),
                     y: Wolf.TILE2POS(door.tile.y)
-                };
+                  };
+
             switch (door.action) {
                 case Doors.dr_closed: // this door is closed!
                     continue;
@@ -191,7 +193,9 @@ class Doors {
                                 Sound.startSound(player.position, doorPos, 1, Sound.CHAN_AUTO, "assets/sfx/007.wav", 1, Sound.ATTN_STATIC, 0);
                             }
                         }
+
                         door.ticcount -= tics;
+
                         if (door.ticcount < 0) {
                             door.ticcount = 0;
                         }
@@ -205,6 +209,7 @@ class Doors {
                             door.ticcount = Doors.DOOR_MINOPEN; // do not close door immediately!
                         }
                     }
+
                     if (door.ticcount >= Doors.DOOR_TIMEOUT) {
                         // Door timeout, time to close it!
                         door.action = Doors.dr_closing;
@@ -224,8 +229,9 @@ class Doors {
      * @param {array} areas The areas map.
      */
     static setAreas(level) {
-        var n, x, y,
+        let n, x, y,
             door;
+
         for (n = 0; n < level.state.numDoors; ++n) {
             door = level.state.doors[n];
             x = door.tile.x;
@@ -270,8 +276,8 @@ class Doors {
         }
     }
 
-    static canCloseDoor(level, player, x, y, vert) {
-        var n,
+    static canCloseDoor(level, player, x: number, y: number, vert: boolean) {
+        let n,
             tileX = Wolf.POS2TILE(player.position.x),
             tileY = Wolf.POS2TILE(player.position.y),
             guard;
@@ -285,6 +291,7 @@ class Doors {
                 if (Wolf.POS2TILE(player.position.x + Doors.CLOSEWALL) == x) {
                     return false;
                 }
+
                 if (Wolf.POS2TILE(player.position.x - Doors.CLOSEWALL) == x) {
                     return false;
                 }
@@ -292,12 +299,15 @@ class Doors {
 
             for (n = 0; n < level.state.numGuards; ++n) {
                 guard = level.state.guards[n];
+
                 if (guard.tile.x == x && guard.tile.y == y) {
                     return false; // guard in door
                 }
+
                 if (guard.tile.x == x - 1 && guard.tile.y == y && Wolf.POS2TILE(guard.x + Doors.CLOSEWALL) == x) {
                     return false; // guard in door
                 }
+
                 if (guard.tile.x == x + 1 && guard.tile.y == y && Wolf.POS2TILE(guard.x - Doors.CLOSEWALL) == x) {
                     return false; // guard in door
                 }
@@ -307,18 +317,22 @@ class Doors {
                 if (Wolf.POS2TILE(player.position.y + Doors.CLOSEWALL) == y) {
                     return false;
                 }
+
                 if (Wolf.POS2TILE(player.position.y - Doors.CLOSEWALL) == y) {
                     return false;
                 }
             }
             for (n = 0; n < level.state.numGuards; ++n) {
-                var guard = level.state.guards[n];
+                guard = level.state.guards[n];
+
                 if (guard.tile.x == x && guard.tile.y == y) {
                     return false; // guard in door
                 }
+
                 if (guard.tile.x == x && guard.tile.y == y - 1 && Wolf.POS2TILE(guard.y + Doors.CLOSEWALL) == y) {
                     return false; // guard in door
                 }
+
                 if (guard.tile.x == x && guard.tile.y == y + 1 && Wolf.POS2TILE(guard.y - Doors.CLOSEWALL) == y) {
                     return false; // guard in door
                 }
@@ -349,7 +363,7 @@ class Doors {
                 if (player.items & Player.ITEM_KEY_1) {
                     Doors.changeDoorState(level, player, door);
                 } else {
-                    Game.notify("You need a gold key");
+                    Game.notify('You need a gold key');
                 }
                 break;
 
@@ -358,7 +372,7 @@ class Doors {
                 if (player.items & Player.ITEM_KEY_2) {
                     Doors.changeDoorState(level, player, door);
                 } else {
-                    Game.notify("You need a silver key");
+                    Game.notify('You need a silver key');
                 }
                 break;
         }

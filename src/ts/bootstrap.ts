@@ -1,7 +1,7 @@
 (function ($) {
 
-// these files are preloaded while the title screen is showing
-    var files = [
+    // these files are preloaded while the title screen is showing
+    const files = [
         "js/wolf.js",
         "js/random.js",
         "js/angle.js",
@@ -35,9 +35,9 @@
 
     ];
 
-// these files are preloaded in the background after the menu is displayed.
-// only non-essential files here
-    var files2 = [
+    // these files are preloaded in the background after the menu is displayed.
+    // only non-essential files here
+    const files2 = [
         "preload!assets/art/menubg_episodes.png",
         "preload!assets/art/menuitems_episodes.png",
         "preload!assets/art/menubg_skill.png",
@@ -55,7 +55,7 @@
 
     $(document).ready(function () {
 
-        var progress = $("<div>"),
+        let progress = $("<div>"),
             n = 0;
 
         progress.addClass("load-progress").appendTo("#title-screen");
@@ -65,7 +65,8 @@
         yepnope.addPrefix("preload", function (resource) {
             resource.noexec = true;
             resource.instead = function (input, callback) {
-                var image = new Image();
+                const image = new Image();
+
                 image.onload = callback;
                 image.onerror = callback;
                 image.src = input.substr(input.lastIndexOf("!") + 1);
@@ -83,14 +84,6 @@
                 complete: function () {
                     progress.remove();
                     $("#title-screen").fadeOut(1500, function () {
-                        Mathematik.init();
-                        Input.init();
-                        Sound.init();
-                        Menu.init();
-                        Game.init();
-                        //Sprites.init();
-                        Actstat.init();
-                        Level.init();
                         Menu.show();
                     });
                     // preload non-essential art

@@ -1,7 +1,7 @@
 "use strict";
 class Mathematik {
     static buildTables() {
-        var angle, tanfov2, tanval, value, n;
+        let angle, tanfov2, tanval, value, n;
         for (n = 0; n <= Wolf.ANG_90; ++n) {
             angle = Wolf.FINE2RAD(n);
             value = Math.sin(angle);
@@ -121,7 +121,7 @@ class Mathematik {
         return (x * Mathematik.CosTable[a] + y * Mathematik.SinTable[a]) >> 0;
     }
     static transformPoint(point1X, point1Y, point2X, point2Y) {
-        var angle = Math.atan2(point1Y - point2Y, point1X - point2X);
+        const angle = Math.atan2(point1Y - point2Y, point1X - point2X);
         return Angle.normalize(angle);
     }
     static init() {
@@ -262,3 +262,4 @@ Mathematik.dir4d = [
 ];
 Mathematik.dir8angle = [Wolf.ANG_0, Wolf.ANG_45, Wolf.ANG_90, Wolf.ANG_135, Wolf.ANG_180, Wolf.ANG_225, Wolf.ANG_270, Wolf.ANG_315, Wolf.ANG_0];
 Mathematik.dir4angle = [Wolf.ANG_0, Wolf.ANG_90, Wolf.ANG_180, Wolf.ANG_270, Wolf.ANG_0];
+Mathematik.init();

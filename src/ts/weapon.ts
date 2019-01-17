@@ -3,7 +3,7 @@
  */
 class Weapon {
     static fireHit(game, player) {
-        var level = game.level,
+        let level = game.level,
             closest,
             dist,
             d1,
@@ -51,7 +51,7 @@ class Weapon {
     }
 
     static fireLead(game, player) {
-        var level = game.level,
+        let level = game.level,
             closest,
             damage,
             dx, dy, dist,
@@ -99,7 +99,7 @@ class Weapon {
         }
 
         if (!closest) { // missed
-            var tracePoint = {
+            const tracePoint = {
                 angle: Mathematik.normalizeAngle(player.angle - Wolf.DEG2FINE(2) + (Math.random() * 0x10000) % (Wolf.DEG2FINE(4))),
                 x: player.position.x,
                 y: player.position.y,
