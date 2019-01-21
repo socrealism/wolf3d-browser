@@ -99,7 +99,7 @@ class Input {
 
                     Input.keys[e.keyCode] = true;
                     if (Input.bindings[e.keyCode]) {
-                        for (var i = 0, n = Input.bindings[e.keyCode].length; i < n; i++) {
+                        for (let i = 0, n = Input.bindings[e.keyCode].length; i < n; i++) {
                             Input.bindings[e.keyCode][i](e);
                         }
                     }
@@ -172,7 +172,8 @@ class Input {
                             Input.mouseX = e.pageX / window.innerWidth;
                             Input.mouseY = e.pageY / window.innerHeight;
                         } else {
-                            var offset = main.offset();
+                            const offset = main.offset();
+
                             Input.mouseX = (e.pageX - offset.left) / main.width();
                             Input.mouseY = (e.pageY - offset.top) / main.height();
                         }
@@ -181,11 +182,11 @@ class Input {
                 });
 
             // reset keys and mouse if window/tab loses focus
-            $(window).on("blur", function (e) {
+            $(window).on("blur", () => {
                 Input.hasFocus = false;
                 Input.reset();
             });
-            $(window).on("focus", function (e) {
+            $(window).on("focus", () => {
                 Input.hasFocus = true;
             });
         }
@@ -203,10 +204,12 @@ class Input {
     }
 
     static bindKey(k, handler) {
-        var keyCode = Input.keysCode[k];
+        const keyCode = Input.keysCode[k];
+
         if (!Input.bindings[keyCode]) {
             Input.bindings[keyCode] = [];
         }
+
         Input.bindings[keyCode].push(handler);
     }
 
@@ -216,12 +219,14 @@ class Input {
      * @returns {boolean} True if a key is pressed, otherwise false.
      */
     static checkKeys(ckeys) {
-        for (var i = 0; i < ckeys.length; i++) {
-            var k = ckeys[i];
+        for (let i = 0; i < ckeys.length; i++) {
+            const k = ckeys[i];
+
             if (!!Input.keys[Input.keysCode[k]]) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -230,10 +235,11 @@ class Input {
      * @param {array} keys Array of key names.
      */
     static clearKeys(ckeys) {
-        for (var i = 0; i < ckeys.length; i++) {
-            var k = ckeys[i];
+        for (let i = 0; i < ckeys.length; i++) {
+            const k = ckeys[i];
             Input.keys[Input.keysCode[k]] = false;
         }
+
         return false;
     }
 
@@ -257,10 +263,12 @@ class Input {
     }
 
     static getMouseMovement() {
-        var x = Input.mouseMoveX,
-            y = Input.mouseMoveY;
+        const x = Input.mouseMoveX,
+              y = Input.mouseMoveY;
+
         Input.mouseMoveX = 0;
         Input.mouseMoveY = 0;
+
         return {
             x: x / screen.width,
             y: y / screen.height
@@ -268,30 +276,30 @@ class Input {
     }
 
     static getPointer() {
-        var pointer = navigator.pointer ||
-            navigator.webkitPointer ||
-            navigator.mozPointer ||
-            navigator.msPointer ||
-            navigator.oPointer;
+        const pointer = navigator.pointer; //FIXME: navigator.pointer doesnt supported in modern browsers
+
+        console.log(pointer);
+
         return pointer;
     }
 
     static isPointerLocked() {
-        var pointer = Input.getPointer();
+        const pointer = Input.getPointer();
         return pointer && pointer.isLocked && pointer.isLocked();
     }
 
     static lockPointer() {
-        var pointer = Input.getPointer();
+        const pointer = Input.getPointer();
+
         if (!pointer) {
             return;
         }
 
         if (Game.isFullscreen()) {
             pointer.lock($("#game")[0],
-                function (e) {
+                e => {
                     Wolf.log("Pointer locked")
-                }, function (e) {
+                }, e => {
                     Wolf.log("Could not lock pointer: " + e);
                 }
             );
@@ -299,10 +307,12 @@ class Input {
     }
 
     static unlockPointer() {
-        var pointer = Input.getPointer();
+        const pointer = Input.getPointer();
+
         if (!pointer) {
             return;
         }
+
         pointer.unlock($("#game")[0]);
     }
 }
