@@ -216,26 +216,33 @@
     </div>
 
     <script>
-        window.onfocus = function() {
-            var game = window.frames[0];
+        window.onfocus = () => {
+            const game = window.frames[0];
+
             if (game) {
                 game.focus();
             }
         };
-        window.oncontextmenu = function(e) {
+
+        window.oncontextmenu = e => {
             if (e.preventDefault) {
                 e.preventDefault();
             }
-            var game = window.frames[0];
+
+            const game = window.frames[0];
+
             if (game && game.Wolf && Input) {
                 if (Input.rightMouseDown()) {
                     Input.resetMouse();
                 }
             }
+
             return false;
-        }
-        window.onmouseup = function(e) {
-            var game = window.frames[0];
+        };
+
+        window.onmouseup = e => {
+            const game = window.frames[0];
+
             if (game && game.Wolf && Input) {
                 if (Input.rightMouseDown() || Input.leftMouseDown()) {
                     Input.resetMouse();
@@ -245,7 +252,7 @@
                     return false;
                 }
             }
-        }
+        };
     </script>
 
     <script src="vendor/modernizr.custom.js"></script>
