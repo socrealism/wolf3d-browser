@@ -105,7 +105,7 @@ class Actors {
             return null;
         }
 
-        var actor = {
+        const actor = {
             x: 0,
             y: 0,
             angle: 0,
@@ -143,7 +143,7 @@ class Actors {
      * @returns {boolean} False if actor should be removed, otherwise true.
      */
     static doGuard(ent, game, tics: number) { // FIXME: revise!
-        var think;
+        let think;
 
         //assert( ent->tilex >= 0 && ent->tilex < 64 );
         //assert( ent->tiley >= 0 && ent->tiley < 64 );
@@ -219,7 +219,7 @@ class Actors {
      * @param {number} tics The number of tics.
      */
     static process(game, tics) {
-        var level = game.level,
+        let level = game.level,
             player = game.player,
             n, tex, guard,
             liveGuards = [];
@@ -279,7 +279,7 @@ class Actors {
      * @returns {object} The new actor object or null if actor creation failed.
      */
     static spawn(level, skill, which, x, y, dir) {
-        var ent = Actors.getNewActor(level);
+        const ent = Actors.getNewActor(level);
 
         if (!ent) {
             return null;
@@ -319,10 +319,12 @@ class Actors {
      * @param {number} y The y position.
      */
     static spawnDeadGuard(level, skill, which, x, y) {
-        var self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
+        const self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
+
         if (!self) {
             return;
         }
+
         self.state = Actors.st_dead;
         self.speed = 0;
         self.health = 0;
@@ -338,7 +340,8 @@ class Actors {
      * @param {number} y The y position.
      */
     static spawnPatrol(level, skill, which, x, y, dir) {
-        var self = Actors.spawn(level, skill, which, x, y, dir);
+        const self = Actors.spawn(level, skill, which, x, y, dir);
+
         if (!self) {
             return;
         }
@@ -361,7 +364,8 @@ class Actors {
      * @param {number} y The y position.
      */
     static spawnStand(level, skill, which, x, y, dir) {
-        var self = Actors.spawn(level, skill, which, x, y, dir);
+        const self = Actors.spawn(level, skill, which, x, y, dir);
+
         if (!self) {
             return;
         }
@@ -379,7 +383,7 @@ class Actors {
     }
 
     static spawnBoss(level, skill, which, x, y) {
-        var self,
+        let self,
             face;
 
         switch (which) {
@@ -411,6 +415,7 @@ class Actors {
         }
 
         self = Actors.spawn(level, skill, which, x, y, face);
+
         if (!self) {
             return;
         }
@@ -425,7 +430,8 @@ class Actors {
     }
 
     static spawnGhosts(level, skill, which, x, y) {
-        var self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
+        const self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
+
         if (!self) {
             return;
         }

@@ -4,7 +4,7 @@ class Actors {
         if (level.state.numGuards > Actors.MAX_GUARDS) {
             return null;
         }
-        var actor = {
+        const actor = {
             x: 0,
             y: 0,
             angle: 0,
@@ -31,7 +31,7 @@ class Actors {
         return actor;
     }
     static doGuard(ent, game, tics) {
-        var think;
+        let think;
         if (ent.ticcount) {
             ent.ticcount -= tics;
             while (ent.ticcount <= 0) {
@@ -72,7 +72,7 @@ class Actors {
         }
     }
     static process(game, tics) {
-        var level = game.level, player = game.player, n, tex, guard, liveGuards = [];
+        let level = game.level, player = game.player, n, tex, guard, liveGuards = [];
         for (n = 0; n < level.state.numGuards; ++n) {
             guard = level.state.guards[n];
             if (!Actors.doGuard(guard, game, tics)) {
@@ -105,7 +105,7 @@ class Actors {
         level.state.numGuards = 0;
     }
     static spawn(level, skill, which, x, y, dir) {
-        var ent = Actors.getNewActor(level);
+        const ent = Actors.getNewActor(level);
         if (!ent) {
             return null;
         }
@@ -125,7 +125,7 @@ class Actors {
         return ent;
     }
     static spawnDeadGuard(level, skill, which, x, y) {
-        var self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
+        const self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
         if (!self) {
             return;
         }
@@ -135,7 +135,7 @@ class Actors {
         self.ticcount = Actstat.objstate[which][Actors.st_dead].timeout ? Random.get() % Actstat.objstate[which][Actors.st_dead].timeout + 1 : 0;
     }
     static spawnPatrol(level, skill, which, x, y, dir) {
-        var self = Actors.spawn(level, skill, which, x, y, dir);
+        const self = Actors.spawn(level, skill, which, x, y, dir);
         if (!self) {
             return;
         }
@@ -147,7 +147,7 @@ class Actors {
         level.state.totalMonsters++;
     }
     static spawnStand(level, skill, which, x, y, dir) {
-        var self = Actors.spawn(level, skill, which, x, y, dir);
+        const self = Actors.spawn(level, skill, which, x, y, dir);
         if (!self) {
             return;
         }
@@ -161,7 +161,7 @@ class Actors {
         level.state.totalMonsters++;
     }
     static spawnBoss(level, skill, which, x, y) {
-        var self, face;
+        let self, face;
         switch (which) {
             case Actors.en_boss:
             case Actors.en_schabbs:
@@ -198,7 +198,7 @@ class Actors {
         level.state.totalMonsters++;
     }
     static spawnGhosts(level, skill, which, x, y) {
-        var self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
+        const self = Actors.spawn(level, skill, which, x, y, Mathematik.dir4_nodir);
         if (!self) {
             return;
         }
