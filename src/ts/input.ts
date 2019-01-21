@@ -277,9 +277,6 @@ class Input {
 
     static getPointer() {
         const pointer = navigator.pointer; //FIXME: navigator.pointer doesnt supported in modern browsers
-
-        console.log(pointer);
-
         return pointer;
     }
 

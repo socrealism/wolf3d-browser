@@ -166,7 +166,6 @@ class Input {
     }
     static getPointer() {
         const pointer = navigator.pointer;
-        console.log(pointer);
         return pointer;
     }
     static isPointerLocked() {
