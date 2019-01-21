@@ -41,7 +41,7 @@ class Renderer {
         Renderer.visibleSprites = [];
     }
     static processTrace(viewport, tracePoint) {
-        var x = tracePoint.x, y = tracePoint.y, vx = viewport.x, vy = viewport.y, dx = viewport.x - tracePoint.x, dy = viewport.y - tracePoint.y, dist = Math.sqrt(dx * dx + dy * dy), frac, h, w, offset;
+        let x = tracePoint.x, y = tracePoint.y, vx = viewport.x, vy = viewport.y, dx = viewport.x - tracePoint.x, dy = viewport.y - tracePoint.y, dist = Math.sqrt(dx * dx + dy * dy), frac, h, w, offset;
         dist = dist * Math.cos(Wolf.FINE2RAD(tracePoint.angle - viewport.angle));
         w = Wolf.WALL_TEXTURE_WIDTH * Wolf.SLICE_WIDTH;
         h = (Renderer.VIEW_DIST / dist * Wolf.TILEGLOBAL) >> 0;
@@ -83,7 +83,7 @@ class Renderer {
         };
     }
     static clear() {
-        var n, sprite;
+        let n, sprite;
         for (n = 0; n < Renderer.visibleSprites.length; n++) {
             sprite = Renderer.visibleSprites[n].sprite;
             if (sprite && sprite.div) {
@@ -107,7 +107,7 @@ class Renderer {
         Renderer.drawSprites(viewport, level, visibleTiles);
     }
     static updateSlice(n, textureSrc, proc) {
-        var slice = Renderer.slices[n], image = slice.texture, sliceStyle = slice.style, imgStyle = image.style, top = (Wolf.YRES - proc.h) / 2, left = -(proc.offset) >> 0, height = proc.h, z = (Renderer.maxDistZ - proc.dist) >> 0, itop;
+        let slice = Renderer.slices[n], image = slice.texture, sliceStyle = slice.style, imgStyle = image.style, top = (Wolf.YRES - proc.h) / 2, left = -(proc.offset) >> 0, height = proc.h, z = (Renderer.maxDistZ - proc.dist) >> 0, itop;
         if (Renderer.ISXP && Renderer.ISFIREFOX) {
             itop = (proc.texture % 2) ? 0 : -height;
         }
@@ -147,7 +147,7 @@ class Renderer {
         }
     }
     static drawWall(n, viewport, tracePoint, level) {
-        var x = tracePoint.tileX, y = tracePoint.tileY, vx = Wolf.POS2TILE(viewport.x), vy = Wolf.POS2TILE(viewport.y), tileMap = level.tileMap, proc = Renderer.processTrace(viewport, tracePoint), texture = proc.vert ? level.wallTexX[x][y] : level.wallTexY[x][y], textureSrc;
+        let x = tracePoint.tileX, y = tracePoint.tileY, vx = Wolf.POS2TILE(viewport.x), vy = Wolf.POS2TILE(viewport.y), tileMap = level.tileMap, proc = Renderer.processTrace(viewport, tracePoint), texture = proc.vert ? level.wallTexX[x][y] : level.wallTexY[x][y], textureSrc;
         if (tracePoint.flags & Raycaster.TRACE_HIT_VERT) {
             if (x >= vx && tileMap[x - 1][y] & Level.DOOR_TILE) {
                 texture = Doors.TEX_PLATE;
@@ -173,7 +173,7 @@ class Renderer {
         Renderer.updateSlice(n, textureSrc, proc);
     }
     static drawDoor(n, viewport, tracePoint, level) {
-        var proc = Renderer.processTrace(viewport, tracePoint), texture, textureSrc;
+        let proc = Renderer.processTrace(viewport, tracePoint), texture, textureSrc;
         texture = level.state.doorMap[tracePoint.tileX][tracePoint.tileY].texture + 1;
         proc.texture = texture;
         if (texture % 2 == 0) {
@@ -183,7 +183,7 @@ class Renderer {
         Renderer.updateSlice(n, textureSrc, proc);
     }
     static drawSprites(viewport, level, visibleTiles) {
-        var vis, n, dist, dx, dy, angle, z, width, size, div, image, divStyle, imgStyle;
+        let vis, n, dist, dx, dy, angle, z, width, size, div, image, divStyle, imgStyle;
         Renderer.visibleSprites = Sprites.createVisList(viewport, level, visibleTiles);
         for (n = 0; n < Renderer.visibleSprites.length; ++n) {
             vis = Renderer.visibleSprites[n];
@@ -206,8 +206,8 @@ class Renderer {
             divStyle.height = size + "px";
             divStyle.left = (Wolf.XRES / 2 - size / 2 - Math.tan(angle) * Renderer.VIEW_DIST) + "px";
             divStyle.top = (Wolf.YRES / 2 - size / 2) + "px";
-            var texture = Sprites.getTexture(vis.sprite.tex[0]);
-            var textureSrc = Renderer.spritePath + texture.sheet;
+            const texture = Sprites.getTexture(vis.sprite.tex[0]);
+            const textureSrc = Renderer.spritePath + texture.sheet;
             if (image._src != textureSrc) {
                 image._src = textureSrc;
                 if (Renderer.useBackgroundImage) {
@@ -219,7 +219,7 @@ class Renderer {
             }
             z = (Renderer.maxDistZ - dist) >> 0;
             width = texture.num * size;
-            var left = -texture.idx * size;
+            const left = -texture.idx * size;
             if (div._zIndex != z) {
                 divStyle.zIndex = div._zIndex = z;
             }
@@ -241,7 +241,7 @@ class Renderer {
         }
     }
     static loadSprite(sprite) {
-        var div = document.createElement("div"), image;
+        let div = document.createElement("div"), image;
         div.style.display = "none";
         div.style.position = "absolute";
         div.style.width = "128px";
