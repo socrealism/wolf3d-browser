@@ -1,7 +1,7 @@
 "use strict";
 class Game {
     static updatePlayerControls(player, tics) {
-        var moveValue, running = false, strafing = false, leftKey = false, rightKey = false, downKey = false, upKey = false, changeWeapon = -1, mouseMovement, mouseCoords;
+        let moveValue, running = false, strafing = false, leftKey = false, rightKey = false, downKey = false, upKey = false, changeWeapon = -1, mouseMovement, mouseCoords;
         player.cmd.buttons = 0;
         player.cmd.forwardMove = 0;
         player.cmd.sideMove = 0;
@@ -76,7 +76,7 @@ class Game {
         }
     }
     static startGameCycle(game) {
-        var deathTics = 0, deathTicsMax = Game.ticsPerSecond * 2;
+        let deathTics = 0, deathTicsMax = Game.ticsPerSecond * 2;
         if (Game.hndCycle) {
             clearTimeout(Game.hndCycle);
             Game.hndCycle = 0;
@@ -90,7 +90,7 @@ class Game {
             if (Game.paused) {
                 return;
             }
-            var player = game.player, level = game.level, lives, score, tics = Game.calcTics();
+            let player = game.player, level = game.level, lives, score, tics = Game.calcTics();
             if (player.playstate != Player.ex_dead) {
                 Game.updatePlayerControls(player, tics);
                 player.angle = Mathematik.normalizeAngle(player.angle);
@@ -139,7 +139,7 @@ class Game {
         nextCycle();
     }
     static died(game, tics) {
-        var fangle, dx, dy, iangle, curangle, clockwise, counter, change, player = game.player, killer = player.lastAttacker;
+        let fangle, dx, dy, iangle, curangle, clockwise, counter, change, player = game.player, killer = player.lastAttacker;
         dx = killer.x - player.position.x;
         dy = player.position.y - killer.y;
         fangle = -Math.atan2(dy, dx);
@@ -236,13 +236,13 @@ class Game {
         Game.startIntermission(game);
     }
     static calcTics() {
-        var now = (new Date).getTime(), delta = (now - Game.lastTimeCount) / 1000, tics = Math.floor(Game.ticsPerSecond * delta);
+        let now = (new Date).getTime(), delta = (now - Game.lastTimeCount) / 1000, tics = Math.floor(Game.ticsPerSecond * delta);
         Game.lastTimeCount += (tics * 1000 / Game.ticsPerSecond) >> 0;
         return tics;
     }
     static updateStat(name, value) {
-        var numdivs = $("#game .hud ." + name + " .number");
-        for (var i = numdivs.length - 1; i >= 0; i--) {
+        let numdivs = $("#game .hud ." + name + " .number");
+        for (let i = numdivs.length - 1; i >= 0; i--) {
             if (value == 0 && i < numdivs.length - 1) {
                 numdivs[i].style.backgroundPosition = 16 + "px 0";
             }
@@ -253,7 +253,7 @@ class Game {
         }
     }
     static updateHUD(game, tics) {
-        var player = game.player, frame = player.weapon * 4 + player.weaponFrame;
+        let player = game.player, frame = player.weapon * 4 + player.weaponFrame;
         if (player.playstate == Player.ex_dead || player.playstate == Player.ex_victory) {
             $("#renderer .player-weapon").css("display", "none");
         }
@@ -280,17 +280,17 @@ class Game {
         Game.drawFace(player, tics);
     }
     static updateScreen(game) {
-        var player = game.player, level = game.level, viewport = {
+        let player = game.player, level = game.level, viewport = {
             x: player.position.x,
             y: player.position.y,
             angle: player.angle
         };
-        var res = Raycaster.traceRays(viewport, level);
+        let res = Raycaster.traceRays(viewport, level);
         Renderer.clear();
         Renderer.draw(viewport, level, res.tracers, res.visibleTiles);
     }
     static drawFace(player, tics) {
-        var pic;
+        let pic;
         player.faceCount += tics;
         if (player.faceGotGun && player.faceCount > 0) {
             player.faceGotGun = false;
@@ -308,7 +308,7 @@ class Game {
                 pic = 22;
             }
             else {
-                var h = player.health;
+                let h = player.health;
                 if (h > 100) {
                     h = 100;
                 }
@@ -367,7 +367,7 @@ class Game {
         Game.rendering = false;
         game.episodeNum = episodeNum;
         game.levelNum = levelNum;
-        var episode = Episodes.data[game.episodeNum];
+        let episode = Episodes.data[game.episodeNum];
         Level.load(episode.levels[game.levelNum].file, function (error, level) {
             if (error) {
                 throw error;
@@ -407,7 +407,7 @@ class Game {
         });
     }
     static preloadLevelAssets(level, callback) {
-        var files = [], tx, ty, texture, x, y, f, i, numFiles, texturePath = "assets/art/walls-shaded/" + Renderer.TEXTURERESOLUTION + "/", spritePath = "assets/art/sprites/" + Renderer.TEXTURERESOLUTION + "/";
+        let files = [], tx, ty, texture, x, y, f, i, numFiles, texturePath = "assets/art/walls-shaded/" + Renderer.TEXTURERESOLUTION + "/", spritePath = "assets/art/sprites/" + Renderer.TEXTURERESOLUTION + "/";
         function addTexture(texture) {
             if (texture > 0) {
                 if (texture % 2 == 0) {
@@ -454,7 +454,7 @@ class Game {
         $("#renderer .damage-flash").hide();
         $("#renderer .bonus-flash").hide();
         $("#game").show();
-        var game = {
+        let game = {
             episode: -1,
             level: -1,
             skill: skill,
@@ -485,7 +485,7 @@ class Game {
     static startVictoryText(game) {
         Game.endGame();
         $("#game").fadeOut(null, function () {
-            var name = "victory" + (game.episodeNum + 1), num = (game.episodeNum == 2) ? 1 : 2;
+            let name = "victory" + (game.episodeNum + 1), num = (game.episodeNum == 2) ? 1 : 2;
             Menu.showText(name, num, function () {
                 Menu.show("main");
             });
@@ -570,7 +570,7 @@ class Game {
             Game.setIntermissionNumber("treasure-ratio", treasureRatio, false);
         }
         function anim() {
-            var now = (new Date).getTime(), bjFrame = Math.floor(now / 500) % 2;
+            let now = (new Date).getTime(), bjFrame = Math.floor(now / 500) % 2;
             $("#game .intermission .bj").css({
                 backgroundPosition: -(162 * bjFrame) + "px 0px"
             });
@@ -590,7 +590,7 @@ class Game {
             $("#game .intermission").hide();
         }
         function progress(e) {
-            var nextLevel;
+            let nextLevel;
             if (!$("#game .intermission").is(":visible")) {
                 exitIntermission();
                 return;
@@ -643,7 +643,7 @@ class Game {
         $(document).on("keydown", progress);
     }
     static setIntermissionNumber(name, value, zeros) {
-        var digits = $("#game .intermission ." + name + " .digit"), i, digit, v;
+        let digits = $("#game .intermission ." + name + " .digit"), i, digit, v;
         for (i = 0; i < 10; i++) {
             digits.removeClass("num-" + i);
         }
@@ -688,7 +688,7 @@ class Game {
         }
     }
     static toggleFullscreen() {
-        var main = $("#main")[0], ret = false;
+        let main = $("#main")[0], ret = false;
         if (Game.isFullscreen()) {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -728,7 +728,7 @@ class Game {
         return false;
     }
     static enterFullscreen() {
-        var ratio = window.innerWidth / 640, sliceZoom = Math.floor(Wolf.SLICE_WIDTH * ratio), zoom = sliceZoom / Wolf.SLICE_WIDTH, transform = "scale(" + zoom + ")";
+        let ratio = window.innerWidth / 640, sliceZoom = Math.floor(Wolf.SLICE_WIDTH * ratio), zoom = sliceZoom / Wolf.SLICE_WIDTH, transform = "scale(" + zoom + ")";
         $("#main").css({
             "transform": transform,
             "-webkit-transform": transform,
@@ -822,8 +822,8 @@ class Game {
         return Game.mouseEnabled;
     }
     static getControls() {
-        var c = {};
-        for (var a in Game.controls) {
+        let c = {};
+        for (let a in Game.controls) {
             if (Game.controls.hasOwnProperty(a)) {
                 c[a] = Game.controls[a];
             }

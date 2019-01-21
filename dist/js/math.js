@@ -39,7 +39,6 @@ class Mathematik {
             tanval = tanfov2 * (-1.0 + 2.0 * n / (Wolf.XRES - 1));
             Mathematik.ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
         }
-        Random.init(true);
         return 1;
     }
     static calcFov(fovX, width, height) {

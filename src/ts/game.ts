@@ -67,7 +67,7 @@ class Game {
      * @param {number} tics The number of tics since last frame.
      */
     static updatePlayerControls(player, tics) {
-        var moveValue,
+        let moveValue,
             running = false,
             strafing = false,
             leftKey = false,
@@ -160,7 +160,7 @@ class Game {
      * @param {object} game The game object
      */
     static startGameCycle(game) {
-        var deathTics = 0,
+        let deathTics = 0,
             deathTicsMax = Game.ticsPerSecond * 2;
 
         // cancel existing game cycle
@@ -181,7 +181,7 @@ class Game {
                 return;
             }
 
-            var player = game.player,
+            let player = game.player,
                 level = game.level,
                 lives, score,
                 tics = Game.calcTics();
@@ -201,6 +201,7 @@ class Game {
 
                 if (Game.died(game, tics)) {
                     deathTics += tics;
+
                     if (deathTics >= deathTicsMax) {
                         deathTics = 0;
                         $("#renderer .death").css("display", "none");
@@ -228,9 +229,9 @@ class Game {
                     }
                 }
             }
+
             Sprites.clean(level);
             Game.updateHUD(game, tics);
-
         }
 
         Game.lastTimeCount = (new Date).getTime();
@@ -238,7 +239,7 @@ class Game {
     }
 
     static died(game, tics) {
-        var fangle,
+        let fangle,
             dx, dy,
             iangle, curangle,
             clockwise,
@@ -373,7 +374,7 @@ class Game {
      * @returns {number} The number of tics
      */
     static calcTics() {
-        var now = (new Date).getTime(),
+        let now = (new Date).getTime(),
             delta = (now - Game.lastTimeCount) / 1000,
             tics = Math.floor(Game.ticsPerSecond * delta);
 
@@ -389,8 +390,9 @@ class Game {
      * @param {number} value The new value
      */
     static updateStat(name, value) {
-        var numdivs = $("#game .hud ." + name + " .number");
-        for (var i = numdivs.length - 1; i >= 0; i--) {
+        let numdivs = $("#game .hud ." + name + " .number");
+
+        for (let i = numdivs.length - 1; i >= 0; i--) {
             if (value == 0 && i < numdivs.length - 1) {
                 numdivs[i].style.backgroundPosition = 16 + "px 0";
             } else {
@@ -406,7 +408,7 @@ class Game {
      * @param {object} game The game object
      */
     static updateHUD(game, tics) {
-        var player = game.player,
+        let player = game.player,
             frame = player.weapon * 4 + player.weaponFrame;
 
         if (player.playstate == Player.ex_dead || player.playstate == Player.ex_victory) {
@@ -444,7 +446,7 @@ class Game {
      * @param {object} game The game object
      */
     static updateScreen(game) {
-        var player = game.player,
+        let player = game.player,
             level = game.level,
             viewport = {
                 x: player.position.x,
@@ -452,7 +454,7 @@ class Game {
                 angle: player.angle
             };
 
-        var res = Raycaster.traceRays(viewport, level);
+        let res = Raycaster.traceRays(viewport, level);
 
         Renderer.clear();
         Renderer.draw(viewport, level, res.tracers, res.visibleTiles);
@@ -465,7 +467,7 @@ class Game {
      * @param {number} tics
      */
     static drawFace(player, tics) {
-        var pic;
+        let pic;
         // decide on the face
         player.faceCount += tics;
         if (player.faceGotGun && player.faceCount > 0) {
@@ -486,7 +488,7 @@ class Game {
             if (player.faceGotGun) {
                 pic = 22;
             } else {
-                var h = player.health;
+                let h = player.health;
                 if (h > 100) {
                     h = 100;
                 }
@@ -583,7 +585,7 @@ class Game {
         game.episodeNum = episodeNum;
         game.levelNum = levelNum;
 
-        var episode = Episodes.data[game.episodeNum];
+        let episode = Episodes.data[game.episodeNum];
 
         Level.load(episode.levels[game.levelNum].file, function (error, level) {
             if (error) {
@@ -652,7 +654,7 @@ class Game {
      * @param {function} callback Called when all files have loaded.
      */
     static preloadLevelAssets(level, callback) {
-        var files = [],
+        let files = [],
             tx, ty, texture, x, y, f, i, numFiles,
             texturePath = "assets/art/walls-shaded/" + Renderer.TEXTURERESOLUTION + "/",
             spritePath = "assets/art/sprites/" + Renderer.TEXTURERESOLUTION + "/";
@@ -727,7 +729,7 @@ class Game {
         $("#renderer .bonus-flash").hide();
         $("#game").show();
 
-        var game = {
+        let game = {
             episode: -1,
             level: -1,
             skill: skill,
@@ -763,7 +765,7 @@ class Game {
     static startVictoryText(game) {
         Game.endGame();
         $("#game").fadeOut(null, function () {
-            var name = "victory" + (game.episodeNum + 1),
+            let name = "victory" + (game.episodeNum + 1),
                 num = (game.episodeNum == 2) ? 1 : 2;
 
             Menu.showText(name, num, function () {
@@ -892,7 +894,7 @@ class Game {
         }
 
         function anim() {
-            var now = (new Date).getTime(),
+            let now = (new Date).getTime(),
                 bjFrame = Math.floor(now / 500) % 2;
 
             $("#game .intermission .bj").css({
@@ -917,7 +919,7 @@ class Game {
         }
 
         function progress(e) {
-            var nextLevel;
+            let nextLevel;
             if (!$("#game .intermission").is(":visible")) {
                 exitIntermission();
                 return;
@@ -977,7 +979,7 @@ class Game {
      * @param {boolean} zeros If true, leading zeros are displayed.
      */
     static setIntermissionNumber(name, value, zeros) {
-        var digits = $("#game .intermission ." + name + " .digit"),
+        let digits = $("#game .intermission ." + name + " .digit"),
             i, digit, v;
         for (i = 0; i < 10; i++) {
             digits.removeClass("num-" + i);
@@ -1049,7 +1051,7 @@ class Game {
      * @private
      */
     static toggleFullscreen() {
-        var main = $("#main")[0],
+        let main = $("#main")[0],
             ret = false;
         if (Game.isFullscreen()) {
             if (document.exitFullscreen) {
@@ -1088,7 +1090,7 @@ class Game {
      * @private
      */
     static enterFullscreen() {
-        var ratio = window.innerWidth / 640,
+        let ratio = window.innerWidth / 640,
             sliceZoom = Math.floor(Wolf.SLICE_WIDTH * ratio),
             zoom = sliceZoom / Wolf.SLICE_WIDTH,
             transform = "scale(" + zoom + ")";
@@ -1217,12 +1219,14 @@ class Game {
     }
 
     static getControls() {
-        var c = {};
-        for (var a in Game.controls) {
+        let c = {};
+
+        for (let a in Game.controls) {
             if (Game.controls.hasOwnProperty(a)) {
                 c[a] = Game.controls[a];
             }
         }
+
         return c;
     }
 

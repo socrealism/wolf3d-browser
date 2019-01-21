@@ -2,6 +2,9 @@
  * @description Carmack's randomizer
  */
 class Random {
+
+    static useNewRandomizer: boolean = true;
+
     /* This is just John Carmack's table driven pseudo-random number generator */
     protected static readonly table = [
         0, 8, 109, 220, 222, 241, 149, 107, 75, 248, 254, 140, 16, 66,
@@ -36,9 +39,17 @@ class Random {
     }
 
     static get(): number {
+        if (Random.useNewRandomizer) {
+            return Random.random(0, 255);
+        }
+
         Random.index++;
         Random.index &= 0xFF;
 
         return Random.table[Random.index];
+    }
+
+    static random(min: number, max: number) {
+        return min + Math.floor(Math.random() * (max - min + 1));
     }
 }

@@ -195,8 +195,6 @@ class Mathematik {
             Mathematik.ColumnAngle[n] = Wolf.RAD2FINE(Math.atan(tanval)) >> 0;
         }
 
-        Random.init(true); // random number generators
-
         return 1;
     }
 
